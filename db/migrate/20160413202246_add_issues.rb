@@ -3,7 +3,7 @@ class AddIssues < ActiveRecord::Migration
   def self.up      
     create_table :issues do |t|
       t.integer :issue_id
-      t.text  :hathitrust
+      t.string  :hathitrust
       t.integer :volume
       t.integer :issue_no
       t.integer :edition
