@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160413182256) do
+ActiveRecord::Schema.define(version: 20160413202258) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id",       null: false
@@ -24,6 +24,33 @@ ActiveRecord::Schema.define(version: 20160413182256) do
   end
 
   add_index "bookmarks", ["user_id"], name: "index_bookmarks_on_user_id"
+
+  create_table "issues", force: :cascade do |t|
+    t.integer  "issue_id"
+    t.string   "hathitrust"
+    t.integer  "volume"
+    t.integer  "issue_no"
+    t.integer  "edition"
+    t.string   "dateIssued"
+    t.string   "newspaper"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "issues", ["issue_id"], name: "index_issues_on_issue_id"
+
+  create_table "pages", force: :cascade do |t|
+    t.integer  "page_id"
+    t.integer  "page_no"
+    t.integer  "page_order"
+    t.integer  "issue_no"
+    t.string   "text_link"
+    t.string   "img_link"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "pages", ["page_id"], name: "index_pages_on_page_id"
 
   create_table "searches", force: :cascade do |t|
     t.text     "query_params"
