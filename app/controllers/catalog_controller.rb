@@ -36,12 +36,12 @@ class CatalogController < ApplicationController
     #}
 
     # solr field configuration for search results/index views
-    config.index.title_field = 'title_display'
+    config.index.volume_field = 'volume_display'
     config.index.display_type_field = 'format'
 
     # solr field configuration for document/show views
-    #config.show.title_field = 'title_display'
-    #config.show.display_type_field = 'format'
+    config.show.volume_field = 'volume_display'
+    config.show.display_type_field = 'format'
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
@@ -91,8 +91,8 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    config.add_index_field 'title_display', label: 'Title'
-    #config.add_index_field 'title_vern_display', label: 'Title'
+    #config.add_index_field 'volume_display', label: 'Volume'
+    #config.add_index_field 'volume_vern_display', label: 'Volume'
     #config.add_index_field 'author_display', label: 'Author'
     #config.add_index_field 'author_vern_display', label: 'Author'
     #config.add_index_field 'format', label: 'Format'
@@ -103,8 +103,8 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    config.add_show_field 'title_display', label: 'Title'
-    #config.add_show_field 'title_vern_display', label: 'Title'
+    #config.add_show_field 'volume_display', label: 'Volume'
+    #config.add_show_field 'volume_vern_display', label: 'Volume'
     #config.add_show_field 'subtitle_display', label: 'Subtitle'
     #config.add_show_field 'subtitle_vern_display', label: 'Subtitle'
     #config.add_show_field 'author_display', label: 'Author'
@@ -143,39 +143,19 @@ class CatalogController < ApplicationController
     # case for a BL "search field", which is really a dismax aggregate
     # of Solr search fields.
 
-    config.add_search_field('title') do |field|
+    #config.add_search_field('volume') do |field|
       # solr_parameters hash are sent to Solr as ordinary url query params.
-      field.solr_parameters = { :'spellcheck.dictionary' => 'title' }
+    #  field.solr_parameters = { :'spellcheck.dictionary' => 'volume' }
 
       # :solr_local_parameters will be sent using Solr LocalParams
       # syntax, as eg {! qf=$title_qf }. This is neccesary to use
       # Solr parameter de-referencing like $title_qf.
       # See: http://wiki.apache.org/solr/LocalParams
-      field.solr_local_parameters = {
-        qf: '$title_qf',
-        pf: '$title_pf'
-      }
-    end
-
-    config.add_search_field('author') do |field|
-      field.solr_parameters = { :'spellcheck.dictionary' => 'author' }
-      field.solr_local_parameters = {
-        qf: '$author_qf',
-        pf: '$author_pf'
-      }
-    end
-
-    # Specifying a :qt only to show it's possible, and so our internal automated
-    # tests can test it. In this case it's the same as
-    # config[:default_solr_parameters][:qt], so isn't actually neccesary.
-    config.add_search_field('subject') do |field|
-      field.solr_parameters = { :'spellcheck.dictionary' => 'subject' }
-      field.qt = 'search'
-      field.solr_local_parameters = {
-        qf: '$subject_qf',
-        pf: '$subject_pf'
-      }
-    end
+      #field.solr_local_parameters = {
+      #  qf: '$volume_qf',
+      #  pf: '$volume_pf'
+      #}
+    #end
 
     # "sort results by" select (pulldown)
     # label in pulldown is followed by the name of the SOLR field to sort by and
