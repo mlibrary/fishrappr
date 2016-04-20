@@ -2,18 +2,18 @@
 class AddIssues < ActiveRecord::Migration
   def self.up      
     create_table :issues do |t|
-      t.integer :issue_id
       t.string  :hathitrust
-      t.integer :volume
-      t.integer :issue_no
-      t.integer :edition
-      t.string :dateIssued
-      t.string :newspaper
+      t.string  :volume
+      t.string  :issue_no
+      t.string  :edition
+      t.string  :date_issued
+      t.string  :newspaper
+      t.integer :pages_count
 
       t.timestamps null: false
     end
 
-    add_index :issues, :issue_id
+    add_index :issues, :id
   end
 
   def self.down
