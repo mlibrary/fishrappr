@@ -8,7 +8,7 @@ class AddIssues < ActiveRecord::Migration
       t.string  :edition
       t.string  :date_issued
       t.string  :newspaper
-      t.integer :pages_count
+      t.integer :pages_count # track page associated with this issue
 
       t.timestamps null: false
     end
