@@ -2,12 +2,11 @@
 class AddIssues < ActiveRecord::Migration
   def self.up      
     create_table :issues do |t|
-      # t.integer  :issue_id # not needed because active record creates an id column
       t.string  :hathitrust
       t.string  :volume
-      t.string :issue_no
-      t.string :edition
-      t.string  :dateIssued
+      t.string  :issue_no
+      t.string  :edition
+      t.string  :date_issued
       t.string  :newspaper
       t.integer :pages_count #active record automatically add the number of pages in this issue here
 
