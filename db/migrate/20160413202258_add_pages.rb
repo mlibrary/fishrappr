@@ -11,7 +11,7 @@ class AddPages < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_index :pages, :id
+    add_index :pages, :id # using id which is auto generated
   end
 
   def self.down
