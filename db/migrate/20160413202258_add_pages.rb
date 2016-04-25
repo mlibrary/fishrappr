@@ -1,12 +1,11 @@
 class AddPages < ActiveRecord::Migration
   def self.up
     create_table :pages do |t|
-      t.integer  :issue_id
-      t.string   :page_no
-      t.string   :page_order
-      t.string   :issue_no
-      t.string   :text_link
-      t.string   :img_link
+      t.integer  :issue_id  #foreign key to issue table
+      t.string   :page_no   #page number; not always found
+      t.integer  :sequence  #sequence number to show page order
+      t.string   :text_link #link for full text
+      t.string   :img_link  #image link
 
       t.timestamps null: false
     end
