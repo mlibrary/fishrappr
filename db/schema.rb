@@ -42,8 +42,7 @@ ActiveRecord::Schema.define(version: 20160413202258) do
   create_table "pages", force: :cascade do |t|
     t.integer  "issue_id"
     t.string   "page_no"
-    t.string   "page_order"
-    t.string   "issue_no"
+    t.integer  "sequence"
     t.string   "text_link"
     t.string   "img_link"
     t.datetime "created_at", null: false
