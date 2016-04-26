@@ -9,10 +9,13 @@ class Page < ActiveRecord::Base
     i = Issue.find_by_id(issue_id)
     conn = Blacklight.default_index.connection
     d = i.date_issued.to_date
-    doc = { id: self.id, issue_no_t:i.issue_no, issue_date_dt: d, issueid_t: issue_id, 
+    dt = d.strftime('%B %d, %Y')
+
+    doc = { id: self.id, issue_date_display:dt, issue_no_t:i.issue_no, issue_date_dt: d, issue_id_t: issue_id, 
             page_no_t:page_no, sequence_i: sequence,
             hathitrust_t: i.hathitrust,
             text_link_t: text_link, img_link_t: img_link }
+
     conn.add doc
     conn.commit
   end
