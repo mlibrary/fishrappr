@@ -36,11 +36,13 @@ class CatalogController < ApplicationController
     #}
 
     # solr field configuration for search results/index views
-    config.index.volume_field = 'volume_display'
+    config.index.issue_date_field = 'issue_date_display'
+    config.index.page_no_field = 'page_no_display'
     config.index.display_type_field = 'format'
 
     # solr field configuration for document/show views
-    config.show.volume_field = 'volume_display'
+    config.show.issue_date_field = 'issue_date_display'
+    config.index.page_no_field = 'page_no_display'
     config.show.display_type_field = 'format'
 
     # solr fields that will be treated as facets by the blacklight application
@@ -67,13 +69,9 @@ class CatalogController < ApplicationController
     #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
-#    config.add_facet_field 'format', label: 'Format'
-    #config.add_facet_field 'pub_date', label: 'Publication Year', single: true
- #   config.add_facet_field 'subject_topic_facet', label: 'Topic', limit: 20, index_range: 'A'..'Z'
-  #  config.add_facet_field 'language_facet', label: 'Language', limit: true
-   # config.add_facet_field 'lc_1letter_facet', label: 'Call Number'
-   # config.add_facet_field 'subject_geo_facet', label: 'Region'
-   # config.add_facet_field 'subject_era_facet', label: 'Era'
+    config.add_facet_field 'issue_date_t', label: 'Issue Date' 
+ 
+
 
     #config.add_facet_field 'example_pivot_field', label: 'Pivot Field', :pivot => ['format', 'language_facet']
 
@@ -91,32 +89,20 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    #config.add_index_field 'volume_display', label: 'Volume'
-    #config.add_index_field 'volume_vern_display', label: 'Volume'
-    #config.add_index_field 'author_display', label: 'Author'
-    #config.add_index_field 'author_vern_display', label: 'Author'
-    #config.add_index_field 'format', label: 'Format'
-    #config.add_index_field 'language_facet', label: 'Language'
-    #config.add_index_field 'published_display', label: 'Published'
-    #config.add_index_field 'published_vern_display', label: 'Published'
-    #config.add_index_field 'lc_callnum_display', label: 'Call number'
+    config.add_index_field 'issue_id_display', label: 'Issue ID'
+    config.add_index_field 'issue_date_display', label: 'Issue Date'
+    config.add_index_field 'issue_date_vern_display', label: 'Issue Date'
+    config.add_index_field 'page_no_display', label: 'Page No'
+    config.add_index_field 'page_no_vern_display', label: 'Page No'   
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    #config.add_show_field 'volume_display', label: 'Volume'
-    #config.add_show_field 'volume_vern_display', label: 'Volume'
-    #config.add_show_field 'subtitle_display', label: 'Subtitle'
-    #config.add_show_field 'subtitle_vern_display', label: 'Subtitle'
-    #config.add_show_field 'author_display', label: 'Author'
-    #config.add_show_field 'author_vern_display', label: 'Author'
-    #config.add_show_field 'format', label: 'Format'
-    #config.add_show_field 'url_fulltext_display', label: 'URL'
-    #config.add_show_field 'url_suppl_display', label: 'More Information'
-    #config.add_show_field 'language_facet', label: 'Language'
-    #config.add_show_field 'published_display', label: 'Published'
-    #config.add_show_field 'published_vern_display', label: 'Published'
-    #config.add_show_field 'lc_callnum_display', label: 'Call number'
-    #config.add_show_field 'isbn_t', label: 'ISBN'
+    config.add_show_field 'issue_id_display', label: 'Issue'
+    config.add_show_field 'issue_date_display', label: 'Issue Date'
+    config.add_show_field 'issue_date_vern_display', label: 'Issue Date'
+    config.add_show_field 'page_no_display', label: 'Page No'
+    config.add_show_field 'page_no_vern_display', label: 'Page No'
+    
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
@@ -143,7 +129,7 @@ class CatalogController < ApplicationController
     # case for a BL "search field", which is really a dismax aggregate
     # of Solr search fields.
 
-    #config.add_search_field('volume') do |field|
+    #config.add_search_field('page_no') do |field|
       # solr_parameters hash are sent to Solr as ordinary url query params.
     #  field.solr_parameters = { :'spellcheck.dictionary' => 'volume' }
 
@@ -152,10 +138,10 @@ class CatalogController < ApplicationController
       # Solr parameter de-referencing like $title_qf.
       # See: http://wiki.apache.org/solr/LocalParams
       #field.solr_local_parameters = {
-      #  qf: '$volume_qf',
-      #  pf: '$volume_pf'
+      #  qf: '$issue_no_qf',
+      #  pf: '$issue_no_pf'
       #}
-    #end
+      #end
 
     # "sort results by" select (pulldown)
     # label in pulldown is followed by the name of the SOLR field to sort by and
