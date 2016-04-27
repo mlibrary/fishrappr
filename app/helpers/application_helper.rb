@@ -28,4 +28,7 @@ module ApplicationHelper
     %Q{<img src="#{hathitrust_thumbnail_src(document, **kw)}" />}.html_safe
   end
 
+  def render_date_format(args)
+    args.to_date.strftime("%B %d, %Y")
+  end  
 end

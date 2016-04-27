@@ -15,7 +15,8 @@ class CatalogController < ApplicationController
 
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = {
-      rows: 10
+      rows: 10,
+      fl: '*'
     }
 
     # solr path which will be added to solr base url before the other solr params.
@@ -27,23 +28,26 @@ class CatalogController < ApplicationController
     ## Default parameters to send on single-document requests to Solr. These settings are the Blackligt defaults (see SearchHelper#solr_doc_params) or
     ## parameters included in the Blacklight-jetty document requestHandler.
     #
-    #config.default_document_solr_params = {
-    #  qt: 'document',
+    config.default_document_solr_params = {
+     qt: 'document',
     #  ## These are hard-coded in the blacklight 'document' requestHandler
-    #  # fl: '*',
-    #  # rows: 1
-    #  # q: '{!term f=id v=$id}'
-    #}
+     fl: '*',
+     rows: 1,
+     q: '{!term f=id v=$id}'
+    }
+    
+    config.document_index_view_types = ["default", "gallery", "list", "frequency", "covers"]
 
     # solr field configuration for search results/index views
-    config.index.issue_date_field = 'issue_date_display'
-    config.index.page_no_field = 'page_no_display'
-    config.index.display_type_field = 'format'
+     config.index.title_field = 'issue_date_display'
+#    config.index.page_no_field = 'page_no_t'
+    
 
     # solr field configuration for document/show views
-    config.show.issue_date_field = 'issue_date_display'
-    config.index.page_no_field = 'page_no_display'
-    config.show.display_type_field = 'format'
+     config.show.title_field = 'issue_date_display'
+#    config.show.issue_date_field = 'issue_date_t'
+#    config.index.page_no_field = 'page_no_t'
+   
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
@@ -69,13 +73,12 @@ class CatalogController < ApplicationController
     #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
-    config.add_facet_field 'issue_date_t', label: 'Issue Date' 
- 
-
+    config.add_facet_field 'issue_date_dt', label: 'Issue Date', helper_method: :render_date_format
+    config.add_facet_field 'issue_no_t', label: 'Issue No'
 
     #config.add_facet_field 'example_pivot_field', label: 'Pivot Field', :pivot => ['format', 'language_facet']
 
-    #config.add_facet_field 'example_query_facet_field', label: 'Publish Date', :query => {
+    #config.add_facet_field 'example_query_facet_field', label: 'Date', :query => {
     #   :years_5 => { label: 'within 5 Years', fq: "pub_date:[#{Time.zone.now.year - 5 } TO *]" },
     #   :years_10 => { label: 'within 10 Years', fq: "pub_date:[#{Time.zone.now.year - 10 } TO *]" },
     #   :years_25 => { label: 'within 25 Years', fq: "pub_date:[#{Time.zone.now.year - 25 } TO *]" }
@@ -88,21 +91,19 @@ class CatalogController < ApplicationController
     config.add_facet_fields_to_solr_request!
 
     # solr fields to be displayed in the index (search results) view
-    #   The ordering of the field names is the order of the display
-    config.add_index_field 'issue_id_display', label: 'Issue ID'
-    config.add_index_field 'issue_date_display', label: 'Issue Date'
-    config.add_index_field 'issue_date_vern_display', label: 'Issue Date'
-    config.add_index_field 'page_no_display', label: 'Page No'
-    config.add_index_field 'page_no_vern_display', label: 'Page No'   
+    #   The ordering of the field names is the order of the display 
+    #config.add_index_field 'issue_date_dt', label: 'Issue Date'
+    config.add_index_field 'issue_id_t', label: 'Issue ID' 
+    config.add_index_field 'page_no_t', label: 'Page No'
+    config.add_index_field 'sequence_i', label: 'Page Order'   
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    config.add_show_field 'issue_id_display', label: 'Issue'
+    config.add_show_field 'issue_id_t', label: 'Issue ID'
     config.add_show_field 'issue_date_display', label: 'Issue Date'
-    config.add_show_field 'issue_date_vern_display', label: 'Issue Date'
-    config.add_show_field 'page_no_display', label: 'Page No'
-    config.add_show_field 'page_no_vern_display', label: 'Page No'
-    
+    config.add_show_field 'page_no_t', label: 'Page No'
+    config.add_show_field 'sequence_i', label: 'Page Order'
+    #config.add_show_field 'img_link_t', label: 'Image', helper_method: :hathitrust_image_src(document)
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
@@ -131,17 +132,17 @@ class CatalogController < ApplicationController
 
     #config.add_search_field('page_no') do |field|
       # solr_parameters hash are sent to Solr as ordinary url query params.
-    #  field.solr_parameters = { :'spellcheck.dictionary' => 'volume' }
+    #field.solr_parameters = { :'spellcheck.dictionary' => 'page_no' }
 
       # :solr_local_parameters will be sent using Solr LocalParams
       # syntax, as eg {! qf=$title_qf }. This is neccesary to use
       # Solr parameter de-referencing like $title_qf.
       # See: http://wiki.apache.org/solr/LocalParams
-      #field.solr_local_parameters = {
-      #  qf: '$issue_no_qf',
-      #  pf: '$issue_no_pf'
-      #}
-      #end
+     # field.solr_local_parameters = {
+     #   qf: '$page_no_qf',
+     #   pf: '$page_no_pf'
+     # }
+     # end
 
     # "sort results by" select (pulldown)
     # label in pulldown is followed by the name of the SOLR field to sort by and
