@@ -10,11 +10,12 @@ class Page < ActiveRecord::Base
     conn = Blacklight.default_index.connection
     d = i.date_issued.to_date
     dt = d.strftime('%B %d, %Y')
-
+    full_text = ''
+    full_text = File.read(Rails.root.join('tmp/txt_files/'+ text_link+'.txt'))
     doc = { id: self.id, issue_date_display:dt, issue_no_t:i.issue_no, issue_date_dt: d, issue_id_t: issue_id, 
             page_no_t:page_no, sequence_i: sequence,
             hathitrust_t: i.hathitrust,
-            text_link_t: text_link, img_link_t: img_link }
+            text_link_t: text_link, img_link_t: img_link, full_text_txt:full_text }
 
     conn.add doc
     conn.commit

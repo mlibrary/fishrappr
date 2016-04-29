@@ -16,6 +16,8 @@ class CatalogController < ApplicationController
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = {
       rows: 10,
+      :qt => 'search',
+      :qf => 'full_text_txt',
       fl: '*'
     }
 
@@ -93,16 +95,17 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display 
     #config.add_index_field 'issue_date_dt', label: 'Issue Date'
-    config.add_index_field 'issue_id_t', label: 'Issue ID' 
+    config.add_index_field 'issue_no_t', label: 'Issue' 
     config.add_index_field 'page_no_t', label: 'Page No'
     config.add_index_field 'sequence_i', label: 'Page Order'   
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    config.add_show_field 'issue_id_t', label: 'Issue ID'
-    config.add_show_field 'issue_date_display', label: 'Issue Date'
+    config.add_show_field 'issue_no_t', label: 'Issue'
+    config.add_show_field 'issue_date_display', label: 'Date'
     config.add_show_field 'page_no_t', label: 'Page No'
     config.add_show_field 'sequence_i', label: 'Page Order'
+    config.add_show_field 'full_text_txt', label: 'Page Text'
     #config.add_show_field 'img_link_t', label: 'Image', helper_method: :hathitrust_image_src(document)
 
     # "fielded" search configuration. Used by pulldown among other places.
@@ -126,11 +129,12 @@ class CatalogController < ApplicationController
     config.add_search_field 'all_fields', label: 'All Fields'
 
 
+
     # Now we see how to over-ride Solr request handler defaults, in this
     # case for a BL "search field", which is really a dismax aggregate
     # of Solr search fields.
 
-    #config.add_search_field('page_no') do |field|
+    #config.add_search_field('full_text_txt') do |field|
       # solr_parameters hash are sent to Solr as ordinary url query params.
     #field.solr_parameters = { :'spellcheck.dictionary' => 'page_no' }
 
@@ -138,11 +142,11 @@ class CatalogController < ApplicationController
       # syntax, as eg {! qf=$title_qf }. This is neccesary to use
       # Solr parameter de-referencing like $title_qf.
       # See: http://wiki.apache.org/solr/LocalParams
-     # field.solr_local_parameters = {
-     #   qf: '$page_no_qf',
-     #   pf: '$page_no_pf'
-     # }
-     # end
+     #field.solr_local_parameters = {
+      # qf: '$full_text_qf',
+      # pf: '$full_text_pf'
+      #}
+    #end
 
     # "sort results by" select (pulldown)
     # label in pulldown is followed by the name of the SOLR field to sort by and
