@@ -38,9 +38,9 @@ module ApplicationHelper
   require 'ffaker'
   def fake_image(size=nil)
     if size == ',150'
-      return holder_tag "110x150", FFaker::CheesyLingo.title
+      return holder_tag "110x150", FFaker::CheesyLingo.title, nil, {}, { 'random' => 'yes' }
     elsif size == ",250"
-      return holder_tag "187x250", FFaker::CheesyLingo.title
+      return holder_tag "187x250", FFaker::CheesyLingo.title, nil, {}, { 'random' => 'yes' }
     else
       return holder_tag "375x500", FFaker::CheesyLingo.sentence
     end
