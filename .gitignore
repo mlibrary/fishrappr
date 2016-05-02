@@ -56,4 +56,7 @@ bower.json
 
 # Ignore byebug history
 .byebug_history
+
+# Ignore MacOSX
+.DS_Store
 	
