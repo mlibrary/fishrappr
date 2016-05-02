@@ -15,5 +15,6 @@
 //= require turbolinks//
 // Required by Blacklight
 //= require blacklight/blacklight
+//= require holder
 
 //= require_tree .
