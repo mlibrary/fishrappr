@@ -4,6 +4,13 @@ class CatalogController < ApplicationController
   include Blacklight::Catalog
 
   configure_blacklight do |config|
+    config.view.gallery.partials = [:index_header, :index]
+    config.view.masonry.partials = [:index]
+    config.view.slideshow.partials = [:index]
+
+
+    config.show.tile_source_field = :content_metadata_image_iiif_info_ssm
+    config.show.partials.insert(1, :openseadragon)
     ## Class for sending and receiving requests from a search index
     # config.repository_class = Blacklight::Solr::Repository
     #
@@ -129,7 +136,9 @@ class CatalogController < ApplicationController
     config.add_search_field 'all_fields', label: 'All Fields'
 
 
-
+    #Add gallery view
+    config.view.gallery.partials = [:index_header, :index]
+    config.view.slideshow.partials = [:index]
     # Now we see how to over-ride Solr request handler defaults, in this
     # case for a BL "search field", which is really a dismax aggregate
     # of Solr search fields.
