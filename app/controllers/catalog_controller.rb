@@ -18,6 +18,9 @@ class CatalogController < ApplicationController
       rows: 10,
       :qt => 'search',
       :qf => 'full_text_txt',
+      :hl => true,
+      :"hl.fragsize" => 0 ,
+      :"hl.fl" => 'full_text_txt',
       fl: '*'
     }
 
@@ -98,6 +101,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'issue_no_t', label: 'Issue' 
     config.add_index_field 'page_no_t', label: 'Page No'
     config.add_index_field 'sequence_i', label: 'Page Order'   
+    config.add_index_field 'full_text_txt', label: 'Page Text' ,highlight: true
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
@@ -128,7 +132,9 @@ class CatalogController < ApplicationController
 
     config.add_search_field 'all_fields', label: 'All Fields'
 
-
+    #config.add_search_field 'Page Text' do |field|
+    #  field.solr_parameters = { qf: 'full_text_txt' , hl: true}
+    #end
 
     # Now we see how to over-ride Solr request handler defaults, in this
     # case for a BL "search field", which is really a dismax aggregate
