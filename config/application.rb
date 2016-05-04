@@ -26,5 +26,6 @@ module Fishrappr
     config.iiif_service = 'https://beta-3.babel.hathitrust.org/cgi/imgsrv/iiif/'
     config.text_root = "tmp/fake_data"
     config.index_enabled = true
+    config.batch_commit = true
   end
 end

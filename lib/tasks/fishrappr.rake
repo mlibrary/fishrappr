@@ -22,6 +22,7 @@ namespace :fishrappr do
         t0 = t1
       end
     end
+    Blacklight.default_index.connection.commit
   end
 
 end
