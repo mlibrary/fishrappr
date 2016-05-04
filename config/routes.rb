@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'static/:action' => 'static'
+  get 'static/:action' => 'static', as: :static
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
