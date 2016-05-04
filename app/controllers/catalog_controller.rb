@@ -21,6 +21,9 @@ class CatalogController < ApplicationController
       :hl => true,
       :"hl.fragsize" => 0 ,
       :"hl.fl" => 'full_text_txt',
+      :"hl.alternateField" => 'full_text_txt',
+      :"hl.simple.pre" => '<strong>',   # change to something accessible
+      :"hl.simple.post" => '</strong>', # change to something accessible
       fl: '*'
     }
 
