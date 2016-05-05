@@ -37,7 +37,7 @@ unless Rails.env.production?
 
     File.open(dates_filename).each do |line|
       line.strip!
-      next unless line
+      next if line.blank?
 
       begin
         timestamp = line.to_date
@@ -91,7 +91,7 @@ unless Rails.env.production?
 
       end
 
-      Blacklight.default_index.connection.commit
+      # Blacklight.default_index.connection.commit
       STDERR.puts "-- #{line} : #{Time.now - t0}"
 
     end
