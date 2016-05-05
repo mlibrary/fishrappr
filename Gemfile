@@ -41,6 +41,9 @@ group :development, :test do
   gem 'byebug'
   gem 'pry-byebug'
   gem 'pry-rails'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'rubocop', '~> 0.37.2'
+  gem 'rubocop-rspec'
 end
 
 group :development do
