@@ -27,5 +27,8 @@ module Fishrappr
     config.text_root = "tmp/fake_data"
     config.index_enabled = true
     config.batch_commit = true
+
+    config.autoload_paths += Dir["#{config.root}/lib/**/*"]
+
   end
 end
