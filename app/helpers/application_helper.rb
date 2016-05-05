@@ -21,13 +21,13 @@ module ApplicationHelper
 
   def hathitrust_image(document, **kw)
     barcode = document.fetch('hathitrust_t').first
-    return fake_image if barcode != 'mdp.39015071754159'
+    return fake_image(document) if barcode != 'mdp.39015071754159'
     %Q{<img src="#{hathitrust_image_src(document, **kw)}" />}.html_safe
   end
 
   def hathitrust_thumbnail(document, **kw)
     barcode = document.fetch('hathitrust_t').first
-    return fake_image(kw.fetch(:size, ',250')) if barcode != 'mdp.39015071754159'
+    return fake_image(document, kw.fetch(:size, ',250')) if barcode != 'mdp.39015071754159'
     %Q{<img src="#{hathitrust_thumbnail_src(document, **kw)}" />}.html_safe
   end
 
@@ -36,13 +36,26 @@ module ApplicationHelper
   end  
 
   require 'ffaker'
-  def fake_image(size=nil)
+  def fake_image(document, size=nil)
+    barcode = document.fetch('hathitrust_t').first
+    text_link = document.fetch('text_link_t').first
+    issue_no = document.fetch("issue_no_t").first
+    page_sequence = document.fetch("sequence_i")
+    key = barcode + "/" + text_link
+    bgcolor = Rails.cache.fetch("#{barcode}/bgcolor") do
+      # [ 'sky', 'vine', 'lava', 'gray', 'industrial', 'social' ].sample
+      "#%06x" % rand(0..0xffffff)
+    end
+    text = "#{issue_no} / #{page_sequence}"
     if size == ',150'
-      return holder_tag "110x150", FFaker::CheesyLingo.title, nil, {}, { 'random' => 'yes' }
+      return holder_tag "110x150", text, nil, {}, { bg: bgcolor }
     elsif size == ",250"
-      return holder_tag "187x250", FFaker::CheesyLingo.title, nil, {}, { 'random' => 'yes' }
+      return holder_tag "187x250", text, nil, {}, { bg: bgcolor }
     else
-      return holder_tag "375x500", FFaker::CheesyLingo.sentence
+      # text = Rails.cache.fetch(key) do
+      #   FFaker::CheesyLingo.sentence
+      # end
+      return holder_tag "375x500", text, nil, {}, { bg: bgcolor }
     end
   end
 end
