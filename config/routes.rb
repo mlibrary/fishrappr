@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
+
+  get 'browse/:issue_date/:sequence' => 'catalog#browse_issue_page', as: :browse_issue_page
   
   mount Blacklight::Engine => '/'
   root to: "catalog#index"
-    concern :searchable, Blacklight::Routes::Searchable.new
+  concern :searchable, Blacklight::Routes::Searchable.new
+
 
   resource :catalog, only: [:index], as: 'catalog', path: '/catalog', controller: 'catalog' do
     concerns :searchable
@@ -10,6 +13,10 @@ Rails.application.routes.draw do
 
   devise_for :users
   concern :exportable, Blacklight::Routes::Exportable.new
+
+  # resources :solr_documents, only: [:show], path: '/catalog', controller: 'catalog' do
+  #   concerns :exportable
+  # end
 
   resources :solr_documents, only: [:show], path: '/catalog', controller: 'catalog' do
     concerns :exportable

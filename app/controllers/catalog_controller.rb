@@ -2,6 +2,7 @@
 class CatalogController < ApplicationController
 
   include Blacklight::Catalog
+  include Fishrappr::Catalog
 
   configure_blacklight do |config|
     ## Class for sending and receiving requests from a search index
@@ -12,6 +13,7 @@ class CatalogController < ApplicationController
     #
     ## Model that maps search index responses to the blacklight response model
     # config.response_model = Blacklight::Solr::Response
+    config.document_presenter_class = Fishrappr::DocumentPresenter
 
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = {
@@ -113,6 +115,12 @@ class CatalogController < ApplicationController
     config.add_show_field 'page_no_t', label: 'Page No'
     config.add_show_field 'sequence_i', label: 'Page Order'
     config.add_show_field 'full_text_txt', label: 'Page Text'
+
+    config.add_show_field 'next_page_link', label: 'Next Page Link'
+    config.add_show_field 'next_page_label', label: 'Next Page Label'
+    config.add_show_field 'prev_page_link', label: 'Previous Page Link'
+    config.add_show_field 'prev_page_label', label: 'Previous Page Label'
+
     #config.add_show_field 'img_link_t', label: 'Image', helper_method: :hathitrust_image_src(document)
 
     # "fielded" search configuration. Used by pulldown among other places.
@@ -173,5 +181,8 @@ class CatalogController < ApplicationController
     # Configuration for autocomplete suggestor
     config.autocomplete_enabled = true
     config.autocomplete_path = 'suggest'
+
+    config.show.route = { controller: 'catalog', action: 'browse_issue_page' }
+    # binding.pry
   end
 end

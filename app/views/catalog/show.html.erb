@@ -1,4 +1,11 @@
 <div id="content" class="<%= show_content_classes %>">
+  <div class="pagination-search-widgets">
+    <div class="pull-right search-widgets">
+      <%= link_to_previous_issue_page @previous_page %>
+       | 
+      <%= link_to_next_issue_page @next_page %>
+    </div>
+  </div>
   <%= render_document_main_content_partial %>
   <%= hathitrust_image(@document, size: '500,') %>
 </div>

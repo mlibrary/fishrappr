@@ -1,5 +1,23 @@
 module ApplicationHelper
 
+  ##
+  # Link to the previous document in the current search context
+  def link_to_previous_issue_page(previous_document)
+    link_opts = {}
+    link_to_unless previous_document.nil?, raw(t('views.issue.previous')), url_for_document(previous_document), link_opts do
+      content_tag :span, raw(t('views.issue.previous')), :class => 'previous'
+    end
+  end
+
+  ##
+  # Link to the next document in the current search context
+  def link_to_next_issue_page(next_document)
+    link_opts = {}
+    link_to_unless next_document.nil?, raw(t('views.issue.next')), url_for_document(next_document), link_opts do
+      content_tag :span, raw(t('views.issue.next')), :class => 'next'
+    end
+  end
+
   def hathitrust_image_src(document, **kw)
     barcode = document.fetch('hathitrust_t').first
 

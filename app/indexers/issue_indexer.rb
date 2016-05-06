@@ -36,6 +36,7 @@ class IssueIndexer
     pp @issue
     dt = d.strftime('%B %d, %Y')
 
+    solr_doc[:id] = @issue.date_issued
     solr_doc[:issue_date_display] = dt
     solr_doc[:issue_no_t] = @issue.issue_no
     solr_doc[:issue_date_dt] = d
@@ -44,7 +45,13 @@ class IssueIndexer
     solr_doc[:pages] = []
 
     Page.where(issue_id: issue.id).order(:sequence).each do |page|
-      solr_doc[:pages] << [ page.id, page.sequence, page.page_no ]
+      # solr_doc[:pages] << [ page.id, page.sequence, page.page_no ]
+      solr_doc[:pages] << [
+        page.id,
+        "#{@issue.date_issued}-#{page.sequence}",
+        page.sequence,
+        page.page_no
+      ]
     end
     solr_doc
   end
