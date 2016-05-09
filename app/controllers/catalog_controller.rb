@@ -15,6 +15,16 @@ class CatalogController < ApplicationController
     # config.response_model = Blacklight::Solr::Response
     config.document_presenter_class = Fishrappr::DocumentPresenter
 
+    # Add actions for splash, about, and donors pages
+    config.add_nav_action(:about, partial: 'shared/nav/about')
+    config.add_nav_action(:donors, partial: 'shared/nav/donors')
+    config.add_nav_action(:help, partial: 'shared/nav/help')
+
+    config.navbar.partials.delete(:bookmark)
+    config.navbar.partials.delete(:saved_searches)
+    config.navbar.partials.delete(:search_history)
+    config.navbar.partials.delete(:login)
+
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = {
       rows: 10,
@@ -45,19 +55,19 @@ class CatalogController < ApplicationController
      rows: 1,
      q: '{!term f=id v=$id}'
     }
-    
+
     config.document_index_view_types = ["default", "gallery", "list", "frequency", "covers"]
 
     # solr field configuration for search results/index views
      config.index.title_field = 'issue_date_display'
 #    config.index.page_no_field = 'page_no_t'
-    
 
     # solr field configuration for document/show views
      config.show.title_field = 'issue_date_display'
 #    config.show.issue_date_field = 'issue_date_t'
 #    config.index.page_no_field = 'page_no_t'
-   
+
+
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
@@ -101,11 +111,11 @@ class CatalogController < ApplicationController
     config.add_facet_fields_to_solr_request!
 
     # solr fields to be displayed in the index (search results) view
-    #   The ordering of the field names is the order of the display 
+    #   The ordering of the field names is the order of the display
     #config.add_index_field 'issue_date_dt', label: 'Issue Date'
-    config.add_index_field 'issue_no_t', label: 'Issue' 
+    config.add_index_field 'issue_no_t', label: 'Issue'
     config.add_index_field 'page_no_t', label: 'Page No'
-    config.add_index_field 'sequence_i', label: 'Page Order'   
+    config.add_index_field 'sequence_i', label: 'Page Order'
     config.add_index_field 'full_text_txt', label: 'Page Text' ,highlight: true
 
     # solr fields to be displayed in the show (single result) view
