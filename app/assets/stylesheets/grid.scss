@@ -1,10 +1,10 @@
-.gallery {
+.grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 
-.gallery > div {
+.grid > div {
     flex: 0 0 auto;
     margin: 10px;
 
