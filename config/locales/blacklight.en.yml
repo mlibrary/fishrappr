@@ -1,4 +1,9 @@
 en:
   blacklight:
     application_name: 'Fishrappr'
+    search:
+      view:
+        list: "List"
+        grid: "Grid"
+
 
