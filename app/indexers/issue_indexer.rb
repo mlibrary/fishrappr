@@ -23,7 +23,10 @@ class IssueIndexer
     Rails.configuration.batch_commit = true
 
     solr_doc = generate_solr_doc
-    Page.where(issue_id: issue.id).order(:sequence).each do |page|
+    # Page.where(issue_id: issue.id).order(:sequence).each do |page|
+    #   PageIndexer.new(page).index(solr_doc)
+    # end
+    @issue.pages.each do |page|
       PageIndexer.new(page).index(solr_doc)
     end
     Blacklight.default_index.connection.commit
@@ -36,19 +39,25 @@ class IssueIndexer
     pp @issue
     dt = d.strftime('%B %d, %Y')
 
-    solr_doc[:id] = @issue.date_issued
-    solr_doc[:issue_date_display] = dt
+    publication = @issue.publication
+
+    solr_doc[:id] = "#{@issue.ht_barcode}-#{@issue.slug}"
+    solr_doc[:date_issued_display] = dt
     solr_doc[:issue_no_t] = @issue.issue_no
-    solr_doc[:issue_date_dt] = d
-    solr_doc[:issue_id_t] = @issue.id
-    solr_doc[:hathitrust_t] = @issue.hathitrust
+    solr_doc[:date_issued_dt] = d
+    solr_doc[:date_issued_link] = @issue.slug(false)
+    solr_doc[:ht_barcode] = @issue.ht_barcode
+    solr_doc[:ht_namespace] = @issue.ht_namespace
+    solr_doc[:publication_link] = publication.slug
+    solr_doc[:publication_label] = publication.title
+    solr_doc[:issue_sequence] = @issue.issue_sequence
     solr_doc[:pages] = []
 
     Page.where(issue_id: issue.id).order(:sequence).each do |page|
       # solr_doc[:pages] << [ page.id, page.sequence, page.page_no ]
       solr_doc[:pages] << [
         page.id,
-        "#{@issue.date_issued}-#{page.sequence}",
+        "#{solr_doc[:id]}-#{page.sequence}",
         page.sequence,
         page.page_no
       ]

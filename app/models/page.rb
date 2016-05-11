@@ -1,13 +1,14 @@
 class Page < ActiveRecord::Base
   self.table_name = "pages"
+
   before_destroy :remove_from_index
 
-  #attr_accessible :issue_id, page_no, sequence, text_link, img_link
+  belongs_to :issue
 
   def remove_from_index
     conn = Blacklight.default_index.connection 
     conn.delete_by_id(self.id)
-    conn.commit
+    conn.commit unless Rails.configuration.batch_commit
   end
 
   def get_full_text(issue, text_link)
