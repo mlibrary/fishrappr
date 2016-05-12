@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'browse/:issue_date/:sequence' => 'catalog#browse_issue_page', as: :browse_issue_page
+  get 'pub/:publication_link/:ht_barcode/:date_issued_link/:sequence' => 'catalog#show', as: :in_context
   
   mount Blacklight::Engine => '/'
   root to: "catalog#index"

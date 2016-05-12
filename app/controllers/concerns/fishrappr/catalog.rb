@@ -4,16 +4,14 @@ module Fishrappr::Catalog
 
   include Blacklight::Base
 
-  def browse_issue_page
-    @response, @document = fetch_issue params[:issue_date], params[:sequence]
-    setup_next_and_previous_documents; setup_next_and_previous_issue_pages
-    render "show"
-  end
-
   # get a single document from the index
   # to add responses for formats other than html or json see _Blacklight::Document::Export_
   def show
-    @response, @document = fetch params[:id]
+    if params[:id]
+      @response, @document = fetch params[:id]
+    elsif params[:ht_barcode]
+      @response, @document = fetch_in_context params
+    end
 
     respond_to do |format|
       format.html { setup_next_and_previous_documents; setup_next_and_previous_issue_pages }
@@ -23,15 +21,16 @@ module Fishrappr::Catalog
     end
   end
 
-  def fetch_issue(issue_date, sequence, extra_controller_params={})
-    fq = [ %Q{issue_date_dt:"#{issue_date.to_date.strftime("%Y-%m-%dT00:00:00Z")}"}, "sequence_i:#{sequence}" ]
-    # solr_response = repository.search fq: [ "issue_date_dt" => issue_date.to_date.strftime("%Y-%m-%dT00:00:00Z"), "sequence_i" => sequence ], fl: '*'
+  def fetch_in_context(params)
+    fq = []
+    [ :publication_link, :ht_barcode, :date_issued_link, :sequence ].each do |key|
+      fq << %{#{key}:"#{params[key]}"}
+    end
     solr_response = repository.search fq: fq, fl: '*'
     [solr_response, solr_response.documents.first]
   end
 
   def setup_next_and_previous_issue_pages
-    sequence = @document.fetch('sequence_i')
     @previous_page = @next_page = nil
     begin
       response, @previous_page = fetch @document.fetch('prev_page_link')

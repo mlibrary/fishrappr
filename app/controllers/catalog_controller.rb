@@ -62,12 +62,12 @@ class CatalogController < ApplicationController
     config.view.grid.icon_class = "glyphicon-th-large"
 
     # solr field configuration for search results/index views
-     config.index.title_field = 'issue_date_display'
+     config.index.title_field = 'date_issued_display'
 #    config.index.page_no_field = 'page_no_t'
 
     # solr field configuration for document/show views
-     config.show.title_field = 'issue_date_display'
-#    config.show.issue_date_field = 'issue_date_t'
+     config.show.title_field = 'date_issued_display'
+#    config.show.date_issued_field = 'date_issued_t'
 #    config.index.page_no_field = 'page_no_t'
 
 
@@ -96,7 +96,7 @@ class CatalogController < ApplicationController
     #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
-    config.add_facet_field 'issue_date_dt', label: 'Issue Date', helper_method: :render_date_format
+    config.add_facet_field 'date_issued_dt', label: 'Issue Date', helper_method: :render_date_format
     config.add_facet_field 'issue_no_t', label: 'Issue No'
 
     #config.add_facet_field 'example_pivot_field', label: 'Pivot Field', :pivot => ['format', 'language_facet']
@@ -115,18 +115,18 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    #config.add_index_field 'issue_date_dt', label: 'Issue Date'
+    #config.add_index_field 'date_issued_dt', label: 'Issue Date'
     config.add_index_field 'issue_no_t', label: 'Issue'
     config.add_index_field 'page_no_t', label: 'Page No'
-    config.add_index_field 'sequence_i', label: 'Page Order'
+    config.add_index_field 'sequence', label: 'Page Order'
     config.add_index_field 'full_text_txt', label: 'Page Text' ,highlight: true
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
     config.add_show_field 'issue_no_t', label: 'Issue'
-    config.add_show_field 'issue_date_display', label: 'Date'
+    config.add_show_field 'date_issued_display', label: 'Date'
     config.add_show_field 'page_no_t', label: 'Page No'
-    config.add_show_field 'sequence_i', label: 'Page Order'
+    config.add_show_field 'sequence', label: 'Page Order'
     config.add_show_field 'full_text_txt', label: 'Page Text'
 
     config.add_show_field 'next_page_link', label: 'Next Page Link'
@@ -195,7 +195,7 @@ class CatalogController < ApplicationController
     config.autocomplete_enabled = true
     config.autocomplete_path = 'suggest'
 
-    config.show.route = { controller: 'catalog', action: 'browse_issue_page' }
+    config.show.route = { controller: 'catalog', action: 'show' }
     # binding.pry
   end
 end

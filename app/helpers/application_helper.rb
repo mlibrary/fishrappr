@@ -19,7 +19,7 @@ module ApplicationHelper
   end
 
   def hathitrust_image_src(document, **kw)
-    barcode = document.fetch('hathitrust_t').first
+    barcode = document.fetch('ht_barcode')
 
     img_link = document.fetch('img_link_t').first
 
@@ -38,14 +38,14 @@ module ApplicationHelper
   end
 
   def hathitrust_image(document, **kw)
-    barcode = document.fetch('hathitrust_t').first
-    return fake_image(document) if barcode != 'mdp.39015071754159'
+    namespace = document.fetch('ht_namespace')
+    return fake_image(document) if namespace == 'fake'
     %Q{<img src="#{hathitrust_image_src(document, **kw)}" />}.html_safe
   end
 
   def hathitrust_thumbnail(document, **kw)
-    barcode = document.fetch('hathitrust_t').first
-    return fake_image(document, kw.fetch(:size, ',250')) if barcode != 'mdp.39015071754159'
+    namespace = document.fetch('ht_namespace')
+    return fake_image(document, kw.fetch(:size, ',250')) if namespace == 'fake'
     %Q{<img src="#{hathitrust_thumbnail_src(document, **kw)}" />}.html_safe
   end
 
@@ -55,12 +55,13 @@ module ApplicationHelper
 
   require 'ffaker'
   def fake_image(document, size=nil)
-    barcode = document.fetch('hathitrust_t').first
-    text_link = document.fetch('text_link_t').first
+    namespace = document.fetch('ht_namespace')
+    barcode = document.fetch('ht_barcode')
+    text_link = document.fetch('text_link')
     issue_no = document.fetch("issue_no_t").first
-    page_sequence = document.fetch("sequence_i")
-    key = barcode + "/" + text_link
-    bgcolor = Rails.cache.fetch("#{barcode}/bgcolor") do
+    page_sequence = document.fetch("sequence")
+    key = namespace + "." + barcode + "/" + text_link
+    bgcolor = Rails.cache.fetch("#{namespace}.#{barcode}/bgcolor") do
       # [ 'sky', 'vine', 'lava', 'gray', 'industrial', 'social' ].sample
       "#%06x" % rand(0..0xffffff)
     end
@@ -69,6 +70,8 @@ module ApplicationHelper
       return holder_tag "110x150", text, nil, {}, { bg: bgcolor }
     elsif size == ",250"
       return holder_tag "187x250", text, nil, {}, { bg: bgcolor }
+    elsif size == '200,'
+      return holder_tag "200x270", text, nil, {}, { bg: bgcolor }
     else
       # text = Rails.cache.fetch(key) do
       #   FFaker::CheesyLingo.sentence

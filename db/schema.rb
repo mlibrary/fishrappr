@@ -26,30 +26,44 @@ ActiveRecord::Schema.define(version: 20160413202258) do
   add_index "bookmarks", ["user_id"], name: "index_bookmarks_on_user_id"
 
   create_table "issues", force: :cascade do |t|
-    t.string   "hathitrust"
+    t.string   "ht_namespace"
+    t.string   "ht_barcode"
     t.string   "volume"
     t.string   "issue_no"
     t.string   "edition"
     t.string   "date_issued"
-    t.string   "newspaper"
+    t.integer  "issue_sequence", default: 1
     t.integer  "pages_count"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "publication_id"
   end
 
   add_index "issues", ["id"], name: "index_issues_on_id"
+  add_index "issues", ["publication_id"], name: "index_issues_on_publication_id"
 
   create_table "pages", force: :cascade do |t|
-    t.integer  "issue_id"
     t.string   "page_no"
     t.integer  "sequence"
     t.string   "text_link"
+    t.string   "coordinates_link"
     t.string   "img_link"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "issue_id"
+  end
+
+  add_index "pages", ["id"], name: "index_pages_on_id"
+
+  create_table "publications", force: :cascade do |t|
+    t.string   "title"
+    t.string   "slug"
+    t.string   "info_link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "pages", ["id"], name: "index_pages_on_id"
+  add_index "publications", ["slug"], name: "index_publications_on_slug", unique: true
 
   create_table "searches", force: :cascade do |t|
     t.text     "query_params"
