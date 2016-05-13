@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get 'pub/:publication_link/:ht_barcode/:date_issued_link/:sequence' => 'catalog#show', as: :in_context
   
   mount Blacklight::Engine => '/'
+  mount BlacklightAdvancedSearch::Engine => '/'
+
   root to: "catalog#index"
   concern :searchable, Blacklight::Routes::Searchable.new
 
