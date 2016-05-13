@@ -1,0 +1,17 @@
+<div class="container" class="simple_contact">
+  <div class="col-md-12">
+    <h2>Contact Us</h2>
+    <p class="para">We are happy to answer any questions you have about using the Michigan Daily archive, to hear about any problem you are experiencing with the system and to hear your feeback on how we can improve our services.</p>
+    <%= simple_form_for :contact, :url => '/message' do |f| %>
+      <%= f.input :username, required: true, label: 'Your name please', error: 'Your name is required', :class => "simple_label" %>
+      <span class="required">Required</span>
+      <%= f.input :email, required: true,  label: 'Your email', placeholder: 'user@domain.com', error: 'Your email is required', :class => "simple_label" %>
+      <span class="required">Required</span>
+      <%= f.input :type,  label: 'What do you need help with?', as: :check_boxes, collection: ["Searching", "Problem with content or metadata", "Technical support", "General comment or concern", "Other"] %>
+      <%= f.input :message, required: true, label: 'Your message', :class => "simple_label", error: 'A message is required' %>
+      <span class="required">Required</span>
+      <span class="spacer"></span>
+      <%= f.button :submit, 'Send Message' %>
+    <% end %>
+    </div>
+</div>
