@@ -53,6 +53,16 @@ module ApplicationHelper
     args.to_date.strftime("%B %d, %Y")
   end  
 
+  def highlight_search_terms(full_text)
+    search_params = current_search_session.try(:query_params) 
+    search_field = search_params["q"] 
+    if search_field
+      highlighted_field = '<strong>'+ search_field + '</strong>'.html_safe 
+      @document["full_text_txt"].first.gsub! search_field,highlighted_field 
+    end
+    return @document["full_text_txt"].first 
+  end
+
   require 'ffaker'
   def fake_image(document, size=nil)
     namespace = document.fetch('ht_namespace')
