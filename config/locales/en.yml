@@ -25,6 +25,17 @@ en:
     issue:
         next: "Next Page"
         previous: "Previous Page"
-  simple_form:
-    username:
-      label: Enter your name please
+    static:
+      about:
+        title: Help - About
+        header: About Fishrappr
+        donors: 
+          header: Fishrappr Donors
+        about: 
+          header: About Fishrappr
+      contact:
+        title: Help - Contact Us
+        header: Contact Us
+      faq:
+        title: Help - FAQ
+        header: Fequently Asked Questions
