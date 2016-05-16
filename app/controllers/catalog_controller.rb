@@ -10,7 +10,8 @@ class CatalogController < ApplicationController
     config.advanced_search ||= Blacklight::OpenStructWithHashAccess.new
     # config.advanced_search[:qt] ||= 'advanced'
     config.advanced_search[:url_key] ||= 'advanced'
-    config.advanced_search[:query_parser] ||= 'dismax'
+    #config.advanced_search[:query_parser] ||= 'dismax'
+    config.advanced_search[:query_parser] ||= 'edismax'
     config.advanced_search[:form_solr_parameters] ||= {}
 
     ## Class for sending and receiving requests from a search index
@@ -164,8 +165,9 @@ class CatalogController < ApplicationController
 
     config.add_search_field 'all_fields', label: 'All Fields'
 
-    #config.add_search_field 'Page Text' do |field|
-    #  field.solr_parameters = { qf: 'full_text_txt' , hl: true}
+    #config.add_search_field 'OCR Text' do |field|
+     #field.solr_parameters = { qf: 'full_text_txt' , hl: true}
+     #advanced_parse = true
     #end
 
     # Now we see how to over-ride Solr request handler defaults, in this
