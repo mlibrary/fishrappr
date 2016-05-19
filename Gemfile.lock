@@ -62,6 +62,10 @@ GEM
     blacklight_advanced_search (6.0.2)
       blacklight (~> 6.0, >= 6.0.1)
       parslet
+    blacklight_range_limit (6.0.0)
+      blacklight (>= 6.0.0.pre2, < 7)
+      jquery-rails
+      rails (>= 3.0, < 5.0)
     blankslate (3.1.3)
     bootstrap-sass (3.3.6)
       autoprefixer-rails (>= 5.2.1)
@@ -282,6 +286,7 @@ DEPENDENCIES
   blacklight
   blacklight-marc (~> 6.0)
   blacklight_advanced_search
+  blacklight_range_limit
   byebug
   devise
   devise-guests (~> 0.3)

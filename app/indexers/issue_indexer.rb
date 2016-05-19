@@ -45,6 +45,9 @@ class IssueIndexer
     solr_doc[:date_issued_display] = dt
     solr_doc[:issue_no_t] = @issue.issue_no
     solr_doc[:date_issued_dt] = d
+    solr_doc[:date_issued_yyyy_ti] = d.strftime('%Y').to_i
+    solr_doc[:date_issued_yyyymm_ti] = d.strftime('%Y%m').to_i
+    solr_doc[:date_issued_yyyymmdd_ti] = d.strftime('%Y%m%d').to_i
     solr_doc[:date_issued_link] = @issue.slug(false)
     solr_doc[:ht_barcode] = @issue.ht_barcode
     solr_doc[:ht_namespace] = @issue.ht_namespace
