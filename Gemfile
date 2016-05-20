@@ -64,6 +64,10 @@ group :development do
   gem 'spring'
 end
 
+group :production do
+  gem 'mysql2'
+end
+
 #gem 'jettywrapper', '>= 2.0'
 gem 'rsolr', '~> 1.0'
 gem 'blacklight-marc', '~> 6.0'
