@@ -111,8 +111,10 @@ class CatalogController < ApplicationController
     config.add_facet_field 'date_issued_dt', label: 'Issue Date', helper_method: :render_date_format
     config.add_facet_field 'issue_no_t', label: 'Issue No'
     config.add_facet_field 'date_issued_yyyy_ti', label: 'Issue Year', range: true
-    config.add_facet_field 'date_issued_yyyymm_ti', label: 'Issue Year-Month', range: true
-    config.add_facet_field 'date_issued_yyyymmdd_ti', label: 'Issue Yr-Month-Date', range: true
+    config.add_facet_field 'date_issued_yyyymmdd_ti', label: 'Date Range', range: {
+                         num_segments: 6,
+                         maxlength: 8
+                       }
 
     #config.add_facet_field 'example_pivot_field', label: 'Pivot Field', :pivot => ['format', 'language_facet']
 
