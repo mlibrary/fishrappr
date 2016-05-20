@@ -35,6 +35,8 @@ Rails.application.routes.draw do
     end
   end
 
+  post 'static/email' => 'static#email'
+
   get 'static/:action' => 'static', as: :static
 
   # The priority is based upon order of creation: first created -> highest priority.

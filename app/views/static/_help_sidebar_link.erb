@@ -1,0 +1,4 @@
+    <li class="<%= action_name == path ? 'current' : '' %>">
+        <%= link_to label, static_path(path), :id => path, tabindex: tabindex if label != "Back to Search" %>
+        <%= link_to label, path, :id => path, tabindex: tabindex if label == "Back to Search" %>
+    </li>

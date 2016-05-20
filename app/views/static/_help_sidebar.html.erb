@@ -1,0 +1,10 @@
+<div id="sidebar" class="<%= sidebar_classes %>">
+  <h2>Help</h2>
+  <ul class="help-ul">
+    <%= render partial: 'help_sidebar_link', locals: { path: 'about', label: "About and Donors", tabindex: 1 } %>
+    <%= render partial: 'help_sidebar_link', locals: { path: 'faq', label: "FAQ", tabindex: 2 } %>
+    <%= render partial: 'help_sidebar_link', locals: { path: 'how_to_search', label: "How to Search", tabindex: 3 } %>
+    <%= render partial: 'help_sidebar_link', locals: { path: 'contact', label: "Contact Us", tabindex: 4 } %>
+    <%= render partial: 'help_sidebar_link', locals: { path: "/", label: "Back to Search", tabindex: 5 } %>
+  </ul>
+</div>

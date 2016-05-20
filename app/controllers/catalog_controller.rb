@@ -28,9 +28,8 @@ class CatalogController < ApplicationController
 
     # Add actions for splash, about, and donors pages
     config.add_nav_action(:about, partial: 'shared/nav/about')
-    config.add_nav_action(:donors, partial: 'shared/nav/donors')
-    config.add_nav_action(:contact, partial: 'shared/nav/contact')
     config.add_nav_action(:help, partial: 'shared/nav/help')
+    config.add_nav_action(:contact, partial: 'shared/nav/contact')
 
     config.navbar.partials.delete(:bookmark)
     config.navbar.partials.delete(:saved_searches)
