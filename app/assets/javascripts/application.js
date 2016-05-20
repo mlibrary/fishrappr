@@ -18,6 +18,8 @@
 //= require turbolinks//
 // Required by Blacklight
 //= require blacklight/blacklight
+
+// --- TODO: work out a different way to load this in development
 //= require holder
 
 //= require_tree .
