@@ -1,7 +1,8 @@
-unless Rails.env.production?
+# unless Rails.env.production?
   require 'yaml'
 
   require 'ffaker'
+  require 'fileutils'
 
   namespace :fishrappr do
 
@@ -61,9 +62,9 @@ unless Rails.env.production?
       # logged for curiosity: sprintf("%014d", rand(1e9..1e10).to_i)
       ht_barcode = (1..14).map{"0123456789".chars.to_a.sample}.join
 
-      ht_path = "./tmp/fake_data/#{ht_namespace}.#{ht_barcode}"
+      ht_path = "#{Rails.configuration.sdrroot}/#{ht_namespace}/#{ht_barcode}"
       if not Dir.exists?(ht_path)
-        Dir.mkdir(ht_path)
+        FileUtils.mkdir_p(ht_path)
       end
 
       t0 = Time.now
@@ -115,4 +116,4 @@ unless Rails.env.production?
 
     end
   end
-end
+# end
