@@ -65,8 +65,8 @@ class PageIndexer
 
   def get_full_text(issue_doc, text_link)
     File.read(Rails.root.join(
-      Rails.configuration.text_root, 
-      "#{issue_doc[:ht_namespace]}.#{issue_doc[:ht_barcode]}", 
+      Rails.configuration.sdrroot, 
+      "#{issue_doc[:ht_namespace]}/#{issue_doc[:ht_barcode]}", 
       text_link+'.txt'))
   end
 
