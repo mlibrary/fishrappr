@@ -1,0 +1,69 @@
+.hidden { display: none; }
+
+#new_contact label, .contact {
+  display: block;
+  width: 20em;
+  text-align: left;
+  margin-right: 0px;
+  margin-top: 20px;
+}
+
+#new_contact  .checkbox label {
+  margin-top: 12px;
+}
+
+#new_contact  span.required {
+  color: gray;
+}
+
+#new_contact  span.spacer {
+  display: block;
+  height: 40px;
+}
+
+#new_contact  textarea {
+  height: 100px;
+  width: 500px;
+}
+
+#new_contact span.error {
+  bolder: solid 2px red;
+  display: inline-block;
+  margin-left: 20px;
+  padding: 4px;
+}
+
+#new_contact div.field_with_errors span.error {
+  font-style: bold italic;
+  font-size: 1.2em;
+}
+
+/*flash*/
+
+.alert-error {
+background-color: #f2dede;
+border-color: #eed3d7;
+color: #b94a48;
+text-align: left;
+}
+
+.alert-alert {
+background-color: #f2dede;
+border-color: #eed3d7;
+color: #b94a48;
+text-align: left;
+}
+
+.alert-success {
+background-color: #dff0d8;
+border-color: #d6e9c6;
+color: #468847;
+text-align: left;
+}
+
+.alert-notice {
+background-color: #dff0d8;
+border-color: #d6e9c6;
+color: #468847;
+text-align: left;
+}

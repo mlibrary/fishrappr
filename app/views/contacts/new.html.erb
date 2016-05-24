@@ -1,0 +1,19 @@
+<% @page_title = t('views.static.contact.title') %>
+
+<%= render partial: 'static/help_sidebar' %>
+
+<div class="<%= main_content_classes %>">
+    <h2><%= t('views.static.contact.header') %></h2>
+    <p class="para">We are happy to answer any questions you have about using the Michigan Daily archive, to hear about any problem you are experiencing with the system and to hear your feeback on how we can improve our services.</p>
+    <%= simple_form_for @contact, :html => {:class => 'form-horizontal' } do |f| %>
+      <%= f.input :username, :required => true, :class => "simple_label" %>
+      <span class="required">Required</span>
+      <%= f.input :email, :required => true, placeholder: 'user@domain.com', :class => "simple_label" %>
+      <span class="required">Required</span>
+      <%= f.input :type, as: :check_boxes, collection: ["Searching", "Problem with content or metadata", "Technical support", "General comment or concern", "Other"] %>
+      <%= f.input :message, as: :text, :required => true, :class => "simple_label", :rows => "10", :cols => "50" %>
+      <span class="required">Required</span>
+      <span class="spacer"></span>
+      <%= f.button :submit, 'Send Message', :class=> "btn btn-primary" %>
+    <% end %>
+</div>

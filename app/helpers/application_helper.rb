@@ -21,7 +21,7 @@ module ApplicationHelper
   def hathitrust_image_src(document, **kw)
     barcode = document.fetch('ht_barcode')
 
-    img_link = document.fetch('img_link_t').first
+    img_link = document.fetch('img_link')
 
     region = kw.fetch(:region, 'full')
     size = kw.fetch(:size, 'full')

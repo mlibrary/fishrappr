@@ -24,11 +24,13 @@ module Fishrappr
     config.active_record.raise_in_transactional_callbacks = true
 
     config.iiif_service = 'https://beta-3.babel.hathitrust.org/cgi/imgsrv/iiif/'
+
     config.sdrroot = "tmp/sdr1/obj"
+    
     config.index_enabled = true
     config.batch_commit = true
 
     config.autoload_paths += Dir["#{config.root}/lib"]
-
+    
   end
 end
