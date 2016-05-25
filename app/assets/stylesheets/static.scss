@@ -3,10 +3,39 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
+/* CONTACT FORM */
 
-#sidebar {
-  background-color: #f2f2f2
+/*
+.contact {
+   label {
+    display: block;
+    width: 20em;
+    text-align: left;
+    margin-right: 0px;
+    margin-top: 20px;
+  }
+
+  .checkbox label {
+    margin-top: 12px;
+  }
+
+  span.required {
+    color: gray;
+  }
+
+  span.spacer {
+    display: block;
+    height: 40px;
+  }
+
+  textarea {
+    height: 100px;
+    width: 500px;
+  }
 }
+*/
+
+/* HELP SIDEBAR */
 
 .help-ul {
   list-style-type:none;
@@ -21,24 +50,26 @@
   width: 10em;
   text-align: center;
   vertical-align: middle;
+
+  a {
+    /* border: 2px solid lightgray;
+    box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.2);
+    */
+    cursor: pointer;
+    color: black;
+    display: block;
+    font-size: 1.2em;
+    height: 2em;
+    margin: 10px;
+    width: 10em;
+  }
+
+  a:hover, a:focus {
+    background-color: white;
+  }  
 }
 
-.help-ul li a {
-  /* border: 2px solid lightgray;
-  box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.2);
-  */
-  cursor: pointer;
-  color: black;
-  display: block;
-  font-size: 1.2em;
-  height: 2em;
-  margin: 10px;
-  width: 10em;
-}
-
-.help-ul li a:hover, .help-ul li a:focus {
-  background-color: white;
-}
+/* Suppress some elements we don't want on static pages */
 
 .blacklight-static #search-navbar, .blacklight-static .search-query-form {
   display: none;
