@@ -30,6 +30,10 @@ module Fishrappr
       @document['issue_date_dt'].split('T')[0]
     end
 
+    def has_page_image?
+      not @document['img_link'].nil?
+    end
+
 
   end
 end

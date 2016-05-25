@@ -9,6 +9,8 @@ class PageIndexer
   def generate_solr_doc(issue_doc)
 
     full_text = get_full_text(issue_doc, @page.text_link)
+    coordinates_data = get_coordinates_data(issue_doc, @page.coordinates_link)
+    image_info = get_image_info(issue_doc, @page.img_link)
     page_id = "#{issue_doc[:id]}-#{@page.sequence}"
     solr_doc = { 
       id: page_id, # @page.id,
@@ -16,7 +18,10 @@ class PageIndexer
       sequence: @page.sequence,
       text_link: @page.text_link, 
       img_link: @page.img_link, 
+      coordinates_data_ssm: coordinates_data,
       full_text_txt:full_text,
+      image_height_ti: image_info.fetch("height", nil),
+      image_width_ti: image_info.fetch("width", nil),
       prev_page_link: nil,
       next_page_link: nil,
       next_page_sequence_label: nil,
@@ -63,11 +68,36 @@ class PageIndexer
     conn.add solr_doc
   end
 
-  def get_full_text(issue_doc, text_link)
-    File.read(Rails.root.join(
-      Rails.configuration.sdrroot, 
+  def get_data(issue_doc, link, ext)
+    return nil if link.nil?
+    filename = Rails.root.join(
+      Rails.configuration.sdrdataroot, 
       "#{issue_doc[:ht_namespace]}/#{issue_doc[:ht_barcode]}", 
-      text_link+'.txt'))
+      link+ext)
+    if File.exists?(filename)
+      File.read(filename)
+    else
+      nil
+    end
+  end
+
+  def get_full_text(issue_doc, text_link)
+    # File.read(Rails.root.join(
+    #   Rails.configuration.sdrdataroot, 
+    #   "#{issue_doc[:ht_namespace]}/#{issue_doc[:ht_barcode]}", 
+    #   text_link+'.txt'))
+    get_data(issue_doc, text_link, ".txt")
+  end
+
+  def get_coordinates_data(issue_doc, coordinates_link)
+    return get_data(issue_doc, coordinates_link, ".js")
+  end
+
+  def get_image_info(issue_doc, img_link)
+    # image_href = "https://beta-3.babel.hathitrust.org/cgi/imgsrv/iiif/#{issue_doc[:ht_namespace]}.#{issue_doc[:ht_barcode]}/#{img_link}/info.json"
+    return {} if ( img_link.nil? || issue_doc[:manifest].nil? )
+    key = "#{issue_doc[:ht_barcode]}/#{img_link}"
+    issue_doc[:manifest][key]
   end
 
 end

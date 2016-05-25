@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
 
   concern :range_searchable, BlacklightRangeLimit::Routes::RangeSearchable.new
-  get 'pub/:publication_link/:ht_barcode/:date_issued_link/:sequence' => 'catalog#show', as: :in_context
-  
+  # get 'pub/:publication_link/:ht_barcode/:date_issued_link/:sequence' => 'catalog#show', as: :in_context
+
   mount Blacklight::Engine => '/'
   mount BlacklightAdvancedSearch::Engine => '/'
 
-  root to: "catalog#index"
+  # root to: "catalog#index"
+  root to: "static#home"
   concern :searchable, Blacklight::Routes::Searchable.new
 
 
@@ -23,7 +24,7 @@ Rails.application.routes.draw do
   #   concerns :exportable
   # end
 
-  resources :solr_documents, only: [:show], path: '/catalog', controller: 'catalog' do
+  resources :solr_documents, only: [:show], path: '/view', controller: 'catalog' do
     concerns :exportable
   end
 
@@ -43,6 +44,9 @@ Rails.application.routes.draw do
   get '/home' => 'static#home'
 
   get 'static/:action' => 'static', as: :static
+
+  get 'services/manifests/:id'  => 'services_api#manifests', as: :services_manifests
+  get 'services/annotations/:id' => 'services_api#annotations', as: :services_annotations
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

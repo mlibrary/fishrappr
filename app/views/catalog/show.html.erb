@@ -1,15 +1,34 @@
-<div id="content" class="<%= show_content_classes %>">
-  <div class="pagination-search-widgets">
-    <div class="pull-right search-widgets">
-      <%= link_to_previous_issue_page @previous_page %>
-       | 
-      <%= link_to_next_issue_page @next_page %>
-    </div>
-  </div>
-  <%= render_document_main_content_partial %>
-  <%= hathitrust_image(@document, size: '500,') %>
-</div>
-
 <div id="sidebar" class="<%= show_sidebar_classes %>">
    <%= render_document_sidebar_partial %>
+
+   <% if current_search_session %>
+    <div class="list-group">
+      <%= link_back_to_catalog class: 'list-group-item list-group-item-info' %>
+      <%=link_to t('blacklight.search.start_over'), start_over_path(current_search_session.try(:query_params) || {}), id: 'startOverLink', class: 'list-group-item' %>
+    </div>
+   <% end %>
+
+   <div class="list-group">
+    <a href="?view=plaintext" class="list-group-item active">View Plain Text</a>
+    <a href="?view=image" class="list-group-item">View Scanned Image</a>
+    <a href="#" class="list-group-item">Remove Hit Highlights</a>
+  </div>
+
 </div>
+
+<div id="content" class="<%= show_content_classes %>" data-words="<%= @words.keys.to_json %>" data-identifier="<%= @document.id %>">
+  <div class="pagination-search-widgets">
+    <nav class="pull-right">
+      <ul class="pager">
+        <li>
+          <%= link_to_previous_issue_page @previous_page %>
+        </li>
+        <li>
+          <%= link_to_next_issue_page @next_page %>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <%= render_document_main_content_partial %>
+</div>
+

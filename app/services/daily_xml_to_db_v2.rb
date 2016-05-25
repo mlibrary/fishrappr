@@ -193,14 +193,14 @@ class DailyXmlToDb_v2
     pp_ok "issue row will be (hathitrust, volume, issue_no, edition, date_issued, newspaper)"
 
     i = Issue.create  ht_namespace: ht_namespace, ht_barcode: ht_barcode, volume: volume, issue_no: issue_no, edition: edition, date_issued: date_issued, issue_sequence: issue_sequence, publication_id: pub_id
-    i.save
     return i.id 
   end
   
   def add_data_page(issue_id, page_no, sequence, text_link, img_link)
     pp_ok "page row will be (issue_id, page_no, sequence, text_link, img_link)" 
 
-    p = Page.create issue_id: issue_id, page_no: page_no, sequence: sequence, text_link: text_link, img_link: img_link
+    coordinates_link = text_link.to_s.gsub('TXT', 'WORDS')
+    p = Page.create issue_id: issue_id, page_no: page_no, sequence: sequence, text_link: text_link, img_link: img_link, coordinates_link: coordinates_link
   end
 
   def pp_ok(s)

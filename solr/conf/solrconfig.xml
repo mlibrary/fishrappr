@@ -300,6 +300,19 @@
     </lst>
   </requestHandler>
 
+  <requestHandler name="document-highlighted" class="solr.SearchHandler" >
+    <lst name="defaults">
+      <str name="echoParams">all</str>
+      <str name="fl">*</str>
+      <str name="rows">1</str>
+      <str name="hl.fragListBuilder">single</str>
+      <str name="hl.fragsize">10000</str>
+      <str name="fq">{!term f=id v=$id}</str>
+      <str name="q"></str>
+      <str name="fq">{!term f=id v=$id}</str> <!-- use id=666 instead of q=id:666 -->
+    </lst>
+  </requestHandler>
+
 <!-- Spell Check
 
         The spell check component can return a list of alternative spelling
