@@ -6,6 +6,23 @@ module Fishrappr::Catalog
 
   # get a single document from the index
   # to add responses for formats other than html or json see _Blacklight::Document::Export_
+
+  def search_results(user_params)
+    
+    user_params["range"] = {"date_issued_yyyymmdd_ti"=>{"begin"=>"", "end"=>""}} if user_params["range_start"] || user_params["range_end"]
+    
+    if user_params["range_start"]
+      user_params["range_start"]= user_params["range_start"].gsub('-','')
+      user_params["range"]["date_issued_yyyymmdd_ti"]["begin"] = user_params["range_start"] 
+    end
+    
+    if user_params["range_end"]
+      user_params["range_end"]= user_params["range_end"].gsub('-','')
+      user_params["range"]["date_issued_yyyymmdd_ti"]["end"] = user_params["range_end"] if user_params["range_end"]
+    end
+    super
+  end  
+
   def show
     if params[:id]
       @response, @document = fetch params[:id]
