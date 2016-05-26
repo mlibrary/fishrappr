@@ -2,31 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.contact label {
-  display: block;
-  width: 20em;
-  text-align: left;
-  margin-right: 0px;
-  margin-top: 20px;
-}
 
-.contact .checkbox label {
-  margin-top: 12px;
-}
-
-.contact span.required {
-  color: gray;
-}
-
-.contact span.spacer {
-  display: block;
-  height: 40px;
-}
-
-.contact textarea {
-  height: 100px;
-  width: 500px;
-}
 
 #sidebar {
   background-color: #f2f2f2

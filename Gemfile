@@ -25,6 +25,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'blacklight'
 gem "blacklight_advanced_search"
+gem 'mail_form'
 gem 'simple_form'
 
 gem "blacklight_range_limit"

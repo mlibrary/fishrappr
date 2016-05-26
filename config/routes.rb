@@ -35,7 +35,8 @@ Rails.application.routes.draw do
     end
   end
 
-  post 'static/email' => 'static#email'
+  match '/contacts', to: 'contacts#new', via: 'get'
+  resources "contacts", only: [:new, :create]
 
   get 'static/:action' => 'static', as: :static
 
