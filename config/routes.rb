@@ -38,6 +38,10 @@ Rails.application.routes.draw do
   match '/contacts', to: 'contacts#new', via: 'get'
   resources "contacts", only: [:new, :create]
 
+  post 'static/search' => 'static#search'
+  
+  get '/home' => 'static#home'
+
   get 'static/:action' => 'static', as: :static
 
   # The priority is based upon order of creation: first created -> highest priority.

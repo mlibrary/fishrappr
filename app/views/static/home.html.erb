@@ -1,0 +1,41 @@
+<div class="home">
+  <div class="row">
+    <div class="col-md-12 head">
+      <h2>Michigan Daily Archives</h2>
+      <h3>Student News at the University of Michigan</h3>
+      <p>Since 1890 the Michigan Daily Archive feature 130,000 paper covering over 120 years of campus life, culture, etc.</p>
+      <%= link_to "Read More", static_path("about") %>
+      <div class="search">
+        <%= simple_form_for :params, :url => search_catalog_path, :html => {class: "form-inline"} do |f| %>
+          <div class="form-group">
+            <%= f.input :range_start, label: '',  collection: 1890..1970, :selected => 1890 %>
+          </div>
+          <div class="form-group">
+            <span class="dash">----</span>
+          </div>
+          <div class="form-group">
+            <%= f.input :range_end, label: '', collection: 1890..1970, :selected => 1970 %>
+          </div>
+          <div class="form-group">
+            <%= f.input :q, label: '', :placeholder => "Enter one or more search words" %>
+          </div>
+          <div class="form-group">
+            <%= f.button :submit, 'Search' %>
+          </div>        
+        <% end %>        
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 donors">
+      <h3>Thank You to Our Alumni Donors!</h3>
+      <p class="description">We couldn't have created the Michigan Daily archive without the generous financial suport of our donors.</p>
+      <%= link_to "Our Donors", static_path("about") %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 featured">
+      <h3>This is the featured content section</h3>
+    </div>
+  </div>
+</div>

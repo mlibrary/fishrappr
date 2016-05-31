@@ -67,3 +67,164 @@ border-color: #d6e9c6;
 color: #468847;
 text-align: left;
 }
+
+/* STYLES FOR HOME PAGE */
+
+body.fishrappr {
+  background-image: image-url("home_page_banner.png"), image-url("graybox.png");
+  background-repeat: repeat-x, repeat;
+  background-position: 0 50px, 200px 800px;
+  background-size: 1440px 500px, 1440px 300px;
+  display: block;
+  padding: 0;
+}
+
+.home {
+  .head, .donors, .featured {
+    color: white;
+    height: 500px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+
+  .head a, .donors a {
+    color: white;
+    display: block;
+    padding: .5em;
+    width: 10em;
+    margin-top: 2em;
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  .head {
+
+    h2 {
+      font-size: 5em;
+    }
+
+    h3 {
+      font-size: 2.5em;
+    }
+
+    p {
+      display: inline-block;
+      font-size: 1.3em;
+      width: 30em;
+    }
+
+    a {
+      border: solid 2px white;
+      color: white;
+    }  
+
+    .search {
+      display: block;
+      background-color: black;
+      height: 5em;
+      width: 60em;
+      padding: .5em;
+      padding-top: 1.2em;
+      margin-top: 4em;
+      margin-left:auto;
+      margin-right:auto;
+
+      select  {
+        font-size: 1.5em;
+        text-align: center;
+        margin: 0 .5em 0 .5em;
+      }
+
+      .dash {
+        display: block;
+      }
+
+      #user_params_q {
+        font-size: 1em;
+        width: 25em;
+        margin: 0 2em 0 1em;
+      }
+
+      .btn {
+      }
+
+      abbr {
+        display: none;
+      }
+    }    
+  }
+
+  .donors {
+    background-color: white;
+    color: black;
+    height: 200px;
+
+    h3 {
+      font-size: 2.5em;
+    }
+
+    p {
+      display: inline-block;
+      font-size: 1.3em;
+      width: 60em;
+    }
+
+    a {
+      border: solid 2px darkgray;
+      color: #9d9d9d;
+    }  
+  }
+
+  .featured {
+    color: black;
+    height: 300px;
+
+    h3 {
+      font-size: 2.5em;
+      padding-top: 3em;
+    }
+  }
+
+}
+
+footer { 
+  background-color: #00274C;
+  padding: 0 20px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 50px;
+  color: white;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 3em;
+
+  ul, span.copyright {
+    display: block;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+  }
+
+  li a, span.copyright {
+    color: lightgray;
+    display: block;
+    padding: .5em;
+  }
+
+  li a, li a:visited {
+    float: left;
+    text-decoration: none;
+  }
+
+  li a:hover, li a:active {
+    color: white;
+    text-decoration: none;
+  }
+
+  span.copyright {
+    display: block;
+    float: right;
+  }
+}
