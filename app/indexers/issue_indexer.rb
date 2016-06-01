@@ -3,16 +3,21 @@ class IssueIndexer
 
   attr_accessor :issue
 
-  def self.run
+  def self.run(ht_namespace, ht_barcode=nil)
     total_issues = Issue.count
-    t0 = Time.now
-    Issue.all.each_with_index do |issue, j|
+    t00 = t0 = Time.now
+    query = Issue.where(ht_namespace: ht_namespace)
+    query = if ht_barcode
+      query = query.where(ht_barcode: ht_barcode)
+    end
+    query.each_with_index do |issue, j|
       indexer = self.new(issue)
       indexer.index
       t1 = Time.now
       STDERR.puts "-- committed: #{j} / #{total_issues} : #{t1 - t0}"
       t0 = t1
-    end  
+    end
+    STDERR.puts "== ∆: #{Time.now - t00}"
   end
 
   def initialize(issue)
@@ -23,10 +28,8 @@ class IssueIndexer
     Rails.configuration.batch_commit = true
 
     solr_doc = generate_solr_doc
-    # Page.where(issue_id: issue.id).order(:sequence).each do |page|
-    #   PageIndexer.new(page).index(solr_doc)
-    # end
     @issue.pages.each do |page|
+      # next unless page.id == 70934
       PageIndexer.new(page).index(solr_doc)
     end
     Blacklight.default_index.connection.commit
@@ -41,7 +44,7 @@ class IssueIndexer
 
     publication = @issue.publication
 
-    solr_doc[:id] = "#{@issue.ht_barcode}-#{@issue.slug}"
+    solr_doc[:id] = "#{@issue.ht_namespace}-#{@issue.ht_barcode}-#{@issue.slug}"
     solr_doc[:date_issued_display] = dt
     solr_doc[:issue_no_t] = @issue.issue_no
     solr_doc[:date_issued_dt] = d
@@ -56,6 +59,8 @@ class IssueIndexer
     solr_doc[:issue_sequence] = @issue.issue_sequence
     solr_doc[:pages] = []
 
+    solr_doc[:manifest] = get_image_info
+
     Page.where(issue_id: issue.id).order(:sequence).each do |page|
       # solr_doc[:pages] << [ page.id, page.sequence, page.page_no ]
       solr_doc[:pages] << [
@@ -68,7 +73,20 @@ class IssueIndexer
     solr_doc
   end
 
-  t0 = Time.now
+  def get_image_info
+    info_filename = Rails.root.join(
+      Rails.configuration.sdrdataroot, 
+      "#{@issue.ht_namespace}/#{@issue.ht_barcode}.metadata.js")
+    return nil unless File.exists?(info_filename)
+    info_data = File.read(info_filename)
+    tmp = JSON.parse(info_data)
+    info = {}
+    tmp.keys.each do |key|
+      new_key = @issue.ht_barcode + "/IMG" + File.basename(key, ".*")
+      info[new_key] = tmp[key]
+    end
+    info
+  end
 
 
 end

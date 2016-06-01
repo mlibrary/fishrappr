@@ -1,4 +1,5 @@
 require 'fishrappr/search_state'
+
 module Fishrappr::Catalog
   extend ActiveSupport::Concern
 
@@ -39,10 +40,30 @@ module Fishrappr::Catalog
   end  
 
   def show
-    if params[:id]
+    search_params = current_search_session.try(:query_params)
+    search_field = search_params ? search_params["q"] : nil
+    if params[:id] and search_field
+      @response, @document = fetch_with_highlights params[:id], search_field
+    elsif params[:id]
       @response, @document = fetch params[:id]
     elsif params[:ht_barcode]
-      @response, @document = fetch_in_context params
+      @response, @document = fetch_in_context params, search_field
+      # STDERR.puts @document.fetch('full_text_txt').first
+    end
+
+    @subview = @document.fetch('img_link', nil).nil? ? 'plaintext' : 'image'
+
+    @words = {}
+    if @document.highlight_field('full_text_txt')
+      non_lexemes = Regexp.new("^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$|'s$")
+      @document.highlight_field('full_text_txt').each do |text|
+        text.scan(/<strong>.+?<\/strong>/).each do |word|
+          word.gsub!('<strong>', '').gsub!('</strong>', '')
+          word = word.gsub(non_lexemes, '')
+          next unless word.strip and @words[word.strip].nil?
+          @words[word.strip.downcase] = true
+        end
+      end
     end
 
     respond_to do |format|
@@ -53,13 +74,62 @@ module Fishrappr::Catalog
     end
   end
 
-  def fetch_in_context(params)
+  def fetch_in_context(params, search_query)
     fq = []
+    fq_param = {}
     [ :publication_link, :ht_barcode, :date_issued_link, :sequence ].each do |key|
       fq << %{#{key}:"#{params[key]}"}
+      fq_param[key.to_s] = params[key]
     end
-    solr_response = repository.search fq: fq, fl: '*'
+    if search_query
+      builder = ::DocumentSearchBuilder.new(self).with({ 
+        :search_field => "advanced",
+        :op => 'OR',
+        :full_text_txt => search_query,
+        :ht_barcode => params[:ht_barcode],
+        :"controller" => "catalog",
+        :"action" => "index",
+        :"f" => fq_param,
+        :"rows" => 1
+      })
+      builder.rows(1)
+      ## binding.pry
+
+      solr_response = repository.search(builder)
+
+    else
+      solr_response = repository.search fq: fq, fl: '*'
+    end
     [solr_response, solr_response.documents.first]
+  end
+
+  def fetch_with_highlights(id, search_query)
+    fq = []
+    fq_param = {}
+    [ :id ].each do |key|
+      fq << %{#{key}:"#{params[key]}"}
+      fq_param[key.to_s] = params[key]
+    end
+    if search_query
+      builder = ::DocumentSearchBuilder.new(self).with({ 
+        :search_field => "advanced",
+        :op => 'OR',
+        :full_text_txt => search_query,
+        :ht_barcode => params[:ht_barcode],
+        :"controller" => "catalog",
+        :"action" => "index",
+        :"f" => fq_param,
+        :"rows" => 1
+      })
+      builder.rows(1)
+      ## binding.pry
+
+
+      solr_response = repository.search(builder)
+    else
+        solr_response = repository.search fq: fq, fl: '*'
+    end
+    [solr_response, solr_response.documents.first]      
   end
 
   def setup_next_and_previous_issue_pages

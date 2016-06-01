@@ -1,0 +1,101 @@
+<div id="map">
+  <style>
+      @import url('/extra/leaflet.css');
+      @import url('/extra/leaflet.label.css');
+      html, body {
+          height: 100%;
+      }
+
+      #map {
+          height: 90%;
+          border: 1px dotted #ddd;
+      }
+  </style>
+
+  <script src="/extra/leaflet.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script type="text/javascript" src="/extra/leaflet-iiif.js"></script>
+  <script type="text/javascript" src="/extra/leaflet.label.js"></script>
+
+  <script type="text/javascript">
+      $().ready(function() {
+          // alert("AHOY");
+          window.F = window.F || {};
+          var $map = $("#map");
+          $map.height($(window).height() - 100);
+
+          var words = $("#content").data('words');
+          var identifier = $("#content").data('identifier');
+
+          var map;
+          map = L.map('map', {
+            center: [0, 0],
+            crs: L.CRS.Simple,
+            zoom: 0
+          });
+          F.map = map;
+          var baseLayer;
+          var page;
+          var annoFeatures = new L.FeatureGroup();
+
+          var imageHeight; var imageWidth;
+          //map.addLayer(annoFeatures);
+
+          var loadAnnotations = function(e) {
+            var baseLayer = e.target;
+            baseLayer.off('load');
+
+            // just in case, don't do anything if there are no words
+            if ( words.length == 0 ) {
+              return;
+            }
+
+            var highlightColor;
+            highlightColor = '#24AAE1';
+            // highlightColor = '#FF7800';
+
+            console.log(page.otherContent[0]['@id']);
+            initialZoom = baseLayer._getInitialZoom(map.getSize());
+            var maxZoom = map.getMaxZoom();
+            console.log(map.getZoom(), baseLayer.maxNativeZoom, map.getMaxZoom(), initialZoom, maxZoom);
+            $.getJSON(page.otherContent[0]['@id'], function(annoData) {
+
+              $.each(annoData.resources, function(i, value) {
+                var content = value.resource.chars;
+                if ( words.indexOf(content) < 0 ) { return ; }
+                var b = /xywh=(.*)/.exec(value.on)[1].split(',');
+                var minPoint = L.point(b[0], b[1]);
+                var maxPoint = L.point(parseInt(b[0]) + parseInt(b[2]), parseInt(b[1]) + parseInt(b[3]));
+                var min = map.unproject(minPoint, maxZoom);
+                var max = map.unproject(maxPoint, maxZoom);
+                // console.log(min, max, value.resource.chars);
+                annoFeatures.addLayer(L.rectangle(L.latLngBounds(min, max), { color: highlightColor, weight: 1, clickable: false }).bindLabel(value.resource.chars));
+              });
+              annoFeatures.addTo(map);
+            })
+          }
+
+          var i = 1;
+          $.getJSON('/services/manifests/' + identifier, function(data) {
+            console.log(data);
+            page = data.sequences[0].canvases[0];
+            baseLayer = L.tileLayer.iiif(
+              page.images[0].resource.service['@id'] + '/info.json'
+            );
+
+            imageHeight = data.sequences[0].canvases[0].height;
+            imageWidth = data.sequences[0].canvases[0].width;
+
+            console.log(imageWidth, "x", imageHeight);
+            if ( true || words.length > 0 ) {
+              console.log("LOADING ANNOTATIONS");
+              baseLayer.on('load', loadAnnotations);
+            }
+              
+            baseLayer.addTo(map);
+
+          });
+
+      })
+  </script>
+</div>

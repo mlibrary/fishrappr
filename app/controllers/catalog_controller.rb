@@ -42,7 +42,7 @@ class CatalogController < ApplicationController
       :qt => 'search',
       :qf => 'full_text_txt',
       :hl => true,
-      :"hl.fragsize" => 0 ,
+      :"hl.fragsize" => 200,
       :"hl.fl" => 'full_text_txt',
       :"hl.alternateField" => 'full_text_txt',
       :"hl.simple.pre" => '<strong>',   # change to something accessible
@@ -171,6 +171,18 @@ class CatalogController < ApplicationController
     # since we aren't specifying it otherwise.
 
     config.add_search_field 'all_fields', label: 'All Fields'
+
+    config.add_search_field 'full_text_txt' do |field|
+      field.include_in_simple_select = false
+      advanced_parse = true
+      field.solr_parameters = { :qf => "full_text_txt" } 
+    end
+
+    config.add_search_field 'ht_barcode' do |field|
+      field.include_in_simple_select = false
+      field.solr_parameters = { :qf => "ht_barcode" } 
+    end
+
 
     #config.add_search_field 'OCR Text' do |field|
      #field.solr_parameters = { qf: 'full_text_txt' , hl: true}

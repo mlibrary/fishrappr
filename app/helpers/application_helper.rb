@@ -5,7 +5,7 @@ module ApplicationHelper
   def link_to_previous_issue_page(previous_document)
     link_opts = {}
     link_to_unless previous_document.nil?, raw(t('views.issue.previous')), url_for_document(previous_document), link_opts do
-      content_tag :span, raw(t('views.issue.previous')), :class => 'previous'
+      content_tag :span, raw(t('views.issue.previous')), :class => ''
     end
   end
 
@@ -14,11 +14,12 @@ module ApplicationHelper
   def link_to_next_issue_page(next_document)
     link_opts = {}
     link_to_unless next_document.nil?, raw(t('views.issue.next')), url_for_document(next_document), link_opts do
-      content_tag :span, raw(t('views.issue.next')), :class => 'next'
+      content_tag :span, raw(t('views.issue.next')), :class => ''
     end
   end
 
   def hathitrust_image_src(document, **kw)
+    namespace = document.fetch('ht_namespace')
     barcode = document.fetch('ht_barcode')
 
     img_link = document.fetch('img_link')
@@ -29,7 +30,7 @@ module ApplicationHelper
     quality = kw.fetch(:quality, 'default')
     format = kw.fetch(:format, 'jpg')
 
-    "#{Rails.configuration.iiif_service}#{barcode}/#{img_link}/#{region}/#{size}/#{rotation}/#{quality}.#{format}"
+    "#{Rails.configuration.iiif_service}#{namespace}.#{barcode}/#{img_link}/#{region}/#{size}/#{rotation}/#{quality}.#{format}"
   end
 
   def hathitrust_thumbnail_src(document, **kw)
@@ -61,6 +62,18 @@ module ApplicationHelper
       @document["full_text_txt"].first.gsub! search_field,highlighted_field 
     end
     return @document["full_text_txt"].first 
+  end
+
+  def render_plain_text(document, field)
+    retval = []
+    texts = document.has_highlight_field?(field) ? document.highlight_field(field) : document.fetch(field)
+    Array(texts).each do |text|
+      retval << '<p>'
+      # retval << text.gsub("\n", "\n<br />")
+      retval << text.gsub("\n", " ")
+      retval << '</p>'
+    end
+    retval.join("\n").html_safe
   end
 
   require 'ffaker'
