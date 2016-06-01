@@ -1,10 +1,7 @@
-<div id="sidebar" class="<%= sidebar_classes %>">
+<div id="sidebar" class="<%= sidebar_classes %> help-sbar">
   <h2>Help</h2>
   <ul class="help-ul">
-    <%= render partial: 'static/help_sidebar_link', locals: { path: 'about', label: "About and Donors" } %>
-    <%= render partial: 'static/help_sidebar_link', locals: { path: 'faq', label: "FAQ" } %>
     <%= render partial: 'static/help_sidebar_link', locals: { path: 'how_to_search', label: "How to Search" } %>
     <%= render partial: 'static/help_sidebar_link', locals: { path: '/contacts', label: "Contact Us" } %>
-    <%= render partial: 'static/help_sidebar_link', locals: { path: "/", label: "Back to Search" } %>
   </ul>
 </div>

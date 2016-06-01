@@ -1,3 +1,5 @@
+/* CONTACT FORM */
+
 .hidden { display: none; }
 
 #new_contact label, .contact {
@@ -5,15 +7,11 @@
   width: 20em;
   text-align: left;
   margin-right: 0px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 #new_contact  .checkbox label {
   margin-top: 12px;
-}
-
-#new_contact  span.required {
-  color: gray;
 }
 
 #new_contact  span.spacer {
@@ -36,6 +34,19 @@
 #new_contact div.field_with_errors span.error {
   font-style: bold italic;
   font-size: 1.2em;
+}
+
+#new_contact .btn {
+  margin-left: -15px;
+}
+
+p.help-block {
+  font-style: italic;
+  margin-bottom: 0;
+}
+
+#new_contact abbr {
+  display: none;
 }
 
 /*flash*/
@@ -68,13 +79,14 @@ color: #468847;
 text-align: left;
 }
 
+
 /* STYLES FOR HOME PAGE */
 
 body.fishrappr {
-  background-image: image-url("home_page_banner.png"), image-url("graybox.png");
-  background-repeat: repeat-x, repeat;
-  background-position: 0 50px, 200px 800px;
-  background-size: 1440px 500px, 1440px 300px;
+  background-image: image-url("home_page_banner.png");
+  background-repeat: repeat-x;
+  background-position: 0 50px;
+  background-size: 1440px 500px;
   display: block;
   padding: 0;
 }
@@ -97,107 +109,136 @@ body.fishrappr {
     margin-left:auto;
     margin-right:auto;
   }
+}
 
-  .head {
 
-    h2 {
-      font-size: 5em;
-    }
+.home .head {
 
-    h3 {
-      font-size: 2.5em;
-    }
-
-    p {
-      display: inline-block;
-      font-size: 1.3em;
-      width: 30em;
-    }
-
-    a {
-      border: solid 2px white;
-      color: white;
-    }  
-
-    .search {
-      display: block;
-      background-color: black;
-      height: 5em;
-      width: 60em;
-      padding: .5em;
-      padding-top: 1.2em;
-      margin-top: 4em;
-      margin-left:auto;
-      margin-right:auto;
-
-      select  {
-        font-size: 1.5em;
-        text-align: center;
-        margin: 0 .5em 0 .5em;
-      }
-
-      .dash {
-        display: block;
-      }
-
-      #user_params_q {
-        font-size: 1em;
-        width: 25em;
-        margin: 0 2em 0 1em;
-      }
-
-      .btn {
-      }
-
-      abbr {
-        display: none;
-      }
-    }    
+  h2 {
+    font-size: 5em;
   }
 
-  .donors {
-    background-color: white;
-    color: black;
-    height: 200px;
-
-    h3 {
-      font-size: 2.5em;
-    }
-
-    p {
-      display: inline-block;
-      font-size: 1.3em;
-      width: 60em;
-    }
-
-    a {
-      border: solid 2px darkgray;
-      color: #9d9d9d;
-    }  
+  h3 {
+    font-size: 2.5em;
   }
 
-  .featured {
-    color: black;
-    height: 300px;
-
-    h3 {
-      font-size: 2.5em;
-      padding-top: 3em;
-    }
+  p {
+    display: inline-block;
+    font-size: 1.3em;
+    width: 30em;
   }
 
+  a {
+    border: solid 2px white;
+    color: white;
+  }  
+
+  div.search {
+    background-color: black;
+    display: block;
+    height: 5em;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: 4em;
+    padding-top: 2em;
+    padding: 1em;
+    width: 60em;
+
+    form {
+        margin-left:auto;
+        margin-right:auto;
+        padding-top: .5em;
+
+        select#range_start, select#range_end  {
+          border: black;
+          color: black;
+          font-size: 1.5em;
+          margin: 0 1em;
+          text-align: center;
+          vertical-align: middle;
+        }
+
+        #dash {
+          background-color: white;
+          color: white;
+          display: inline-block;
+          font-size: 1em;
+          vertical-align: middle;
+          margin: 0;
+          padding: 0;
+          width: 2.5em;
+          height: .3em;
+        }
+
+        #q {
+          color: black;
+          font-size: 1em;
+          margin: 0 2em 0 1em;
+          vertical-align: middle;
+          width: 25em;
+        }
+
+        [name~="commit"] {
+          /*
+          -moz-border-radius: 10px;
+          -webkit-border-radius: 10px;
+          border-radius: 10px; 
+          -khtml-border-radius: 10px;
+          */
+          color: black;
+          vertical-align: middle;
+          font-size: 1.2em;
+          width: 5em;
+          margin-right: 1.5em;
+        }
+
+    } /* form */
+  } /* div.search */
+} /* .home .head */
+
+
+.home .donors {
+  background-color: white;
+  color: black;
+  height: 200px;
+
+  h3 {
+    font-size: 2.5em;
+  }
+
+  p {
+    display: inline-block;
+    font-size: 1.3em;
+    width: 60em;
+  }
+
+  a {
+    border: solid 2px darkgray;
+    color: #9d9d9d;
+  }  
+}
+
+.home .featured {
+  background-color: lightgray;
+  color: black;
+  height: 300px;
+
+  h3 {
+    font-size: 2.5em;
+    padding-top: 3em;
+  }
 }
 
 footer { 
   background-color: #00274C;
-  padding: 0 20px;
-  margin-left: auto;
-  margin-right: auto;
-  height: 50px;
   color: white;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
+  height: 50px;
   line-height: 3em;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px;
 
   ul, span.copyright {
     display: block;
@@ -227,4 +268,78 @@ footer {
     display: block;
     float: right;
   }
+}
+
+/* STATIC PAGES */
+
+body.blacklight-static,
+body.blacklight-contacts-new,
+body.blacklight-contacts-create {
+  background-color: lightgray;
+}
+
+help-top-row {
+  height: 15em;
+
+  h2, p {
+    margin-left: 0;
+  }
+}
+
+.help-middle-col {
+  background-color: white;
+  padding: 1em 4em 4em 4em;
+  margin-top: 1.5em;
+}
+
+/* HELP SIDEBAR */
+
+.help-sbar h2 {
+  font-size: 2em;  
+  padding-left: 1.8em;
+}
+
+.help-ul {
+  list-style-type:none;
+  margin: 1.5em 0 0 2em;
+  padding: 0;
+  -webkit-padding-start: 0;
+}
+
+.help-ul li {
+  display: block;
+  font-size: 1.5em;
+  height: 2em;
+  margin: 0 0 .5em 0;
+  padding: 0 0 0 .5em;
+  vertical-align: middle;
+  width: 13em;
+
+  a {
+    color: black;
+    cursor: hand;
+    display: block;
+    height: 2em;
+    margin: 0 0 .5em 0;
+    padding: 0 0 0 .5em;
+    text-align: left;
+    vertical-align: middle;
+    width: 13em;
+  }
+
+  a:hover, a:focus {
+    background-color: white;
+    border: 4px solid white;
+    text-decoration: none;
+    border-radius: 4px;
+  }  
+}
+
+/* Suppress some elements we don't want on static pages */
+
+.blacklight-contacts #search-navbar,
+.blacklight-contacts .search-query-form,
+.blacklight-static #search-navbar,
+.blacklight-static .search-query-form {
+  display: none;
 }

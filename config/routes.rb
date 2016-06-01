@@ -41,7 +41,7 @@ Rails.application.routes.draw do
 
   post 'static/search' => 'static#search'
   
-  get '/home' => 'static#home'
+  get '/home' => 'catalog#home'
 
   get 'static/:action' => 'static', as: :static
 

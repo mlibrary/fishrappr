@@ -36,6 +36,17 @@ en:
       contact:
         title: Help - Contact Us
         header: Contact Us
-      faq:
-        title: Help - FAQ
-        header: Fequently Asked Questions
+      home:
+        title: Home Page
+        head:
+          h2: Michigan Daily Archives
+          h3: Student News at the University of Michigan
+          p: Since 1890 the Michigan Daily Archive feature 130000 papers, covering over 120 years of campus life, culture, etc.
+          link: Read More
+        donors:
+          h3: Thank You to Our Alumni Donors!
+          p: We couldn't have created the Michigan Daily archive without the generous financial support of our donors.
+      how-to-search:
+        h2: How to Search
+
+
