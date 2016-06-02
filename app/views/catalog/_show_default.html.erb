@@ -1,18 +1,18 @@
 <%# default partial to display solr document fields in catalog show view -%>
 <article>
-  <%== render_plain_text(@document, 'full_text_txt') %>
+  <%== render_plain_text(@document, 'full_text_t') %>
 </article>
 
 <% if false %>
 <dl class="dl-horizontal  dl-invert">
   <% document_show_fields(document).each do |field_name, field| -%>
     <% if should_render_show_field? document, field %>
-        <% if field.key == "full_text_txt" %>
+        <% if field.key == "full_text_t" %>
           <dt class="blacklight">Page Text: </dt> 
           <% if false %>
-          <dd class="blacklight"><%== highlight_search_terms(@document['full_text_txt']) %> </dd>     
+          <dd class="blacklight"><%== highlight_search_terms(@document['full_text_t']) %> </dd>     
           <% end %>
-          <dd class="blacklight"><%== render_plain_text(@document, 'full_text_txt') %></dd>
+          <dd class="blacklight"><%== render_plain_text(@document, 'full_text_t') %></dd>
          <% else %>
 	       <dt class="blacklight-<%= field_name.parameterize %>"><%= render_document_show_field_label document, field: field_name %></dt>
 	        <dd class="blacklight-<%= field_name.parameterize %>"><%= render_document_show_field_value document, field: field_name %></dd>
