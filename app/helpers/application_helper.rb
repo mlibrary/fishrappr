@@ -59,9 +59,9 @@ module ApplicationHelper
     search_field = search_params["q"] 
     if search_field
       highlighted_field = '<strong>'+ search_field + '</strong>'.html_safe 
-      @document["full_text_txt"].first.gsub! search_field,highlighted_field 
+      @document["full_text_t"].first.gsub! search_field,highlighted_field 
     end
-    return @document["full_text_txt"].first 
+    return @document["full_text_t"].first 
   end
 
   def render_plain_text(document, field)

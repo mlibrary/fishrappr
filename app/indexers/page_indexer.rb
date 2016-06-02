@@ -19,7 +19,7 @@ class PageIndexer
       text_link: @page.text_link, 
       img_link: @page.img_link, 
       coordinates_data_ssm: coordinates_data,
-      full_text_txt:full_text,
+      full_text_t:full_text,
       image_height_ti: image_info.fetch("height", nil),
       image_width_ti: image_info.fetch("width", nil),
       prev_page_link: nil,
