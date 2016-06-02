@@ -44,9 +44,10 @@ class CatalogController < ApplicationController
       :hl => true,
       :"hl.fragsize" => 200,
       :"hl.fl" => 'full_text_txt',
+      :"hl.snippets" => 10,
       :"hl.alternateField" => 'full_text_txt',
-      :"hl.simple.pre" => '<strong>',   # change to something accessible
-      :"hl.simple.post" => '</strong>', # change to something accessible
+      :"hl.simple.pre" => '<span class="highlight">',   # change to something accessible
+      :"hl.simple.post" => '</span>', # change to something accessible
       fl: '*'
     }
 
@@ -80,7 +81,6 @@ class CatalogController < ApplicationController
      config.show.title_field = 'date_issued_display'
 #    config.show.date_issued_field = 'date_issued_t'
 #    config.index.page_no_field = 'page_no_t'
-
 
 
     # solr fields that will be treated as facets by the blacklight application
@@ -135,7 +135,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'issue_no_t', label: 'Issue'
     config.add_index_field 'page_no_t', label: 'Page No'
     config.add_index_field 'sequence', label: 'Page Order'
-    config.add_index_field 'full_text_txt', label: 'Page Text' ,highlight: true
+    config.add_index_field 'full_text_txt', label: 'Page Text' , highlight: true, separator_options: { words_connector: ' ... '}
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
