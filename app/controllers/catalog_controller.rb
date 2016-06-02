@@ -40,12 +40,12 @@ class CatalogController < ApplicationController
     config.default_solr_params = {
       rows: 24,
       :qt => 'search',
-      :qf => 'full_text_t',
+      :qf => 'page_text',
       :hl => true,
       :"hl.fragsize" => 200,
-      :"hl.fl" => 'full_text_t',
+      :"hl.fl" => 'page_text',
       :"hl.snippets" => 10,
-      :"hl.alternateField" => 'full_text_t',
+      :"hl.alternateField" => 'page_text',
       :"hl.simple.pre" => '<span class="highlight">',   # change to something accessible
       :"hl.simple.post" => '</span>', # change to something accessible
       fl: '*'
@@ -135,7 +135,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'issue_no_t', label: 'Issue'
     config.add_index_field 'page_no_t', label: 'Page No'
     config.add_index_field 'sequence', label: 'Page Order'
-    config.add_index_field 'full_text_t', label: 'Page Text' , highlight: true, separator_options: { words_connector: ' ... '}
+    config.add_index_field 'page_text', label: 'Page Text' , highlight: true, separator_options: { words_connector: ' ... '}
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
@@ -143,7 +143,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'date_issued_display', label: 'Date'
     config.add_show_field 'page_no_t', label: 'Page No'
     config.add_show_field 'sequence', label: 'Page Order'
-    config.add_show_field 'full_text_t', label: 'Page Text'
+    config.add_show_field 'page_text', label: 'Page Text'
 
     config.add_show_field 'next_page_link', label: 'Next Page Link'
     config.add_show_field 'next_page_label', label: 'Next Page Label'
@@ -172,10 +172,10 @@ class CatalogController < ApplicationController
 
     config.add_search_field 'all_fields', label: 'All Fields'
 
-    config.add_search_field 'full_text_t' do |field|
+    config.add_search_field 'page_text' do |field|
       field.include_in_simple_select = false
       advanced_parse = true
-      field.solr_parameters = { :qf => "full_text_t" } 
+      field.solr_parameters = { :qf => "page_text" } 
     end
 
     config.add_search_field 'ht_barcode' do |field|
@@ -185,7 +185,7 @@ class CatalogController < ApplicationController
 
 
     #config.add_search_field 'OCR Text' do |field|
-     #field.solr_parameters = { qf: 'full_text_t' , hl: true}
+     #field.solr_parameters = { qf: 'page_text' , hl: true}
      #advanced_parse = true
     #end
 
@@ -193,7 +193,7 @@ class CatalogController < ApplicationController
     # case for a BL "search field", which is really a dismax aggregate
     # of Solr search fields.
 
-    #config.add_search_field('full_text_t') do |field|
+    #config.add_search_field('page_text') do |field|
       # solr_parameters hash are sent to Solr as ordinary url query params.
     #field.solr_parameters = { :'spellcheck.dictionary' => 'page_no' }
 

@@ -63,6 +63,7 @@ def fake_setup(dates_filename)
     filenames = Dir.glob("#{barcode_path}/TXT*.txt").collect do |filename|
       File.basename(filename, ".txt")
     end
+    filenames.sort!
 
     filenames.shift
     filenames.shift
