@@ -53,9 +53,9 @@ module Fishrappr::Catalog
     @subview = @document.fetch('img_link', nil).nil? ? 'plaintext' : 'image'
 
     @words = {}
-    if @document.highlight_field('full_text_t')
+    if @document.highlight_field('page_text')
       non_lexemes = Regexp.new("^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$|'s$")
-      @document.highlight_field('full_text_t').each do |text|
+      @document.highlight_field('page_text').each do |text|
         text.scan(/<strong>.+?<\/strong>/).each do |word|
           word.gsub!('<strong>', '').gsub!('</strong>', '')
           word = word.gsub(non_lexemes, '')
@@ -84,7 +84,7 @@ module Fishrappr::Catalog
       builder = ::DocumentSearchBuilder.new(self).with({ 
         :search_field => "advanced",
         :op => 'OR',
-        :full_text_t => search_query,
+        :page_text => search_query,
         :ht_barcode => params[:ht_barcode],
         :"controller" => "catalog",
         :"action" => "index",
@@ -113,7 +113,7 @@ module Fishrappr::Catalog
       builder = ::DocumentSearchBuilder.new(self).with({ 
         :search_field => "advanced",
         :op => 'OR',
-        :full_text_t => search_query,
+        :page_text => search_query,
         :ht_barcode => params[:ht_barcode],
         :"controller" => "catalog",
         :"action" => "index",
