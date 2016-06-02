@@ -7,7 +7,7 @@ class IssueIndexer
     total_issues = Issue.count
     t00 = t0 = Time.now
     query = Issue.where(ht_namespace: ht_namespace)
-    query = if ht_barcode
+    if ht_barcode
       query = query.where(ht_barcode: ht_barcode)
     end
     query.each_with_index do |issue, j|
