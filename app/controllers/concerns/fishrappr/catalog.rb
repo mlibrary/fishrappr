@@ -12,14 +12,14 @@ module Fishrappr::Catalog
     
     start_len=end_len = 0
 
-    if user_params["params"]
-      user_params['q'] = user_params["params"]["q"]
+    if user_params["from_home"] == "yes"
+      # user_params['q'] = user_params['q']
       user_params["range"] = {"date_issued_yyyy_ti"=>{"begin"=>"", "end"=>""}} 
-      user_params["range_start"] = user_params["params"]["range_start"]
-      user_params["range_end"] = user_params["params"]["range_end"]
-      user_params["range"]["date_issued_yyyy_ti"]["begin"] = user_params["params"]["range_start"]
-      user_params["range"]["date_issued_yyyy_ti"]["end"] = user_params["params"]["range_end"]
-    elsif !user_params["params"]
+      # user_params["range_start"] = user_params["range_start"]
+      # user_params["range_end"] = user_params["range_end"]
+      user_params["range"]["date_issued_yyyy_ti"]["begin"] = user_params["range_start"]
+      user_params["range"]["date_issued_yyyy_ti"]["end"] = user_params["range_end"]
+    else
       start_len = user_params["range_start"].length if user_params["range_start"]
       end_len = user_params["range_end"].length if user_params["range_end"]    
       
@@ -158,6 +158,12 @@ module Fishrappr::Catalog
   def search_state
     # binding.pry
     @search_state ||= Fishrappr::SearchState.new(params, blacklight_config)
+  end
+
+  def home
+    query = search_builder.merge(rows: 0)
+    @response = repository.search(query)
+    render :layout => 'home'
   end
 
 end

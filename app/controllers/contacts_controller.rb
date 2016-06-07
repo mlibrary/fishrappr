@@ -6,7 +6,10 @@ class ContactsController < ApplicationController
   def create
     @contact = Contact.new(params[:contact])
     @contact.request = request
-    # not spam and a valid form
+    # could use the following to set headers if needed?
+    # if @contact.request["contact"]["type"] == "Permissions request or question"
+
+  # not spam and a valid form
     if @contact.respond_to?(:deliver_now) ? @contact.deliver_now : @contact.deliver
       flash.now[:notice] = 'Thank you for your message!'
       after_deliver

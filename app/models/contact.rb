@@ -11,11 +11,13 @@ class Contact < MailForm::Base
 
   # Declare the e-mail headers. It accepts anything the mail method
   # in ActionMailer accepts.
+  # 'bhl-digital-support@umich.edu'
+
   def headers
-    {
-        subject: "Fishrappr Contact Form from #{username}",
-        to: 'gordonl@umich.edu', # 'bhl-digital-support@umich.edu',   # to: Fishrappr.config.contact_email,
+      {
+        subject: "Fishrappr Contact Form from #{username} with type #{type}",
+        to: 'gordonl@umich.edu',
         from: "#{email}"
-    }
+      }
   end
 end

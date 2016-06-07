@@ -1,5 +1,7 @@
 module ApplicationHelper
 
+  extend RangeLimitHelper
+
   ##
   # Link to the previous document in the current search context
   def link_to_previous_issue_page(previous_document)
@@ -102,4 +104,22 @@ module ApplicationHelper
       return holder_tag "375x500", text, nil, {}, { bg: bgcolor }
     end
   end
+
+  # See blacklight_range_limit/app/helpers/range_limit_helper.rb, use date_issued_yyy_ti
+  def get_solr_years_options
+    min_year = range_results_endpoint("date_issued_yyyy_ti", 'min')
+    max_year = range_results_endpoint("date_issued_yyyy_ti", 'max')
+    if (!min_year.nil? && !max_year.nil?)
+      years_range = (min_year..max_year) 
+    else
+      years_range = (1890..1970)
+    end
+    years_options = [];
+    years_range.each do |y| 
+      item = [y, y]
+      years_options.push item
+    end
+    years_options
+  end
+
 end

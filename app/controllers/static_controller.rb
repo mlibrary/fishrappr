@@ -1,22 +1,4 @@
-require 'mail'
 class StaticController < ApplicationController
-
-  def home
-     render :layout => 'home'
-  end
-
-  def search
-
-    @search_params = Hash.new {''}
-    @search_params['range_start'] = ( (params['home_search']['start_year']).to_s + "0101").to_i
-    @search_params['range_end'] = ( (params['home_search']['end_year']).to_s + "1231").to_i
-    @search_params['q'] = @search_text = params['home_search']['end_year']
-
-    #redirect_to url_for(:controller => 'CatalogController', :action => 'search_results', :params => @search_params)
-
-    redirect_to url_for(:controller => 'CatalogController', :action => 'search_results', :range_start => @search_params['range_start'], :range_end => @search_params['range_end'], :q => @search_params['q'])
-    
-  end
   
   def page
 
