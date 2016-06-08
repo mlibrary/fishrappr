@@ -79,6 +79,74 @@ color: #468847;
 text-align: left;
 }
 
+/* STYLES FOR CATALOG PAGE */
+
+// Hide the year facet panel
+// See catalog controller
+
+// Catalog page search at top of page, ala home page search
+body.blacklight-catalog-index {
+  div.search {
+    background-color: black;
+    display: block;
+    height: 5em;
+    margin: 1em auto 1em auto;
+    padding-top: 2em;
+    padding: 1em;
+    width: 65em;
+
+    form {
+      margin-left:auto;
+      margin-right:auto;
+      padding-top: .5em;
+
+      select#range_start, select#range_end  {
+        border: black;
+        color: black;
+        font-size: 1.5em;
+        margin: 0 1em;
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      #dash {
+        background-color: white;
+        color: white;
+        display: inline-block;
+        font-size: 1em;
+        vertical-align: middle;
+        margin: 0;
+        padding: 0;
+        width: 2.5em;
+        height: .3em;
+      }
+
+      #q {
+        color: black;
+        font-size: 1em;
+        margin: 0 2em 0 1em;
+        vertical-align: middle;
+        width: 25em;
+      }
+
+      button#search {
+        /*
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px; 
+        -khtml-border-radius: 10px;
+        */
+        color: black;
+        vertical-align: middle;
+        font-size: 1.2em;
+        width: 6em;
+        margin-right: 1.5em;
+      }
+
+    } /* form */
+  } /* div.search */
+
+}
 
 /* STYLES FOR HOME PAGE */
 
@@ -111,7 +179,6 @@ body.fishrappr {
   }
 }
 
-
 .home .head {
 
   h2 {
@@ -133,7 +200,7 @@ body.fishrappr {
     color: white;
   }  
 
-  div.search {
+   div.search {
     background-color: black;
     display: block;
     height: 5em;
@@ -142,7 +209,7 @@ body.fishrappr {
     margin-top: 4em;
     padding-top: 2em;
     padding: 1em;
-    width: 60em;
+    width: 65em;
 
     form {
         margin-left:auto;
@@ -178,7 +245,7 @@ body.fishrappr {
           width: 25em;
         }
 
-        [name~="commit"] {
+        button#search {
           /*
           -moz-border-radius: 10px;
           -webkit-border-radius: 10px;
@@ -188,7 +255,7 @@ body.fishrappr {
           color: black;
           vertical-align: middle;
           font-size: 1.2em;
-          width: 5em;
+          width: 6em;
           margin-right: 1.5em;
         }
 
@@ -342,4 +409,26 @@ help-top-row {
 .blacklight-static #search-navbar,
 .blacklight-static .search-query-form {
   display: none;
+}
+
+// searching icon animation
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spinWebkit .7s infinite linear;
+    -moz-animation: spinMoz .7s infinite linear;
+}
+
+@-webkit-keyframes spinWebkit {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spinMoz {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
 }

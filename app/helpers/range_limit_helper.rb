@@ -58,6 +58,7 @@ module RangeLimitHelper
   end
 
   def stats_for_field(solr_field)
+    return nil unless @response # added by Gordon and Nabeela 6-7-16
     @response["stats"]["stats_fields"][solr_field] if @response["stats"] && @response["stats"]["stats_fields"]
   end
 

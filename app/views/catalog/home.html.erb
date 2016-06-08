@@ -8,20 +8,22 @@
       <%= link_to "Read More", static_path("about") %>
 
       <div class="search">
-        <% # byebug %>
         <% years_options = get_solr_years_options %>
 
         <%= form_tag(search_catalog_path, method: "get", html: {class: "form-inline"}) do %>
-            <%= hidden_field_tag("from_home", "yes") %>
-            <%= select_tag(name="range_start", options_for_select(years_options, years_options.first.first)) %>
-            <%= text_field_tag(name="dash", value="", disabled: true) %>
-            <%= select_tag(name="range_end", options_for_select(years_options, years_options.last.first)) %>
-            <%= text_field_tag(name="q", value="", placeholder: ' Enter one or more search words') %>
-            <%= hidden_field_tag("range_field", "date_issued_yyyymmdd_ti") %>
-            <%= hidden_field_tag("search_field", "all_fields") %>
-            <%= submit_tag("Search") %>
-        <% end %> 
-
+          <%= hidden_field_tag("from_home", "yes") %>
+          <%= select_tag(name="range_start", options_for_select(years_options, years_options.first.first)) %>
+          <%= text_field_tag(name="dash", value="", disabled: true) %>
+          <%= select_tag(name="range_end", options_for_select(years_options, years_options.last.first)) %>
+          <%= text_field_tag(name="q", value="", placeholder: ' Enter one or more search words') %>
+          <%= hidden_field_tag("range_field", "date_issued_yyyymmdd_ti") %>
+          <%= hidden_field_tag("search_field", "all_fields") %>
+          <button type="submit" id="search">
+            <span class="submit-search-text"><%= t('blacklight.search.form.submit') %></span>
+            <span id="not-searching" class="glyphicon glyphicon-search"></span>
+            <span id="now-searching" class="hidden glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> 
+          </button>
+         <% end %>
       </div>
 
     </div>
