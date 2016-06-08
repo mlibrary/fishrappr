@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   mount BlacklightAdvancedSearch::Engine => '/'
 
   # root to: "catalog#index"
-  root to: "static#home"
+  root to: "catalog#home"
   concern :searchable, Blacklight::Routes::Searchable.new
 
 
