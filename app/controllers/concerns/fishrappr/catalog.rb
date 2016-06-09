@@ -195,7 +195,8 @@ module Fishrappr::Catalog
       if params[:publication]
         session[:publication] = params[:publication] # || Rails.configuration.default_publication
       else
-        params[:publication] = session[:publication] || Rails.configuration.default_publication
+        session[:publication] ||= Rails.configuration.default_publication
+        params[:publication] = session[:publication]
       end
     end
 
