@@ -30,6 +30,8 @@ module Fishrappr
     config.batch_commit = true
 
     config.autoload_paths += Dir["#{config.root}/lib"]
+
+    config.default_publication = 'the-daily-standup'
     
   end
 end

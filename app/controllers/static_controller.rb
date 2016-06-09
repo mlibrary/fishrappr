@@ -19,4 +19,13 @@ class StaticController < ApplicationController
 
   end
 
+  def toggle
+    if session[:publication] == 'the-daily-standup'
+      session[:publication] = 'the-michigan-daily'
+    else
+      session[:publication] = 'the-daily-standup'
+    end
+    redirect_to root_url
+  end
+
 end

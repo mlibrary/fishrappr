@@ -1,3 +1,4 @@
+require 'digest'
 module ApplicationHelper
 
   extend RangeLimitHelper
@@ -21,23 +22,47 @@ module ApplicationHelper
   end
 
   def hathitrust_image_src(document, **kw)
+    path_info = []
     namespace = document.fetch('ht_namespace')
     barcode = document.fetch('ht_barcode')
+    path_info << "#{namespace}.#{barcode}"
 
     img_link = document.fetch('img_link')
+    path_info << img_link
 
-    region = kw.fetch(:region, 'full')
-    size = kw.fetch(:size, 'full')
-    rotation = kw.fetch(:rotation, '0')
-    quality = kw.fetch(:quality, 'default')
-    format = kw.fetch(:format, 'jpg')
+    format = nil
+    unless kw.empty?
+      path_info << kw.fetch(:region, 'full')
+      path_info << kw.fetch(:size, 'full')
+      path_info << kw.fetch(:rotation, '0')
+      path_info << kw.fetch(:quality, 'default')
+      format = kw.fetch(:format, 'jpg')
+    end
 
-    "#{Rails.configuration.iiif_service}#{namespace}.#{barcode}/#{img_link}/#{region}/#{size}/#{rotation}/#{quality}.#{format}"
+    path_info = path_info.join('/')
+    path_info += "." + format if ( format )
+
+    "#{Rails.configuration.iiif_service}#{path_info}"
   end
 
   def hathitrust_thumbnail_src(document, **kw)
     size = kw.fetch(:size, ',250')
     hathitrust_image_src(document, size: size)
+  end
+
+  def hathitrust_thumbnail_style(document, **kw)
+    image_height = document.fetch('image_height_ti')
+    image_width = document.fetch('image_width_ti')
+    size = kw.fetch(:size, ',250')
+    width, height = size.split(',')
+    if width != ""
+      width = width.to_i
+      height = ( image_height * ( width.to_f / image_width ) ).to_i
+    end
+
+    # { 'min-width' => width, 'min-height' => height }
+    "min-width: #{width}px; min-height: #{height}px"
+
   end
 
   def hathitrust_image(document, **kw)
@@ -76,6 +101,19 @@ module ApplicationHelper
       retval << '</p>'
     end
     retval.join("\n").html_safe
+  end
+
+  NON_LEXEMES = Regexp.new("^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$|'s$")
+  def cleanup_word(text)
+    text.gsub(NON_LEXEMES, '').strip
+  end
+
+  def blank_identifier(*args)
+    "_:N" + hash_words(*args)
+  end
+
+  def hash_words(*args)
+    Digest::MD5.hexdigest args.join('')
   end
 
   require 'ffaker'

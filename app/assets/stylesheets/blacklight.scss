@@ -9,3 +9,20 @@
     background-color: rgba(255, 150, 50, 0.5);
     font-weight: bold;
 }
+
+.grid .highlight {
+    // background-color: blue;
+    background-color: #FF9632;
+    position: absolute;
+
+    // min-width: 15px;
+    // min-height: 15px;
+    z-index: 5000;
+}
+
+.grid .thumbnail {
+    position: relative;
+    display: inline-block;
+    width: 200px;
+    height: auto;
+}

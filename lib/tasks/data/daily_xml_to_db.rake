@@ -7,7 +7,7 @@ namespace :data do
     # pass any other string as the second param will not
     # was: DailyXmlToDb.new("testing") 
 
-    DailyXmlToDb_v2.new("the-michigan-daily", "NOtesting") 
+    DailyXmlToDb_v2.new("the-michigan-daily", "testing") 
 
   end
 end

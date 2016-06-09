@@ -147,7 +147,7 @@ class DailyXmlToDb_v2
 
       pages_target = ".//METS:structMap/METS:div[@TYPE='np:issue'][@DMDID='issueModsBib']/METS:div[@TYPE='np:page']"
 
-      @doc.xpath(pages_target, @NSMAP).each do |node2|
+      node1.xpath(pages_target, @NSMAP).each do |node2|
 
         pp_ok "PAGE INFO ------------------------------------------"
 

@@ -9,14 +9,14 @@
    <% end %>
 
    <div class="list-group">
-    <a href="?view=plaintext" class="list-group-item active">View Plain Text</a>
-    <a href="?view=image" class="list-group-item">View Scanned Image</a>
+    <a href="?view=plaintext" class="list-group-item <%= @subview == 'plaintext' ? 'active' : '' %>">View Plain Text</a>
+    <a href="?view=image" class="list-group-item <%= @subview == 'image' ? 'active' : '' %>"">View Scanned Image</a>
     <a href="#" class="list-group-item">Remove Hit Highlights</a>
   </div>
 
 </div>
 
-<div id="content" class="<%= show_content_classes %>" data-words="<%= @words.keys.to_json %>" data-identifier="<%= @document.id %>">
+<div id="content" class="<%= show_content_classes %>" data-words="<%= process_highlighted_words(@document) %>" data-identifier="<%= @document.id %>">
   <div class="pagination-search-widgets">
     <nav class="pull-right">
       <ul class="pager">

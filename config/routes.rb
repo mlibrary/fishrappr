@@ -45,8 +45,9 @@ Rails.application.routes.draw do
 
   get 'static/:action' => 'static', as: :static
 
-  get 'services/manifests/:id'  => 'services_api#manifests', as: :services_manifests
-  get 'services/annotations/:id' => 'services_api#annotations', as: :services_annotations
+  get 'services/manifests/:id'  => 'services_api#manifests', as: :services_manifests, format: false, defaults: { format: :json }
+  get 'services/annotations/:id' => 'services_api#annotations', as: :services_annotations, format: false, defaults: { format: :json }
+  get 'services/coords/:id' => 'services_api#coords', as: :services_coords, format: false, defaults: { format: :json }
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
