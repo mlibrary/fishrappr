@@ -49,6 +49,23 @@ p.help-block {
   display: none;
 }
 
+
+#new_contact .required-tag {
+  display: inline-block;
+  padding: 0.2rem 0.4rem;
+  position: relative;
+  bottom: 0.2rem;
+  background-color: #10788E;
+  border-radius: 0.2rem;
+  vertical-align: super;
+  font-size: 0.7rem; // falafel
+  font-size: 90%;
+  font-weight: normal;
+  line-height: 1em;
+  color: #FFF;
+  text-shadow: none;
+}
+
 /*flash*/
 
 .alert-error {
@@ -145,6 +162,13 @@ body.blacklight-catalog-index {
 
     } /* form */
   } /* div.search */
+
+
+  div#sortAndPerPage {
+    div.page_links {
+      margin-left: 200px
+    }
+  }
 
 }
 
@@ -410,6 +434,8 @@ help-top-row {
 .blacklight-static .search-query-form {
   display: none;
 }
+
+
 
 // searching icon animation
 .glyphicon-refresh-animate {
