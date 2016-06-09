@@ -10,10 +10,11 @@
     <div class="<%= main_content_classes %>">
 
     <%= simple_form_for @contact, :html => {:class => 'form-horizontal' } do |f| %>
-      <%= f.input :username, label: "Name", placeholder: 'Your name please', :required => true, :class => "simple_label", :hint => "required" %>
-      <%= f.input :email, label: "Email Address", placeholder: 'For example: user@yahoo.com OR uniqname@umich.edu', :required => true,  :class => "simple_label", :hint => "required" %>
+      <%#= f.input :username, label: "Name", placeholder: 'Your name please', :required => true, :class => "simple_label", :hint => "required" %>
+      <%= f.input :username, label: "Name", placeholder: 'Your name please', :required => true %>
+      <%= f.input :email, label: "Email Address", placeholder: 'For example: user@yahoo.com OR uniqname@umich.edu', :required => true,  :class => "simple_label" %>
       <%= f.input :type, label: "Problem Type", as: :select, collection: ["Searching", "Problem with content or metadata", "Technical support", "Permissions request or question",  "General comment or concern", "Other"], prompt: "Please select the type of problem" %>
-      <%= f.input :message, placeholder: 'Please describe your problem', as: :text, :required => true, :class => "simple_label", :rows => "10", :cols => "50", :hint => "required" %>
+      <%= f.input :message, placeholder: 'Please describe your problem', as: :text, :required => true, :class => "simple_label", :rows => "10", :cols => "50" %>
       <span class="spacer"></span>
       <%= f.button :submit, 'Send Message', :class=> "btn btn-primary" %>
     <% end %>
