@@ -7,6 +7,8 @@ class CatalogController < ApplicationController
   include Blacklight::Catalog
   include Fishrappr::Catalog
 
+  before_action :setup_publication
+
   configure_blacklight do |config|
     # default advanced config values
     config.advanced_search ||= Blacklight::OpenStructWithHashAccess.new
@@ -45,10 +47,25 @@ class CatalogController < ApplicationController
       :"hl.fragsize" => 200,
       :"hl.fl" => 'page_text',
       :"hl.snippets" => 10,
-      :"hl.alternateField" => 'page_text',
+      :"hl.alternateField" => 'page_abstract',
       :"hl.simple.pre" => '<span class="highlight">',   # change to something accessible
       :"hl.simple.post" => '</span>', # change to something accessible
-      fl: '*'
+      fl: [
+            'id',
+            'sequence',
+            'text_link',
+            'img_link',
+            'image_height_ti',
+            'image_width_ti',
+            'issue_sequence',
+            'date_issued_display',
+            'ht_namespace',
+            'ht_barcode',
+            'publication_link',
+            'publication_label',
+            'issue_no_t',
+            'page_no_t',
+          ].join(',')
     }
 
     # solr path which will be added to solr base url before the other solr params.

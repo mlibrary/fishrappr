@@ -5,8 +5,9 @@ module Fishrappr::Catalog
 
   include Blacklight::Base
 
-  # get a single document from the index
-  # to add responses for formats other than html or json see _Blacklight::Document::Export_
+  included do
+    helper_method :process_highlighted_words
+  end
 
   def search_results(user_params)
     
@@ -39,6 +40,24 @@ module Fishrappr::Catalog
     super
   end  
 
+  # get search results from the solr index
+  def index
+    (@response, @document_list) = search_results(params)
+    respond_to do |format|
+      format.html { store_preferred_view }
+      format.rss  { render :layout => false }
+      format.atom { render :layout => false }
+      format.json do
+        @presenter = Blacklight::JsonPresenter.new(@response,
+                                                   @document_list,
+                                                   facets_from_request,
+                                                   blacklight_config)
+      end
+      additional_response_formats(format)
+      document_export_formats(format)
+    end
+  end
+
   def show
     search_params = current_search_session.try(:query_params)
     search_field = search_params ? search_params["q"] : nil
@@ -50,21 +69,9 @@ module Fishrappr::Catalog
       @response, @document = fetch_in_context params, search_field
     end
 
-    @subview = @document.fetch('img_link', nil).nil? ? 'plaintext' : 'image'
-
-    @words = {}
-    if @document.highlight_field('page_text')
-      non_lexemes = Regexp.new("^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$|'s$")
-      @document.highlight_field('page_text').each do |text|
-        text.scan(/<strong>.+?<\/strong>/).each do |word|
-          word.gsub!('<strong>', '').gsub!('</strong>', '')
-          word = word.gsub(non_lexemes, '')
-          next unless word.strip and @words[word.strip].nil?
-          @words[word.strip.downcase] = true
-        end
-      end
-    end
-
+    @subview = get_view
+    @subview = 'plaintext' if @document.fetch('img_link', nil).nil?
+    
     respond_to do |format|
       format.html { setup_next_and_previous_documents; setup_next_and_previous_issue_pages }
       format.json { render json: { response: { document: @document } } }
@@ -165,5 +172,36 @@ module Fishrappr::Catalog
     @response = repository.search(query)
     render :layout => 'home'
   end
+
+  def process_highlighted_words(document=nil)
+    document = @document unless document
+    words = {}
+    if document.highlight_field('page_text')
+      non_lexemes = Regexp.new("^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$|'s$")
+      document.highlight_field('page_text').each do |text|
+        text.scan(/<span class="highlight">.+?<\/span>/).each do |word|
+          word.gsub!('<span class="highlight">', '').gsub!('</span>', '')
+          word = word.gsub(non_lexemes, '')
+          next unless word.strip and words[word.strip].nil?
+          words[word.strip.downcase] = true
+        end
+      end
+    end
+    words.keys.sort.to_json
+  end
+
+  private
+    def setup_publication
+      if params[:publication]
+        session[:publication] = params[:publication] # || Rails.configuration.default_publication
+      else
+        params[:publication] = session[:publication] || Rails.configuration.default_publication
+      end
+    end
+
+    def get_view
+      session[:view] = params[:view] if params[:view]
+      session[:view] ||= 'image'
+    end
 
 end

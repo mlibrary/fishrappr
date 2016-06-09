@@ -1,5 +1,5 @@
-<div>
-    <%= link_to hathitrust_thumbnail(document, size: '200,'), url_for_document(document) %>
+<div data-words="<%= process_highlighted_words(document) %>" data-identifier="<%= document.id %>">
+    <%= link_to hathitrust_thumbnail(document, size: '200,'), url_for_document(document), { class: 'thumbnail', style: hathitrust_thumbnail_style(document, size: '200,') } %>
     <div class="caption">
         <%= render_document_partials document, blacklight_config.view_config(:grid).partials, document_counter: document_counter %>
     </div>
