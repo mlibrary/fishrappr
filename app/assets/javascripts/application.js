@@ -21,6 +21,8 @@
 // --- TODO: work out a different way to load this in development
 //= require holder
 
+//= require leaflet
+//= require leaflet.label
 //= require_tree .
 
 
