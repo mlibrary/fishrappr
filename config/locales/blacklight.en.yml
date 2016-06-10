@@ -5,5 +5,22 @@ en:
       view:
         list: "List"
         grid: "Grid"
+      pagination_info:
+        pages:
+          one: '<span class="pages-box"><strong>Page %{start_num}</strong> - <strong>%{end_num}</strong></span> <span class="results-box"> <strong>%{total_num} Results</strong></span>'
+          other: '<span class="pages-box"> <strong>Pages %{start_num}</strong> - <strong>%{end_num}</strong></span><span class="results-box"><strong>%{total_num} Results</strong></span>'
+      index:
+        label: '%{label}'
 
+  views:
+      pagination:
+        first: '&laquo; First'
+        last: 'Last &raquo;'
+        previous: '&laquo; Previous'
+        next: 'Next &raquo;'
+        truncate: '…'
+
+      pagination_compact:
+        previous: '<span class="glyphicon glyphicon-arrow-left"></span>'
+        next: '<span class="glyphicon glyphicon-arrow-right"></span>'
 

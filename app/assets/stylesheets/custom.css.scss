@@ -103,7 +103,18 @@ text-align: left;
 
 // Catalog page search at top of page, ala home page search
 body.blacklight-catalog-index {
-   div.search {
+  div.document {
+    span.document-metadata span.blacklight-page_text {
+      display: block;
+    }
+    div.document-thumbnail {
+      float: left !important;
+      margin-left: 0 !important;
+      margin-right: 20px;
+    }
+  }
+
+  div.search {
     background-color: black;
     display: block;
     height: 5em;
@@ -165,8 +176,64 @@ body.blacklight-catalog-index {
 
 
   div#sortAndPerPage {
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+
+    div.search-widgets {
+      display: block;
+      // border: 1px solid red;
+      float: none;
+      width: 370px;
+      margin-right: auto;
+      margin-left: auto;
+      margin-top: 20px;
+    }
+
     div.page_links {
-      margin-left: 200px
+      display: block;
+      // border: 1px solid red;
+      float: none;
+      width: 520px;
+      margin-right: auto;
+      margin-left: auto;
+
+      span.glyphicon-arrow-left, span.glyphicon-arrow-right {
+        -khtml-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        border-radius: 4px; 
+        border: 1px solid #ccc;
+        color: #337ab7;
+        display: inline-block;
+        font-size: 20px;
+        margin-top: 10px;
+        margin: 0 10px;
+        padding: 15px;
+        vertical-align: middle;
+        background-color: #fff;
+        border-color: #ccc;
+     }
+
+      span.page_entries {
+        span.pages-box, span.results-box {
+          -khtml-border-radius: 4px;
+          -moz-border-radius: 4px;
+          -webkit-border-radius: 4px;
+          border-radius: 4px; 
+          border: solid 1px #ccc;
+          color: #337ab7;
+          display: inline-block;
+          font-size: 20px;
+          margin: 0 10px;
+          padding: 10px;
+          vertical-align: middle;
+          background-color: #f5f5f5;
+          background-color: #fff;
+          border-color: #ccc;        
+        }
+      }
+
     }
   }
 
