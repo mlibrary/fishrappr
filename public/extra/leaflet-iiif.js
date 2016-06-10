@@ -43,7 +43,7 @@ L.TileLayer.Iiif = L.TileLayer.extend({
       maxx = Math.min(minx + tileBaseSize, _this.x),
       maxy = Math.min(miny + tileBaseSize, _this.y);
 
-    console.log("AHOY", x,y, zoom);
+    // console.log("AHOY", x,y, zoom);
     
     var xDiff = (maxx - minx);
     var yDiff = (maxy - miny);

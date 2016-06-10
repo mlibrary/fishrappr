@@ -21,6 +21,14 @@ module ApplicationHelper
     end
   end
 
+  def current_page_number(document)
+    page_number = document.fetch('page_no_t').first
+    unless page_number
+      page_number = "(seq #{document.fetch('sequence')})"
+    end
+    page_number
+  end
+
   def hathitrust_image_src(document, **kw)
     path_info = []
     namespace = document.fetch('ht_namespace')

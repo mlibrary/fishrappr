@@ -14,8 +14,12 @@
           map = L.map('map', {
             center: [0, 0],
             crs: L.CRS.Simple,
-            zoom: 0
+            zoom: 0,
+            zoomControl: false
           });
+
+          map.addControl(new L.Control.RemoteZoom());
+
           F.map = map;
           var baseLayer;
           var page;
@@ -50,7 +54,8 @@
                 var maxPoint = L.point(parseInt(b[0]) + parseInt(b[2]), parseInt(b[1]) + parseInt(b[3]));
                 var min = map.unproject(minPoint, maxZoom);
                 var max = map.unproject(maxPoint, maxZoom);
-                // console.log(min, max, value.resource.chars);
+                console.log(min, max, value.resource.chars);
+                // clickable: true enables hover of label text
                 annoFeatures.addLayer(L.rectangle(L.latLngBounds(min, max), { color: highlightColor, weight: 1, clickable: false }).bindLabel(value.resource.chars));
               });
               annoFeatures.addTo(map);
