@@ -23,8 +23,11 @@ en:
   hello: "Hello world"
   views:
     issue:
-        next: "Next Page"
-        previous: "Previous Page"
+        next: 'Next Page <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>'
+        previous: '<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Previous Page'
+
+        zoom_in: '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Zoom In'
+        zoom_out: 'Zoom Out <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>'
     static:
       about:
         title: Help - About

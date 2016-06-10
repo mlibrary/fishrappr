@@ -42,8 +42,6 @@ L.TileLayer.Iiif = L.TileLayer.extend({
       miny = (y * tileBaseSize),
       maxx = Math.min(minx + tileBaseSize, _this.x),
       maxy = Math.min(miny + tileBaseSize, _this.y);
-
-    console.log("AHOY", x,y, zoom);
     
     var xDiff = (maxx - minx);
     var yDiff = (maxy - miny);
@@ -72,7 +70,6 @@ L.TileLayer.Iiif = L.TileLayer.extend({
   },
   onAdd: function(map) {
     var _this = this;
-    console.log("ADDING?");
 
     // Wait for deferred to complete
     $.when(_this._infoDeferred).done(function() {
@@ -188,7 +185,7 @@ L.TileLayer.Iiif = L.TileLayer.extend({
           scale = Math.pow(2, _this.maxNativeZoom - i);
           width_ = Math.ceil(_this.x / scale);
           height_ = Math.ceil(_this.y / scale);
-          console.log("START", _this.maxNativeZoom - i, scale, width_, height_);
+          // console.log("START", _this.maxNativeZoom - i, scale, width_, height_);
           tilesX_ = Math.ceil(width_ / _this.options.tileSize);
           tilesY_ = Math.ceil(height_ / _this.options.tileSize);
           tierSizes.push([tilesX_, tilesY_]);
@@ -237,14 +234,14 @@ L.TileLayer.Iiif = L.TileLayer.extend({
 
     if ( ! sizes && Math.ceil(zoom) != zoom ) {
       sizes = _this._tierSizes[Math.ceil(zoom)];
-      console.log("ROUNDING UP", zoom, Math.ceil(zoom));
+      // console.log("ROUNDING UP", zoom, Math.ceil(zoom));
     }
 
     if (!sizes) return false;
     if (x < 0 || sizes[0] <= x || y < 0 || sizes[1] <= y) {
       return false;
     }else {
-      console.log("TILE", zoom, x, y, sizes[0], sizes[1]);
+      // console.log("TILE", zoom, x, y, sizes[0], sizes[1]);
       return true;
     }
   },
@@ -258,13 +255,13 @@ L.TileLayer.Iiif = L.TileLayer.extend({
     for (var i = _this.maxNativeZoom; i >= 0; i--) {
       imageSize = this._imageSizes[i];
       if (imageSize[key] * tolerance < mapSize[key] ) {
-        console.log("INITIAL ZOOM", i, imageSize[key], this._imageSizes[i + 1][key], mapSize[key], key);
+        // console.log("INITIAL ZOOM", i, imageSize[key], this._imageSizes[i + 1][key], mapSize[key], key);
         var d = imageSize[key];
         var j = 0;
-        console.log(d, j, i + j );
+        // console.log(d, j, i + j );
         while ( d * ( 1.0 + j ) < mapSize[key] ) {
           j += 0.125;
-          console.log(d, j, i + j, d * ( 1.0 + j ) * tolerance, mapSize[key] );
+          // console.log(d, j, i + j, d * ( 1.0 + j ) * tolerance, mapSize[key] );
         }
         return [ i, i + j ];
         // for (var j = (i + 1); j >= i; j -= 0.25) {

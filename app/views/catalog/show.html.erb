@@ -10,7 +10,7 @@
 
    <div class="list-group">
     <a href="?view=plaintext" class="list-group-item <%= @subview == 'plaintext' ? 'active' : '' %>">View Plain Text</a>
-    <a href="?view=image" class="list-group-item <%= @subview == 'image' ? 'active' : '' %>"">View Scanned Image</a>
+    <a href="?view=image" class="list-group-item <%= @subview == 'image' ? 'active' : '' %>">View Scanned Image</a>
     <a href="#" class="list-group-item">Remove Hit Highlights</a>
   </div>
 
@@ -18,11 +18,22 @@
 
 <div id="content" class="<%= show_content_classes %>" data-words="<%= process_highlighted_words(@document) %>" data-identifier="<%= @document.id %>">
   <div class="pagination-search-widgets">
+    <% if @subview == 'image' %>
+    <nav class="pull-left">
+      <ul class="pager">
+        <li><button class="btn btn-default action-zoom-in"><%= raw(t('views.issue.zoom_in')) %></button></li>
+        <li><span class="span-zoom-status">100%</span></li>
+        <li><button class="btn btn-default action-zoom-out"><%= raw(t('views.issue.zoom_out')) %></button></li>
+      </ul>
+    </nav>
+    <% end %>
+
     <nav class="pull-right">
       <ul class="pager">
         <li>
           <%= link_to_previous_issue_page @previous_page %>
         </li>
+        <li><span><%= current_page_number(@document) %></span></li>
         <li>
           <%= link_to_next_issue_page @next_page %>
         </li>
