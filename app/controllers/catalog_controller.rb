@@ -149,10 +149,11 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     #config.add_index_field 'date_issued_dt', label: 'Issue Date'
-    config.add_index_field 'issue_no_t', label: 'Issue'
-    config.add_index_field 'page_no_t', label: 'Page No'
-    config.add_index_field 'sequence', label: 'Page Order'
-    config.add_index_field 'page_text', label: 'Page Text' , highlight: true, separator_options: { words_connector: ' ... '}
+    config.add_index_field 'date_issued_display', label: ''
+    config.add_index_field 'issue_no_t', label: 'Issue #'
+    #config.add_index_field 'page_no_t', label: 'Page'
+    config.add_index_field 'sequence', label: 'Image'
+    config.add_index_field 'page_text', label: '' , highlight: true, separator_options: { words_connector: ' ... '}
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
