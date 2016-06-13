@@ -85,6 +85,16 @@ module ApplicationHelper
     %Q{<img src="#{hathitrust_thumbnail_src(document, **kw)}" />}.html_safe
   end
 
+  # TO DO: Needs to be moved into a style using a data attribute
+  def hathitrust_background_thumbnail(document, **kw)
+    namespace = document.fetch('ht_namespace')
+    return fake_image(document, kw.fetch(:size, ',250')) if namespace == 'fake'
+    tn = "style=\'background-image: url(\""
+    tn += "#{hathitrust_thumbnail_src(document, **kw)}"
+    tn += "\");\'"
+    tn.html_safe
+  end
+
   def render_date_format(args)
     args.to_date.strftime("%B %d, %Y")
   end  
