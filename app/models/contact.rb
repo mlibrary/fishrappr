@@ -13,11 +13,30 @@ class Contact < MailForm::Base
   # in ActionMailer accepts.
   # 'bhl-digital-support@umich.edu'
 
-  def headers
-      {
-        subject: "Fishrappr Contact Form from #{username} with type #{type}",
-        to: 'gordonl@umich.edu',
+  def normal_header
+    nh = { 
+        subject: "BHL Daily Contact Form from #{username} about #{type}",
+        to: "#{Rails.configuration.contact_address}",
         from: "#{email}"
       }
+    return nh
   end
+
+  def permissions_header
+    ph = { 
+        subject: "DHL Daily Contact Form from #{username} about Permissions",
+        to: "#{Rails.configuration.permissions_address}",
+        from: "#{email}"
+      }
+    return ph
+  end
+
+  def headers
+    if type == "Permissions request or question"
+      permissions_header
+    else
+      normal_header
+    end
+  end
+
 end
