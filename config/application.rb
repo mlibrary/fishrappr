@@ -32,6 +32,10 @@ module Fishrappr
     config.autoload_paths += Dir["#{config.root}/lib"]
 
     config.default_publication = 'the-daily-standup'
-    
+
+    # fishrappr emails
+    config.contact_address = "gordonl@umich.edu"
+    config.permissions_address = "gordonl@umich"
+
   end
 end
