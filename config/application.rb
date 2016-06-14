@@ -35,7 +35,7 @@ module Fishrappr
 
     # fishrappr emails
     config.contact_address = "gordonl@umich.edu"
-    config.permissions_address = "gordonl@umich"
+    config.permissions_address = "gordonl@umich.edu"
 
   end
 end
