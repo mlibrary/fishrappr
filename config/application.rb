@@ -34,8 +34,8 @@ module Fishrappr
     config.default_publication = 'the-daily-standup'
 
     # fishrappr emails
-    config.contact_address = "gordonl@umich.edu"
-    config.permissions_address = "gordonl@umich.edu"
+    config.contact_address = "bhl-digital-support@umich.edu"
+    config.permissions_address = "bhl-student-pub-contact@umich.edu"
 
   end
 end
