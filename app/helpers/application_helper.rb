@@ -101,6 +101,7 @@ module ApplicationHelper
 
   def render_plain_text(document, field)
     retval = []
+    # ( document.has_highlight_field?(field) and highlights_visible? )
     texts = document.has_highlight_field?(field) ? document.highlight_field(field) : document.fetch(field)
     Array(texts).each do |text|
       retval << '<p>'

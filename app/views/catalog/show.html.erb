@@ -11,12 +11,18 @@
    <div class="list-group">
     <a href="?view=plaintext" class="list-group-item <%= @subview == 'plaintext' ? 'active' : '' %>">View Plain Text</a>
     <a href="?view=image" class="list-group-item <%= @subview == 'image' ? 'active' : '' %>">View Scanned Image</a>
-    <a href="#" class="list-group-item">Remove Hit Highlights</a>
+    <% if highlights_available? %>
+      <% if highlights_visible? %>
+        <a href="#" class="list-group-item action-toggle-highlight">Remove Hit Highlights</a>
+      <% else %>
+        <a href="#" class="list-group-item action-toggle-highlight">Show Hit Highlights</a>
+      <% end %>
+    <% end %>
   </div>
 
 </div>
 
-<div id="content" class="<%= show_content_classes %>" data-words="<%= process_highlighted_words(@document) %>" data-identifier="<%= @document.id %>">
+<div id="content" class="<%= show_content_classes %>" data-words="<%= process_highlighted_words(@document) %>" data-identifier="<%= @document.id %>" data-highlighting="<%= highlights_visible? ? 'true' : 'false' %>">
   <div class="pagination-search-widgets">
     <% if @subview == 'image' %>
     <nav class="pull-left">

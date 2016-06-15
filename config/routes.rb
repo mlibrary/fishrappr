@@ -26,6 +26,10 @@ Rails.application.routes.draw do
 
   resources :solr_documents, only: [:show], path: '/view', controller: 'catalog' do
     concerns :exportable
+    member do
+      post 'toggle_highlight'
+    end
+
   end
 
   resources :bookmarks do
