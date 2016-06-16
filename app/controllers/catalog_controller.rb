@@ -126,7 +126,7 @@ class CatalogController < ApplicationController
 
     config.add_facet_field 'date_issued_dt', label: 'Issue Date', helper_method: :render_date_format
     config.add_facet_field 'issue_no_t', label: 'Issue No'
-    #config.add_facet_field 'date_issued_yyyy_ti', label: 'Issue Year', range: true
+    config.add_facet_field 'date_issued_yyyy_ti', label: 'Issue Year', range: true
     config.add_facet_field 'date_issued_yyyymmdd_ti', label: 'Date Range', range: {
                          num_segments: 6,
                          maxlength: 8
@@ -150,7 +150,7 @@ class CatalogController < ApplicationController
     #   The ordering of the field names is the order of the display
     #config.add_index_field 'date_issued_dt', label: 'Issue Date'
     config.add_index_field 'date_issued_display', label: ''
-    config.add_index_field 'issue_no_t', label: 'Issue #'
+    config.add_index_field 'issue_no_t', label: 'Issue'
     #config.add_index_field 'page_no_t', label: 'Page'
     config.add_index_field 'sequence', label: 'Image'
     config.add_index_field 'page_text', label: '' , highlight: true, separator_options: { words_connector: ' ... '}

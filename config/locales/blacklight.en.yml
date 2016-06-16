@@ -8,7 +8,7 @@ en:
       pagination_info:
         pages:
           one: '<span class="pages-box"><strong>Page %{start_num}</strong> - <strong>%{end_num}</strong></span> <span class="results-box"> <strong>%{total_num} Results</strong></span>'
-          other: '<span class="pages-box"> <strong>Pages %{start_num}</strong> - <strong>%{end_num}</strong></span><span class="results-box"><strong>%{total_num} Results</strong></span>'
+          other: '<strong>%{start_num}</strong> - <strong>%{end_num}</strong> of <strong>%{total_num} results</strong>'
       index:
         label: '%{label}'
 
