@@ -7,6 +7,8 @@ module Fishrappr::Catalog
 
   included do
     helper_method :process_highlighted_words
+    helper_method :highlights_available?
+    helper_method :highlights_visible?
   end
 
   def search_results(user_params)
@@ -63,6 +65,11 @@ module Fishrappr::Catalog
     search_field = search_params ? search_params["q"] : nil
     if params[:id] and search_field
       @response, @document = fetch_with_highlights params[:id], search_field
+      # still fighting with blacklight to build the right kind of query
+      # for when the search_field does not apply to this page
+      if @document.nil?
+        @response, @document = fetch params[:id]
+      end
     elsif params[:id]
       @response, @document = fetch params[:id]
     elsif params[:ht_barcode]
@@ -79,6 +86,15 @@ module Fishrappr::Catalog
       additional_export_formats(@document, format)
     end
   end
+
+  def toggle_highlight
+    session[:show_highlight] = true if session[:show_highlight].nil?
+    session[:show_highlight] = not(session[:show_highlight])
+    render json: { highlighting: session[:show_highlight] }
+  end
+
+
+  # UTILITY
 
   def fetch_in_context(params, search_query)
     fq = []
@@ -121,7 +137,7 @@ module Fishrappr::Catalog
         :search_field => "advanced",
         :op => 'OR',
         :page_text => search_query,
-        :ht_barcode => params[:ht_barcode],
+        :ht_barcode => params[:ht_barcode] || params[:id].split('-').first,
         :"controller" => "catalog",
         :"action" => "index",
         :"f" => fq_param,
@@ -203,6 +219,19 @@ module Fishrappr::Catalog
     def get_view
       session[:view] = params[:view] if params[:view]
       session[:view] ||= 'image'
+    end
+
+    def search_field
+      search_params = current_search_session.try(:query_params)
+      search_field = search_params ? search_params["q"] : nil
+    end
+
+    def highlights_available?
+      not(search_field.nil?) and @document.has_highlight_field?(:page_text)
+    end
+
+    def highlights_visible?
+      session[:show_highlight]
     end
 
 end

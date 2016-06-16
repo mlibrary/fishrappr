@@ -24,6 +24,7 @@
           var baseLayer;
           var page;
           var annoFeatures = new L.FeatureGroup();
+          F.annoFeatures = annoFeatures;
 
           var imageHeight; var imageWidth;
           //map.addLayer(annoFeatures);
@@ -58,7 +59,9 @@
                 // clickable: true enables hover of label text
                 annoFeatures.addLayer(L.rectangle(L.latLngBounds(min, max), { color: highlightColor, weight: 1, clickable: false }).bindLabel(value.resource.chars));
               });
-              annoFeatures.addTo(map);
+              if ( $("#content").data('highlighting') ) {
+                annoFeatures.addTo(map);
+              }
             })
           }
 

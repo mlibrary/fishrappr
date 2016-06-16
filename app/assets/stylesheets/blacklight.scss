@@ -8,6 +8,11 @@
     background-color: #FF9632;
     background-color: rgba(255, 150, 50, 0.5);
     font-weight: bold;
+
+    &.de-highlighted {
+        background-color: transparent;
+        font-weight: normal;
+    }
 }
 
 .grid .highlight {
