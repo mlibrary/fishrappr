@@ -99,7 +99,7 @@ text-align: left;
 /* STYLES FOR CATALOG PAGE */
 
 // Hide the year facet panel
-div.blacklight-date_issued_yyyy_ti {
+div.blacklight-date_issued_yyyymmdd_ti {
   display: none;
 }
 
@@ -141,7 +141,7 @@ body.blacklight-catalog-index {
   div.search {
     background-color: black;
     display: block;
-    height: 5em;
+    height: 10em;
     margin: 1em auto 1em auto;
     padding-top: 2em;
     padding: 1em;
@@ -152,33 +152,74 @@ body.blacklight-catalog-index {
       margin-right:auto;
       padding-top: .5em;
 
-      select#range_start, select#range_end  {
-        border: black;
-        color: black;
-        font-size: 1.5em;
-        margin: 0 1em;
-        text-align: center;
-        vertical-align: middle;
+      div.date-query-box {
+
+        margin-left: 30px;
+        margin-top: 1em;
+
+        div.start-year,
+        div.start-month,
+        div.start-date,
+        div.end-year,
+        div.end-month,
+        div.end-date
+         {
+          display: inline-block;
+          position: relative;
+          margin: 0;
+          padding: 0;
+
+          select[name^="range_start"],
+          select[name^="range_end"],
+          input[name^="range_start"],
+          input[name^="range_end"] {
+            border-radius: 4px; 
+            border: 1px solid white;
+            color: black;
+            font-size: 1.5em;
+            margin: 0 .4em;
+            text-align: center;
+            width: 4em;
+            vertical-align: middle;
+
+          }
+
+          span.hint {
+            position: absolute;
+            left: 10px;
+            right: 0;
+            bottom: -25px;
+            color: gray;
+            padding: 0;
+            margin: 0;
+          }
+        }
+
+        #dash {
+          background-color: white;
+          color: white;
+          display: inline-block;
+          font-size: 1em;
+          vertical-align: middle;
+          margin: 0;
+          padding: 0;
+          width: 2em;
+          height: .2em;
+        }
       }
 
-      #dash {
-        background-color: white;
-        color: white;
-        display: inline-block;
-        font-size: 1em;
-        vertical-align: middle;
-        margin: 0;
-        padding: 0;
-        width: 2.5em;
-        height: .3em;
-      }
+      div.q-query-box {
+        margin-left: 30px;
 
-      #q {
-        color: black;
-        font-size: 1em;
-        margin: 0 2em 0 1em;
-        vertical-align: middle;
-        width: 25em;
+        #q {
+          border-radius: 4px; 
+          border: 1px solid white;
+          color: black;
+          font-size: 1.5em;
+          vertical-align: middle;
+          width: 25em;
+          margin: 0 .4em;
+        }
       }
 
       button#search {
@@ -188,9 +229,12 @@ body.blacklight-catalog-index {
         border-radius: 10px; 
         -khtml-border-radius: 10px;
         */
+        background-color: white;
+        border: 1px solid white;
+        border-radius: 4px; 
         color: black;
         vertical-align: middle;
-        font-size: 1.2em;
+        font-size: 1.5em;
         width: 6em;
         margin-right: 1.5em;
       }
@@ -221,7 +265,7 @@ body.blacklight-catalog-index {
       display: block;
       // border: 1px solid red;
       float: none;
-      width: 405px;
+      width: 450px;
       margin-right: auto;
       margin-left: auto;
 
@@ -318,29 +362,124 @@ body.fishrappr {
     color: white;
   }  
 
-   div.search {
+  //  div.search {
+  //   background-color: black;
+  //   display: block;
+  //   height: 5em;
+  //   margin-left:auto;
+  //   margin-right:auto;
+  //   margin-top: 4em;
+  //   padding-top: 2em;
+  //   padding: 1em;
+  //   width: 65em;
+
+  //   form {
+  //       margin-left:auto;
+  //       margin-right:auto;
+  //       padding-top: .5em;
+
+  //       select#range_start, select#range_end  {
+  //         border: black;
+  //         color: black;
+  //         font-size: 1.5em;
+  //         margin: 0 1em;
+  //         text-align: center;
+  //         vertical-align: middle;
+  //       }
+
+  //       #dash {
+  //         background-color: white;
+  //         color: white;
+  //         display: inline-block;
+  //         font-size: 1em;
+  //         vertical-align: middle;
+  //         margin: 0;
+  //         padding: 0;
+  //         width: 2.5em;
+  //         height: .3em;
+  //       }
+
+  //       #q {
+  //         color: black;
+  //         font-size: 1em;
+  //         margin: 0 2em 0 1em;
+  //         vertical-align: middle;
+  //         width: 25em;
+  //       }
+
+  //       button#search {
+  //         /*
+  //         -moz-border-radius: 10px;
+  //         -webkit-border-radius: 10px;
+  //         border-radius: 10px; 
+  //         -khtml-border-radius: 10px;
+  //         */
+  //         color: black;
+  //         vertical-align: middle;
+  //         font-size: 1.2em;
+  //         width: 6em;
+  //         margin-right: 1.5em;
+  //       }
+
+  //   } /* form */
+  // } /* div.search */
+
+
+  div.search {
     background-color: black;
     display: block;
-    height: 5em;
-    margin-left:auto;
-    margin-right:auto;
-    margin-top: 4em;
+    height: 10em;
+    margin: 1em auto 1em auto;
     padding-top: 2em;
     padding: 1em;
     width: 65em;
 
     form {
-        margin-left:auto;
-        margin-right:auto;
-        padding-top: .5em;
+      margin-left:auto;
+      margin-right:auto;
+      padding-top: .5em;
 
-        select#range_start, select#range_end  {
-          border: black;
-          color: black;
-          font-size: 1.5em;
-          margin: 0 1em;
-          text-align: center;
-          vertical-align: middle;
+      div.date-query-box {
+
+        margin-left: 0;
+        margin-top: 1em;
+
+        div.start-year,
+        div.start-month,
+        div.start-date,
+        div.end-year,
+        div.end-month,
+        div.end-date
+         {
+          display: inline-block;
+          position: relative;
+          margin: 0;
+          padding: 0;
+
+          select[name^="range_start"],
+          select[name^="range_end"],
+          input[name^="range_start"],
+          input[name^="range_end"] {
+            border-radius: 4px; 
+            border: 1px solid white;
+            color: black;
+            font-size: 1.5em;
+            margin: 0 .4em;
+            text-align: center;
+            width: 4em;
+            vertical-align: middle;
+
+          }
+
+          span.hint {
+            position: absolute;
+            left: -50px;
+            right: 0;
+            bottom: -25px;
+            color: gray;
+            padding: 0;
+            margin: 0;
+          }
         }
 
         #dash {
@@ -351,34 +490,45 @@ body.fishrappr {
           vertical-align: middle;
           margin: 0;
           padding: 0;
-          width: 2.5em;
-          height: .3em;
+          width: 2em;
+          height: .2em;
         }
+      }
+
+      div.q-query-box {
+        margin-left: 45px;
 
         #q {
+          border-radius: 4px; 
+          border: 1px solid white;
           color: black;
-          font-size: 1em;
-          margin: 0 2em 0 1em;
+          font-size: 1.5em;
           vertical-align: middle;
           width: 25em;
+          margin: 0 .4em;
         }
+      }
 
-        button#search {
-          /*
-          -moz-border-radius: 10px;
-          -webkit-border-radius: 10px;
-          border-radius: 10px; 
-          -khtml-border-radius: 10px;
-          */
-          color: black;
-          vertical-align: middle;
-          font-size: 1.2em;
-          width: 6em;
-          margin-right: 1.5em;
-        }
+      button#search {
+        /*
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px; 
+        -khtml-border-radius: 10px;
+        */
+        background-color: white;
+        border: 1px solid white;
+        border-radius: 4px; 
+        color: black;
+        vertical-align: middle;
+        font-size: 1.5em;
+        width: 6em;
+        margin-right: 1.5em;
+      }
 
     } /* form */
   } /* div.search */
+
 } /* .home .head */
 
 

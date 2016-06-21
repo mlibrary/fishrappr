@@ -13,31 +13,25 @@ module Fishrappr::Catalog
 
   def search_results(user_params)
     
+
     start_len=end_len = 0
 
-    if user_params["from_home"] == "yes"
-      # user_params['q'] = user_params['q']
+    start_len = user_params["range_start"].length if user_params["range_start"]
+    end_len = user_params["range_end"].length if user_params["range_end"]    
+    
+    if start_len==4 || end_len==4
       user_params["range"] = {"date_issued_yyyy_ti"=>{"begin"=>"", "end"=>""}} 
-      # user_params["range_start"] = user_params["range_start"]
-      # user_params["range_end"] = user_params["range_end"]
-      user_params["range"]["date_issued_yyyy_ti"]["begin"] = user_params["range_start"]
-      user_params["range"]["date_issued_yyyy_ti"]["end"] = user_params["range_end"]
-    else
-      start_len = user_params["range_start"].length if user_params["range_start"]
-      end_len = user_params["range_end"].length if user_params["range_end"]    
-      
-      if start_len==4 || end_len==4
-        user_params["range"] = {"date_issued_yyyy_ti"=>{"begin"=>"", "end"=>""}} 
-        user_params["range"]["date_issued_yyyy_ti"]["begin"] = user_params["range_start"] 
-        user_params["range"]["date_issued_yyyy_ti"]["end"] = user_params["range_end"] 
-      elsif start_len>=8 || end_len >=8
-        user_params["range_start"]= user_params["range_start"].gsub('-','')
-        user_params["range"] = {"date_issued_yyyymmdd_ti"=>{"begin"=>"", "end"=>""}} 
-        user_params["range"]["date_issued_yyyymmdd_ti"]["begin"] = user_params["range_start"] 
-        user_params["range_end"]= user_params["range_end"].gsub('-','')
-        user_params["range"]["date_issued_yyyymmdd_ti"]["end"] = user_params["range_end"] 
-      end
-    end 
+      user_params["range"]["date_issued_yyyy_ti"]["begin"] = user_params["range_start"] 
+      user_params["range"]["date_issued_yyyy_ti"]["end"] = user_params["range_end"] 
+    elsif start_len>=8 || end_len >=8
+      user_params["range_start"]= user_params["range_start"].gsub('-','')
+      user_params["range"] = {"date_issued_yyyymmdd_ti"=>{"begin"=>"", "end"=>""}} 
+      user_params["range"]["date_issued_yyyymmdd_ti"]["begin"] = user_params["range_start"] 
+      user_params["range_end"]= user_params["range_end"].gsub('-','')
+      user_params["range"]["date_issued_yyyymmdd_ti"]["end"] = user_params["range_end"] 
+    end
+
+    # byebug
 
     super
   end  

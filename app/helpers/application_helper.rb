@@ -88,9 +88,12 @@ module ApplicationHelper
   # TO DO: Needs to be moved into a style using a data attribute
   def hathitrust_background_thumbnail(document, **kw)
     namespace = document.fetch('ht_namespace')
-    return fake_image(document, kw.fetch(:size, ',250')) if namespace == 'fake'
     tn = "style=\'background-image: url(\""
-    tn += "#{hathitrust_thumbnail_src(document, **kw)}"
+    if namespace == 'fake'
+      tn += "#{image_url("fake_image.png")}"
+    else
+      tn += "#{hathitrust_thumbnail_src(document, **kw)}"
+    end
     tn += "\");\'"
     tn.html_safe
   end
@@ -178,5 +181,26 @@ module ApplicationHelper
     end
     years_options
   end
+
+  def get_month_options
+    months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    months_range = (1..12)
+    month_options = [];
+    months_range.each do |m| 
+      item = [months[m-1], m]
+      month_options.push item
+    end
+    month_options
+  end
+
+  def get_date_options
+    date_range = (1..31)
+    date_options = [];
+    date_range.each do |d| 
+      item = [d, d]
+      date_options.push item
+    end
+    date_options
+  end  
 
 end

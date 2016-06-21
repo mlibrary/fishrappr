@@ -7,7 +7,7 @@
       <p><%= t('views.static.home.head.p') %></p>
       <%= link_to "Read More", static_path("about") %>
 
-      <div class="search">
+<!--       <div class="search">
         <% years_options = get_solr_years_options %>
 
         <%= form_tag(search_catalog_path, method: "get", html: {class: "form-inline"}) do %>
@@ -25,6 +25,77 @@
           </button>
          <% end %>
 
+      </div> -->
+
+      <div class="search">
+        <% years_options = (get_solr_years_options) %>
+        <%= form_tag(search_action_url, role: 'search', method: :get, html: {class: "form-inline"}) do %>
+
+          <%= hidden_field_tag :range_field, "date_issued_yyyymmdd_ti" %>
+          <%= hidden_field_tag("range_start", "tbd") %>
+          <%= hidden_field_tag("range_end", "tbd") %>
+
+          <%= render_hash_as_hidden_fields(search_state.params_for_search.except(:q, :search_field, :qt, :page, :utf8)) %>
+          <div class="input-group">
+            <% if search_fields.length > 1 %>
+              <span class="input-group-addon for-search-field">
+                <label for="search_field" class="sr-only"><%= t('blacklight.search.form.search_field.label') %></label>
+                <%= select_tag(:search_field, options_for_select(search_fields, h(params[:search_field])), title: t('blacklight.search.form.search_field.title'), id: "search_field", class: "search_field") %>
+              </span>
+            <% elsif search_fields.length == 1 %>
+              <%= hidden_field_tag :search_field, search_fields.first.last %>
+            <% end %>
+
+            <div class="q-query-box">
+              <label for="q" class="sr-only"><%= t('blacklight.search.form.search.label') %></label>
+              <%= text_field_tag(name="q", value="", placeholder: ' Enter one or more search words' ) %>
+
+              <button type="submit" id="search">
+                <span class="submit-search-text"><%= t('blacklight.search.form.submit') %></span>
+                <span id="not-searching" class="glyphicon glyphicon-search"></span>
+                <span id="now-searching" class="hidden glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> 
+              </button>
+            </div>
+
+            <div class="date-query-box">
+
+              <% month_options = get_month_options %>
+              <% date_options = get_date_options %>
+
+              <div class="start-year">
+                <%= text_field_tag(name="range_start_year", "", placeholder: "YYYY", class: 'changeable') %>
+                <span class="hint">Start</span>
+              </div>
+
+              <div class="start-month">
+                <%= select_tag(name="range_start_month", options_for_select(month_options, 1), class: 'changeable') %>
+              </div>
+
+              <div class="start-date">
+                <%= select_tag(name="range_start_date", options_for_select(date_options, 1), class: 'changeable') %>
+              </div>
+
+              <%= text_field_tag(name="dash", value="", disabled: true) %>
+
+              <div class="end-year">
+                <%= text_field_tag(name="range_end_year", "", placeholder: "YYYY", class: 'changeable') %>
+                <span class="hint">End</span>
+              </div>
+
+              <div class="end-month">
+                <%= select_tag(name="range_end_month", options_for_select(month_options, 12), class: 'changeable') %>
+              </div>
+
+              <div class="end-date">
+                <%= select_tag(name="range_end_date", options_for_select(date_options, 31), class: 'changeable') %>
+              </div>
+            </div>
+            <%#= select_tag(name="range_start", options_for_select(years_options, years_options.first.first)) %>
+            <%#= text_field_tag(name="dash", value="", disabled: true) %>
+            <%#= select_tag(name="range_end", options_for_select(years_options, years_options.last.first)) %>
+
+          </div>
+        <% end %>
       </div>
 
     </div>
