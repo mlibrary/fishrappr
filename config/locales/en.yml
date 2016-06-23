@@ -43,8 +43,9 @@ en:
         title: Home Page
         head:
           h2: Michigan Daily Archives
-          h3: Student News at the University of Michigan
-          p: Since 1890 the Michigan Daily Archive feature 130000 papers, covering over 120 years of campus life, culture, etc.
+          h3: 1890 - 2016
+          p1: Student News at the University of Michigan
+          p2: 130,000 papers covering over 120 years of campus life
           link: Read More
         donors:
           h3: Thank You to Our Alumni Donors!

@@ -1,4 +1,4 @@
-<div class="search">
+<div class="search" aria-live="polite">
   <% years_options = (get_solr_years_options) %>
   <%= form_tag(search_action_url, role: 'search', method: :get, html: {class: "form-inline"}) do %>
 
@@ -22,9 +22,9 @@
         <%= text_field_tag(name="q", value="", placeholder: ' Enter one or more search words' ) %>
 
         <button type="submit" id="search">
-          <span class="submit-search-text"><%= t('blacklight.search.form.submit') %></span>
           <span id="not-searching" class="glyphicon glyphicon-search"></span>
           <span id="now-searching" class="hidden glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> 
+          <span class="submit-search-text"><%= t('blacklight.search.form.submit') %></span>
         </button>
       </div>
 
@@ -35,7 +35,7 @@
 
         <div class="start-year">
           <%= text_field_tag(name="range_start_year", "", placeholder: "YYYY", class: 'changeable') %>
-          <span class="hint">Start</span>
+          <span class="hint">Specific date</span>
         </div>
 
         <div class="start-month">
@@ -46,21 +46,29 @@
           <%= select_tag(name="range_start_date", options_for_select(date_options, 1), class: 'changeable') %>
         </div>
 
-        <%= text_field_tag(name="dash", value="", disabled: true) %>
+        <%= text_field_tag(name="dash", value="", disabled: true, class: 'hidden') %>
 
-        <div class="end-year">
+        <div class="end-year hidden">
           <%= text_field_tag(name="range_end_year", "", placeholder: "YYYY", class: 'changeable') %>
-          <span class="hint">End</span>
+          <span class="hint">End Year</span>
         </div>
 
-        <div class="end-month">
+        <div class="end-month hidden">
           <%= select_tag(name="range_end_month", options_for_select(month_options, 12), class: 'changeable') %>
         </div>
 
-        <div class="end-date">
+        <div class="end-date hidden">
           <%= select_tag(name="range_end_date", options_for_select(date_options, 31), class: 'changeable') %>
         </div>
+
+        <button type="button" class="range-toggle" value="Show Date Range">
+          <span class="hidden glyphicon glyphicon-chevron-left"></span>
+          <span class="range-toggle-text">Show Date Range</span>
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </button>
+
       </div>
+
       <%#= select_tag(name="range_start", options_for_select(years_options, years_options.first.first)) %>
       <%#= text_field_tag(name="dash", value="", disabled: true) %>
       <%#= select_tag(name="range_end", options_for_select(years_options, years_options.last.first)) %>
