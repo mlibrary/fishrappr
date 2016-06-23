@@ -96,49 +96,11 @@ color: #468847;
 text-align: left;
 }
 
-/* STYLES FOR CATALOG PAGE */
+/* STYLES FOR SEARCH PARTIAL ON HOME AND CATALOG PAGE */
 
-// Hide the year facet panel
-div.blacklight-date_issued_yyyymmdd_ti {
-  display: none;
-}
+body.blacklight-catalog-index, body.fishrappr {
 
-
-// Catalog page search at top of page, ala home page search
-body.blacklight-catalog-index {
-  div.document {
-
-    span.document-metadata {
-      font-weight: bold;
-
-      span.blacklight-page_text {
-        display: block;
-        font-weight: normal;
-      }
-    }  
-
-    div.document-thumbnail {
-      height: 150px;
-      width: 150px;
-      padding: 0;
-      float: left !important;
-      margin-left: 0 !important;
-      margin-right: 20px;
-    }
-  }
-
-  div.fishrappr_panel {
-    border-radius: 4px; 
-    border: 1px solid #ccc;
-    color: #337ab7;
-    display: inline-block;
-    font-size: 16px;
-    padding: 10px;
-    vertical-align: middle;
-    background-color: #fff;
-  }
-
-  div.search {
+    div.search {
     background-color: black;
     display: block;
     height: 10em;
@@ -156,6 +118,7 @@ body.blacklight-catalog-index {
 
         margin-left: 30px;
         margin-top: 1em;
+        text-align: left;
 
         div.start-year,
         div.start-month,
@@ -209,6 +172,7 @@ body.blacklight-catalog-index {
       }
 
       div.q-query-box {
+        text-align: left;
         margin-left: 30px;
 
         #q {
@@ -229,19 +193,85 @@ body.blacklight-catalog-index {
         border-radius: 10px; 
         -khtml-border-radius: 10px;
         */
-        background-color: white;
-        border: 1px solid white;
+        background-color: gray;
+        border: 1px solid gray;
         border-radius: 4px; 
-        color: black;
+        color: white;
         vertical-align: middle;
         font-size: 1.5em;
         width: 6em;
-        margin-right: 1.5em;
+        margin-left: .5em;
       }
+
+      button.range-toggle {
+        /*
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px; 
+        -khtml-border-radius: 10px;
+        */
+        background-color: black;
+        border: 2px solid white;
+        border-radius: 4px; 
+        color: white;
+        vertical-align: middle;
+        font-size: 1em;
+        margin-left: 1.5em;
+
+        span.glyphicon {
+          color: white;
+        }
+      }      
 
     } /* form */
   } /* div.search */
+}
 
+body.blacklight-catalog-show div.search {
+  display: none;
+}
+
+/* STYLES FOR CATALOG PAGE */
+
+// Hide the year facet panel
+div.blacklight-date_issued_yyyymmdd_ti {
+  display: none;
+}
+
+
+// Catalog page search at top of page, ala home page search
+body.blacklight-catalog-index {
+  div.document {
+
+    span.document-metadata {
+      font-weight: bold;
+
+      span.blacklight-page_text {
+        display: block;
+        font-weight: normal;
+      }
+    }  
+
+    div.document-thumbnail {
+      height: 150px;
+      width: 150px;
+      padding: 0;
+      float: left !important;
+      margin-left: 0 !important;
+      margin-right: 20px;
+    }
+  }
+
+  div.fishrappr_panel {
+    border-radius: 4px; 
+    border: 1px solid #ccc;
+    color: #337ab7;
+    display: inline-block;
+    font-size: 16px;
+    padding: 10px;
+    vertical-align: middle;
+    background-color: #fff;
+  }
 
   div#sortAndPerPage {
     background-color: #f5f5f5;
@@ -352,182 +382,21 @@ body.fishrappr {
   }
 
   p {
-    display: inline-block;
+    display: block;
     font-size: 1.3em;
     width: 30em;
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  p.para2 {
+    margin-top: 0;
   }
 
   a {
     border: solid 2px white;
     color: white;
   }  
-
-  //  div.search {
-  //   background-color: black;
-  //   display: block;
-  //   height: 5em;
-  //   margin-left:auto;
-  //   margin-right:auto;
-  //   margin-top: 4em;
-  //   padding-top: 2em;
-  //   padding: 1em;
-  //   width: 65em;
-
-  //   form {
-  //       margin-left:auto;
-  //       margin-right:auto;
-  //       padding-top: .5em;
-
-  //       select#range_start, select#range_end  {
-  //         border: black;
-  //         color: black;
-  //         font-size: 1.5em;
-  //         margin: 0 1em;
-  //         text-align: center;
-  //         vertical-align: middle;
-  //       }
-
-  //       #dash {
-  //         background-color: white;
-  //         color: white;
-  //         display: inline-block;
-  //         font-size: 1em;
-  //         vertical-align: middle;
-  //         margin: 0;
-  //         padding: 0;
-  //         width: 2.5em;
-  //         height: .3em;
-  //       }
-
-  //       #q {
-  //         color: black;
-  //         font-size: 1em;
-  //         margin: 0 2em 0 1em;
-  //         vertical-align: middle;
-  //         width: 25em;
-  //       }
-
-  //       button#search {
-  //         /*
-  //         -moz-border-radius: 10px;
-  //         -webkit-border-radius: 10px;
-  //         border-radius: 10px; 
-  //         -khtml-border-radius: 10px;
-  //         */
-  //         color: black;
-  //         vertical-align: middle;
-  //         font-size: 1.2em;
-  //         width: 6em;
-  //         margin-right: 1.5em;
-  //       }
-
-  //   } /* form */
-  // } /* div.search */
-
-
-  div.search {
-    background-color: black;
-    display: block;
-    height: 10em;
-    margin: 1em auto 1em auto;
-    padding-top: 2em;
-    padding: 1em;
-    width: 65em;
-
-    form {
-      margin-left:auto;
-      margin-right:auto;
-      padding-top: .5em;
-
-      div.date-query-box {
-
-        margin-left: 0;
-        margin-top: 1em;
-
-        div.start-year,
-        div.start-month,
-        div.start-date,
-        div.end-year,
-        div.end-month,
-        div.end-date
-         {
-          display: inline-block;
-          position: relative;
-          margin: 0;
-          padding: 0;
-
-          select[name^="range_start"],
-          select[name^="range_end"],
-          input[name^="range_start"],
-          input[name^="range_end"] {
-            border-radius: 4px; 
-            border: 1px solid white;
-            color: black;
-            font-size: 1.5em;
-            margin: 0 .4em;
-            text-align: center;
-            width: 4em;
-            vertical-align: middle;
-
-          }
-
-          span.hint {
-            position: absolute;
-            left: -50px;
-            right: 0;
-            bottom: -25px;
-            color: gray;
-            padding: 0;
-            margin: 0;
-          }
-        }
-
-        #dash {
-          background-color: white;
-          color: white;
-          display: inline-block;
-          font-size: 1em;
-          vertical-align: middle;
-          margin: 0;
-          padding: 0;
-          width: 2em;
-          height: .2em;
-        }
-      }
-
-      div.q-query-box {
-        margin-left: 45px;
-
-        #q {
-          border-radius: 4px; 
-          border: 1px solid white;
-          color: black;
-          font-size: 1.5em;
-          vertical-align: middle;
-          width: 25em;
-          margin: 0 .4em;
-        }
-      }
-
-      button#search {
-        /*
-        -moz-border-radius: 10px;
-        -webkit-border-radius: 10px;
-        border-radius: 10px; 
-        -khtml-border-radius: 10px;
-        */
-        background-color: white;
-        border: 1px solid white;
-        border-radius: 4px; 
-        color: black;
-        vertical-align: middle;
-        font-size: 1.5em;
-        width: 6em;
-        margin-right: 1.5em;
-      }
-
-    } /* form */
-  } /* div.search */
 
 } /* .home .head */
 
