@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     concerns :exportable
     member do
       post 'toggle_highlight'
+      get 'download_text'
     end
 
   end

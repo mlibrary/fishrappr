@@ -30,8 +30,6 @@ module Fishrappr::Catalog
       user_params["range"]["date_issued_yyyymmdd_ti"]["end"] = user_params["range_end"] 
     end
 
-    # byebug
-
     super
   end  
 
@@ -199,6 +197,15 @@ module Fishrappr::Catalog
     words.keys.sort.to_json
   end
 
+  def download_text(document=nil)
+      
+       @response, @document = fetch params[:id]
+    
+       document = @document unless document
+       ocr = document.fetch('page_text')
+       send_data ocr, filename: document.id+'.txt'
+  end
+
   private
     def setup_publication
       if params[:publication]
@@ -227,4 +234,5 @@ module Fishrappr::Catalog
       ! ( session[:show_highlight] == false )
     end
 
+     
 end
