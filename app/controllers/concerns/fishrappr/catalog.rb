@@ -225,7 +225,7 @@ module Fishrappr::Catalog
     end
 
     def highlights_visible?
-      session[:show_highlight]
+      ! ( session[:show_highlight] == false )
     end
 
 end
