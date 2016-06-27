@@ -182,6 +182,7 @@ module ApplicationHelper
     years_options
   end
 
+
   def get_month_options
     months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     months_range = (1..12)
@@ -202,5 +203,23 @@ module ApplicationHelper
     end
     date_options
   end  
+
+
+  
+  require "prawn"
+  def download_pdf(ocrTxt,fname)
+    Prawn::Document.generate(Rails.root.join("tmp/pdfs",fname+'.pdf')) do
+    text ocrTxt
+    end
+  end  
+  private
+ 
+    def generate_pdf(client)
+      Prawn::Document.new do
+        text client.name, align: :center
+        text "Address: #{client.address}"
+        text "Email: #{client.email}"
+      end.render
+    end
 
 end

@@ -8,9 +8,17 @@
     </div>
    <% end %>
 
-   <div class="list-group">
+  
+  <div class="list-group">
     <a href="?view=plaintext" class="list-group-item <%= @subview == 'plaintext' ? 'active' : '' %>">View Plain Text</a>
+  </div>
+  <div class="list-group">
     <a href="?view=image" class="list-group-item <%= @subview == 'image' ? 'active' : '' %>">View Scanned Image</a>
+  </div>  
+  <div class="list-group">
+    <a href="?view=ocr" class="list-group-item <%= @subview == 'ocr' ? 'active' : '' %>">Download OCR Text</a>
+  </div>
+  <div class="list-group">  
     <% if highlights_available? %>
       <% if highlights_visible? %>
         <a href="#" class="list-group-item action-toggle-highlight">Remove Hit Highlights</a>

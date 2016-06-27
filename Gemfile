@@ -29,6 +29,7 @@ gem 'mail_form'
 gem 'simple_form'
 
 gem "blacklight_range_limit"
+gem 'prawn'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

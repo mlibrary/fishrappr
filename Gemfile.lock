@@ -139,7 +139,11 @@ GEM
       ast (~> 2.2)
     parslet (1.7.1)
       blankslate (>= 2.0, <= 4.0)
+    pdf-core (0.6.1)
     powerpack (0.1.1)
+    prawn (2.1.0)
+      pdf-core (~> 0.6.1)
+      ttfunk (~> 1.4.0)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -254,6 +258,7 @@ GEM
       marc-fastxmlwriter (~> 1.0)
       slop (>= 3.4.5, < 4.0)
       yell
+    ttfunk (1.4.0)
     twitter-typeahead-rails (0.11.1)
       actionpack (>= 3.1)
       jquery-rails
@@ -293,6 +298,7 @@ DEPENDENCIES
   jquery-rails
   mail_form
   mysql2
+  prawn
   pry-byebug
   pry-rails
   puma

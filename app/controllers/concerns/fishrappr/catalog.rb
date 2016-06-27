@@ -70,8 +70,8 @@ module Fishrappr::Catalog
       @response, @document = fetch_in_context params, search_field
     end
 
+    
     @subview = get_view
-    @subview = 'plaintext' if @document.fetch('img_link', nil).nil?
     
     respond_to do |format|
       format.html { setup_next_and_previous_documents; setup_next_and_previous_issue_pages }

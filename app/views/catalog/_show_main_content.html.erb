@@ -5,6 +5,9 @@
   <div id="doc_<%= @document.id.to_s.parameterize %>">
     <% if @subview == 'plaintext' %>
       <%= render_document_partials @document, blacklight_config.view_config(:show).partials %>
+    <% elsif @subview == 'ocr' %>
+      <%= download_pdf(@document['page_text'], @document['text_link'])%>  
+      <%= render 'catalog/view_pdf' %>
     <% else %>
       <%= render 'catalog/show_image' %>
     <% end %>
