@@ -48,8 +48,8 @@ class CatalogController < ApplicationController
       :"hl.fl" => 'page_text',
       :"hl.snippets" => 10,
       :"hl.alternateField" => 'page_abstract',
-      :"hl.simple.pre" => '<span class="highlight">',   # change to something accessible
-      :"hl.simple.post" => '</span>', # change to something accessible
+      :"hl.simple.pre" => '[[[[',   # change to something accessible
+      :"hl.simple.post" => ']]]]', # change to something accessible
       fl: [
             'id',
             'sequence',
