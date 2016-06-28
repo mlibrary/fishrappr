@@ -188,8 +188,8 @@ module Fishrappr::Catalog
     if document.highlight_field('page_text')
       non_lexemes = Regexp.new("^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$|'s$")
       document.highlight_field('page_text').each do |text|
-        text.scan(/<span class="highlight">.+?<\/span>/).each do |word|
-          word.gsub!('<span class="highlight">', '').gsub!('</span>', '')
+        text.scan(/\[\[\[\[.+?\]\]\]\]/).each do |word|
+          word.gsub!('[[[[', '').gsub!(']]]]', '')
           word = word.gsub(non_lexemes, '')
           next unless word.strip and words[word.strip].nil?
           words[word.strip.downcase] = true

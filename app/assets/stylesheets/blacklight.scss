@@ -5,8 +5,8 @@
 @import 'blacklight/blacklight';
 
 .highlight {
-    background-color: #FF9632;
-    background-color: rgba(255, 150, 50, 0.5);
+    background-color: #4C7ED1;
+    background-color: rgba(76, 126, 209, 0.4);
     font-weight: bold;
 
     &.de-highlighted {
@@ -17,7 +17,7 @@
 
 .grid .highlight {
     // background-color: blue;
-    background-color: #FF9632;
+    background-color: #4C7ED1;
     position: absolute;
 
     // min-width: 15px;
@@ -30,4 +30,16 @@
     display: inline-block;
     width: 200px;
     height: auto;
+}
+
+#documents h3 {
+    margin-top: 0;
+}
+
+.caption h3 {
+    font-size: inherit;
+}
+
+#documents .row {
+    margin-bottom: 2em;
 }

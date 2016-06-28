@@ -63,9 +63,12 @@ module ApplicationHelper
     image_width = document.fetch('image_width_ti')
     size = kw.fetch(:size, ',250')
     width, height = size.split(',')
-    if width != ""
+    if not width.blank?
       width = width.to_i
       height = ( image_height * ( width.to_f / image_width ) ).to_i
+    else
+      height = height.to_i
+      width = ( image_width * ( height.to_f / image_height ) ).to_i
     end
 
     # { 'min-width' => width, 'min-height' => height }
@@ -88,13 +91,13 @@ module ApplicationHelper
   # TO DO: Needs to be moved into a style using a data attribute
   def hathitrust_background_thumbnail(document, **kw)
     namespace = document.fetch('ht_namespace')
-    tn = "style=\'background-image: url(\""
+    tn = "style=\'background: url(\""
     if namespace == 'fake'
       tn += "#{image_url("fake_image.png")}"
     else
       tn += "#{hathitrust_thumbnail_src(document, **kw)}"
     end
-    tn += "\");\'"
+    tn += "\") top left no-repeat;\'"
     tn.html_safe
   end
 
@@ -112,16 +115,19 @@ module ApplicationHelper
     return @document["page_text"].first 
   end
 
-  def render_plain_text(document, field)
+  def render_plain_text(document, field, breaks=true)
     retval = []
     texts = document.has_highlight_field?(field) ? document.highlight_field(field) : document.fetch(field)
+    prefix = breaks ? '' : '&#8230;'.html_safe
     retval = ActiveSupport::SafeBuffer.new
     Array(texts).each do |text|
       next if text.strip.blank?
       retval << '<p>'.html_safe
-      retval << text.gsub("\n", " ")
+      retval << prefix + text + prefix # .gsub("\n", " ")
       retval << '</p>'.html_safe
     end
+    retval.gsub!(/\n\n+/, "\n\n")
+    retval.gsub!(/\n/, breaks ? "<br />\n".html_safe : " ")
     (retval.gsub('[[[[', '<span class="highlight">'.html_safe).gsub(']]]]', '</span>'.html_safe)).html_safe
   end
 

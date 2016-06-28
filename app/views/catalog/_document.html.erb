@@ -1,4 +1,10 @@
 <% # container for a single doc -%>
-<div class="document <%= render_document_class document %> document-position-<%= document_counter%> " data-document-counter="<%= document_counter %>" itemscope itemtype="<%= document.itemtype %>">
-  <%= render_document_partials document, blacklight_config.view_config(document_index_view_type).partials, :document_counter => document_counter %>
+<div class="row" data-words="<%= process_highlighted_words(document) %>">
+    <div class="col-md-9 col-md-push-3">
+        <%= render partial: '/catalog/index_default.html', locals: { document: document } %>
+    </div>
+    <div class="col-md-3 col-md-pull-9">
+        <%= link_to hathitrust_thumbnail(document, size: ',250'), url_for_document(document), { class: 'thumbnail', style: hathitrust_thumbnail_style(document, size: ',250') } %>
+    </div>
 </div>
+    

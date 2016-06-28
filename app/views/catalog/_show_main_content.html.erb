@@ -6,6 +6,7 @@
     <% if @subview == 'plaintext' %>
       <%= render_document_partials @document, blacklight_config.view_config(:show).partials %>
     <% else %>
+      <%= render partial: 'catalog/show_header_default', locals: { document: @document } %>
       <%= render 'catalog/show_image' %>
     <% end %>
   </div>
