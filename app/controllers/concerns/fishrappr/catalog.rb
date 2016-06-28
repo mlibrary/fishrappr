@@ -13,7 +13,6 @@ module Fishrappr::Catalog
 
   def search_results(user_params)
     
-
     start_len=end_len = 0
 
     start_len = user_params["range_start"].length if user_params["range_start"]
@@ -24,10 +23,10 @@ module Fishrappr::Catalog
       user_params["range"]["date_issued_yyyy_ti"]["begin"] = user_params["range_start"] 
       user_params["range"]["date_issued_yyyy_ti"]["end"] = user_params["range_end"] 
     elsif start_len>=8 || end_len >=8
-      user_params["range_start"]= user_params["range_start"].gsub('-','')
+      user_params["range_start"]= user_params["range_start"]
       user_params["range"] = {"date_issued_yyyymmdd_ti"=>{"begin"=>"", "end"=>""}} 
       user_params["range"]["date_issued_yyyymmdd_ti"]["begin"] = user_params["range_start"] 
-      user_params["range_end"]= user_params["range_end"].gsub('-','')
+      user_params["range_end"]= user_params["range_end"]
       user_params["range"]["date_issued_yyyymmdd_ti"]["end"] = user_params["range_end"] 
     end
 

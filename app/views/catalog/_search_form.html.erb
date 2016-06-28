@@ -3,8 +3,10 @@
   <%= form_tag(search_action_url, role: 'search', method: :get, html: {class: "form-inline"}) do %>
 
     <%= hidden_field_tag :range_field, "date_issued_yyyymmdd_ti" %>
-    <%= hidden_field_tag("range_start", "tbd") %>
-    <%= hidden_field_tag("range_end", "tbd") %>
+    <%= hidden_field_tag("range_start", "") %>
+    <%= hidden_field_tag("range_end", "") %>
+
+    <% search_state.params_for_search.each { |p| puts p.to_s } %>
 
     <%= render_hash_as_hidden_fields(search_state.params_for_search.except(:q, :search_field, :qt, :page, :utf8)) %>
     <div class="input-group">
@@ -68,10 +70,6 @@
         </button>
 
       </div>
-
-      <%#= select_tag(name="range_start", options_for_select(years_options, years_options.first.first)) %>
-      <%#= text_field_tag(name="dash", value="", disabled: true) %>
-      <%#= select_tag(name="range_end", options_for_select(years_options, years_options.last.first)) %>
 
     </div>
   <% end %>
