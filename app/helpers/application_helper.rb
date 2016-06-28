@@ -114,15 +114,15 @@ module ApplicationHelper
 
   def render_plain_text(document, field)
     retval = []
-    # ( document.has_highlight_field?(field) and highlights_visible? )
     texts = document.has_highlight_field?(field) ? document.highlight_field(field) : document.fetch(field)
+    retval = ActiveSupport::SafeBuffer.new
     Array(texts).each do |text|
-      retval << '<p>'
-      # retval << text.gsub("\n", "\n<br />")
+      next if text.strip.blank?
+      retval << '<p>'.html_safe
       retval << text.gsub("\n", " ")
-      retval << '</p>'
+      retval << '</p>'.html_safe
     end
-    retval.join("\n").html_safe
+    (retval.gsub('[[[[', '<span class="highlight">'.html_safe).gsub(']]]]', '</span>'.html_safe)).html_safe
   end
 
   NON_LEXEMES = Regexp.new("^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$|'s$")
