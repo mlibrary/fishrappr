@@ -9,10 +9,5 @@
     <% end -%>
   <% end %>
   <%= link_to_document document, dochead %>
-  <% index_fields(document).each do |field_name, field| -%>
-    <% if ((should_render_index_field? document, field) && field_name.parameterize == "page_text") %>
-      <span class="blacklight-<%= field_name.parameterize %>"><%= render_index_field_label document, field: field_name %></span>
-      <span class="blacklight-<%= field_name.parameterize %>"><%= render_index_field_value document, field: field_name %>&nbsp&nbsp</span>
-    <% end -%>
-  <% end -%>
 </span>
+<%= render_plain_text(document, 'page_text') %>

@@ -11,7 +11,10 @@ en:
           other: '<strong>%{start_num}</strong> - <strong>%{end_num}</strong> of <strong>%{total_num} results</strong>'
       index:
         label: '%{label}'
-
+      facets:
+        title: 'Narrow results'
+    range_limit:
+      submit_limit: Narrow Results
   views:
       pagination:
         first: '&laquo; First'
@@ -23,4 +26,3 @@ en:
       pagination_compact:
         previous: '<span class="glyphicon glyphicon-arrow-left"></span>'
         next: '<span class="glyphicon glyphicon-arrow-right"></span>'
-

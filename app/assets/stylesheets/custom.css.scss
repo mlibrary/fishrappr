@@ -4,10 +4,10 @@
 
 #new_contact label, .contact {
   display: block;
-  width: 20em;
-  text-align: left;
   margin-right: 0px;
   margin-top: 10px;
+  text-align: left;
+  width: 20em;
 }
 
 #new_contact  .checkbox label {
@@ -51,49 +51,49 @@ p.help-block {
 
 
 #new_contact .required-tag {
-  display: inline-block;
-  padding: 0.2rem 0.4rem;
-  position: relative;
-  bottom: 0.2rem;
   background-color: #10788E;
   border-radius: 0.2rem;
-  vertical-align: super;
+  bottom: 0.2rem;
+  color: #FFF;
+  display: inline-block;
   font-size: 0.7rem; // falafel
   font-size: 90%;
   font-weight: normal;
   line-height: 1em;
-  color: #FFF;
+  padding: 0.2rem 0.4rem;
+  position: relative;
   text-shadow: none;
+  vertical-align: super;
 }
 
 /*flash*/
 
 .alert-error {
-background-color: #f2dede;
-border-color: #eed3d7;
-color: #b94a48;
-text-align: left;
+  background-color: #f2dede;
+  border-color: #eed3d7;
+  color: #b94a48;
+  text-align: left;
 }
 
 .alert-alert {
-background-color: #f2dede;
-border-color: #eed3d7;
-color: #b94a48;
-text-align: left;
+  background-color: #f2dede;
+  border-color: #eed3d7;
+  color: #b94a48;
+  text-align: left;
 }
 
 .alert-success {
-background-color: #dff0d8;
-border-color: #d6e9c6;
-color: #468847;
-text-align: left;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #468847;
+  text-align: left;
 }
 
 .alert-notice {
-background-color: #dff0d8;
-border-color: #d6e9c6;
-color: #468847;
-text-align: left;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #468847;
+  text-align: left;
 }
 
 /* STYLES FOR SEARCH PARTIAL ON HOME AND CATALOG PAGE */
@@ -101,13 +101,13 @@ text-align: left;
 body.blacklight-catalog-index, body.fishrappr {
 
     div.search {
-    background-color: black;
-    display: block;
-    height: 10em;
-    margin: 1em auto 1em auto;
-    padding-top: 2em;
-    padding: 1em;
-    width: 65em;
+      background-color: black;
+      display: block;
+      height: 10em;
+      margin: 1em auto 1em auto;
+      padding-top: 2em;
+      padding: 1em;
+      width: 65em;
 
     form {
       margin-left:auto;
@@ -128,9 +128,9 @@ body.blacklight-catalog-index, body.fishrappr {
         div.end-date
          {
           display: inline-block;
-          position: relative;
           margin: 0;
           padding: 0;
+          position: relative;
 
           select[name^="range_start"],
           select[name^="range_end"],
@@ -142,19 +142,19 @@ body.blacklight-catalog-index, body.fishrappr {
             font-size: 1.5em;
             margin: 0 .4em;
             text-align: center;
-            width: 4em;
             vertical-align: middle;
+            width: 4em;
 
           }
 
           span.hint {
-            position: absolute;
-            left: 10px;
-            right: 0;
             bottom: -25px;
             color: gray;
-            padding: 0;
+            left: 10px;
             margin: 0;
+            padding: 0;
+            position: absolute;
+            right: 0;
           }
         }
 
@@ -163,26 +163,26 @@ body.blacklight-catalog-index, body.fishrappr {
           color: white;
           display: inline-block;
           font-size: 1em;
-          vertical-align: middle;
+          height: .2em;
           margin: 0;
           padding: 0;
+          vertical-align: middle;
           width: 2em;
-          height: .2em;
         }
       }
 
       div.q-query-box {
-        text-align: left;
         margin-left: 30px;
+        text-align: left;
 
         #q {
           border-radius: 4px; 
           border: 1px solid white;
           color: black;
           font-size: 1.5em;
+          margin: 0 .4em;
           vertical-align: middle;
           width: 25em;
-          margin: 0 .4em;
         }
       }
 
@@ -194,13 +194,13 @@ body.blacklight-catalog-index, body.fishrappr {
         -khtml-border-radius: 10px;
         */
         background-color: gray;
-        border: 1px solid gray;
         border-radius: 4px; 
+        border: 1px solid gray;
         color: white;
-        vertical-align: middle;
         font-size: 1.5em;
-        width: 6em;
         margin-left: .5em;
+        vertical-align: middle;
+        width: 6em;
       }
 
       button.range-toggle {
@@ -211,12 +211,12 @@ body.blacklight-catalog-index, body.fishrappr {
         -khtml-border-radius: 10px;
         */
         background-color: black;
-        border: 2px solid white;
         border-radius: 4px; 
+        border: 2px solid white;
         color: white;
-        vertical-align: middle;
         font-size: 1em;
         margin-left: 1.5em;
+        vertical-align: middle;
 
         span.glyphicon {
           color: white;
@@ -227,17 +227,121 @@ body.blacklight-catalog-index, body.fishrappr {
   } /* div.search */
 }
 
+// facet styling
+body.blacklight-catalog-index {
+  form.range_date_issued_yyyymmdd_ti {
+
+    input#range_date_issued_yyyymmdd_ti_begin,
+    input#range_date_issued_yyyymmdd_ti_end {
+      // display: none;
+    }
+
+    input[name="commit"] {
+      /*
+      -moz-border-radius: 10px;
+      -webkit-border-radius: 10px;
+      border-radius: 10px; 
+      -khtml-border-radius: 10px;
+      */
+      background-color: gray;
+      border-radius: 4px; 
+      border: 1px solid gray;
+      color: white;
+      font-size: 1em;
+      margin-top: .5em;
+      vertical-align: middle;
+    }
+
+    button.range-toggle {
+      background-color: white;
+      border: 1px solid white;
+      color: black;
+      font-size: 1em;
+      height: 2.5em;
+      margin: 0;
+      padding: 0;
+      vertical-align: middle;
+
+      span.glyphicon {
+        color: black;
+      }
+    }
+
+    button.range-toggle:hover {
+      color: blue;
+    }
+
+   div.date-query-box {
+
+      margin-left: 0;
+      margin-top: 0;
+      text-align: left;
+
+      div.start-year,
+      div.start-month,
+      div.start-date,
+      div.end-year,
+      div.end-month,
+      div.end-date
+       {
+        display: inline-block;
+        margin: .5em 0 0 0;
+        padding: 0;
+        position: relative;
+
+
+        select#range_start_month,
+        select#range_end_month,
+        select#range_start_date,
+        select#range_end_date {
+          border-radius: 4px; 
+          color: black;
+          font-size: 1em;
+          margin: 0 .2em;
+          text-align: center;
+          vertical-align: middle;
+          width: 4em;
+
+        }
+
+        input#range_start_year,
+        input#range_end_year {
+          border-radius: 4px; 
+          border: 1px solid gray;
+          color: black;
+          font-size: 1em;
+          height: 2em;
+          line-height: 1em;
+          margin: 0;
+          padding: 0;
+          text-align: center;
+          width: 4em;
+        }
+
+        span.hint {
+          bottom: 0px;
+          color: gray;
+          margin: 0;
+          padding: 0;
+          position: absolute;
+          right: -35px;
+        }
+      }
+
+      #dash {
+        display: none;
+      }
+    }
+  }
+} // end facet style
+
+// hide search from search-bar of show page
 body.blacklight-catalog-show div.search {
   display: none;
 }
 
+
 /* STYLES FOR CATALOG PAGE */
-
-// Hide the year facet panel
-div.blacklight-date_issued_yyyymmdd_ti {
-  display: none;
-}
-
 
 // Catalog page search at top of page, ala home page search
 body.blacklight-catalog-index {
@@ -253,16 +357,17 @@ body.blacklight-catalog-index {
     }  
 
     div.document-thumbnail {
-      height: 150px;
-      width: 150px;
-      padding: 0;
       float: left !important;
+      height: 150px;
       margin-left: 0 !important;
       margin-right: 20px;
+      padding: 0;
+      width: 150px;
     }
   }
 
   div.fishrappr_panel {
+    background-color: #fff;
     border-radius: 4px; 
     border: 1px solid #ccc;
     color: #337ab7;
@@ -270,57 +375,56 @@ body.blacklight-catalog-index {
     font-size: 16px;
     padding: 10px;
     vertical-align: middle;
-    background-color: #fff;
   }
 
   div#sortAndPerPage {
     background-color: #f5f5f5;
-    border: 1px solid #e3e3e3;
     border-radius: 4px;
+    border: 1px solid #e3e3e3;
 
     div.search-widgets {
       display: block;
-      // border: 1px solid red;
       float: none;
-      width: 280px;
-      margin-right: auto;
       margin-left: auto;
+      margin-right: auto;
       margin-top: 20px;
+      width: 280px;
       #sort-dropdown {
         margin-right: 20px;
       }
     }
 
     div.page_links {
-      display: block;
       // border: 1px solid red;
+      display: block;
       float: none;
-      width: 450px;
-      margin-right: auto;
       margin-left: auto;
+      margin-right: auto;
+      width: 450px;
 
       span.glyphicon-arrow-left, span.glyphicon-arrow-right {
         -khtml-border-radius: 4px;
         -moz-border-radius: 4px;
         -webkit-border-radius: 4px;
+        background-color: #fff;
+        border-color: #ccc;
         border-radius: 4px; 
         border: 1px solid #ccc;
         color: #337ab7;
         display: inline-block;
         font-size: 20px;
-        margin-top: 10px;
-        margin: 0 10px;
+        margin: 10px 10px 10px 0;
         padding: 15px;
         vertical-align: middle;
-        background-color: #fff;
-        border-color: #ccc;
      }
 
       span.page_entries {
-         
           -khtml-border-radius: 4px;
           -moz-border-radius: 4px;
           -webkit-border-radius: 4px;
+          background-color: #f5f5f5;
+          background-color: #fff;
+          border-color: #ccc;        
           border-radius: 4px; 
           border: solid 1px #ccc;
           color: #337ab7;
@@ -329,23 +433,17 @@ body.blacklight-catalog-index {
           margin: 0 10px;
           padding: 10px;
           vertical-align: middle;
-          background-color: #f5f5f5;
-          background-color: #fff;
-          border-color: #ccc;        
-        
       }
-
     }
   }
-
 }
 
 /* STYLES FOR HOME PAGE */
 
 body.fishrappr {
   background-image: image-url("home_page_banner.png");
-  background-repeat: repeat-x;
   background-position: 0 50px;
+  background-repeat: repeat-x;
   background-size: 1440px 500px;
   display: block;
   padding: 0;
@@ -363,11 +461,11 @@ body.fishrappr {
   .head a, .donors a {
     color: white;
     display: block;
-    padding: .5em;
-    width: 10em;
-    margin-top: 2em;
     margin-left:auto;
     margin-right:auto;
+    margin-top: 2em;
+    padding: .5em;
+    width: 10em;
   }
 }
 
@@ -384,9 +482,9 @@ body.fishrappr {
   p {
     display: block;
     font-size: 1.3em;
-    width: 30em;
     margin-left:auto;
     margin-right:auto;
+    width: 30em;
   }
 
   p.para2 {
@@ -492,8 +590,8 @@ help-top-row {
 
 .help-middle-col {
   background-color: white;
-  padding: 1em 4em 4em 4em;
   margin-top: 1.5em;
+  padding: 1em 4em 4em 4em;
 }
 
 /* HELP SIDEBAR */
@@ -504,10 +602,10 @@ help-top-row {
 }
 
 .help-ul {
+  -webkit-padding-start: 0;
   list-style-type:none;
   margin: 1.5em 0 0 2em;
   padding: 0;
-  -webkit-padding-start: 0;
 }
 
 .help-ul li {
@@ -533,9 +631,9 @@ help-top-row {
 
   a:hover, a:focus {
     background-color: white;
+    border-radius: 4px;
     border: 4px solid white;
     text-decoration: none;
-    border-radius: 4px;
   }  
 }
 
@@ -570,4 +668,8 @@ help-top-row {
 @keyframes spin {
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}
+}
+
+div.top-panel-heading {
+  margin-left: -15px;
 }
