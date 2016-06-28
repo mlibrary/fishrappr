@@ -1,5 +1,9 @@
 $().ready(function() {
 
+    if ( ! $("body").is(".blacklight-catalog-show") ) {
+        return;
+    }
+
     var $content = $("#content");
     var $map = $("#map");
     var $action = $(".action-toggle-highlight");
