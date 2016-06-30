@@ -59,8 +59,15 @@ module ApplicationHelper
   end
 
   def hathitrust_thumbnail_style(document, **kw)
-    image_height = document.fetch('image_height_ti')
-    image_width = document.fetch('image_width_ti')
+    namespace = document.fetch('ht_namespace')
+
+    if namespace == 'fake'
+      image_height = 1600
+      image_width = 1185
+    else
+      image_height = document.fetch('image_height_ti')
+      image_width = document.fetch('image_width_ti')
+    end
     size = kw.fetch(:size, ',250')
     width, height = size.split(',')
     if not width.blank?
@@ -78,7 +85,7 @@ module ApplicationHelper
 
   def hathitrust_image(document, **kw)
     namespace = document.fetch('ht_namespace')
-    return fake_image(document) if namespace == 'fake'
+    return fake_image(document).html_safe if namespace == 'fake'
     %Q{<img src="#{hathitrust_image_src(document, **kw)}" />}.html_safe
   end
 
