@@ -4,6 +4,14 @@ html, body {
 
 #map {
     height: 90%;
-    border: 1px dotted #ddd;
+
+    &:focus {
+        outline: auto 5px -webkit-focus-ring-color;
+    }
 }
 
+article {
+    font-size: 1.2em;
+    line-height: 1.7em;
+    max-width: 35em;
+}

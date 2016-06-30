@@ -9,8 +9,11 @@
    <% end %>
 
    <div class="list-group">
-    <a href="?view=plaintext" class="list-group-item <%= @subview == 'plaintext' ? 'active' : '' %>">View Plain Text</a>
-    <a href="?view=image" class="list-group-item <%= @subview == 'image' ? 'active' : '' %>">View Scanned Image</a>
+    <% if @subview == 'image' %>
+      <a href="?view=plaintext" class="list-group-item <%= @subview == 'plaintext' ? 'active' : '' %>">View Plain Text</a>
+    <% else %>
+      <a href="?view=image" class="list-group-item <%= @subview == 'image' ? 'active' : '' %>">View Scanned Image</a>
+    <% end %>
     <% if highlights_available? %>
       <% if highlights_visible? %>
         <a href="#" class="list-group-item action-toggle-highlight">Remove Hit Highlights</a>
@@ -25,13 +28,14 @@
 <div id="content" class="<%= show_content_classes %>" data-words="<%= process_highlighted_words(@document) %>" data-identifier="<%= @document.id %>" data-highlighting="<%= highlights_visible? ? 'true' : 'false' %>">
   <div class="pagination-search-widgets">
     <% if @subview == 'image' %>
-    <nav class="pull-left">
+    <div class="pull-left">
       <ul class="pager">
-        <li><button class="btn btn-default action-zoom-in"><%= raw(t('views.issue.zoom_in')) %></button></li>
+        <li><span class="span-zoom-level bg-info">0</span></li>
         <li><span class="span-zoom-status">100%</span></li>
+        <li><button class="btn btn-default action-zoom-in"><%= raw(t('views.issue.zoom_in')) %></button></li>
         <li><button class="btn btn-default action-zoom-out"><%= raw(t('views.issue.zoom_out')) %></button></li>
       </ul>
-    </nav>
+    </div>
     <% end %>
 
     <nav class="pull-right">
