@@ -9,10 +9,11 @@
    <% end %>
   
   <div class="list-group">
-    <a href="?view=plaintext" class="list-group-item <%= @subview == 'plaintext' ? 'active' : '' %>">View Plain Text</a>
-  </div>
-  <div class="list-group">
-    <a href="?view=image" class="list-group-item <%= @subview == 'image' ? 'active' : '' %>">View Scanned Image</a>
+    <% if @subview == 'image' %>
+      <a href="?view=plaintext" class="list-group-item <%= @subview == 'plaintext' ? 'active' : '' %>">View Plain Text</a>
+    <% else %>
+      <a href="?view=image" class="list-group-item <%= @subview == 'image' ? 'active' : '' %>">View Scanned Image</a>
+    <% end %>
   </div>  
   <div class="list-group">
     <a href="<%= download_text_solr_document_path @document %>" class="list-group-item <%= @subview == 'ocr' ? 'active' : '' %>">Download OCR Text</a>
