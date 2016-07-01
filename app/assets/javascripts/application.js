@@ -17,6 +17,7 @@
 //= require jquery_ujs
 // Required by Blacklight
 //= require blacklight/blacklight
+//= require bootbox
 
 // --- TODO: work out a different way to load this in development
 //= require holder

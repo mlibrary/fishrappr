@@ -1,0 +1,235 @@
+var F = F || {};
+F.ht_host = '<%= Rails.configuration.ht_host %>';
+F.Downloader = function(args) {
+    this.id = args.id;
+    this.seq = args.seq;
+    this.total = args.seq.length;
+    this.src = F.ht_host + '/cgi/imgsrv/download/pdf?id=' + this.id;
+    this.item_title = 'PDF';
+    this.status = {};
+};
+
+F.Downloader.prototype.startDownload = function() {
+    var self = this;
+
+    var html =
+        // '<p>Building your PDF...</p>' +
+        '<div class="initial"><p>Setting up download...</p></div>' +
+        '<div class="progress progress-striped active hide">' +
+            '<div class="progress-bar" role="progressbar" width="0%"><span class="sr-only">0% Complete</span></div>' +
+        '</div>' +
+        '<div class="done hide">' +
+            '<p>All done!</p>' +
+        '</div>';
+
+    var header = 'Building your ' + self.item_title;
+    var total = self.total;
+    if ( total > 0 ) {
+        var suffix = total == 1 ? 'page' : 'pages';
+        header += ' (' + total + ' ' + suffix + ')';
+    }
+
+    self.$dialog = bootbox.dialog({
+        message: html,
+        title: header,
+        buttons: {
+            cancel: {
+                label: 'Cancel',
+                className: 'btn-dismiss',
+                callback: function() {
+                    if ( self.$dialog.data('deactivated') ) {
+                        self.$dialog.modal('hide');
+                        return;
+                    }
+                    $.ajax({
+                        url: self.src + ';callback=F.downloader.cancelDownload;stop=1;marker=' + self.status.marker,
+                        dataType: 'script',
+                        cache: false,
+                        error: function(req, textStatus, errorThrown) {
+                            console.log("DOWNLOAD CANCELLED ERROR");
+                            self.$dialog.modal('hide');
+                            console.log(req, textStatus, errorThrown);
+                            if ( req.status == 503 ) {
+                                self.displayWarning(req);
+                            } else {
+                                self.displayError();
+                            }
+                        }
+                    })
+                }
+            }
+        }
+    });
+
+    self.requestDownload();
+};
+
+F.Downloader.prototype.requestDownload = function() {
+    var self = this;
+    var data = {};
+    if ( self.seq ) {
+        data['seq'] = self.seq;
+    }
+    $.ajax({
+        url: self.src + '&callback=F.downloader.monitorDownload',
+        dataType: 'script',
+        cache: false,
+        data: data,
+        error: function(req, textStatus, errorThrown) {
+            console.log("DOWNLOAD STARTUP NOT DETECTED");
+            if ( self.$dialog ) { self.$dialog.modal('hide'); }
+            if ( req.status == 503 ) {
+                self.displayWarning(req);
+            } else {
+                self.displayError(req);
+            }
+        }
+    });
+};
+
+F.Downloader.prototype.cancelDownload = function(progress_url, download_url, total) {
+    var self = this;
+    self.clearTimer();
+    self.$dialog.modal('hide');
+};
+
+F.Downloader.prototype.monitorDownload = function(progress_url, download_url, total) {
+
+    var self = this;
+
+    if ( self.timer ) {
+        console.log("ALREADY POLLING");
+        return;
+    }
+
+    var rx = /marker=([^&;]+)/;
+    var arr = rx.exec(progress_url);
+    self.status.progress_url = F.ht_host + progress_url;
+    self.status.download_url = F.ht_host + download_url;
+    self.status.marker = arr[1];
+    self.status.total = total;
+
+    self.is_running = true;
+    self.num_processed = 0;
+    self.i = 0;
+
+    self.timer = setInterval(function() { self.checkStatus(); }, 2500);
+    // do it once the first time
+    self.checkStatus();
+
+};
+
+F.Downloader.prototype.displayError = function(req) {
+    console.log("ERROR", req);
+};
+
+F.Downloader.prototype.checkStatus = function() {
+    var self = this;
+    self.i += 1;
+    $.ajax({
+        url : self.status.progress_url,
+        data : { ts : (new Date).getTime() },
+        cache : false,
+        dataType: 'json',
+        success : function(data) {
+            var status = self.updateProgress(data);
+            self.num_processed += 1;
+            if ( status.done ) {
+                self.clearTimer();
+            } else if ( status.error && status.num_attempts > 100 ) {
+                self.$dialog.modal('hide');
+                self.displayProcessError();
+                self.clearTimer();
+                self.logError();
+            } else if ( status.error ) {
+                self.$dialog.modal('hide');
+                self.displayError();
+                self.clearTimer();
+            }
+        },
+        error : function(req, textStatus, errorThrown) {
+            console.log("FAILED: ", req, "/", textStatus, "/", errorThrown);
+            self.$dialog.modal('hide');
+            self.clearTimer();
+            if ( req.status == 404 && (self.i > 25 || self.num_processed > 0) ) {
+                self.displayError();
+            }
+        }
+    })  
+};
+
+F.Downloader.prototype.updateProgress = function(data) {
+    var self = this;
+    var status = { done : false, error : false };
+    var percent;
+
+    var current = data.status;
+    if ( current == 'EOT' || current == 'DONE' ) {
+        status.done = true;
+        percent = 100;
+    } else {
+        current = data.current_page;
+        percent = 100 * ( current / self.status.total );
+    }
+
+    if ( self.last_percent != percent ) {
+        self.last_percent = percent;
+        self.num_attempts = 0;
+    } else {
+        self.num_attempts += 1;
+    }
+
+    // try 100 times, which amounts to ~100 seconds
+    if ( self.num_attempts > 100 ) {
+        status.error = true;
+    }
+
+    if ( self.$dialog.find(".initial").is(":visible") ) {
+        self.$dialog.find(".initial").hide();
+        self.$dialog.find(".progress").removeClass("hide");
+    }
+
+    self.$dialog.find(".progress-bar").css({ width : percent + '%'});
+    self.$dialog.find(".progress-bar .sr-only").text(percent + '% Complete');
+
+    if ( percent == 100 ) {
+        self.$dialog.find(".progress").hide();
+        self.$dialog.find(".done").removeClass('hide');
+        var $download_btn = self.$dialog.find('.download-pdf');
+        if ( ! $download_btn.length ) {
+            $download_btn = $('<a class="download-pdf btn btn-primary">Download {ITEM_TITLE}</a>'.replace('{ITEM_TITLE}', self.item_title)).attr('href', self.status.download_url);
+            $download_btn.appendTo(self.$dialog.find(".modal-footer")).on('click', function(e) {
+                // self.$link.trigger("click.google");
+                setTimeout(function() {
+                    self.$dialog.modal('hide');
+                    $download_btn.remove();
+                }, 1500);
+                e.stopPropagation();
+            })
+        }
+        self.$dialog.data('deactivated', true);
+        // still could cancel
+    }
+
+    return status;
+};
+
+F.Downloader.prototype.clearTimer = function() {
+    var self = this;
+    if ( self.timer ) {
+        clearInterval(self.timer);
+        self.timer = null;
+    }
+};
+
+
+$().ready(function() {
+    $(".action-download-pdf").on('click', function(e) {
+        e.preventDefault();
+        var identnfier = $("#content").data('identifier');
+        $.getJSON(window.location.href + "/issue_data", function(data) {
+            F.downloader = new F.Downloader(data);
+            F.downloader.startDownload();
+        })
+    })
+})

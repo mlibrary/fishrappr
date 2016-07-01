@@ -23,7 +23,10 @@ module Fishrappr
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
-    config.iiif_service = 'https://beta-3.babel.hathitrust.org/cgi/imgsrv/iiif/'
+    config.ht_host = 'https://beta-3.babel.hathitrust.org'
+    config.ht_service = config.ht_host + '/cgi/imgsrv/'
+    config.iiif_service = config.ht_service + 'iiif/'
+    config.download_service = config.ht_service + 'download/pdf'
     config.sdrdataroot = "tmp/sdr1/obj"
 
     config.index_enabled = true
