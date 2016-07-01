@@ -30,6 +30,8 @@ gem 'simple_form'
 
 gem "blacklight_range_limit"
 
+gem 'bootbox-rails', '~>0.4'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

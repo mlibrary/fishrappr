@@ -69,9 +69,9 @@ module Fishrappr::Catalog
 
     @subview = get_view
     @subview = 'plaintext' if @document.fetch('img_link', nil).nil?
-    
+
     respond_to do |format|
-      format.html { setup_next_and_previous_documents; setup_next_and_previous_issue_pages }
+      format.html { setup_next_and_previous_documents; setup_next_and_previous_issue_pages; setup_issue_data }
       format.json { render json: { response: { document: @document } } }
 
       additional_export_formats(@document, format)
@@ -84,6 +84,20 @@ module Fishrappr::Catalog
     render json: { highlighting: session[:show_highlight] }
   end
 
+  def download_text(document=nil)      
+    @response, @document = fetch params[:id]
+
+    document = @document unless document
+    ocr = document.fetch('page_text')
+    send_data ocr, filename: document.id+'.txt'
+  end
+
+  def issue_data
+    @response, @document = fetch params[:id]
+    data = get_issue_data
+
+    render json: data
+  end
 
   # UTILITY
 
@@ -145,6 +159,10 @@ module Fishrappr::Catalog
     [solr_response, solr_response.documents.first]      
   end
 
+  def setup_issue_data
+    @issue_data = get_issue_data
+  end
+
   def setup_next_and_previous_issue_pages
     @previous_page = @next_page = nil
     begin
@@ -197,15 +215,6 @@ module Fishrappr::Catalog
     words.keys.sort.to_json
   end
 
-  def download_text(document=nil)
-      
-       @response, @document = fetch params[:id]
-    
-       document = @document unless document
-       ocr = document.fetch('page_text')
-       send_data ocr, filename: document.id+'.txt'
-  end
-
   private
     def setup_publication
       if params[:publication]
@@ -232,6 +241,43 @@ module Fishrappr::Catalog
 
     def highlights_visible?
       ! ( session[:show_highlight] == false )
+    end
+
+    def get_issue_data
+      # need to find all the issues for this issue
+      ht_namespace = @document.fetch('ht_namespace')
+      ht_barcode = @document.fetch('ht_barcode')
+
+      # # what does builder do?
+      # builder = SearchBuilder.new(self).with({ 
+      #         :search_field => "advanced",
+      #         :op => 'AND',
+      #         :ht_namespace => ht_namespace,
+      #         :ht_barcode => ht_barcode,
+      #         :issue_seqence => @document.fetch('issue_sequence'),
+      #         :date_issued_link => @document.fetch('date_issued_link'),
+      #         :"controller" => "catalog",
+      #         :"action" => "index",
+      #         :fq => @document.fetch('publication_link')
+      #       })
+      # builder.rows(0)
+
+      params = {
+        fl: 'id, sequence, text_link, img_link',
+        fq: [ "ht_namespace:#{ht_namespace}", "ht_barcode:#{ht_barcode}", "issue_sequence:#{@document.fetch('issue_sequence')}", "date_issued_link:#{@document.fetch('date_issued_link')}" ],
+        sort: "sequence asc",
+        rows: 500
+      }
+
+      solr_response = repository.search(params)
+
+      data = []
+
+      solr_response.documents.each do |document|
+        text_link = document['text_link']
+        data << text_link.gsub(/[^\d]+/, '').to_i
+      end
+      { id: "#{ht_namespace}.#{ht_barcode}", seq: data }
     end
 
      

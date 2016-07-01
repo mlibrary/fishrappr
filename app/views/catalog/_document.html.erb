@@ -1,5 +1,5 @@
 <% # container for a single doc -%>
-<div class="row" data-words="<%= process_highlighted_words(document) %>">
+<div class="row document" data-words="<%= process_highlighted_words(document) %>">
     <div class="col-md-9 col-md-push-3">
         <%= render partial: '/catalog/index_default.html', locals: { document: document } %>
     </div>
