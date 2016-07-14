@@ -127,7 +127,7 @@
     $("#configure-fit").on('click', function(e) {
       e.preventDefault();
       var value = sessionStorage.getItem('best-fit-width');
-      sessionStorage.setItem('best-fit-width', ! value);
+      sessionStorage.setItem('best-fit-width', value == 'false');
       window.location.reload();
     })
   });
