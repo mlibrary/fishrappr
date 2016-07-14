@@ -33,13 +33,18 @@ module ApplicationHelper
     namespace = document.fetch('ht_namespace')
     barcode = document.fetch('ht_barcode')
     id = namespace + "." + barcode
-    seq = document.fetch('img_link').gsub(/[^\d+]/, '').to_i.to_s
+    seq = document.fetch('text_link').gsub(/[^\d+]/, '').to_i.to_s
     Rails.configuration.download_service + '?id=' + id + ';seq=' + seq + ';attachment=1'
   end
 
   def hathitrust_image_src(document, **kw)
     path_info = []
     namespace = document.fetch('ht_namespace')
+
+    if namespace == 'fake'
+      return '#'
+    end
+
     barcode = document.fetch('ht_barcode')
     path_info << "#{namespace}.#{barcode}"
 
