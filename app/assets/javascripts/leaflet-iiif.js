@@ -121,11 +121,16 @@ L.TileLayer.Iiif = L.TileLayer.extend({
     _this._map.options.minZoom = zoom;
 
     _this._map.fitBounds(bounds);
-    // var swPoint = _this._map.project(bounds.getSouthWest(), zoom),
-    //         nePoint = _this._map.project(bounds.getNorthEast(), zoom),
-    //         center = _this._map.unproject(swPoint.add(nePoint).divideBy(2), zoom);
-    // _this._map.setView(center, zoom, {});
     _this._map.setMaxBounds(bounds);
+
+    if ( sessionStorage.getItem('best-fit-width') == "true" ) {
+      var bestFitWidthZoom = _this._getBestFitWidthZoom(_this._map.getSize());
+      _this._map.setZoom(bestFitWidthZoom[1]);
+
+      var containerDim = _this._map.getSize();
+      var targetP = _this._map.unproject([ containerDim.x / 2, containerDim.y / 2 ], _this._map.getZoom());
+      _this._map.panTo(targetP);
+    }
 
   },
   _getInfo: function() {
@@ -261,6 +266,37 @@ L.TileLayer.Iiif = L.TileLayer.extend({
         // console.log(d, j, i + j );
         while ( d * ( 1.0 + j ) < mapSize[key] ) {
           j += 0.125;
+          // console.log(d, j, i + j, d * ( 1.0 + j ) * tolerance, mapSize[key] );
+        }
+        return [ i, i + j ];
+        // for (var j = (i + 1); j >= i; j -= 0.25) {
+        //   console.log("...?", i, j, d);
+        //   if ( d * j < mapSize[key] ) {
+        //     console.log("SECOND ZOOM", j, d * j, mapSize[key]);
+        //     return j;
+        //   }
+        return i;
+      }
+    }
+    // return a default zoom
+    return 2;
+  },
+  _getBestFitWidthZoom: function(mapSize) {
+    var _this = this,
+      tolerance = 0.8,
+      imageSize;
+
+    var key = 'x';
+
+    for (var i = _this.maxNativeZoom; i >= 0; i--) {
+      imageSize = this._imageSizes[i];
+      if (imageSize[key] * tolerance < mapSize[key] ) {
+        // console.log("INITIAL ZOOM", i, imageSize[key], this._imageSizes[i + 1][key], mapSize[key], key);
+        var d = imageSize[key];
+        var j = 0;
+        // console.log(d, j, i + j );
+        while ( d * ( 1.0 + j ) < mapSize[key] ) {
+          j += ( 0.0625 / 2 );
           // console.log(d, j, i + j, d * ( 1.0 + j ) * tolerance, mapSize[key] );
         }
         return [ i, i + j ];

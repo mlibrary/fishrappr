@@ -121,3 +121,14 @@
       })
   </script>
 </div>
+<button id="configure-fit" class="btn btn-default" style="position: fixed; bottom: 10px; left: 10px;"><span class="glyphicon glyphicon-equalizer"></span></button>
+<script>
+  $().ready(function() {
+    $("#configure-fit").on('click', function(e) {
+      e.preventDefault();
+      var value = sessionStorage.getItem('best-fit-width');
+      sessionStorage.setItem('best-fit-width', ! value);
+      window.location.reload();
+    })
+  });
+</script>
