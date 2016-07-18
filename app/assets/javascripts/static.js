@@ -12,6 +12,7 @@ $( document ).ready(function() {
     
     set_dates("div.search ");
 
+    $('ul.help-ul li.current a').addClass('currentlyActive');
 
   $(document).on("click", 'button#search', function(){
     // add validation here
