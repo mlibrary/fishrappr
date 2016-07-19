@@ -1,0 +1,7 @@
+<div>
+    <% filename = Rails.root.join(
+      Rails.configuration.sdrdataroot, 
+      @document.id+".txt")
+      %>
+	<a href="<%=filename %>">Download Text File</a>
+</div>	
