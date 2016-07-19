@@ -6,13 +6,38 @@
 
 $( document ).ready(function() {
 
+    // change search button icon to not searching
     $("div.search span#not-searching").removeClass("hidden");
     $("div.search span#now-searching").addClass("hidden");
     $("body").css("cursor", "auto");
     
+    // set up dates based on initial values (basically, search everything)
     set_dates("div.search ");
 
+    // if we are on a help page (include the contacts page) mark the link for that page in the sidebar
     $('ul.help-ul li.current a').addClass('currentlyActive');
+
+    // Back to top window scroll for catalog index page
+    if (("body.blacklight-catalog-index").length > 0) {
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 50) {
+                $('#back-to-top').fadeIn();
+            } else {
+                $('#back-to-top').fadeOut();
+            }
+        });
+        // scroll body to 0px on click
+        $('#back-to-top').click(function () {
+            $('#back-to-top').tooltip('hide');
+            $('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
+        
+        $('#back-to-top').tooltip('show');
+    }
+
 
   $(document).on("click", 'button#search', function(){
     // add validation here
