@@ -342,6 +342,46 @@ body.blacklight-catalog-show div.search {
 }
 
 
+/* STYLES FOR BROWSE PAGE */
+
+body.blacklight-catalog-browse {
+
+  div#search-navbar {
+    display: none;
+  }
+
+  background-color: #F8F8F8;
+
+  form {
+    border-top: 3px solid #ddd;
+    border-bottom: 10px solid #ddd;
+    padding: 20px;
+    background-color: white;
+    width: 100%;
+  }
+
+  div.issues-display {
+    background-color: white;
+  }
+
+  select[name^="browse"] {
+  border-radius: 4px; 
+  border: 1px solid white;
+  color: black;
+  font-size: 1.5em;
+  margin: 0 .4em;
+  text-align: center;
+  vertical-align: middle;
+  width: 8em;
+
+  }
+
+
+
+
+}
+
+
 /* STYLES FOR CATALOG PAGE */
 
 // Catalog page search at top of page
@@ -648,6 +688,7 @@ help-top-row {
 
 body.blacklight-static-how_to_search,
 body.blacklight-static-about,
+body.blacklight-static-donors,
 body.blacklight-contacts-new {
   background-color: #F8F8F8;
 }
