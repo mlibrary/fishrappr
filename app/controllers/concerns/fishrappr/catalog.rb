@@ -86,10 +86,15 @@ module Fishrappr::Catalog
 
   def download_text(document=nil)      
     @response, @document = fetch params[:id]
-
     document = @document unless document
     ocr = document.fetch('page_text')
     send_data ocr, filename: document.id+'.txt'
+  end
+
+   def download_issue_text(document=nil)      
+    @response, @document = fetch params[:id]
+    data = get_issue_data(['page_text'])
+    get_page_data(data)   
   end
 
   def issue_data
@@ -243,7 +248,20 @@ module Fishrappr::Catalog
       ! ( session[:show_highlight] == false )
     end
 
-    def get_issue_data
+    def get_page_data(data)
+
+      require 'zip'
+      fname =  data[:id]+".zip"
+      Zip::File.open(fname, Zip::File::CREATE) {
+        |zipfile|
+        data[:pages].each do |page|
+          zipfile.get_output_stream(page[:id]) { |f| f.puts page[:page_text] }
+        end
+    }
+    send_file fname
+    end
+      
+    def get_issue_data(flds=[])
       # need to find all the issues for this issue
       ht_namespace = @document.fetch('ht_namespace')
       ht_barcode = @document.fetch('ht_barcode')
@@ -262,22 +280,31 @@ module Fishrappr::Catalog
       #       })
       # builder.rows(0)
 
+      fl = [ 'id', 'sequence', 'text_link', 'img_link', flds].flatten.compact
       params = {
-        fl: 'id, sequence, text_link, img_link',
+        fl: fl.join(','),
         fq: [ "ht_namespace:#{ht_namespace}", "ht_barcode:#{ht_barcode}", "issue_sequence:#{@document.fetch('issue_sequence')}", "date_issued_link:#{@document.fetch('date_issued_link')}" ],
         sort: "sequence asc",
         rows: 500
       }
 
       solr_response = repository.search(params)
-
-      data = []
+      data = {}
+      data[:seq] = [1,2,3]
+      data[:id] = "#{ht_namespace}.#{ht_barcode}"
+      data[:pages] = []
 
       solr_response.documents.each do |document|
-        text_link = document['text_link']
-        data << text_link.gsub(/[^\d]+/, '').to_i
-      end
-      { id: "#{ht_namespace}.#{ht_barcode}", seq: data }
+        datum = {}
+        datum[:text_link] = document['text_link']
+        datum[:seq] = datum[:text_link].gsub(/[^\d]+/, '').to_i
+        flds.each do |fld|
+          datum[fld.to_sym] = document[fld]
+        end
+        
+        data[:pages] << datum
+      end  
+      data
     end
 
      

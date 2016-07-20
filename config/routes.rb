@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     member do
       post 'toggle_highlight'
       get 'download_text'
+      get 'download_issue_text'
       get 'issue_data'
     end
 

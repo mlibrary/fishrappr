@@ -44,6 +44,7 @@
     <a class="btn btn-default" href="<%= download_text_solr_document_path @document %>">Download Text</a></li>
     <a class="btn btn-default" href="<%= hathitrust_pdf_link @document %>">Download PDF</a></li>
     <a class="btn btn-default action-download-pdf" href="#">Download Issue PDF (<%= @issue_data[:seq].size %>pg)...</a>
+    <a class="btn btn-default" href="<%= download_issue_text_solr_document_path @document %>">Download Issue OCR (<%= @issue_data[:seq].size %>pg)...</a>
   </div>
 
 
