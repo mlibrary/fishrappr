@@ -4,8 +4,9 @@ $().ready(function() {
         return;
     }
 
-    var $content = $("#content");
-    var $map = $("#map");
+    var $content = $("[data-highlighting]");
+    var $text = $(".document");
+    var $map = $("#image-viewer");
     var $action = $(".action-toggle-highlight");
 
     $action.on('click', function(e) {
@@ -24,14 +25,14 @@ $().ready(function() {
             } else {
                 F.map.removeLayer(F.annoFeatures);
             }
-        } else {
-            $content.find("span.highlight").toggleClass("de-highlighted", ! status);
         }
+        $text.find("span.highlight").toggleClass("de-highlighted", ! status);
     }
 
     var toggle_label = function(status) {
         // maybe return label text in toggle response to have access to locales?
-        $action.text(status ? "Remove Hit Highlights" : "Show Hit Highlights");
+        // $action.text(status ? "Remove Hit Highlights" : "Show Hit Highlights");
+        $action.prop("checked", status);
     }
 
     if ( $map.length == 0 ) {

@@ -4,7 +4,7 @@
         <%= render partial: '/catalog/index_default.html', locals: { document: document } %>
     </div>
     <div class="col-md-3 col-md-pull-9">
-        <%= link_to hathitrust_thumbnail(document, size: ',250'), url_for_document(document), { class: 'thumbnail', style: hathitrust_thumbnail_style(document, size: ',250') } %>
+        <%= link_to hathitrust_thumbnail(document, size: ',250'), url_for_document(document), { class: 'thumbnail' } %>
     </div>
 </div>
     

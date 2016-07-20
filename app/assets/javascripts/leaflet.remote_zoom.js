@@ -79,9 +79,11 @@
             L.DomUtil.removeClass(this._zoomOutButton, className);
 
             var per = Math.ceil(( map._zoom / map.getMaxZoom() ) * 100.0);
-            this._zoomStatusField.text(per + "%");
 
-            $(".span-zoom-level").text(map._zoom);
+            var status = '';
+            status += map._zoom + " / ";
+            status += per + '%';
+            this._zoomStatusField.text(status);
 
             if (map._zoom === map.getMinZoom()) {
                 L.DomUtil.addClass(this._zoomOutButton, className);

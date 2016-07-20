@@ -1,13 +1,81 @@
-html, body {
-  height: 100%;
+@import "globals";
+
+#image-viewer-wrap {
+    height: 75%;
+    padding-top: 45px;
+    margin-bottom: 20px;
+    background: black;
+    position: relative;
 }
 
-#map {
-    height: 90%;
+#image-viewer {
+
+    background: black;
+    height: 99%;
 
     &:focus {
         outline: auto 5px -webkit-focus-ring-color;
     }
+}
+
+.image-viewer-toolbar {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    right: 0;
+    height: 30px;
+
+    div > span {
+        color: white;
+        display: inline-block;
+        padding: 5px 10px;
+        line-height: 18px;
+    }
+
+    .btn {
+        background: #9B9B9B;
+        color: white;
+        width: 100px;
+    }
+}
+
+.zoom-toolbar > span {
+    border: 1px solid white;
+    font-size: 12px;
+}
+
+.navbar .pager {
+    margin-top: 0;
+}
+
+.local-options-toolbar {
+    display: flex;
+    padding: 0;
+    // margin: -1em 0 0 -1em;
+}
+
+.local-options-toolbar .grid-col-md-4 {
+
+    flex: 1;
+
+    background: white;
+    padding: 1em;
+    margin-right: 1em;
+    &:last-child {
+        margin-right: 0;
+    }
+
+
+    // min-height: 150px;
+    // border-right: 8px solid #F2F2F2;
+    // &:last-child {
+    //     border-right: none;
+    // }
+}
+
+
+.blacklight-catalog-show h2 {
+    margin-top: 0;
 }
 
 article {

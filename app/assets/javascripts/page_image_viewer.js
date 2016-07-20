@@ -1,0 +1,123 @@
+  $().ready(function() {
+      
+    if ( ! $("body").is(".blacklight-catalog-show") ) {
+      return;
+    }
+
+    window.F = window.F || {};
+    var $map = $("#image-viewer");
+    // $map.height($(window).height() - 100);
+
+    var words = $map.data('words');
+    var identifier = $map.data('identifier');
+
+    var map;
+    map = L.map($map.get(0), {
+      center: [0, 0],
+      crs: L.CRS.Simple,
+      zoom: 0,
+      zoomControl: false,
+      scrollWheelZoom: false,
+      attributionControl: false
+    });
+
+    map.addControl(new L.Control.RemoteZoom());
+
+    var min_opacity = 40;
+    var max_opacity = 80;
+    map.on('zoomend', function(e) {
+      var zoom = this._zoom;
+      var opacity = min_opacity + ( ( map.getMaxZoom() - zoom ) * 10.0 );
+      if ( opacity > max_opacity ) { opacity = max_opacity; }
+      opacity /= 100.0;
+      annoFeatures.setStyle({ fillOpacity: opacity, opacity: opacity });
+      // if ( zoom > 4.0 ) {
+      //   annoFeatures.setStyle({ fillOpacity: 0.4, opacity: 0.4 });
+      // } else {
+      //   annoFeatures.setStyle({ fillOpacity: 0.8, opacity: 0.8 });
+      // }
+    })
+
+    F.map = map;
+    var baseLayer;
+    var page;
+    var annoFeatures = new L.FeatureGroup();
+    F.annoFeatures = annoFeatures;
+
+    var imageHeight; var imageWidth;
+    //map.addLayer(annoFeatures);
+
+    var loadAnnotations = function(e) {
+      var baseLayer = e.target;
+      baseLayer.off('load');
+
+      // just in case, don't do anything if there are no words
+      if ( words.length == 0 ) {
+        return;
+      }
+
+      var highlightColor;
+      var opacity;
+      // highlightColor = '#D14C4C';
+      highlightColor = '#4C7ED1'; // #24AAE1';
+      opacity = 0.90;
+      // highlightColor = '#FF9632';
+
+      initialZoom = baseLayer._getInitialZoom(map.getSize());
+      var maxZoom = map.getMaxZoom();
+      console.log(map.getZoom(), baseLayer.maxNativeZoom, map.getMaxZoom(), initialZoom, maxZoom);
+      $.getJSON(page.otherContent[0]['@id'], function(annoData) {
+
+        $.each(annoData.resources, function(i, value) {
+          var content = value.resource.chars;
+          if ( words.indexOf(content) < 0 ) { return ; }
+          var b = /xywh=(.*)/.exec(value.on)[1].split(',');
+          // var minPoint = L.point(b[0], b[1]);
+          // var maxPoint = L.point(parseInt(b[0]) + parseInt(b[2]), parseInt(b[1]) + parseInt(b[3]));
+
+          var h = parseFloat(b[3]) * 1.5;
+          var w = parseFloat(b[2]) * 1.10;
+
+          var dw = ( w - parseFloat(b[2]) ) / 2;
+          var dh = ( h - parseFloat(b[3]) ) / 2;
+
+          // var minPoint = L.point(parseInt(b[0] - dw), parseInt(b[1] - dh));
+          // var maxPoint = L.point(parseInt(b[0] - dw) + parseInt(w) + dw, parseInt(b[1] - dh) + parseInt(h) + dh);
+
+          var minPoint = L.point(parseFloat(b[0] - dw), parseFloat(b[1] - dh));
+          var maxPoint = L.point(parseFloat(b[0] - dw) + parseFloat(w) + dw, parseFloat(b[1] - dh) + parseFloat(h) + dh);
+
+          var min = map.unproject(minPoint, maxZoom);
+          var max = map.unproject(maxPoint, maxZoom);
+
+          // clickable: true enables hover of label text
+          annoFeatures.addLayer(L.rectangle(L.latLngBounds(min, max), { color: highlightColor, fillColor: highlightColor, fill: true, weight: 2.5, opacity: opacity, fillOpacity: opacity, clickable: false }).bindLabel(value.resource.chars));
+        });
+        if ( $map.data('highlighting') ) {
+          annoFeatures.addTo(map);
+        }
+      })
+    }
+
+    var i = 1;
+    $.getJSON('/services/manifests/' + identifier, function(data) {
+      console.log(data);
+      page = data.sequences[0].canvases[0];
+      baseLayer = L.tileLayer.iiif(
+        page.images[0].resource.service['@id'] + '/info.json'
+      );
+
+      imageHeight = data.sequences[0].canvases[0].height;
+      imageWidth = data.sequences[0].canvases[0].width;
+
+      console.log(imageWidth, "x", imageHeight);
+      if ( true || words.length > 0 ) {
+        console.log("LOADING ANNOTATIONS");
+        baseLayer.on('load', loadAnnotations);
+      }
+        
+      baseLayer.addTo(map);
+
+    });
+
+  })
