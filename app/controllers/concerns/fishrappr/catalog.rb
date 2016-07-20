@@ -253,14 +253,22 @@ module Fishrappr::Catalog
     def get_page_data(data)
 
       require 'zip'
+      require 'tempfile'
+
       fname =  data[:id]+".zip"
-      Zip::File.open(fname, Zip::File::CREATE) {
+      tmpname = "tmp_zip.zip"
+      tmp_file = Tempfile.new(tmpname)
+      readme_txt = "The Michigan Daily"
+      Zip::File.open(tmp_file.path, Zip::File::CREATE) {
         |zipfile|
+        zipfile.get_output_stream('readme.txt') { |f| f.puts readme_txt }
         data[:pages].each do |page|
           zipfile.get_output_stream(page[:id]) { |f| f.puts page[:page_text] }
         end
       }
-      send_file fname
+      
+      send_file tmp_file.path, filename:fname
+      tmp_file.close
     end
       
     def container_classes
