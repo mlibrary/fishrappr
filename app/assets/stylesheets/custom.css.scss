@@ -344,7 +344,37 @@ body.blacklight-catalog-show div.search {
 
 /* STYLES FOR CATALOG PAGE */
 
-// Catalog page search at top of page, ala home page search
+// Catalog page search at top of page
+
+div.top-panel-heading {
+  margin-left: -15px;
+}
+
+.catalog_startOverLink {
+  background-color: white;
+  font-family: inherit;
+  font-weight: bold !important;
+  line-height: 1.1;
+  font-size: 14px !important;
+  border: 1px solid #337ab7;
+}
+
+.back-to-top {
+  cursor: pointer;
+  position: fixed;
+  bottom: 0;
+  right: 20px;
+  display:none;
+  border: 3px solid #337ab7;
+  z-index: 100;
+}
+
+.back-to-top-text {
+  display: block;
+  font-size: .7em;
+  font-weight: bold;
+}
+
 body.blacklight-catalog-index {
   div.document {
 
@@ -382,28 +412,38 @@ body.blacklight-catalog-index {
     background-color: #f5f5f5;
     border-radius: 4px;
     border: 1px solid #e3e3e3;
+    padding-left: 20px;
+    padding-top: 10px;
 
     div.search-widgets {
-      display: block;
+      display: inline-block;
       float: none;
-      margin-left: auto;
-      margin-right: auto;
-      margin-top: 20px;
-      width: 280px;
+      // margin-left: auto;
+      // margin-right: auto;
+      // margin-top: 20px;
+      width: auto;
+
       #sort-dropdown {
-        margin-right: 20px;
+        margin-right: 10px;
+
+        button {
+          line-height: 1.42857143;
+          vertical-align: middle;
+          padding: 10px 12px;
+          font-size: 14px;
+       }
       }
     }
 
     div.page_links {
       // border: 1px solid red;
-      display: block;
+      display: inline-block;
       float: none;
-      margin-left: auto;
-      margin-right: auto;
-      width: 450px;
+      margin-right: 20px;
+      // margin-right: auto;
+      width: auto;
 
-      span.glyphicon-arrow-left, span.glyphicon-arrow-right {
+      span.prev-next {
         -khtml-border-radius: 4px;
         -moz-border-radius: 4px;
         -webkit-border-radius: 4px;
@@ -413,10 +453,16 @@ body.blacklight-catalog-index {
         border: 1px solid #ccc;
         color: #337ab7;
         display: inline-block;
-        font-size: 20px;
-        margin: 10px 10px 10px 0;
-        padding: 15px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
         vertical-align: middle;
+      }
+
+      span.glyphicon-arrow-left, span.glyphicon-arrow-right {
+        font-size: 20px;
+        vertical-align: middle;
+        line-height: 1.42857143;
      }
 
       span.page_entries {
@@ -430,7 +476,7 @@ body.blacklight-catalog-index {
           border: solid 1px #ccc;
           color: #337ab7;
           display: inline-block;
-          font-size: 20px;
+          font-size: 14px;
           margin: 0 10px;
           padding: 10px;
           vertical-align: middle;
@@ -533,14 +579,6 @@ body.blacklight-catalog-home {
 }
 
 /* Footer Style*/
-// html {
-//   position: relative;
-//   min-height: 100%;
-// }
-
-// body {
-//   margin-bottom: 50px;  /* Margin bottom by footer height */
-// }
 
 html, body {
   height: 100%;
@@ -573,55 +611,7 @@ footer {
   .footer-link-help a {
     border: 1px solid white;
   }
-  
-  // ul, span.copyright {
-  //   list-style-type: none;
-  //   margin: 0;
-  //   margin-left: 2em;
-  //   overflow: hidden;
-  //   padding: 0;
-  // }
-
-  // li {
-  //   float: left;
-  // }
-
-  // li a, span.copyright {
-  //   color: white;
-  //   display: block;
-  //   margin: 4px;
-  //   margin-top: 6px;
-  //   padding: 7px;
-  //   text-align: center;
-  //   text-decoration: none;
-  // }
-
-  // li.footer-link-help a {
-  //   border: 1px solid white;
-  // }
-
-  // li.footer-link-home a {
-  //   border: 1px solid #00274C;
-  // }
-
-  // li a, li a:visited {
-  //   float: left;
-  //   text-decoration: none;
-  // }
-
-  // li a:hover, li a:active {
-  //   color: white;
-  //   text-decoration: none;
-  // }
-
-  // span.copyright {
-  //   border: 0;
-  //   display: block;
-  //   float: right;
-  //   margin: 0;
-  //   padding: 0;
-  // }
-}
+}  
 
 /* TOP NAV BAR */
 
@@ -750,6 +740,4 @@ body.blacklight-contacts-new {
     to { transform: scale(1) rotate(360deg);}
 }
 
-div.top-panel-heading {
-  margin-left: -15px;
-}
+
