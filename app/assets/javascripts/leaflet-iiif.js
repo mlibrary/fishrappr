@@ -290,12 +290,12 @@ L.TileLayer.Iiif = L.TileLayer.extend({
 
     for (var i = _this.maxNativeZoom; i >= 0; i--) {
       imageSize = this._imageSizes[i];
-      if (imageSize[key] * tolerance < mapSize[key] ) {
+      if (imageSize[key] < ( mapSize[key] - tolerance )) {
         // console.log("INITIAL ZOOM", i, imageSize[key], this._imageSizes[i + 1][key], mapSize[key], key);
         var d = imageSize[key];
         var j = 0;
         // console.log(d, j, i + j );
-        while ( d * ( 1.0 + j ) < mapSize[key] ) {
+        while ( d * ( 1.0 + j ) < (mapSize[key] - tolerance) ) {
           j += ( 0.0625 / 2 );
           // console.log(d, j, i + j, d * ( 1.0 + j ) * tolerance, mapSize[key] );
         }
@@ -312,6 +312,7 @@ L.TileLayer.Iiif = L.TileLayer.extend({
     // return a default zoom
     return 2;
   },
+
   _getInitialZoomXX: function (mapSize) {
     var _this = this,
       tolerance = 0.8,

@@ -1,9 +1,5 @@
 <%= extends :application do %>
 
-    <% replace :header do %>
-        <%= render partial: 'home_header_navbar' %>
-    <% end %>
-
     <% replace :main do %>
         <%= yield %>
     <% end %>

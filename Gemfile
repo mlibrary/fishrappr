@@ -15,6 +15,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'therubyracer', platforms: :ruby
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
+gem 'nestive'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks

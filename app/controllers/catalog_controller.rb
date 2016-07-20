@@ -8,6 +8,8 @@ class CatalogController < ApplicationController
   include Fishrappr::Catalog
 
   before_action :setup_publication
+  layout :resolve_layout
+
 
   configure_blacklight do |config|
     # default advanced config values

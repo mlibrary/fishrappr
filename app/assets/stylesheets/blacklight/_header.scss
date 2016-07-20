@@ -1,11 +1,8 @@
+@import "globals";
 #header-navbar {
-  background-color: #00274C;
-  .navbar-brand { 
-  	width: 150px;
-        height: 50px;
-	display: inline-block;
-        color: #FFF;
-        font: 25px arial, sans-serif;
-}
-
+  background-color: $header-bgcolor; // #00274C;
+  padding: 10px;
+  .navbar-brand {
+    font-size: 24px;
+  }
 }

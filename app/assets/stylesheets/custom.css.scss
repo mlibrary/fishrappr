@@ -1,4 +1,5 @@
 /* CONTACT FORM */
+@import "globals";
 
 .hidden { display: none; }
 
@@ -98,7 +99,7 @@ p.help-block {
 
 /* STYLES FOR SEARCH PARTIAL ON HOME AND CATALOG PAGE */
 
-body.blacklight-catalog-index, body.fishrappr {
+body.blacklight-catalog-index, body.blacklight-catalog-home {
 
     div.search {
       background-color: black;
@@ -440,7 +441,7 @@ body.blacklight-catalog-index {
 
 /* STYLES FOR HOME PAGE */
 
-body.fishrappr {
+body.blacklight-catalog-home {
   background-image: image-url("home_page_banner.png");
   background-position: 0 50px;
   background-repeat: repeat-x;
@@ -541,62 +542,85 @@ body.fishrappr {
 //   margin-bottom: 50px;  /* Margin bottom by footer height */
 // }
 
+html, body {
+  height: 100%;
+}
+
+body {
+    background: $body-bgcolor;
+}
+
+.navigation-toolbar {
+    background: $navbar-bgcolor;
+    margin-top: -20px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
 footer { 
-  background-color: #00274C;
-  // bottom: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  // margin-top: 50px;
+  border-radius: 0 !important;
+  padding: 10px;
+
+  &.navbar-inverse {
+    background-color: $footer-bgcolor;
+  }
+
+  font-family: $base-fonts;
   font-size: 14px;
-  height: 50px;
-  // position: absolute;
-  width: 100%;
 
-  ul, span.copyright {
-    list-style-type: none;
-    margin: 0;
-    margin-left: 2em;
-    overflow: hidden;
-    padding: 0;
-  }
-
-  li {
-    float: left;
-  }
-
-  li a, span.copyright {
-    color: white;
-    display: block;
-    margin: 4px;
-    margin-top: 6px;
-    padding: 7px;
-    text-align: center;
-    text-decoration: none;
-  }
-
-  li.footer-link-help a {
+  .footer-link-help a {
     border: 1px solid white;
   }
+  
+  // ul, span.copyright {
+  //   list-style-type: none;
+  //   margin: 0;
+  //   margin-left: 2em;
+  //   overflow: hidden;
+  //   padding: 0;
+  // }
 
-  li.footer-link-home a {
-    border: 1px solid #00274C;
-  }
+  // li {
+  //   float: left;
+  // }
 
-  li a, li a:visited {
-    float: left;
-    text-decoration: none;
-  }
+  // li a, span.copyright {
+  //   color: white;
+  //   display: block;
+  //   margin: 4px;
+  //   margin-top: 6px;
+  //   padding: 7px;
+  //   text-align: center;
+  //   text-decoration: none;
+  // }
 
-  li a:hover, li a:active {
-    color: white;
-    text-decoration: none;
-  }
+  // li.footer-link-help a {
+  //   border: 1px solid white;
+  // }
 
-  span.copyright {
-    border: 0;
-    display: block;
-    float: right;
-    margin: 0;
-    padding: 0;
-  }
+  // li.footer-link-home a {
+  //   border: 1px solid #00274C;
+  // }
+
+  // li a, li a:visited {
+  //   float: left;
+  //   text-decoration: none;
+  // }
+
+  // li a:hover, li a:active {
+  //   color: white;
+  //   text-decoration: none;
+  // }
+
+  // span.copyright {
+  //   border: 0;
+  //   display: block;
+  //   float: right;
+  //   margin: 0;
+  //   padding: 0;
+  // }
 }
 
 /* TOP NAV BAR */
