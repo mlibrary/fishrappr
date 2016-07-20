@@ -1,7 +1,6 @@
 <div class="home">
 
-  <div class="row">
-    <div class="col-md-12 head">
+    <div class="head">
       <h2><%= t('views.static.home.head.h2') %></h2>
       <h3><%= t('views.static.home.head.h3') %></h3>
       <p class="para1"><%= t('views.static.home.head.p1') %></p>
@@ -10,20 +9,15 @@
 
       <%= render "search_form" %>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-md-12 donors">
+    <div class="donors">
       <h3><%= t('views.static.home.donors.h3') %></h3>
       <p class="description"><%= t('views.static.home.donors.p') %></p>
       <%= link_to "Our Donors", static_path("about") %>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-md-12 featured">
+    <div class="featured">
       <h3>This is the featured content section</h3>
     </div>
-  </div>
 
 </div>
