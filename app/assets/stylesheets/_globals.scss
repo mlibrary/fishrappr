@@ -4,5 +4,19 @@ $footer-bgcolor: #323333;
 $header-bgcolor: #00274C;
 $body-bgcolor: #F2F2F2;
 
+$image-viewer-bgcolor: #323333;
+
 $base-fonts: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
+.btn-action {
+    background: #4E4E4E;
+    color: #EEE;
+
+    &:hover {
+        color: white;
+    }
+}
+
+.btn-pagination {
+    background: transparent;
+}

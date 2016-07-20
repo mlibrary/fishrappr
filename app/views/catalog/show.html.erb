@@ -3,9 +3,22 @@
     <div class="navigation-toolbar">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-6">
-            <%= link_back_to_catalog class: 'btn btn-info' %>
+          <div class="col-md-3">
+            <%= link_back_to_catalog class: 'btn btn-default', label: t('blacklight.back_to_search_html') %>
             <%= link_to t('blacklight.search.start_over'), start_over_path(current_search_session.try(:query_params) || {}), id: 'startOverLink', class: 'btn btn-default' %>      
+          </div>
+          <div class="col-md-6 align-center">
+            <ul class="pager" style="margin-bottom: 0">
+              <li>
+                <%= link_to_previous_issue_page @previous_page %>
+              </li>
+              <li><span class="current-page-number">Image <%= current_page_number(@document) %> of <%= @issue_data[:pages].size %></span></li>
+              <li>
+                <%= link_to_next_issue_page @next_page %>
+              </li>
+            </ul>            
+          </div>
+          <div class="col-md-3 align-right">
           </div>
         </div>
       </div>
@@ -13,92 +26,64 @@
   <% end %>
 <% end %>
 
-<div class="navbar" style="margin-bottom: 0">
-  <div class="container-fluid">
-    <div class="pull-left">
-      <ol class="breadcrumb" style="margin-bottom: 0">
-        <li><a href="<%= url_for('home') %>">The Michigan Daily</a></li>
-        <li><a href="#"><%= @document['date_issued_display'].first %> -  Issue <%= @document['issue_no_t'].first %></a></li>
-        <li class="active">Image <%= @document['sequence'] %></li>
-      </ol>
-    </div>
-    <div class="pull-right">
-        <ul class="pager" style="margin-bottom: 0">
-          <li>
-            <%= link_to_previous_issue_page @previous_page %>
-          </li>
-          <li><span><%= current_page_number(@document) %></span></li>
-          <li>
-            <%= link_to_next_issue_page @next_page %>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div id="image-viewer-wrap">
   <div class="image-viewer-toolbar">
     <div class="container">
       <div class="col-md-3">
-        <% if highlights_available? %>
-          <span><input type="checkbox" class="action-toggle-highlight" <%= highlights_visible? ? 'checked="checked"' : '' %> /> Show Hit Highlights</span>
-        <% end %>        
+        <span>
+          <a href="#"><%= @document['date_issued_display'].first %> -  Issue <%= @document['issue_no_t'].first %></a>
+        </span>
       </div>
       <div class="col-md-6">
         <div class="zoom-toolbar center-block" style="text-align: center">
-          <button class="btn btn-sm btn-default action-zoom-in"><%= raw(t('views.issue.zoom_in')) %></button>
+          <button class="btn btn-sm btn-action action-zoom-in"><%= raw(t('views.issue.zoom_in')) %></button>
           <span class="span-zoom-status">100%</span>
-          <button class="btn btn-sm btn-default action-zoom-out"><%= raw(t('views.issue.zoom_out')) %></button>
+          <button class="btn btn-sm btn-action action-zoom-out"><%= raw(t('views.issue.zoom_out')) %></button>
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3" style="text-align: right">
+        <% if highlights_available? %>
+          <label><input type="checkbox" class="action-toggle-highlight" <%= highlights_visible? ? 'checked="checked"' : '' %> /> Highlights</label>
+        <% end %>
+        <a class="btn btn-action" href="<%= hathitrust_pdf_link @document %>">Print Page</a></li>
       </div>
     </div>
   </div>
   <div id="image-viewer" data-words="<%= process_highlighted_words(@document) %>" data-identifier="<%= @document.id %>" data-highlighting="<%= highlights_visible? ? 'true' : 'false' %>"></div>
 </div>
 
-<div class="container local-options-toolbar" style="display: flex; margin-bottom: 20px">
-    <div class="grid-col-md-4">
-      <h4><%= @document['date_issued_display'].first %> -  Issue <%= @document['issue_no_t'].first %></h4>
+<div class="container">
+  <div class="col-md-8">
+    <div id="document" class="document <%= render_document_class %>" itemscope  itemtype="<%= @document.itemtype %>" style="background: white; padding: 20px">
+      <div id="doc_<%= @document.id.to_s.parameterize %>">
+        <%= render_document_partials @document, blacklight_config.view_config(:show).partials %>
+      </div>
     </div>
-    <div class="grid-col-md-4">
+  </div>
+  <div class="col-md-4">
+    <div class="page-action-toolbar" style="background: white; padding: 20px;">
+      <h4>Download Options</h4>
       <div class="btn-group-vertical action-group" role="group">
         <a class="btn btn-default" download="<%= @document.id %>.jpg" href="<%= hathitrust_image_src @document, size: ',1024' %>">Download Image</a></li>
         <a class="btn btn-default" href="<%= download_text_solr_document_path @document %>">Download Text</a></li>
         <a class="btn btn-default" href="<%= hathitrust_pdf_link @document %>">Download PDF</a></li>
-        <a class="btn btn-default action-download-pdf" href="#">Download Issue PDF (<%= @issue_data[:pages].size %>pg)...</a>
-        <a class="btn btn-default" href="<%= download_issue_text_solr_document_path @document %>">Download Issue OCR (<%= @issue_data[:pages].size %>pg)...</a>
       </div>
-
-    </div>
-    <div class="grid-col-md-4">
+      <h4>This Issue</h4>
+      <div class="btn-group-vertical action-group" role="group">
+        <a class="btn btn-default action-download-pdf" href="#">Download Issue PDF (<%= @issue_data[:pages].size %>pg)</a>
+        <a class="btn btn-default" href="<%= download_issue_text_solr_document_path @document %>">Download Issue OCR (<%= @issue_data[:pages].size %>pg)</a>
+      </div>
       <form>
         <div class="form-group">
-          <label for="permalink">Permalink</label>
+          <label for="permalink">Permalink for this page</label>
           <input type="text" class="form-control" id="permalink" value="<%= solr_document_url(@document) %>" />
         </div>
-        <button class="btn btn-default">Copy Link</button>
+        <button class="btn btn-action">Copy Link</button>
       </form>
-    </div>
-</div>
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-12" style="background: #fff">
-      <div class="row">
-        <div class="col-md-9 center-block" style="float: none; padding: 20px">
-      <div id="document" class="document <%= render_document_class %>" itemscope  itemtype="<%= @document.itemtype %>">
-        <div id="doc_<%= @document.id.to_s.parameterize %>">
-          <%= render_document_partials @document, blacklight_config.view_config(:show).partials %>
-        </div>
-      </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
+
 
 <button id="configure-fit" class="btn btn-default" style="position: fixed; bottom: 10px; left: 5px;"><span class="glyphicon glyphicon-equalizer"></span></button>
 <script>
