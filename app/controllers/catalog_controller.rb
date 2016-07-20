@@ -126,14 +126,19 @@ class CatalogController < ApplicationController
     #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
-    config.add_facet_field 'date_issued_dt', label: 'Issue Date', helper_method: :render_date_format
-    # config.add_facet_field 'issue_no_t', label: 'Issue No'
-    config.add_facet_field 'date_issued_yyyy_ti', label: 'Issue Year', range: true
-    config.add_facet_field 'date_issued_yyyymmdd_ti', label: 'Date Range', range: {
-                         num_segments: 10,
-                         maxlength: 4
-                       }
-    # seg was 6, len was 8
+    # config.add_facet_field 'date_issued_dt', label: 'Issue Date', helper_method: :render_date_format
+    # # config.add_facet_field 'issue_no_t', label: 'Issue No'
+    # config.add_facet_field 'date_issued_yyyy_ti', label: 'Issue Year', range: true
+    # config.add_facet_field 'date_issued_yyyymmdd_ti', label: 'Date Range', range: {
+    #                      num_segments: 10,
+    #                      maxlength: 4
+    #                    }
+    # # seg was 6, len was 8
+
+    config.add_facet_field 'date_issued_yyyy10_ti', label: 'Decade', sort: 'index', limit: 20, collapse: false
+    config.add_facet_field 'date_issued_yyyy_ti', label: 'Year', sort: 'index', limit: 20
+    config.add_facet_field 'date_issued_mm_ti', label: 'Month', sort: 'index'
+    config.add_facet_field 'date_issued_dd_ti', label: 'Day', sort: 'index', limit: 20
 
     #config.add_facet_field 'example_pivot_field', label: 'Pivot Field', :pivot => ['format', 'language_facet']
 
