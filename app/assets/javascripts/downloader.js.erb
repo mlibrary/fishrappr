@@ -2,8 +2,8 @@ var F = F || {};
 F.ht_host = '<%= Rails.configuration.ht_host %>';
 F.Downloader = function(args) {
     this.id = args.id;
-    this.seq = args.seq;
-    this.total = args.seq.length;
+    this.pages = args.pages;
+    this.total = args.pages.length;
     this.src = F.ht_host + '/cgi/imgsrv/download/pdf?id=' + this.id;
     this.item_title = 'PDF';
     this.status = {};
@@ -67,8 +67,11 @@ F.Downloader.prototype.startDownload = function() {
 F.Downloader.prototype.requestDownload = function() {
     var self = this;
     var data = {};
-    if ( self.seq ) {
-        data['seq'] = self.seq;
+    if ( self.pages ) {
+        data['seq'] = [];
+        $.each(self.pages, function() {
+            data['seq'].push(this['seq']);
+        });
     }
     $.ajax({
         url: self.src + '&callback=F.downloader.monitorDownload',

@@ -11,6 +11,10 @@
     var words = $map.data('words');
     var identifier = $map.data('identifier');
 
+    if ( identifier.indexOf('fake-') > -1 ) {
+      return;
+    }
+
     var map;
     map = L.map($map.get(0), {
       center: [0, 0],
