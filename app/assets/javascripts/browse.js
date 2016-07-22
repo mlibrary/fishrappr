@@ -1,10 +1,5 @@
 // browse page js
 $( document ).ready(function() {
-    // trigger a change on select in the browse page
-    if (("body.blacklight-catalog-browse").length > 0) {
-     $("body.blacklight-catalog-browse form select.browse-decade").trigger("change");
-    }
-
 
     $("body.blacklight-catalog-browse form select#browse-decade").on("click", function(event) {
 
@@ -56,25 +51,27 @@ $( document ).ready(function() {
 
         // alert("start year: " + start_year);
 
-        
-        // clear then set dates for this month
-        var optionsAsString = "";
-        optionsAsString += "<option value='" + "1" + "'>" + "Any Year" + "</option>";
+        if (start_year != "Any Decade") {
+            // clear then set dates for this month
+            var optionsAsString = "";
+            optionsAsString += "<option value='" + "1" + "'>" + "Any Year" + "</option>";
 
-        for( var i = 0; i < 11; i++) {
-            new_val = parseInt(start_year) + i
-            optionsAsString += "<option value='" + new_val + "'>" + new_val + "</option>";
+            for( var i = 0; i < 11; i++) {
+                new_val = parseInt(start_year) + i
+                optionsAsString += "<option value='" + new_val + "'>" + new_val + "</option>";
+            }
+
+            // alert("optionsAsString: " + optionsAsString);
+
+
+            $(year_el).find('option').remove().end().append($(optionsAsString));
+
+            // set or reset the selected value
+            $(year_el + " option:selected").prop("selected",false);
+            $(year_el + " option[value=" + 0 + "]").prop("selected",true);            
         }
 
-        // alert("optionsAsString: " + optionsAsString);
-
-
-        $(year_el).find('option').remove().end().append($(optionsAsString));
-
-        // set or reset the selected value
-        $(year_el + " option:selected").prop("selected",false);
-        $(year_el + " option[value=" + 0 + "]").prop("selected",true);
     }
 
-})
+});
 
