@@ -6,273 +6,82 @@
 
 $( document ).ready(function() {
 
-    // change search button icon to not searching
-    $("div.search span#not-searching").removeClass("hidden");
-    $("div.search span#now-searching").addClass("hidden");
-    $("body").css("cursor", "auto");
-    
-    // set up dates based on initial values (basically, search everything)
-    set_dates("div.search ");
-
-    // if we are on a help page (include the contacts page) mark the link for that page in the sidebar
-    $('ul.help-ul li.current a').addClass('currentlyActive');
-
-    // trigger a change on select in the browse page
-    if (("body.blacklight-catalog-browse").length > 0) {
-     $("body.blacklight-catalog-browse form select.browse-decade").trigger("change");
-    }
-
-
-    // Back to top window scroll for catalog index page
-    if (("body.blacklight-catalog-index").length > 0) {
-        $(window).scroll(function () {
-            if ($(this).scrollTop() > 50) {
-                $('#back-to-top').fadeIn();
-            } else {
-                $('#back-to-top').fadeOut();
-            }
-        });
-        // scroll body to 0px on click
-        $('#back-to-top').click(function () {
-            $('#back-to-top').tooltip('hide');
-            $('body,html').animate({
-                scrollTop: 0
-            }, 800);
-            return false;
-        });
-        
-        $('#back-to-top').tooltip('show');
-    }
-
-
-  $(document).on("click", 'button#search', function(){
-    // add validation here
-
-    var check_start_year = $("div.search form input#range_start_year").val();
-    var check_end_year = $("div.search form input#range_end_year").val();
-
-    if (
-        (check_start_year && (check_start_year.length < 4 || check_start_year.length > 4))
-        || (check_end_year && (check_end_year.length < 4 || check_end_year.length > 4))
-        ) {
-        alert("All years must be entered as four digits or left blank for default search");
-        return false;
-    }
-
-    // show search in progress
-    // Replaces the magnifying glass in the search button with a rotating wait icon
-    // See changes in customers.css.scss too, as well as /catalog and /home html.
-    $("div.search span#not-searching").addClass("hidden");
-    $("div.search span#now-searching").removeClass("hidden");
-    $("body").css("cursor", "wait");
-    set_dates("div.search "); 
-
-  });
-
-  // facet
-  $(document).on("click", "form.range_date_issued_yyyymmdd_ti input.date-range-submit", function(){
-    alert("Got a click!");
-    // add validation here
-    var check_start_year = $("form.range_date_issued_yyyymmdd_ti input#range_start_year").val();
-    var check_end_year = $("form.range_date_issued_yyyymmdd_ti input#range_end_year").val();
-    if (
-        (check_start_year && (check_start_year.length < 4 || check_start_year.length > 4))
-        || (check_end_year && (check_end_year.length < 4 || check_end_year.length > 4))
-        ) {
-        alert("All years must be entered as four digits or left blank for default search");
-        return false;
-    }
-
-    // show search in progress
-    $("body").css("cursor", "wait");
-    set_dates("form.range_date_issued_yyyymmdd_ti ");
-
-    // send click event to search button at the top of the page
-    $('div.search form button#search').trigger("click");
-
-  });
-
-  // main search, not facet
-  $(document).on("click", 'div.search button.range-toggle', function(){
-
-    if ($('button.range-toggle').val() == "Show Date Range") {
-        $("div.search div.start-year span.hint").html("Start Year")
-        $("div.search input#dash").removeClass("hidden");
-        $("div.search div.end-year").removeClass("hidden");
-        $("div.search div.end-month").removeClass("hidden");
-        $("div.search div.end-date").removeClass("hidden");
-        $('div.search button.range-toggle span.range-toggle-text').html("Show Specific Date");
-        $('div.search button.range-toggle').val("Show Single Date");
-        $('div.search button.range-toggle  span.glyphicon-chevron-left').removeClass("hidden");
-        $('div.search button.range-toggle  span.glyphicon-chevron-right').addClass("hidden");
-    } else {
-        $("div.search div.start-year span.hint").html("Specific date")
-        $("div.search input#dash").addClass("hidden");
-        $("div.search div.end-year").addClass("hidden");
-        $("div.search div.end-month").addClass("hidden");
-        $("div.search div.end-date").addClass("hidden");
-        $('div.search button.range-toggle span.range-toggle-text').html("Show Date Range");
-        $('div.search button.range-toggle').val("Show Date Range");
-        $('div.search button.range-toggle  span.glyphicon-chevron-right').removeClass("hidden");
-        $('div.search button.range-toggle  span.glyphicon-chevron-left').addClass("hidden");
-    }
-    
-  });  
-
-  $("div.search form input.changeable, div.search form select.changeable").on("change", function(event){
-
-    // alert("id: " + this.id);
-    // alert("value: " + this.value);
-
-    if ( this.id  == "range_start_month" ) {
-       update_month_dates("div.search form input#range_start_year", "div.search form input#range_start", "div.search form select#range_start_month", "div.search form select#range_start_date");
-    }
-
-    if (this.id == "range_end_month") {
-        update_month_dates("div.search form input#range_end_year", "div.search form input#range_end", "div.search form select#range_end_month", "div.search form select#range_end_date");
-    }
-
-    set_dates("div.search ");
-    event.preventDefault();
-
-  });
-
-    // facet
-  $(document).on("click", 'form.range_date_issued_yyyymmdd_ti button.range-toggle', function(event){
-
-    if ($('form.range_date_issued_yyyymmdd_ti button.range-toggle').val() == "Show Date Range") {
-        $("form.range_date_issued_yyyymmdd_ti div.start-year span.hint").html("Start Year")
-        $("form.range_date_issued_yyyymmdd_ti input#dash").removeClass("hidden");
-        $("form.range_date_issued_yyyymmdd_ti div.end-year").removeClass("hidden");
-        $("form.range_date_issued_yyyymmdd_ti div.end-month").removeClass("hidden");
-        $("form.range_date_issued_yyyymmdd_ti div.end-date").removeClass("hidden");
-        $('form.range_date_issued_yyyymmdd_ti button.range-toggle span.range-toggle-text').html("Show Specific Date");
-        $('form.range_date_issued_yyyymmdd_ti button.range-toggle').val("Show Single Date");
-        $('form.range_date_issued_yyyymmdd_ti button.range-toggle  span.glyphicon-chevron-left').removeClass("hidden");
-        $('form.range_date_issued_yyyymmdd_ti button.range-toggle  span.glyphicon-chevron-right').addClass("hidden");
-    } else {
-        $("form.range_date_issued_yyyymmdd_ti  div.start-year span.hint").html("Specific date")
-        $("form.range_date_issued_yyyymmdd_ti  input#dash").addClass("hidden");
-        $("form.range_date_issued_yyyymmdd_ti  div.end-year").addClass("hidden");
-        $("form.range_date_issued_yyyymmdd_ti  div.end-month").addClass("hidden");
-        $("form.range_date_issued_yyyymmdd_ti  div.end-date").addClass("hidden");
-        $('form.range_date_issued_yyyymmdd_ti button.range-toggle span.range-toggle-text').html("Show Date Range");
-        $('form.range_date_issued_yyyymmdd_ti button.range-toggle').val("Show Date Range");
-        $('form.range_date_issued_yyyymmdd_ti button.range-toggle  span.glyphicon-chevron-right').removeClass("hidden");
-        $('form.range_date_issued_yyyymmdd_ti button.range-toggle  span.glyphicon-chevron-left').addClass("hidden");
-    }
-
-    event.preventDefault();
-    
-  }); 
-
-
-  $("form.range_date_issued_yyyymmdd_ti input, form.range_date_issued_yyyymmdd_ti select").on("change", function(event){
-
-    // Note that these get the backup year values from the div.search
-
-    // alert("id: " + this.id)
-
-    if ( this.id  == "range_start_month" ) {
-       update_month_dates("form.range_date_issued_yyyymmdd_ti input#range_start_year", "div.search form input#range_start", "form.range_date_issued_yyyymmdd_ti select#range_start_month", "form.range_date_issued_yyyymmdd_ti select#range_start_date");
-    }
-
-    if (this.id == "range_end_month") {
-        update_month_dates("form.range_date_issued_yyyymmdd_ti input#range_end_year", "div.search form input#range_end", "form.range_date_issued_yyyymmdd_ti select#range_end_month", "form.range_date_issued_yyyymmdd_ti select#range_end_date");
-    }
-
-    set_dates("form.range_date_issued_yyyymmdd_ti ");
-    event.preventDefault();
-
-  });
-
-    // browse page js
-    $("body.blacklight-catalog-browse form select#browse-decade").on("click", function(event) {
-
-    // alert("id: " + this.id);
-    // alert("value: " + this.value);
-
-    if ( this.id  == "browse-decade" ) {
-       update_browse_years("body.blacklight-catalog-browse form select#browse-decade", "body.blacklight-catalog-browse form select#browse-year");
-    }
-
-    event.preventDefault();
-
-    });
-
-    $("body.blacklight-catalog-browse form select.changeable").on("change", function(event) {
-
-    // alert("id: " + this.id);
-    // alert("value: " + this.value);
-
-    // Update div.issues-display h3 to reflect year and month
-    // var y = $('body.blacklight-catalog-browse form select#browse-year').val();
-    // var m = $('body.blacklight-catalog-browse form select#browse-month').val();
-    // var m $.trim($("select#browse-month").children("option:selected").text()) 
-    var d = $.trim($("select#browse-decade").children("option:selected").text()) 
-    var y = $.trim($("select#browse-year").children("option:selected").text()) 
-    var m = $.trim($("select#browse-month").children("option:selected").text()) 
-
-    if (d != "Any Decade") {
-        d = "in the " + d + "s"
-    }
-
-     if (y != "Any Year") {
-        d = ""
-    }
-
-    $('body.blacklight-catalog-browse div.issues-display h3').html(m + " in  " + y + " " + d);
-
-    event.preventDefault();
-
-    });
-
-
- function set_dates(parent) {
-    // set up range start and end fields s=start e=end y=year m=month d=date r=range
-    // alert("Setting dates for parent: " + parent);
-
-    var sy = $(parent + "input#range_start_year").val();
-    sy = !sy ? 1890 : sy;
-    
-    var sm = $(parent + "select#range_start_month").val();
-    sm = !sm ? 1 : sm;
-    sm = sm > 9 ? sm : "0" + sm; //  add zero padding
-    
-    var sd = $(parent + "select#range_start_date").val();
-    sd = !sd ? 1 : sd;
-    sd = sd > 9 ? sd : "0" + sd;
-
-    var ey = $(parent + "input#range_end_year").val();
-    ey = !ey ? 2016 : ey;
-
-    var em = $(parent + "select#range_end_month").val();
-    em = !em ? 1 : em;
-    em = em > 9 ? em : "0" + em;
-   
-    var ed = $(parent + "select#range_end_date").val();
-    em = !em ? 1 : em;
-    ed = ed > 9 ? ed : "0" + ed;
-
-    var sr = sy + sm + sd;
-    var er = ey + em + em;
-
-    // if only one date and it is not empty, set end date to same as start date
-    if ( ($(parent + 'button.range-toggle').val() == "Show Date Range") &&  ($(parent + "input#range_start_year").val()) ) {
-        er = sr;
-    }
-
-    // alert("about to set ranges start and end are " + sr + " and  " + er);
-
-    $("div.search input#range_start").val(sr);
-    $("div.search input#range_end").val(er);
-    $("div.search  input[name='range_start']").val(sr);
-    $("div.search  input[name='range_end']").val(er);
-    $("form.range_date_issued_yyyymmdd_ti input[name='range_start']").val(sr);
-    $("form.range_date_issued_yyyymmdd_ti input[name='range_end']").val(er);
-    // $("input[name='range_date_issued_yyyymmdd_ti][begin]'").val(sr);
-    // $("input[name='range_date_issued_yyyymmdd_ti][end]'").val(er);
+  function setup_date_filters($select) {
+    var option = $select.val();
+    var $form = $select.parents("form");
+    $form.find(".date-option").hide();
+    $form.find(".date-option-" + option).show();
   }
+
+
+  $("body").css("cursor", "auto");
+    
+  // if we are on a help page (include the contacts page) mark the link for that page in the sidebar
+  $('ul.help-ul li.current a').addClass('currentlyActive');
+
+  // Back to top window scroll for catalog index page
+  if (("body.blacklight-catalog-index").length > 0) {
+      $(window).scroll(function () {
+          if ($(this).scrollTop() > 50) {
+              $('#back-to-top').fadeIn();
+          } else {
+              $('#back-to-top').fadeOut();
+          }
+      });
+      // scroll body to 0px on click
+      $('#back-to-top').click(function () {
+          $('#back-to-top').tooltip('hide');
+          $('body,html').animate({
+              scrollTop: 0
+          }, 800);
+          return false;
+      });
+      
+      // $('#back-to-top').tooltip('show');
+  }
+
+  $("select[name=date_filter]").on('change', function() {
+    setup_date_filters($(this));
+  })
+
+  var $form = $(".site-search-form");
+  if ( $form.size ) {
+    setup_date_filters($form.find("select[name=date_filter]"));
+  }
+
+  $(".site-search-form").on('submit', function() {
+    var $form = $(this);
+    var $button = $form.find("button[type=submit]");
+
+    var check_start_year = $form.find("input[name=date_issued_begin_yyyy]").val();
+    var check_end_year = $form.find("input[name=date_issued_end_yyyy]").val();
+    var filter = $form.find("select[name=date_filter]").val();
+    if ( filter != 'any' ) {
+        if ( check_start_year && ! check_start_year.match(/^\d{4}$/) ) {
+            alert("Please enter the year as four digits.");
+            return false;
+        }
+    }
+
+    if ( filter == 'between' ) {
+        if ( check_end_year && ! check_end_year.match(/^\d{4}$/) ) {
+            alert("Please enter the year as four digits.");
+            return false;
+        }
+    }
+
+    $button.find(".glyphicon").toggleClass('hidden');
+    $("body").css("cursor", "wait");
+
+    return true;
+
+  })
+
+  $("select.date_filter_control_mm").on('change', function() {
+    var $this = $(this);
+    update_month_dates($this, $this.next(".date_filter_control_dd"), $this.nextAll(".date_issued_yyyy"))
+  })
+
 
   // assumes y is four digits
   function leap_year(y) {
@@ -326,82 +135,28 @@ $( document ).ready(function() {
       return count == 0;
     }
 
-    function update_month_dates(year_el, year_backup_el, month_el, date_el) {
-        // get currently selected date, if there is one
-        var new_selected = was_selected = $(date_el + ' option:selected').val();
-        if (empty(new_selected)) { new_selected = was_selected = 1 }
+    function update_month_dates($mm_el, $dd_el, $yyyy_el) {
+      var mm = $mm_el.val();
+      var dd = $dd_el.val();
+      var check_year = $yyyy_el.val().trim() || ( ( new Date() ).getYear() + 1900 )
+      var dd_count = month_dates(check_year, mm);
 
-        // alert("new_selected: " + new_selected);
-
-        // get year to check for leap year
-        var check_start_year = $(year_el).val();
-        if (empty(check_start_year)) {
-            year = $(year_backup_el).val().trim();
-            year = year.substring(0,4);
-        } else {
-            year = check_start_year
+      var last_dd = parseInt($dd_el.find("option:last").val(), 10);
+      if ( dd_count > last_dd ) {
+        // add to the options
+        for(var dd = last_dd + 1; dd <= dd_count; dd++) {
+          var $option = $("<option>" + dd + "</option>");
+          $option.val(dd);
+          $dd_el.append($option);
         }
-
-        // alert("year: " + year);
-
-        // get number of dates to display in this month
-        var date_count = month_dates(year, $(month_el).val());
-
-        // alert("date_count: " + date_count);
-
-
-        if (was_selected > date_count) {
-            alert("You had a previously selected date greater than a date available in your new month");
-            new_selected = date_count;
+      } else {
+        // remove options
+        while ( last_dd > dd_count ) {
+          $dd_el.find("option:last").remove();
+          last_dd = parseInt($dd_el.find("option:last").val(), 10);
         }
-
-        // alert("new_selected: " + new_selected);
-        
-        // clear then set dates for this month
-        var optionsAsString = "";
-        for( var i = 1; i <= date_count; i++) {
-            optionsAsString += "<option value='" + i + "'>" + i + "</option>";
-        }
-
-        // alert("optionsAsString: " + optionsAsString);
-
-        // alert("date_el: " + date_el);
-
-
-        $(date_el).find('option').remove().end().append($(optionsAsString));
-
-        // set or reset the selected value
-        $(date_el + " option:selected").prop("selected",false);
-        $(date_el + " option[value=" + new_selected + "]").prop("selected",true);
+      }
     }
 
-    function update_browse_years(decade_el, year_el) {
-
-        // get decade start year from decade select
-        var start_year = $(decade_el).val();
-
-        // alert("decade value is: " + $(decade_el).val());
-
-        // alert("start year: " + start_year);
-
-        
-        // clear then set dates for this month
-        var optionsAsString = "";
-        optionsAsString += "<option value='" + "1" + "'>" + "Any Year" + "</option>";
-
-        for( var i = 0; i < 11; i++) {
-            new_val = parseInt(start_year) + i
-            optionsAsString += "<option value='" + new_val + "'>" + new_val + "</option>";
-        }
-
-        // alert("optionsAsString: " + optionsAsString);
-
-
-        $(year_el).find('option').remove().end().append($(optionsAsString));
-
-        // set or reset the selected value
-        $(year_el + " option:selected").prop("selected",false);
-        $(year_el + " option[value=" + 0 + "]").prop("selected",true);
-    }
 
 });

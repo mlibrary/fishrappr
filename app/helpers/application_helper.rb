@@ -1,7 +1,7 @@
 require 'digest'
 module ApplicationHelper
 
-  extend RangeLimitHelper
+  # extend RangeLimitHelper
 
   ##
   # Link to the previous document in the current search context
@@ -258,7 +258,7 @@ module ApplicationHelper
     year_options
   end
 
-    def get_month_browse_options
+  def get_month_browse_options
     months = ["Any month", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     months_range = (1..months.count)
     month_options = [];
