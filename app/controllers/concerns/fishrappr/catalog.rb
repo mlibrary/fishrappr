@@ -12,27 +12,34 @@ module Fishrappr::Catalog
     helper_method :container_classes
   end
 
+  # def search_results(user_params)
+    
+  #   start_len=end_len = 0
+
+  #   start_len = user_params["range_start"].length if user_params["range_start"]
+  #   end_len = user_params["range_end"].length if user_params["range_end"]    
+    
+  #   if start_len==4 || end_len==4
+  #     user_params["range"] = {"date_issued_yyyy_ti"=>{"begin"=>"", "end"=>""}} 
+  #     user_params["range"]["date_issued_yyyy_ti"]["begin"] = user_params["range_start"] 
+  #     user_params["range"]["date_issued_yyyy_ti"]["end"] = user_params["range_end"] 
+  #   elsif start_len>=8 || end_len >=8
+  #     user_params["range_start"]= user_params["range_start"]
+  #     user_params["range"] = {"date_issued_yyyymmdd_ti"=>{"begin"=>"", "end"=>""}} 
+  #     user_params["range"]["date_issued_yyyymmdd_ti"]["begin"] = user_params["range_start"] 
+  #     user_params["range_end"]= user_params["range_end"]
+  #     user_params["range"]["date_issued_yyyymmdd_ti"]["end"] = user_params["range_end"] 
+  #   end
+
+  #   super
+  # end  
+
   def search_results(user_params)
-    
-    start_len=end_len = 0
-
-    start_len = user_params["range_start"].length if user_params["range_start"]
-    end_len = user_params["range_end"].length if user_params["range_end"]    
-    
-    if start_len==4 || end_len==4
-      user_params["range"] = {"date_issued_yyyy_ti"=>{"begin"=>"", "end"=>""}} 
-      user_params["range"]["date_issued_yyyy_ti"]["begin"] = user_params["range_start"] 
-      user_params["range"]["date_issued_yyyy_ti"]["end"] = user_params["range_end"] 
-    elsif start_len>=8 || end_len >=8
-      user_params["range_start"]= user_params["range_start"]
-      user_params["range"] = {"date_issued_yyyymmdd_ti"=>{"begin"=>"", "end"=>""}} 
-      user_params["range"]["date_issued_yyyymmdd_ti"]["begin"] = user_params["range_start"] 
-      user_params["range_end"]= user_params["range_end"]
-      user_params["range"]["date_issued_yyyymmdd_ti"]["end"] = user_params["range_end"] 
+    if user_params["date_filter"] and user_params["date_filter"] != 'any'
+      user_params["date_filter_options"] = get_date_params(user_params)
     end
-
     super
-  end  
+  end
 
   # get search results from the solr index
   def index
@@ -222,6 +229,9 @@ module Fishrappr::Catalog
     words.keys.sort.to_json
   end
 
+  # this is crazy stuff
+
+  
   private
     def setup_publication
       if params[:publication]
@@ -330,5 +340,57 @@ module Fishrappr::Catalog
       end
     end
 
+    def get_date_params(user_params)
+      retval = {}
+      user_params.keys.each do |key|
+        if key.start_with?('date_issued_')
+          if user_params[key] == '-' or user_params[key].match(/^\d+/).nil?
+            user_params[key] = nil
+          end
+        end
+      end
+
+      [ 'begin', 'end' ].each do |suffix|
+        unless user_params["date_issued_#{suffix}_yyyy"].blank?
+          retval[suffix] = {}
+          tmp = [ user_params["date_issued_#{suffix}_yyyy"] ]
+          unless user_params["date_issued_#{suffix}_mm"].blank?
+            tmp << user_params["date_issued_#{suffix}_mm"]
+            unless user_params["date_issued_#{suffix}_dd"].blank?
+              tmp << user_params["date_issued_#{suffix}_dd"]
+            end
+          end
+          tmp.compact!
+          tmp[0] = "%04d" % tmp[0] if tmp[0]
+          tmp[1] = "%02d" % tmp[1] if tmp[1]
+          tmp[2] = "%02d" % tmp[2] if tmp[2]
+          retval[suffix][:value] = tmp.join
+          case tmp.size
+          when 1
+            retval[suffix][:fld] = 'date_issued_yyyy_ti'
+          when 2
+            retval[suffix][:fld] = 'date_issued_yyyymm_ti'
+          else
+            retval[suffix][:fld] = 'date_issued_yyyymmdd_ti'
+          end
+        end
+      end
+      if retval['begin'] and retval['end']
+        from_key = to_key = nil
+        if retval['begin'][:fld] > retval['end'][:fld]
+          from_key = 'begin'
+          to_key = 'end'
+        elsif retval['begin'][:fld] < retval['end'][:fld]
+          from_key = 'end'
+          to_key = 'begin'
+        end
+
+        if from_key and to_key
+          retval[from_key][:fld] = retval[to_key][:fld]
+          retval[from_key][:value] = retval[from_key][:value][ 0 .. retval[to_key][:value].size - 1 ]
+        end
+      end
+      retval
+    end
      
 end

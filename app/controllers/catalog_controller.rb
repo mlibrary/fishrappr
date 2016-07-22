@@ -2,10 +2,12 @@
 class CatalogController < ApplicationController
   include BlacklightAdvancedSearch::Controller
 
-  include BlacklightRangeLimit::ControllerOverride
+  # include BlacklightRangeLimit::ControllerOverride
 
   include Blacklight::Catalog
   include Fishrappr::Catalog
+
+  helper Fishrappr::ControllerOverride
 
   before_action :setup_publication
   layout :resolve_layout
@@ -139,6 +141,8 @@ class CatalogController < ApplicationController
     config.add_facet_field 'date_issued_yyyy_ti', label: 'Year', sort: 'index', limit: 20
     config.add_facet_field 'date_issued_mm_ti', label: 'Month', sort: 'index'
     config.add_facet_field 'date_issued_dd_ti', label: 'Day', sort: 'index', limit: 20
+
+    config.add_facet_field 'date_issued_yyyymmdd_ti', label: 'Date', show: false
 
     #config.add_facet_field 'example_pivot_field', label: 'Pivot Field', :pivot => ['format', 'language_facet']
 

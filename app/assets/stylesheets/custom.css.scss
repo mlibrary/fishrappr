@@ -101,6 +101,72 @@ p.help-block {
 
 body.blacklight-catalog-index, body.blacklight-catalog-home {
 
+  .site-search {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: #4E4E4E;
+    padding: 20px;
+    padding-left: 10%;
+    padding-right: 10%;
+
+    color: #fff;
+
+    // .form-group {
+    //   margin-bottom: 0;
+    // }
+
+    .btn-action {
+      background: #6E6E6E;
+
+      &:hover {
+        background: black;
+      }
+    }
+
+  }
+
+  .date-input-control {
+    .form-control, span {
+      width: 100%;
+      display: inline-block;
+    }
+  }
+
+  .date-option {
+    display: none;
+  }
+
+  .input-layout-group {
+    display: block;
+    text-align: left;
+    
+    .form-control {
+      width: 100%;
+
+      &.date_issued_yyyy {
+        width: 5em;
+      }
+    }
+    
+    span {
+      width: 100% !important;
+      text-align: center;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .date-input-control {
+      .form-control, span {
+        width: auto;
+      }
+    }
+    .input-layout-group {
+      display: inline-block;
+    }
+  }
+
+  .ignore {
+
     div.search {
       background-color: black;
       display: block;
@@ -226,6 +292,8 @@ body.blacklight-catalog-index, body.blacklight-catalog-home {
 
     } /* form */
   } /* div.search */
+
+  } /* ignore */
 }
 
 // facet styling
@@ -543,6 +611,10 @@ body.blacklight-catalog-home {
     margin: 0;
     padding: 0;
     text-align: center;
+  }
+
+  form {
+    text-align: left;
   }
 
   .head a, .donors a {

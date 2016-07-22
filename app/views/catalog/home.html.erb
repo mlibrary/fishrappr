@@ -7,7 +7,8 @@
       <p class="para2"><%= t('views.static.home.head.p2') %></p>
       <%= link_to "Read More", static_path("about") %>
 
-      <%= render "search_form" %>
+      <% if true %><%= render partial: "search_form", locals: { container_class: 'container' } %><% end %>
+      <% if false %><%= render "search_form", locals: { container_class: 'container' } %><% end %>
     </div>
 
     <div class="donors">

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  concern :range_searchable, BlacklightRangeLimit::Routes::RangeSearchable.new
+  # concern :range_searchable, BlacklightRangeLimit::Routes::RangeSearchable.new
   # get 'pub/:publication_link/:ht_barcode/:date_issued_link/:sequence' => 'catalog#show', as: :in_context
 
   mount Blacklight::Engine => '/'
@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   resource :catalog, only: [:index], as: 'catalog', path: '/catalog', controller: 'catalog' do
     concerns :searchable
-    concerns :range_searchable
+    ## concerns :range_searchable
 
   end
 

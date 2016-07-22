@@ -3,6 +3,9 @@ en:
     application_name: 'Fishrappr'
     back_to_search_html: '<span class="glyphicon glyphicon-arrow-left"></span> Back to Results'
     search:
+      form:
+        search:
+          label: 'Search Pages'
       view:
         list: "List"
         grid: "Grid"

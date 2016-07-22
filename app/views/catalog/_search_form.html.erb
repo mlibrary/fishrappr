@@ -1,3 +1,58 @@
+<% month_options = get_month_options; month_options.unshift(['Any Month', '-']) %>
+<% date_options = get_date_options; date_options.unshift(['Any Day', '-']) %>
+<% container_class = 'container-fluid' if local_assigns[:container_class].nil? %>
+<% use_new_form = true %>
+
+<% if use_new_form %>
+
+<div class="<%= container_class %> site-search">
+  <%= form_tag(search_action_url, role: 'search', method: :get, class: "form-horizontal site-search-form") do %>
+    <%= render_hash_as_hidden_fields(search_state.params_for_search.except(:q, :search_field, :qt, :page, :utf8)) %>
+    <%= hidden_field_tag :search_field, search_fields.first.last %>
+    <div class="form-group form-group-lg">
+      <label for="q" class="col-md-2 col-sm-4 control-label"><%= t('blacklight.search.form.search.label') %></label>
+      <div class="col-md-8 col-sm-4">
+        <%= text_field_tag(:q, params[:q], placeholder: 'Enter one or more search words', class: 'form-control' ) %>
+      </div>
+      <div class="col-md-2 col-sm-4">
+        <!-- <button class="btn btn-primary btn-lg">Search </button> -->
+        <button type="submit" class="btn btn-action btn-lg" xid="search">
+          <span class="glyphicon glyphicon-search"></span>
+          <span class="hidden glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> 
+          <span class="submit-search-text"><%= t('blacklight.search.form.submit') %></span>
+        </button>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="date_filter" class="col-sm-2 control-label">Filter by</label>
+      <div class="col-sm-2">
+        <label class="sr-only">Search by date</label>
+        <%= select_tag('date_filter', options_for_select([['Any Date', 'any'], ['On this date...', 'on'], ['After this date...', 'after'], ['Before this date...', 'before'], ['Specific date range...', 'between']], params[:date_filter]), class: 'form-control') %>
+      </div>
+      <div class="col-sm-8">
+        <div class="date-option date-option-on date-option-after date-option-before date-option-between">
+          <div class="date-input-control">
+            <div class="input-layout-group">
+              <%= select_tag(name="date_issued_begin_mm", options_for_select(month_options, params[:date_issued_begin_mm]), class: 'form-control date_filter_control_mm') %>
+              <%= select_tag(name="date_issued_begin_dd", options_for_select(date_options, params[:date_issued_begin_dd]), class: 'form-control date_filter_control_dd') %>
+              <%= text_field_tag(name="date_issued_begin_yyyy", params[:date_issued_begin_yyyy], placeholder: "YYYY", class: 'form-control date_issued_yyyy', size: 4, maxlength: 4) %>
+            </div>
+            <div class="input-layout-group date-option-between date-option">
+              <span> to </span>
+            </div>
+            <div class="input-layout-group date-option-between date-option">
+              <%= select_tag(name="date_issued_end_mm", options_for_select(month_options, params[:date_issued_end_mm]), class: 'form-control date_filter_control_mm') %>
+              <%= select_tag(name="date_issued_end_dd", options_for_select(date_options, params[:date_issued_end_dd]), class: 'form-control date_filter_control_dd') %>
+              <%= text_field_tag(name="date_issued_end_yyyy",  params[:date_issued_end_yyyy], placeholder: "YYYY", class: 'form-control date_issued_yyyy', size: 4, maxlength: 4) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+<% end %>
+<% unless use_new_form %>
 <div class="search" aria-live="polite">
   <% years_options = (get_solr_years_options) %>
   <%= form_tag(search_action_url, role: 'search', method: :get, html: {class: "form-inline"}) do %>
@@ -24,10 +79,20 @@
         <%= text_field_tag(name="q", value="", placeholder: ' Enter one or more search words' ) %>
 
         <button type="submit" id="search">
-          <span id="not-searching" class="glyphicon glyphicon-search"></span>
-          <span id="now-searching" class="hidden glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> 
+          <span id="not-searching" class="not-searching glyphicon glyphicon-search"></span>
+          <span id="now-searching" class="hidden now-searching glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> 
           <span class="submit-search-text"><%= t('blacklight.search.form.submit') %></span>
         </button>
+      </div>
+
+      <div>
+        <select name="date_filter">
+          <option value="any">Any Date</option>
+          <option value="on">On Date</option>
+          <option value="before">Before...</option>
+          <option value="after">After...</option>
+          <option value="between">Between...</option>
+        </select>
       </div>
 
       <div class="date-query-box">
@@ -35,32 +100,33 @@
         <% month_options = get_month_options %>
         <% date_options = get_date_options %>
 
+
         <div class="start-year">
-          <%= text_field_tag(name="range_start_year", "", placeholder: "YYYY", class: 'changeable') %>
+          <%= text_field_tag(name="date_issued_begin_yyyy", "", placeholder: "YYYY", class: 'changeable') %>
           <span class="hint">Specific date</span>
         </div>
 
         <div class="start-month">
-          <%= select_tag(name="range_start_month", options_for_select(month_options, 1), class: 'changeable') %>
+          <%= select_tag(name="date_issued_begin_mm", options_for_select(month_options, 1), class: 'changeable') %>
         </div>
 
         <div class="start-date">
-          <%= select_tag(name="range_start_date", options_for_select(date_options, 1), class: 'changeable') %>
+          <%= select_tag(name="date_issued_begin_dd", options_for_select(date_options, 1), class: 'changeable') %>
         </div>
 
         <%= text_field_tag(name="dash", value="", disabled: true, class: 'hidden') %>
 
         <div class="end-year hidden">
-          <%= text_field_tag(name="range_end_year", "", placeholder: "YYYY", class: 'changeable') %>
+          <%= text_field_tag(name="date_issued_end_yyyy", "", placeholder: "YYYY", class: 'changeable') %>
           <span class="hint">End Year</span>
         </div>
 
         <div class="end-month hidden">
-          <%= select_tag(name="range_end_month", options_for_select(month_options, 12), class: 'changeable') %>
+          <%= select_tag(name="date_issued_end_mm", options_for_select(month_options, 12), class: 'changeable') %>
         </div>
 
         <div class="end-date hidden">
-          <%= select_tag(name="range_end_date", options_for_select(date_options, 31), class: 'changeable') %>
+          <%= select_tag(name="date_issued_end_dd", options_for_select(date_options, 31), class: 'changeable') %>
         </div>
 
         <button type="button" class="range-toggle" value="Show Date Range">
@@ -74,3 +140,4 @@
     </div>
   <% end %>
 </div>
+<% end %>
