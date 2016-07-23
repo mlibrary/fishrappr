@@ -53,7 +53,7 @@ module Fishrappr
       # hash = my_params[:range][solr_field]
 
       if hash['begin'] and hash['end']
-        return "<span class='from'>#{get_date_filter_value(solr_field, hash['begin'][:value])}</span> to <span class='to'>#{get_display_value(solr_field, hash['end'][:value])}</span>".html_safe
+        return "<span class='from'>#{get_date_filter_value(solr_field, hash['begin'][:value])}</span> to <span class='to'>#{get_date_filter_value(solr_field, hash['end'][:value])}</span>".html_safe
       elsif hash['begin']
         return "<span class='from'>#{get_date_filter_value(solr_field, hash['begin'][:value])}</span>".html_safe
       end
