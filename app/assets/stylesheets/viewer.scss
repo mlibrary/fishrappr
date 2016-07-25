@@ -50,6 +50,12 @@
         min-width: 100px;
         font-size: 12px;
     }
+
+    .btn-action {
+        &:hover {
+            background: #3d3d3d;
+        }
+    }
 }
 
 .zoom-toolbar > span {
@@ -141,5 +147,41 @@ article {
         text-align: left;
         padding-top: 10px;
         padding-bottom: 10px;
+    }
+}
+
+*[class*='panel-actions-'] {
+    h4 {
+        margin-bottom: 0;
+    }
+
+    .action-group {
+        .btn {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.panel-actions-page .btn {
+    background: #136DC1;
+    color: white;
+
+    &:hover {
+        background: #0e5393;
+    }
+}
+
+.panel-actions-issue .btn {
+    background: #0C5292;
+    color: white;
+
+    &:hover {
+        background: #083863;
+    }
+}
+
+.document .dl-horizontal {
+    dt {
+        text-align: left;
     }
 }
