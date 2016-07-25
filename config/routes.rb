@@ -50,6 +50,8 @@ Rails.application.routes.draw do
   
   get '/home' => 'catalog#home'
 
+  get '/browse' => 'catalog#browse'
+
   get 'static/:action' => 'static', as: :static
 
   get 'services/manifests/:id'  => 'services_api#manifests', as: :services_manifests, format: false, defaults: { format: :json }
