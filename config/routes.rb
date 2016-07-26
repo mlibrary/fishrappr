@@ -50,7 +50,7 @@ Rails.application.routes.draw do
   
   get '/home' => 'catalog#home'
 
-  get '/browse' => 'catalog#browse'
+  get '/browse' => 'catalog#browse', as: :browse
 
   get 'static/:action' => 'static', as: :static
 

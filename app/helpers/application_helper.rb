@@ -236,9 +236,13 @@ module ApplicationHelper
   # BROWSE OPTIONS  
   # Used by browse page
   def get_decade_browse_options
-    decades = ["Any Decade", 1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2010]
+    decades = [1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2010]
     decades_range = (1..decades.count)
     decade_options = [];
+
+    item = ["Any Decade", "Any Decade"]
+    decade_options.push item
+
     decades_range.each do |m| 
       item = [decades[m-1], decades[m-1]]
       decade_options.push item
@@ -248,25 +252,17 @@ module ApplicationHelper
 
   # Used by browse page as initial year options; see js for how this changes for different decades
   def get_year_browse_options
-    years = ["Any Year", 1890, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
-    years_range = (1..years.count)
+    years_range = (1890..2016)
     year_options = [];
+
     years_range.each do |m| 
-      item = [years[m-1], m]
+      item = [m, m]
       year_options.push item
     end
-    year_options
-  end
+    year_options.reverse!
 
-  def get_month_browse_options
-    months = ["Any month", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    months_range = (1..months.count)
-    month_options = [];
-    months_range.each do |m| 
-      item = [months[m-1], m]
-      month_options.push item
-    end
-    month_options
+    item = ["Any Year", "Any Year"]
+    year_options.insert(0, item)
   end
 
 end
