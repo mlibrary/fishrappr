@@ -6,6 +6,17 @@
 
 $( document ).ready(function() {
 
+  // Browse box
+
+  if ($("body.blacklight-catalog-browse").length > 0) {
+
+     $("select#date_issued_mm_ti").on('change', function() {
+      var $this = $(this);
+      update_month_dates($this, $("select#date_issued_dd_ti"), $("select#date_issued_yyyy_ti"));
+    });
+
+  }
+
   function setup_date_filters($select) {
     var option = $select.val();
     var $form = $select.parents("form");

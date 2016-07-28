@@ -1,45 +1,50 @@
 <div class="col-sm-12 ">
-  <h2>Browse Issues (Demo only, not getting live data!)</h2>
+  <h2>Browse Issues</h2>
   <h5>Browse The Michigan Daily Issues back to 1890</h5>
 
-  <h3>Select a decade, year, and month to browse issues by month</h3>
+  <h3>Select a decade, year, month or day to browse issues</h3>
 
   <% decade_browse_options = get_decade_browse_options %>
   <% year_browse_options = get_year_browse_options %>
-  <% month_browse_options = get_month_browse_options %>
-  <form role="form" method="get" class="form-inline" action="catalog#browse">
+  <% month_browse_options = get_month_options; month_browse_options.unshift(['Any Month', 'Any Month']) %>
+  <% date_browse_options = get_date_options; date_browse_options.unshift(['Any Day', 'Any Day']) %>
+
+    <%= form_tag(browse_path, role: 'browse', method: :get, class: "form-inline browse-form") do %>
       <div class="browse-select-box">
         <div class="form-group">
-          <%= select_tag(name="browse-decade", options_for_select(decade_browse_options, 1), class: 'changeable form-control') %>
-          <%= select_tag(name="browse-year", options_for_select(year_browse_options, 1), class: 'changeable form-control') %>
-          <%= select_tag(name="browse-month", options_for_select(month_browse_options, 1), class: 'changeable form-control') %>
+          <label class="sr-only">Browse issues by</label>
+          <%= select_tag(name="date_issued_yyyy10_ti", options_for_select(decade_browse_options), class: 'changeable form-control') %>          
+          <%#= date_select("browse_date", "published", start_year: 1890, prompt: { day: 'Any Date', month: 'Any Month', year: 'Any Year' }) %>
+
+          <%= select_tag(name="date_issued_yyyy_ti", options_for_select(year_browse_options), class: 'changeable form-control') %>
+          <%= select_tag(name="date_issued_mm_ti", options_for_select(month_browse_options), class: 'changeable form-control') %>
+          <%= select_tag(name="date_issued_dd_ti", options_for_select(date_browse_options), class: 'changeable form-control') %>
+          <button type="submit" class="btn btn-action btn-lg" xid="browse">
+            <span class="glyphicon glyphicon-search"></span>
+            <span class="hidden glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> 
+            <span class="submit-browse-text">Browse</span>
+          </button>
         </div>
       </div>
-    </form>
+    <% end %>
 </div>
 
 <div class="col-sm-12">
   <div class="issues-display">
-    <h3>Any Month Any Year Any Decade</h3>  
-      <div id="documents" class="row grid">  
+    <% months = ["Any Month", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    params['date_issued_mm_ti'] == "Any Month" ? this_month = "Any Month" : this_month = months[ params['date_issued_mm_ti'].to_i ]
+    if (params['date_issued_yyyy_ti'] == "Any Year" && params['date_issued_yyyy10_ti'] == "Any Decade")
+        this_decade = " in Any Decade" 
+    end
+    if (params['date_issued_yyyy_ti'] == "Any Year" && params['date_issued_yyyy10_ti'] != "Any Decade")
+        this_decade = " in the " << params['date_issued_yyyy10_ti'] << "s" 
+    end
+    if (params['date_issued_yyyy_ti'] != "Any Year")
+        this_decade = "" 
+    end
+        %>
+    <h3>Browsing: <%= params['date_issued_dd_ti'] %> of <%= this_month %>, <%= params['date_issued_yyyy_ti'] %><%= this_decade %></h3>  
 
-      <% 20.times do %>
-        <div data-words="[]" data-identifier="mdp-39015071754159-1969-12-10_1-9">
-          <a class="thumbnail" style="min-width: 200px; min-height: 269px" href="/view/mdp-39015071754159-1969-12-10_1-9"><img src="https://beta-3.babel.hathitrust.org/cgi/imgsrv/iiif/mdp.39015071754159/IMG00000825/full/200,/0/default.jpg" /></a>
-          <div class="caption">
-            <h3>
-              <a data-context-href="/catalog/mdp-39015071754159-1969-12-10_1-9/track?search_id=232" href="/view/mdp-39015071754159-1969-12-10_1-9">        December 10, 1969
-                &#8226;
-                Issue 
-                80
-                &#8226;
-                Image 
-                9
-              </a>
-            </h3>
-          </div>
-        </div>
-      <% end %>
-
+    <%= render 'search_results' %>
   </div>
 </div>
