@@ -54,6 +54,43 @@ L.TileLayer.Iiif = L.TileLayer.extend({
       size: _this._iiifSizeParam(Math.ceil(xDiff / scale), Math.ceil(yDiff / scale))
     }, this.options));
   },
+
+  _getRegionParameters: function() {
+    if (! this._map || ! this._map._loaded) {
+      return;
+    }
+
+    var map = this._map;
+
+    var bounds = map.getBounds();
+    var max_zoom = map.getMaxZoom();
+
+    var parts = [];
+
+    var nw = map.project(bounds.getNorthWest(), max_zoom);
+    var se = map.project(bounds.getSouthEast(), max_zoom);
+
+    if ( nw.x < 0 ) { nw.x = 0 ; }
+    if ( nw.y < 0 ) { nw.y = 0 ; }
+
+    parts.push(Math.ceil(nw.x), Math.ceil(nw.y), Math.ceil(se.x - nw.x), Math.ceil(se.y - nw.y));
+
+    return parts.join(",");
+
+  },
+
+  getViewRequest: function() {
+    var parts = [];
+    // parts.push(this._infoToBaseUrl());
+    parts.push(this._getRegionParameters());
+
+    var size = this._map.getSize();
+    parts.push("!" + size.x + "," + size.y);
+    parts.push("0");
+    parts.push("default.jpg");
+    return this._infoToBaseUrl() + parts.join("/");
+  },
+
   /**
   * Returns a IIIF size parameter based off of the max dimension of
   * a tile
