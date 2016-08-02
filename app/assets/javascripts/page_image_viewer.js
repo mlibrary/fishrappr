@@ -124,4 +124,10 @@
 
     });
 
+    $(".action-download-view").on('click', function(e) {
+      e.preventDefault();
+      var href = baseLayer.getViewRequest() + "?attachment=1";
+      window.location.href = href;
+    })
+
   })
