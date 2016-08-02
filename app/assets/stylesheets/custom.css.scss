@@ -99,6 +99,28 @@ p.help-block {
 
 /* STYLES FOR SEARCH PARTIAL ON HOME AND CATALOG PAGE */
 
+#header-navbar {
+  margin-bottom: 0;
+  padding-bottom: 20px;
+}
+
+.blacklight-catalog-home {
+  .site-search {
+    width: 85%;
+  }
+}
+
+.blacklight-catalog-index {
+  #search-navbar {
+    .container-fluid {
+      padding-left: 0;
+      padding-right: 0;
+      margin-top: 0;
+    }
+  }
+
+}
+
 body.blacklight-catalog-index, body.blacklight-catalog-home {
 
   .site-search {
@@ -129,6 +151,10 @@ body.blacklight-catalog-index, body.blacklight-catalog-home {
     .form-control, span {
       width: 100%;
       display: inline-block;
+    }
+
+    span {
+      padding: 0 10px;
     }
   }
 
@@ -595,22 +621,49 @@ body.blacklight-catalog-index {
 
 /* STYLES FOR HOME PAGE */
 
+.navbar + .navbar {
+  margin-top: 0;
+}
+
 body.blacklight-catalog-home {
-  background-image: image-url("home_page_banner.png");
-  background-position: 0 50px;
-  background-repeat: repeat-x;
-  background-size: 1440px 500px;
+  // background-image: image-url("home_page_banner.png");
+  // background-position: 0 50px;
+  // background-repeat: repeat-x;
+  // background-size: 1440px 500px;
   display: block;
   padding: 0;
+
+  .navbar-static-top {
+    margin-bottom: 0;
+  }
+
 }
 
 .home {
+
+
   .head, .donors, .featured {
     color: white;
-    height: 500px;
+    // height: 500px;
     margin: 0;
     padding: 0;
     text-align: center;
+  }
+
+  .head {
+    min-height: 500px;
+    background-image: image-url("home_page_banner.png");
+    background-position: 0 0;
+    background-repeat: repeat-x;
+    background-size: cover;
+    // background-size: 1440px 500px;
+    // backgr
+
+    padding: 20px;
+
+    h2 {
+      margin-top: 0;
+    }
   }
 
   form {
@@ -702,7 +755,7 @@ body {
 
 .navigation-toolbar {
     background: $navbar-bgcolor;
-    margin-top: -20px;
+    // margin-top: -20px;
     padding: 10px;
     margin-bottom: 0px;
 }

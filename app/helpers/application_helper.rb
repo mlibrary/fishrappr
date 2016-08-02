@@ -212,12 +212,8 @@ module ApplicationHelper
 
   # Used by date search box
   def get_month_options
-    months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    months_range = (1..12)
-    month_options = [];
-    months_range.each do |m| 
-      item = [months[m-1], m]
-      month_options.push item
+    month_options = (1..12).collect do |mm|
+      [ Date::MONTHNAMES[mm], mm ]
     end
     month_options
   end
@@ -236,16 +232,14 @@ module ApplicationHelper
   # BROWSE OPTIONS  
   # Used by browse page
   def get_decade_browse_options
-    decades = [1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2010]
-    decades_range = (1..decades.count)
+    decades = [1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010]
     decade_options = [];
 
     item = ["Any Decade", "Any Decade"]
     decade_options.push item
 
-    decades_range.each do |m| 
-      item = [decades[m-1], decades[m-1]]
-      decade_options.push item
+    decades.each do |decade|
+      decade_options.push([ decade, decade ])
     end
     decade_options
   end
@@ -263,6 +257,14 @@ module ApplicationHelper
 
     item = ["Any Year", "Any Year"]
     year_options.insert(0, item)
+  end
+
+  def get_month_label(mm)
+    begin
+      Date::MONTHNAMES[mm.to_i]
+    rescue
+      mm
+    end
   end
 
 end
