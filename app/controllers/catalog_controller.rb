@@ -140,7 +140,7 @@ class CatalogController < ApplicationController
 
     config.add_facet_field 'date_issued_yyyy10_ti', label: 'Decade', sort: 'index', limit: 20, collapse: false
     config.add_facet_field 'date_issued_yyyy_ti', label: 'Year', sort: 'index', limit: 20
-    config.add_facet_field 'date_issued_mm_ti', label: 'Month', sort: 'index'
+    config.add_facet_field 'date_issued_mm_ti', label: 'Month', sort: 'index', helper_method: :get_month_label
     config.add_facet_field 'date_issued_dd_ti', label: 'Day', sort: 'index', limit: 20
 
     config.add_facet_field 'date_issued_yyyymmdd_ti', label: 'Date', show: false

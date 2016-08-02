@@ -1,6 +1,6 @@
 <% month_options = get_month_options; month_options.unshift(['Any Month', '-']) %>
 <% date_options = get_date_options; date_options.unshift(['Any Day', '-']) %>
-<% container_class = 'container-fluid' if local_assigns[:container_class].nil? %>
+<% container_class = 'container-fluid' if true || local_assigns[:container_class].nil? %>
 <% use_new_form = true %>
 
 <% if use_new_form %>
@@ -25,11 +25,10 @@
     </div>
     <div class="form-group">
       <label for="date_filter" class="col-sm-2 control-label">Filter by</label>
-      <div class="col-sm-2">
-        <label class="sr-only">Search by date</label>
-        <%= select_tag('date_filter', options_for_select([['Any Date', 'any'], ['On this date...', 'on'], ['After this date...', 'after'], ['Before this date...', 'before'], ['Specific date range...', 'between']], params[:date_filter]), class: 'form-control') %>
+      <div class="col-sm-3">
+        <%= select_tag('date_filter', options_for_select([['Any Date', 'any'], ['On this date...', 'on'], ['After this date...', 'after'], ['Before this date...', 'before'], ['Specific date range...', 'between']], params[:date_filter] || 'any'), class: 'form-control') %>
       </div>
-      <div class="col-sm-8">
+      <div class="col-sm-7">
         <div class="date-option date-option-on date-option-after date-option-before date-option-between">
           <div class="date-input-control">
             <div class="input-layout-group">
@@ -38,7 +37,7 @@
               <%= text_field_tag(name="date_issued_begin_yyyy", params[:date_issued_begin_yyyy], placeholder: "YYYY", class: 'form-control date_issued_yyyy', size: 4, maxlength: 4) %>
             </div>
             <div class="input-layout-group date-option-between date-option">
-              <span> to </span>
+              <span class="between-to"> to </span>
             </div>
             <div class="input-layout-group date-option-between date-option">
               <%= select_tag(name="date_issued_end_mm", options_for_select(month_options, params[:date_issued_end_mm]), class: 'form-control date_filter_control_mm') %>
