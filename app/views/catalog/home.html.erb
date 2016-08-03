@@ -18,7 +18,24 @@
     </div>
 
     <div class="featured">
-      <h3>This is the featured content section</h3>
+      <h3>Today in the Michigan Daily</h3>
+      <div id="documents" class="row grid">
+        <% if false %><%= render collection: @featured_list, as: :document, partial: 'index_grid' %><% end %>
+
+        <% @featured_list.each do |document| %>
+          <div data-identifier="<%= document.id %>">
+              <%= link_to hathitrust_thumbnail(document, size: '200,'), url_for_document(document), { class: 'thumbnail', style: hathitrust_thumbnail_style(document, size: '200,') } %>
+              <div class="caption">
+                <h3>
+                  <%= link_to_document document, render_index_field_value(document, field: :date_issued_display) %>
+                </h3>
+              </div>
+          </div>
+        <% end %>
+      </div>
+
+      <%= link_to "Read More", browse_path(date_issued_mm_ti: @now.strftime("%-m"), date_issued_dd_ti: @now.strftime("%-d")), class: 'btn btn-default btn-squared' %>
+
     </div>
 
 </div>

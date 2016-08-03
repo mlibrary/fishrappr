@@ -3,7 +3,7 @@ $().ready(function() {
     $("#documents.grid > div").each(function() {
         var $div = $(this);
         var words = $div.data('words');
-        if ( words.length == 0 ) { return ; }
+        if ( words === undefined || words.length == 0 ) { return ; }
 
         var $img = $div.find("a.thumbnail");
 
