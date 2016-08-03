@@ -13,6 +13,10 @@
     text-align: center;
     border: 1px solid #eee;
 
+    a.thumbnail {
+        margin-bottom: 10px;
+    }
+
     img {
         max-width: 100%;
         height: auto !important;
@@ -20,6 +24,7 @@
 
     .caption {
         text-align: left;
+        margin-left: 10px;
     }
 
     .document-metadata {

@@ -103,6 +103,7 @@ module Fishrappr::Catalog
     fq_arr = []
 
     # add sequence to fq hash
+    fq_arr << "publication_link:#{session[:publication]}"
     fq_arr << "sequence:1"
 
     unless (params["date_issued_yyyy10_ti"] == "Any Decade" || params["date_issued_yyyy10_ti"].blank?)
@@ -136,7 +137,50 @@ module Fishrappr::Catalog
     @document_list = @response.documents
   end
 
+  def home
+    # query = search_builder.merge(rows: 0)
+    # @response = repository.search(query)
+
+    @now = Time.now
+    @featured_list = fetch_random(@now)
+    if @featured_list.blank?
+      @featured_list = fetch_random
+    end
+    @featured_list.sort_by!{ |document| document.fetch(:date_issued_dt) }
+
+    render :layout => 'home'
+  end
+
   # UTILITY
+
+  def fetch_random(time=nil)
+    fq_arr = []
+
+    # add sequence to fq hash
+    fq_arr << "publication_link:#{session[:publication]}"
+    fq_arr << "sequence:1"
+
+    # get month number and add to fq_arr
+    unless time.nil?
+      m = time.month
+      fq_arr << "date_issued_mm_ti:#{m}";
+
+      # ditto for day in month
+      d = time.day
+      fq_arr << "date_issued_dd_ti:#{d}";
+    end
+
+    params = {
+      fl: blacklight_config.default_solr_params[:fl] + ",date_issued_dt",
+      fq: fq_arr,
+      # sort: "date_issued_dt asc, sequence asc",
+      sort: "random_#{Time.now.to_i} asc",
+      rows: 3
+    }
+
+    response = repository.search(params)
+    response.documents
+  end
 
   def fetch_in_context(params, search_query)
     fq = []
@@ -227,12 +271,6 @@ module Fishrappr::Catalog
   def search_state
     # binding.pry
     @search_state ||= Fishrappr::SearchState.new(params, blacklight_config)
-  end
-
-  def home
-    query = search_builder.merge(rows: 0)
-    @response = repository.search(query)
-    render :layout => 'home'
   end
 
   def process_highlighted_words(document=nil)
