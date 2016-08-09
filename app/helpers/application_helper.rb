@@ -405,9 +405,14 @@ module ApplicationHelper
           rtn['js_links_str'] += "#"
         end
 
+        # bar links
+        if ( bl_items.key?(d.to_s) && rtn['facet_key'] != 'date_issued_dd_ti' )
+          path = path_for_facet(rtn['facet_key'], bl_items[d.to_s])
+          rtn['js_links_str'] += path
+        else
+          rtn['js_links_str'] += "#"
+        end
 
-
-        # if we are at the end of the range appended strings with "]"
         if ( d != this_range.last )
           rtn['js_values_str'] += ", "
           rtn['js_names_str'] += ", "
