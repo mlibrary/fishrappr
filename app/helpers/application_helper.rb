@@ -296,4 +296,206 @@ module ApplicationHelper
     end
   end
 
+  # GRAPH CODE
+
+  ##
+  # Support for facet-drive result data graph
+  # Return raw facet values with facet name
+  # Assumes Decade, Year, Month, and Day facets available
+  # Returns a hash in incorporate into the search_graph partial
+  # for use with sidebar_graph.js
+  # example &amp;f%5Bdate_issued_yyyy10_ti%5D%5B%5D=1950
+  # &f[date_issued_yyyy10_ti][]=1950
+  def get_graph_data(params)
+    # get facet data
+    facet_data = date_facet_data_to_hash
+
+    # get the key and value to use for the date graph
+    facet_key, facet_val = get_smallest_date_filter(params)
+
+    # get data to display in an array
+    display_info = get_display_info(facet_data, facet_key, facet_val)
+
+    display_info
+  end
+
+  ##
+  # Turns the facet data into values for hidden fields in chart
+  # Returns an hash of title, highest # of matching pages, lowest # of matching pages,
+  # and column name and values strings of chart data
+  def get_display_info(data, key, val)
+
+    rtn = {}
+    rtn['status'] = "good"
+
+    case key
+    when nil # display all decades
+      items = data['date_issued_yyyy10_ti']["items"]
+      bl_items = data['date_issued_yyyy10_ti']["bl_items"]
+      this_range = (189..201).map { |d| d * 10}
+      rtn['chart_title'] = "Decades"
+      rtn['facet_key'] = 'date_issued_yyyy10_ti'
+
+    when 'date_issued_yyyy10_ti' # display years in one decade
+      items = data['date_issued_yyyy_ti']["items"]
+      bl_items = data['date_issued_yyyy_ti']["bl_items"]
+     #val is the start of the range
+      this_range = (val..(val + 9))        
+      rtn['chart_title'] = "Years in the #{val}s"
+      rtn['facet_key'] = 'date_issued_yyyy_ti'
+
+    when 'date_issued_yyyy_ti' # display months in one year
+      items = data['date_issued_mm_ti']["items"]
+      bl_items = data['date_issued_mm_ti']["bl_items"]
+      this_range = (1..12)
+      rtn['chart_title'] = "Months in #{val}"
+      rtn['facet_key'] = 'date_issued_mm_ti'
+
+    when "date_issued_mm_ti"
+      items = data['date_issued_dd_ti']["items"]
+      bl_items = data['date_issued_dd_ti']["bl_items"]
+      rtn['chart_title'] = "Dates in Month #{Date::MONTHNAMES[val]}"
+      rtn['facet_key'] = 'date_issued_dd_ti'
+
+      case val
+      when 2
+        end_date = 29 # assumes some leap years may be included
+      when 4, 6, 9, 11
+        end_date = 30
+      else
+        end_date = 31
+      end
+
+      this_range = (1..end_date)
+
+    else
+      rtn['chart_title'] = "Graph data not available."
+      rtn['status'] = "bad"
+    end # case  when "date_issued_mm_ti"
+
+    if (rtn['status'] == "good")
+
+      # Code common to all cases
+      return_items = {}
+      rtn['highest_col'] = items.values.max
+      rtn['lowest_col'] = items.values.min
+      rtn['js_names_str'] = ""
+      rtn['js_values_str'] = ""
+      rtn['js_links_str'] = ""
+
+      this_range.each do |d|
+        # if we have data use it otherwise set item to zero
+        # note that data keys are strings but new keys are ints
+        if ( items.key?(d.to_s) )
+          return_items[d] = items[d.to_s]
+        else
+          return_items[d] = 0
+        end
+
+        # bar names
+        rtn['js_names_str'] += "#{d}"
+        # bar values
+        rtn['js_values_str'] += "#{return_items[d]}"
+
+        # bar links
+        if ( bl_items.key?(d.to_s) && rtn['facet_key'] != 'date_issued_dd_ti' )
+          path = path_for_facet(rtn['facet_key'], bl_items[d.to_s])
+          rtn['js_links_str'] += path
+        else
+          rtn['js_links_str'] += "#"
+        end
+
+
+
+        # if we are at the end of the range appended strings with "]"
+        if ( d != this_range.last )
+          rtn['js_values_str'] += ", "
+          rtn['js_names_str'] += ", "
+          rtn['js_links_str'] += ", "
+        end 
+
+        #   rtn['js_values_str'] += "]"
+        #   rtn['js_names_str'] += "]"
+        #   rtn['js_links_str'] += "]"
+
+        # else # prep strings for next values with ", "
+        #   rtn['js_values_str'] += ", "
+        #   rtn['js_names_str'] += ", "
+        #   rtn['js_links_str'] += ", "
+
+
+      end # each
+    end # if rtn['status'] == "good"
+
+    rtn
+  end
+
+  ##
+  # Collect the chunked date facet data into a hash
+  # from facets_from_request
+  # Returns a hash with the facet name as a key
+  def date_facet_data_to_hash
+    gfacets = facets_from_request
+    rtn = {}
+    gfacets.each do |f| 
+
+      rtn[f.name] = {}
+
+      case f.name
+      when "date_issued_yyyy10_ti"
+        rtn[f.name]["label"] = "Decades"
+      when "date_issued_yyyy_ti"
+        rtn[f.name]["label"] = "Years"
+      when "date_issued_mm_ti"
+        rtn[f.name]["label"] = "Months"
+      when "date_issued_dd_ti"
+        rtn[f.name]["label"] = "Days"
+      else
+      end
+
+      unless (f.name == "date_issued_yyyymmdd_ti")
+
+        rtn[f.name]["name"] = f.name
+
+        rtn[f.name]["items"] = {}
+        rtn[f.name]["bl_items"] = {}
+
+        if ( !f.items.empty? )
+          f.items.each do |i|
+            rtn[f.name]["bl_items"][i.value] = i
+            rtn[f.name]["items"][i.value] = i.hits
+
+          end # f.items.each
+        end # if f.items.empty?
+      end # unless
+    end # gfacets.each
+
+    rtn
+  end
+
+  ##
+  # Get the scale to use for displaying graph data
+  # from param filters
+  # Returns the chunked date facet key, e.i., date_issued_yyyy10_ti
+  # and its value
+  def get_smallest_date_filter(parms)
+    if (!parms.key?('f'))
+      return nil # show all decades
+    else
+      filters = parms['f']
+    end
+
+    # show dates in month
+    return 'date_issued_mm_ti', filters['date_issued_mm_ti'].first.to_i if (filters.key?('date_issued_mm_ti'))
+
+    # show months in year
+    return 'date_issued_yyyy_ti', filters['date_issued_yyyy_ti'].first.to_i if (filters.key?('date_issued_yyyy_ti'))
+
+    # show years in decade
+    return 'date_issued_yyyy10_ti', filters['date_issued_yyyy10_ti'].first.to_i if (filters.key?('date_issued_yyyy10_ti'))
+
+    # show all decades
+    return nil
+  end
+
 end
