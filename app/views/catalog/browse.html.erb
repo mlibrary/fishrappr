@@ -31,20 +31,45 @@
 
 <div class="col-sm-12">
   <div class="issues-display">
-    <% months = ["Any Month", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    params['date_issued_mm_ti'] == "Any Month" ? this_month = "Any Month" : this_month = months[ params['date_issued_mm_ti'].to_i ]
-    if (params['date_issued_yyyy_ti'] == "Any Year" && params['date_issued_yyyy10_ti'] == "Any Decade")
-        this_decade = " in Any Decade" 
-    end
-    if (params['date_issued_yyyy_ti'] == "Any Year" && params['date_issued_yyyy10_ti'] != "Any Decade")
-        this_decade = " in the " << params['date_issued_yyyy10_ti'] << "s" 
-    end
-    if (params['date_issued_yyyy_ti'] != "Any Year")
-        this_decade = "" 
-    end
-        %>
-    <h3>Browsing: <%= params['date_issued_dd_ti'] %> of <%= this_month %>, <%= params['date_issued_yyyy_ti'] %><%= this_decade %></h3>  
 
-    <%= render 'search_results' %>
+    <!-- alternative: render search_results %>
+    <!-- alternative: render results_pagination -->
+
+    <% if @response.total_pages == 0 %>
+      <p><em>No issues were found.</em>
+    <% else %>
+
+      <div class="row record-padding">
+        <div class="col-md-12">
+          <div class="pagination">
+            <%= render :partial => "paginate_compact", :object => @response if show_pagination? %>
+          </div>
+        </div>
+      </div>
+
+      <div id="groups">
+        <%- @response.groups.each do |g| %>
+          <h3 class="group-key"><%= Date.strptime(g.key.to_s, "%Y%m").strftime("%B %Y") %> (<%= g.total %> issues)</h3>
+          <div class="grouped-documents">
+            <%= render_document_index g.docs %>
+          </div>
+          <%- if g.total > @response.group_limit %>
+            <%= link_to t('blacklight.search.group.more'), add_group_facet_params_and_redirect(g), :class => 'more-in-group' %>
+          <%- end %>
+        <%- end %>
+      </div>
+
+      <div class="row record-padding">
+        <div class="col-md-12">
+          <div class="pagination">
+            <%= render :partial => "paginate_compact", :object => @response if show_pagination? %>
+          </div>
+        </div>
+      </div>
+
+    <% end %>
+
   </div>
 </div>
+
+<%= render partial: 'back_to_top' %>

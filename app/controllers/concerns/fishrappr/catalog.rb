@@ -95,10 +95,6 @@ module Fishrappr::Catalog
 
     params['view'] = 'grid'
 
-    puts "PARAMS ARE: "
-    puts params
-
-
     # build fq Array
     fq_arr = []
 
@@ -122,19 +118,21 @@ module Fishrappr::Catalog
        fq_arr << "date_issued_dd_ti:#{params['date_issued_dd_ti']}"
     end
 
-    params = {
+    search_params = {
       fl: blacklight_config.default_solr_params[:fl] + ",date_issued_dt,page_abstract",
       fq: fq_arr,
       sort: "date_issued_dt asc, sequence asc",
-      rows: 20
+      group: true,
+      'group.field': "date_issued_yyyymm_ti",
+      'group.limit': 1000,
+      'group.ngroups': true,
+      start: (( params.fetch('page', '1').to_i - 1 ) * 10),
+      rows: 10
     }
 
-    puts "PARAMS ARE:"
-    puts params
+    @response = repository.search(search_params)
+    @response = @response.group("date_issued_yyyymm_ti")
 
-    # Need to get multiple documents here -- like index above???
-    @response = repository.search(params)
-    @document_list = @response.documents
   end
 
   def home

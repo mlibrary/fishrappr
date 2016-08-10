@@ -239,7 +239,7 @@ module ApplicationHelper
     decade_options.push item
 
     decades.each do |decade|
-      decade_options.push([ decade, decade ])
+      decade_options.push([ decade.to_s + "'s", decade ])
     end
     decade_options
   end
