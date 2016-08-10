@@ -31,7 +31,7 @@ $( document ).ready(function() {
   $('ul.help-ul li.current a').addClass('currentlyActive');
 
   // Back to top window scroll for catalog index page
-  if (("body.blacklight-catalog-index").length > 0) {
+  if (true || ("body.blacklight-catalog-index").length > 0) {
       $(window).scroll(function () {
           if ($(this).scrollTop() > 50) {
               $('#back-to-top').fadeIn();
@@ -41,7 +41,7 @@ $( document ).ready(function() {
       });
       // scroll body to 0px on click
       $('#back-to-top').click(function () {
-          $('#back-to-top').tooltip('hide');
+          // $('#back-to-top').tooltip('hide');
           $('body,html').animate({
               scrollTop: 0
           }, 800);
