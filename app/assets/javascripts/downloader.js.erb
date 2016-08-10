@@ -1,10 +1,10 @@
 var F = F || {};
 F.ht_host = '<%= Rails.configuration.ht_host %>';
 F.Downloader = function(args) {
-    this.id = args.id;
+    this.barcode = args.barcode;
     this.pages = args.pages;
     this.total = args.pages.length;
-    this.src = F.ht_host + '/cgi/imgsrv/download/pdf?id=' + this.id;
+    this.src = F.ht_host + '/cgi/imgsrv/download/pdf?id=' + this.barcode;
     this.item_title = 'PDF';
     this.status = {};
 };

@@ -332,9 +332,9 @@ module Fishrappr::Catalog
       readme_txt = "The Michigan Daily"
       Zip::File.open(tmp_file.path, Zip::File::CREATE) {
         |zipfile|
-        zipfile.get_output_stream('readme.txt') { |f| f.puts readme_txt }
+        zipfile.get_output_stream(data[:id] + '/' + 'readme.txt') { |f| f.puts readme_txt }
         data[:pages].each do |page|
-          zipfile.get_output_stream(page[:id]) { |f| f.puts page[:page_text] }
+          zipfile.get_output_stream(data[:id] + '/' + page[:id] + ".txt") { |f| f.puts page[:page_text] }
         end
       }
       
@@ -363,20 +363,23 @@ module Fishrappr::Catalog
 
       solr_response = repository.search(params)
       data = {}
-      data[:seq] = [1,2,3]
-      data[:id] = "#{ht_namespace}.#{ht_barcode}"
+      data[:barcode] =  "#{ht_namespace}.#{ht_barcode}"
       data[:pages] = []
 
       solr_response.documents.each do |document|
         datum = {}
-        datum[:text_link] = document['text_link']
-        datum[:seq] = datum[:text_link].gsub(/[^\d]+/, '').to_i
-        flds.each do |fld|
+        fl.each do |fld|
           datum[fld.to_sym] = document[fld]
         end
+        datum[:seq] = datum[:text_link].gsub(/[^\d]+/, '').to_i
         
         data[:pages] << datum
-      end  
+      end
+
+      # this is stupid
+      tmp = data[:pages][0][:id].split("-")
+      tmp.pop
+      data[:id] = tmp.join('-')
       data
     end
 
