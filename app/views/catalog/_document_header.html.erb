@@ -1,12 +1,6 @@
-<h3>
-    <% dochead = capture do %>
-        <%= render_index_field_value document, field: :date_issued_display %>
-        &#8226;
-        Issue 
-        <%= render_index_field_value document, field: :issue_no_t %>
-        &#8226;
-        Image 
-        <%= render_index_field_value document, field: :sequence %>
-    <% end %>
-    <%= link_to_document document, dochead %>
-</h3>
+<a href="<%= url_for(url_for_document(document)) %>">
+    <h3>
+        <%= document.fetch(:date_issued_display).first %>
+        <span class="subtitle">Issue <%= document.fetch(:issue_no_t).first %> &#8226; Image <%= document.fetch(:sequence) %></span>
+    </h3>
+</a>

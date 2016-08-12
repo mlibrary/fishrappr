@@ -96,6 +96,29 @@ module ApplicationHelper
 
   end
 
+  def hathitrust_thumbnail_data(document, **kw)
+    namespace = document.fetch('ht_namespace')
+
+    if namespace == 'fake'
+      image_height = 1600
+      image_width = 1185
+    else
+      image_height = document.fetch('image_height_ti')
+      image_width = document.fetch('image_width_ti')
+    end
+    size = kw.fetch(:size, ',250')
+    width, height = size.split(',')
+    if not width.blank?
+      width = width.to_i
+      height = ( image_height * ( width.to_f / image_width ) ).to_i
+    else
+      height = height.to_i
+      width = ( image_width * ( height.to_f / image_height ) ).to_i
+    end
+
+    { :'data-min-width' => width, :'data-min-height' => height }
+  end
+
   def hathitrust_image(document, **kw)
     namespace = document.fetch('ht_namespace')
     return fake_image(document).html_safe if namespace == 'fake'
@@ -137,7 +160,13 @@ module ApplicationHelper
 
   def render_plain_text(document, field, breaks=true)
     retval = []
-    texts = document.has_highlight_field?(field) ? document.highlight_field(field) : document.fetch(field)
+    if document.has_highlight_field?(field)
+      texts = document.highlight_field(field)
+    elsif document.fetch('page_text', nil)
+      texts = document.fetch(field)
+    else
+      texts = document.fetch('page_abstract')
+    end
     prefix = breaks ? '' : '&#8230;'.html_safe
     retval = ActiveSupport::SafeBuffer.new
     Array(texts).each do |text|

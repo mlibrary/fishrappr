@@ -21,9 +21,10 @@ module Fishrappr::Catalog
 
   # get search results from the solr index
   def index
+    params['view'] = 'list'
     (@response, @document_list) = search_results(params)
     respond_to do |format|
-      format.html { store_preferred_view }
+      format.html { } # no longer store_preferred_view
       format.rss  { render :layout => false }
       format.atom { render :layout => false }
       format.json do
@@ -93,6 +94,7 @@ module Fishrappr::Catalog
 
   def browse
 
+    # params['view'] = 'grid'
     params['view'] = 'grid'
 
     # build fq Array
@@ -127,7 +129,7 @@ module Fishrappr::Catalog
       'group.limit': 1000,
       'group.ngroups': true,
       start: (( params.fetch('page', '1').to_i - 1 ) * 10),
-      rows: 10
+      rows: 10,
     }
 
     @response = repository.search(search_params)
