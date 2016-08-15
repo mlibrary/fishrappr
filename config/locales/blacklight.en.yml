@@ -11,9 +11,8 @@ en:
         grid: "Grid"
       pagination_info:
         pages:
-          one: '<span class="pages-box"><strong>Page %{start_num}</strong> - <strong>%{end_num}</strong></span> <span class="results-box"> <strong>%{total_num} Results</strong></span>'
-          other: '<span class="pages-box">Page %{start_num} - %{end_num}</span> <span class="results-total">%{total_num} results</span>'
-          xxother: '<strong>%{start_num}</strong> - <strong>%{end_num}</strong> of <strong>%{total_num} results</strong>'
+          one: '<span class="pages-box">Page %{start_num} - %{end_num}</span> <span class="results-box">%{total_num} results</span>'
+          other: '<span class="pages-box">Page %{start_num} - %{end_num}</span> <span class="results-box">%{total_num} results</span>'
       index:
         label: '%{label}'
       facets:

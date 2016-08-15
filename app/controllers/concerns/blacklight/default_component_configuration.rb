@@ -8,7 +8,7 @@ module Blacklight
 
       add_results_collection_tool(:sort_widget)
       #add_results_collection_tool(:per_page_widget)
-      add_results_collection_tool(:view_type_group)
+      #add_results_collection_tool(:view_type_group)
 
       add_show_tools_partial(:bookmark, partial: 'bookmark_control', if: :render_bookmarks_control?)
       add_show_tools_partial(:email, callback: :email_action, validator: :validate_email_params)

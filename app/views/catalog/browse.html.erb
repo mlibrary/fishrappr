@@ -49,7 +49,7 @@
 
       <div id="groups">
         <%- @response.groups.each do |g| %>
-          <h3 class="group-key"><%= Date.strptime(g.key.to_s, "%Y%m").strftime("%B %Y") %> (<%= g.total %> issues)</h3>
+          <h3 class="group-key"><%= Date.strptime(g.key.to_s, "%Y%m").strftime("%B %Y") %> (<%= pluralize(g.total, 'issue') %>)</h3>
           <div class="grouped-documents">
             <%= render_document_index g.docs %>
           </div>
@@ -59,6 +59,7 @@
         <%- end %>
       </div>
 
+      <% if false %>
       <div class="row record-padding">
         <div class="col-md-12">
           <div class="pagination">
@@ -66,6 +67,8 @@
           </div>
         </div>
       </div>
+      <% end %>
+      <%= render 'results_pagination' %>
 
     <% end %>
 

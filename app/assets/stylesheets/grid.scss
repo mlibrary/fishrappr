@@ -11,10 +11,47 @@
     padding: 10px;
     width: 225px;
     text-align: center;
-    border: 1px solid #eee;
+    // border: 1px solid #eee;
+
+    &:hover {
+        background: #f6f6f6;
+    }
 
     a.thumbnail {
         margin-bottom: 10px;
+
+        padding: 2px;
+        box-shadow: 0 0 2px rgba(0, 0, 0, .34);
+        border: 1px solid white;
+        z-index: 0;
+
+        &:before,
+        &:after {
+          background: #fff;
+          box-shadow: 0 0 2px rgba(0, 0, 0, .34);
+          content: '';
+          height: 100%;
+          position: absolute;
+          transform:rotate(3deg);
+          transition: all .3s ease-in-out;   
+          width: 100%;
+          z-index:-1;
+          top: 0;
+          left: 0px;
+        }
+        
+        &:after {
+          box-shadow: 0 0 2px rgba(0, 0, 0, .34);
+          left: 0;
+          top: 0;
+          transform: rotate(1deg);
+        }
+        
+        &:hover:after,
+        &:hover:before {
+          box-shadow: none;
+          transform: rotate(0deg);
+        }
     }
 
     img {
