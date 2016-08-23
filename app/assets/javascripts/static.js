@@ -7,7 +7,6 @@
 $( document ).ready(function() {
 
   // Browse box
-
   if ($("body.blacklight-catalog-browse").length > 0) {
 
      $("select#date_issued_mm_ti").on('change', function() {

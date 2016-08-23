@@ -1,0 +1,77 @@
+// graph on catalog page
+@import "globals";
+
+.day { 
+  background-color: brown;  // #CDDEB6;
+  min-width: 0px;
+  color: black;
+  padding: 1px 2px;
+  margin-top: 3px;
+  
+  font-size: 15px;
+  font-weight: 400;
+  font-family: arial;
+  white-space: nowrap;
+  display: block;
+  
+  text-align: left;
+ }
+
+.day0 { 
+  background-color: lightgray;
+  min-width: 0px;
+  color: black;
+  padding: 1px 2px;
+  margin-top: 3px;
+  
+  font-size: 15px;
+  font-weight: 400;
+  font-family: arial;
+  white-space: nowrap;
+  display: block;
+  
+  text-align: left;
+ }
+
+.tip {
+  border: 1px solid #eee;
+  background: #fff;
+  box-shadow: 3px 4px 6px rgba(0,0,0,0.4);
+  padding: 3px;
+  font-weight: bolder;
+  z-index: 100;
+}
+
+.col_names {
+  color: green;
+  display: block;
+  font-size: 15px;
+  left: -50px;
+  position: relative;
+}
+
+.axis {
+  color: #337ab7;
+  display: block;
+  font-size: 12px;
+  left: 10px;
+  position: relative;
+}
+
+#hit_chart_frame {
+  border: 1px solid gray;
+  margin: 10px;
+  padding: 20px 20px 20px 60px;
+  width: 188px;
+
+  // -ms-transform: rotate(-90deg); /* IE 9 */
+  // -webkit-transform: rotate(-90deg); /* Safari */
+  // transform: rotate(-90deg);
+}
+
+#hit_instructions {
+  font-size: 12px;
+  font-style: italic;
+  margin-left: 15px;
+  display: block;
+}

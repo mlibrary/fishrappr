@@ -1,0 +1,21 @@
+<div id="searchGraph" class="clearfix">
+    <% graph_data = get_graph_data(params) %>
+    <span 
+    id="graph_data" 
+    class="hidden" 
+    data-chart-title="<%= graph_data['chart_title'] %>" 
+    data-highest-col="<%= graph_data['highest_col'] %>" 
+    data-lowest-col="<%= graph_data['lowest_col'] %>"      
+    data-facet-key="<%= graph_data['facet_key'] %>"      
+    data-col-names="<%= graph_data['js_names_str'] %>" 
+    data-col-values="<%= graph_data['js_values_str'] %>"  
+    data-col-links="<%= graph_data['js_links_str'] %>" 
+    ></span>
+    
+  <h5>Pages Matching Search by <%= graph_data['chart_title'] %></h5>
+  <span id="hit_instructions">Put cursor on bar to see its page count and zoom in on bar data by clicking a bar</span>
+  <div id="hit_chart_frame">
+    <!-- line bar -->
+  </div>
+  <div class="axis">Y Axis is date units and x Axis is page count</div>
+</div>

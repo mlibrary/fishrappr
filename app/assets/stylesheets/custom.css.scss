@@ -675,6 +675,7 @@ body.blacklight-catalog-index {
     display: inline-block;
     font-size: 16px;
     padding: 10px;
+    width: 220px;
     vertical-align: middle;
   }
 
@@ -983,5 +984,3 @@ body.blacklight-contacts-new {
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}
 }
-
-
