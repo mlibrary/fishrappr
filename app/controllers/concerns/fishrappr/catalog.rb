@@ -22,6 +22,10 @@ module Fishrappr::Catalog
   # get search results from the solr index
   def index
     params['view'] = 'list'
+
+    # update show page back link to return to index page
+    session[:show_browse_return] = false
+
     (@response, @document_list) = search_results(params)
     respond_to do |format|
       format.html { } # no longer store_preferred_view
@@ -93,8 +97,13 @@ module Fishrappr::Catalog
   end
 
   def browse
+    # update show page back link to return to browse page
+    session[:show_browse_return] = true
 
-    # params['view'] = 'grid'
+    # build back to browse link
+    session[:show_browse_return_link] = "/browse?utf8=✓"
+
+    # set browse to use grid view
     params['view'] = 'grid'
 
     # build fq Array
@@ -106,18 +115,22 @@ module Fishrappr::Catalog
 
     unless (params["date_issued_yyyy10_ti"] == "Any Decade" || params["date_issued_yyyy10_ti"].blank?)
        fq_arr << "date_issued_yyyy10_ti:#{params['date_issued_yyyy10_ti']}"
+       session[:show_browse_return_link] << "&date_issued_yyyy10_ti=#{params['date_issued_yyyy10_ti']}"
     end
 
     unless (params["date_issued_yyyy_ti"] == "Any Year" || params["date_issued_yyyy_ti"].blank?)
       fq_arr << "date_issued_yyyy_ti:#{params['date_issued_yyyy_ti']}"
+       session[:show_browse_return_link] << "&date_issued_yyyy_ti=#{params['date_issued_yyyy_ti']}"
     end
 
     unless (params["date_issued_mm_ti"] == "Any Month" || params["date_issued_mm_ti"].blank?)
        fq_arr << "date_issued_mm_ti:#{params['date_issued_mm_ti']}"
-    end
+        session[:show_browse_return_link] << "&date_issued_mm_ti=#{params['date_issued_mm_ti']}"
+   end
 
     unless (params["date_issued_dd_ti"] == "Any Day" || params["date_issued_dd_ti"].blank?)
        fq_arr << "date_issued_dd_ti:#{params['date_issued_dd_ti']}"
+       session[:show_browse_return_link] << "&date_issued_dd_ti=#{params['date_issued_dd_ti']}"
     end
 
     search_params = {
@@ -134,7 +147,6 @@ module Fishrappr::Catalog
 
     @response = repository.search(search_params)
     @response = @response.group("date_issued_yyyymm_ti")
-
   end
 
   def home

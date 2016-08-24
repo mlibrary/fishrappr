@@ -405,24 +405,11 @@ module ApplicationHelper
           rtn['js_links_str'] += "#"
         end
 
-
-
-        # if we are at the end of the range appended strings with "]"
         if ( d != this_range.last )
           rtn['js_values_str'] += ", "
           rtn['js_names_str'] += ", "
           rtn['js_links_str'] += ", "
         end 
-
-        #   rtn['js_values_str'] += "]"
-        #   rtn['js_names_str'] += "]"
-        #   rtn['js_links_str'] += "]"
-
-        # else # prep strings for next values with ", "
-        #   rtn['js_values_str'] += ", "
-        #   rtn['js_names_str'] += ", "
-        #   rtn['js_links_str'] += ", "
-
 
       end # each
     end # if rtn['status'] == "good"

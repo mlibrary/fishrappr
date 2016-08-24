@@ -1,7 +1,10 @@
 en:
   blacklight:
     application_name: 'Fishrappr'
-    back_to_search_html: '<span class="glyphicon glyphicon-arrow-left"></span> Back to Results'
+    back_to_search_html: '<span class="glyphicon glyphicon-arrow-left"></span> Back to Search'
+    back_to_browse_html: '<span class="glyphicon glyphicon-arrow-left"></span> Back to Browse'
+    start_over_search: 'Start Search Over'
+    start_over_browse: 'Start Browse Over'
     search:
       form:
         search:
