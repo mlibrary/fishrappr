@@ -3,7 +3,7 @@ $( document ).ready(function() {
  // Graph box
  // Adapted from: 
   if ($("div#searchGraph").length > 0) {
-    var chartMAX = 11e22221220;
+    var chartMAX = 120;
     var chartMIN = 0;
     var chart_title = $("#graph_data").data("chart-title");
     var highest_col = $("#graph_data").data("highest-col");
