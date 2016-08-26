@@ -3,42 +3,38 @@
 
 .day { 
   background-color: brown;  // #CDDEB6;
-  min-width: 0px;
   color: black;
-  padding: 1px 2px;
-  margin-top: 3px;
-  
+  display: block;
+  font-family: arial;
   font-size: 15px;
   font-weight: 400;
-  font-family: arial;
-  white-space: nowrap;
-  display: block;
-  
+  margin-top: 3px;
+  min-width: 0px;
+  padding: 1px 2px;
   text-align: left;
+  white-space: nowrap;
  }
 
 .day0 { 
   background-color: lightgray;
-  min-width: 0px;
   color: black;
-  padding: 1px 2px;
-  margin-top: 3px;
-  
+  display: block;
+  font-family: arial;
   font-size: 15px;
   font-weight: 400;
-  font-family: arial;
-  white-space: nowrap;
-  display: block;
-  
+  margin-top: 3px;
+  min-width: 0px;
+  padding: 1px 2px;
   text-align: left;
+  white-space: nowrap;
  }
 
 .tip {
-  border: 1px solid #eee;
   background: #fff;
+  border: 1px solid #eee;
   box-shadow: 3px 4px 6px rgba(0,0,0,0.4);
-  padding: 3px;
   font-weight: bolder;
+  padding: 3px;
   z-index: 100;
 }
 
@@ -52,22 +48,45 @@
 
 .axis {
   color: #337ab7;
-  display: block;
-  font-size: 12px;
+  display: none;
+  font-size: .8em;
   left: 10px;
   position: relative;
 }
 
 #hit_chart_frame {
-  border: 1px solid gray;
-  margin: 10px;
-  padding: 20px 20px 20px 60px;
-  width: 188px;
+  // border: 1px solid gray;
+  margin: 10px 10px 10px 15px;
+  padding: 20px 0 20px 55px;
+  position: relative;
 }
 
 #hit_instructions {
+  display: block;
   font-size: 12px;
   font-style: italic;
-  margin-left: 15px;
-  display: block;
+  margin: 0 0 30px 0;
 }
+
+#y-axis-title {
+  color: black !important;
+  display: inline-block;
+  font-size: .8em;
+  left: -45px;
+  position: absolute;
+  top: 130px;
+
+  -ms-transform: rotate(-90deg); /* IE 9 */
+  -webkit-transform: rotate(-90deg); /* Safari */
+  transform: rotate(-90deg);
+}
+
+#x-axis-title {
+  color: black !important;
+  display: inline-block;
+  font-size: .8em;
+  left: 50;
+  position: absolute;
+  top: -8px;
+}
+
