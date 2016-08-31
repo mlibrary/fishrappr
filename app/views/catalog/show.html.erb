@@ -6,10 +6,8 @@
           <div class="col-md-3">
             <% if ( session[:show_browse_return] ) %>
               <%= link_to t('blacklight.back_to_browse_html'), session[:show_browse_return_link], :class => 'btn btn-search-primary' %>
-              <%= link_to t('blacklight.start_over_browse'), '/browse', :id => 'startOverLink', :class => 'btn btn-search' %>
             <% else %>
               <%= link_back_to_catalog class: 'btn btn-search-primary', label: t('blacklight.back_to_search_html') %>
-              <%= link_to t('blacklight.start_over_search'), start_over_path(current_search_session.try(:query_params) || {}), id: 'startOverLink', class: 'btn btn-search' %>                  
              <% end %>
                        
           </div>
@@ -42,16 +40,15 @@
       </div>
       <div class="col-md-6">
         <div class="zoom-toolbar center-block" style="text-align: center">
-          <button class="btn btn-sm btn-action action-zoom-in"><%= raw(t('views.issue.zoom_in')) %></button>
+          <button id="action-zoom-in" class="btn btn-sm btn-action action-zoom-in"><%= raw(t('views.issue.zoom_in')) %></button>
           <span class="span-zoom-status">100%</span>
-          <button class="btn btn-sm btn-action action-zoom-out"><%= raw(t('views.issue.zoom_out')) %></button>
+          <button id="action-zoom-out" class="btn btn-sm btn-action action-zoom-out"><%= raw(t('views.issue.zoom_out')) %></button>
         </div>
       </div>
       <div class="col-md-3" style="text-align: right">
         <% if highlights_available? %>
-          <label><input type="checkbox" class="action-toggle-highlight" <%= highlights_visible? ? 'checked="checked"' : '' %> /> Highlights</label>
+          <label><input type="checkbox" class="action-toggle-highlight" <%= highlights_visible? ? 'checked="checked"' : '' %> /> Search Result Highlights</label>
         <% end %>
-        <a class="btn btn-action" href="<%= hathitrust_pdf_link @document %>"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print Page</a></li>
       </div>
     </div>
   </div>
@@ -69,12 +66,12 @@
   <div class="col-md-4">
     <div class="panel panel-actions-page">
       <div class="panel-heading">
-        <h4>Download Options</h4>
+        <h4>Download Page</h4>
       </div>
       <div class="panel-body">
         <div class="btn-group-vertical action-group" role="group">
           <a class="btn btn-default action-download-view" href="#"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Download Current View</a>
-          <a class="btn btn-default" href="<%= hathitrust_pdf_link @document %>"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Download PDF</a>
+          <a class="btn btn-default" href="<%= hathitrust_pdf_link @document, 'page_identifier' %>"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Download PDF</a>
           <a class="btn btn-default" download="<%= @document.id %>.jpg" href="<%= hathitrust_image_src @document, size: ',1024' %>"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Download Image</a></li>
           <a class="btn btn-default" href="<%= download_text_solr_document_path @document %>"><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span> Download Text</a></li>
         </div>
@@ -83,11 +80,11 @@
 
     <div class="panel panel-actions-issue">
       <div class="panel-heading">
-        <h4>This Issue</h4>
+        <h4>Download Issue</h4>
       </div>
       <div class="panel-body">
         <div class="btn-group-vertical action-group" role="group">
-          <a class="btn btn-default action-download-pdf" href="#"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Download PDF (<%= @issue_data[:pages].size %>pg)</a>
+          <a class="btn btn-default action-download-pdf" href="<%= hathitrust_pdf_link @document, 'issue_identifier' %>"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Download PDF (<%= @issue_data[:pages].size %>pg)</a>
           <a class="btn btn-default" href="<%= download_issue_text_solr_document_path @document %>"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Download Text (<%= @issue_data[:pages].size %>pg)</a>
         </div>
       </div>

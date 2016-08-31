@@ -85,7 +85,7 @@ gem 'devise'
 gem 'devise-guests', '~> 0.3'
 
 group :development, :test do
-  gem 'solr_wrapper', '>= 0.3'
+  gem 'solr_wrapper', '>= 0.15'
 end
 
 group :development, :test do

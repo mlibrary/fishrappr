@@ -98,6 +98,10 @@ class DailyXmlToDb_v2
     # pp_ok "Issue one is:"
     # pp issues[0]
 
+    # delete the entries
+    Issue.where(ht_namespace: 'mdp', ht_barcode: File.basename(f, '.issue.mets.xml')).destroy
+
+
     @doc.xpath(issues_target, @NSMAP).each do |node1|
 
       print "."

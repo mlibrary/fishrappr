@@ -29,12 +29,10 @@ module ApplicationHelper
     page_number
   end
 
-  def hathitrust_pdf_link(document, **kw)
-    namespace = document.fetch('ht_namespace')
-    barcode = document.fetch('ht_barcode')
-    id = namespace + "." + barcode
-    seq = document.fetch('text_link').gsub(/[^\d+]/, '').to_i.to_s
-    Rails.configuration.download_service + '?id=' + id + ';seq=' + seq + ';attachment=1'
+  def hathitrust_pdf_link(document, fld, **kw)
+    rgn1 = ( fld == 'page_identifier' ) ? 'ic_id' : fld
+    value = document.fetch(fld.sub('_identifier', '_id'))
+    Rails.configuration.download_service + "?cc=#{Rails.configuration.media_collection}&rgn1=#{rgn1}&q1=#{value}&sort=page_identifier&attachment=1"
   end
 
   def hathitrust_image_src(document, **kw)
@@ -45,11 +43,13 @@ module ApplicationHelper
       return '#'
     end
 
-    barcode = document.fetch('ht_barcode')
-    path_info << "#{namespace}.#{barcode}"
+    # barcode = document.fetch('ht_barcode')
+    # path_info << "#{namespace}.#{barcode}"
+
+    page_identifier = document.fetch('page_id')
 
     img_link = document.fetch('img_link')
-    path_info << img_link
+    path_info << [ Rails.configuration.media_collection, page_identifier, img_link ].join(':')
 
     format = nil
     unless kw.empty?
@@ -165,7 +165,7 @@ module ApplicationHelper
     elsif document.fetch('page_text', nil)
       texts = document.fetch(field)
     else
-      texts = document.fetch('page_abstract')
+      texts = document.fetch('page_abstract', 'WUT')
     end
     prefix = breaks ? '' : '&#8230;'.html_safe
     retval = ActiveSupport::SafeBuffer.new
