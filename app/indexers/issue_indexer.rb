@@ -45,7 +45,9 @@ class IssueIndexer
 
     publication = @issue.publication
 
-    solr_doc[:id] = "#{@issue.ht_namespace}-#{@issue.ht_barcode}-#{@issue.slug}"
+    # solr_doc[:id] = "#{@issue.ht_namespace}-#{@issue.ht_barcode}-#{@issue.slug}"
+    solr_doc[:volume_identifier] = "#{@issue.ht_namespace}-#{@issue.ht_barcode}"
+    solr_doc[:issue_identifier] = "#{d.strftime('%Y-%m-%d')}-#{@issue.issue_sequence}-#{@issue.ht_namespace}.#{@issue.ht_barcode}"
     solr_doc[:date_issued_display] = dt
     solr_doc[:issue_no_t] = @issue.issue_no
     solr_doc[:date_issued_dt] = d
@@ -64,8 +66,10 @@ class IssueIndexer
     solr_doc[:publication_label] = publication.title
     solr_doc[:issue_sequence] = @issue.issue_sequence
     solr_doc[:pages] = []
+    solr_doc[:manifest] = get_image_info(solr_doc[:issue_identifier])
+    pp solr_doc[:manifest]
 
-    solr_doc[:manifest] = get_image_info
+    # solr_doc[:manifest] = get_image_info
 
     Page.where(issue_id: issue.id).order(:sequence).each do |page|
       # solr_doc[:pages] << [ page.id, page.sequence, page.page_no ]
@@ -79,19 +83,20 @@ class IssueIndexer
     solr_doc
   end
 
-  def get_image_info
-    info_filename = Rails.root.join(
-      Rails.configuration.sdrdataroot, 
-      "#{@issue.ht_namespace}/#{@issue.ht_barcode}.metadata.js")
-    return nil unless File.exists?(info_filename)
-    info_data = File.read(info_filename)
-    tmp = JSON.parse(info_data)
-    info = {}
-    tmp.keys.each do |key|
-      new_key = @issue.ht_barcode + "/IMG" + File.basename(key, ".*")
-      info[new_key] = tmp[key]
+  def get_image_info(issue_identifier)
+
+    info_href = "#{Rails.configuration.manifest_service}#{Rails.configuration.media_collection}?rgn1=issue_identifier&q1=#{issue_identifier}&m_source=1"
+    STDERR.puts info_href
+    image_uri = URI(info_href)
+    response = Net::HTTP.get(image_uri)
+    response = JSON.parse(response)
+    data = {}
+    response['sequences'][0]['canvases'].each do |canvas|
+      key = (canvas['@id'].split('/')[-3]).split(':')[-1]
+      data[key] = { 'height' => canvas['height'], 'width' => canvas['width'], }
     end
-    info
+    data
+
   end
 
 

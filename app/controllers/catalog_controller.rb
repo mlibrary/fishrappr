@@ -57,6 +57,8 @@ class CatalogController < ApplicationController
       :"hl.simple.post" => ']]]]', # change to something accessible
       fl: [
             'id',
+            'page_id',
+            'issue_id',
             'sequence',
             'text_link',
             'img_link',
