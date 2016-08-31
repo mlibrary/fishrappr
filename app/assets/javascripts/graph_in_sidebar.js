@@ -103,5 +103,10 @@ $( document ).ready(function() {
 
       $("#hit_chart_frame").append(day);
     });
+    // Now that the chart is build we can:
+    // get the graph height and use it to position the "Date Range" axis title
+    var graph_height = parseInt($("#hit_chart_frame").height());
+    $("#y-axis-title").css('top', graph_height/2);
   }
 });
+

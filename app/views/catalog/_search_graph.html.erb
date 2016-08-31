@@ -12,10 +12,15 @@
     data-col-links="<%= graph_data['js_links_str'] %>" 
     ></span>
     
-  <h5>Pages Matching Search by <%= graph_data['chart_title'] %></h5>
-  <span id="hit_instructions">Put cursor on bar to see its page count and zoom in on bar data by clicking a bar</span>
+  <h5>Searching by <%= graph_data['chart_title'] %></h5>
+  <% if ( graph_data['facet_key'] == 'date_issued_dd_ti' ) %>
+    <span id="hit_instructions">Put cursor on bar to see its page count. No further data zoom available.</span>
+  <% else %>
+    <span id="hit_instructions">Put cursor on bar to see its page count and zoom in on bar data by clicking a bar.</span>
+  <% end %>
   <div id="hit_chart_frame">
+    <span id="y-axis-title">Date Range</span>
+    <span id="x-axis-title">Pages with Results</span>
     <!-- line bar -->
   </div>
-  <div class="axis">Y Axis is date units and x Axis is page count</div>
 </div>
