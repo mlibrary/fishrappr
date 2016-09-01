@@ -8,7 +8,9 @@ en:
     search:
       form:
         search:
-          label: 'Search Pages'
+          label: 'Search Full Text'
+        filter:
+          label: 'Date Filter'         
       view:
         list: "List"
         grid: "Grid"
