@@ -234,7 +234,7 @@ GEM
       actionpack (> 4, < 5.1)
       activemodel (> 4, < 5.1)
     slop (3.6.0)
-    solr_wrapper (0.14.2)
+    solr_wrapper (0.15.0)
       faraday
       ruby-progressbar
       rubyzip
@@ -315,7 +315,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   simple_form
-  solr_wrapper (>= 0.3)
+  solr_wrapper (>= 0.15)
   spring
   sqlite3
   therubyracer

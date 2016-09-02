@@ -1,3 +1,5 @@
+require 'net/http'
+
 class PageIndexer
 
   attr_accessor :page
@@ -10,18 +12,17 @@ class PageIndexer
 
     full_text = get_full_text(issue_doc, @page.text_link)
     coordinates_data = get_coordinates_data(issue_doc, @page.coordinates_link)
-    image_info = get_image_info(issue_doc, @page.img_link)
-    page_id = "#{issue_doc[:id]}-#{@page.sequence}"
     volume_sequence = @page.img_link.gsub('IMG', '').to_i
     page_identifier = "#{issue_doc[:ht_namespace]}.#{issue_doc[:ht_barcode]}-#{volume_sequence}"
-    STDERR.puts "INDEXING: #{issue_doc[:volume_identifier]} : #{volume_sequence} :: #{issue_doc[:issue_identifier]} :: #{@page.issue_id}"
     # image_info = get_image_info(page_identifier, @page.img_link)
     image_info = get_image_info_from_manifest(issue_doc[:manifest], @page.img_link)
 
     solr_doc = { 
-      id: page_id, # @page.id,
+      id: "#{issue_doc[:volume_identifier]}-#{volume_sequence}",
       page_no_t:@page.page_no, 
       sequence: @page.sequence,
+      page_id: page_identifier,
+      issue_id: issue_doc[:issue_identifier],
       text_link: @page.text_link, 
       img_link: @page.img_link, 
       coordinates_data_ssm: coordinates_data,
@@ -95,7 +96,7 @@ class PageIndexer
     #   Rails.configuration.sdrdataroot, 
     #   "#{issue_doc[:ht_namespace]}/#{issue_doc[:ht_barcode]}", 
     #   text_link+'.txt'))
-    get_data(issue_doc, text_link, ".txt")
+    get_data(issue_doc, text_link.gsub('TXT', ''), ".txt")
   end
 
   def get_coordinates_data(issue_doc, coordinates_link)
@@ -109,11 +110,18 @@ class PageIndexer
     manifest[img_link]
   end
 
-  def get_image_info(issue_doc, img_link)
+  def get_image_info(page_identifier, img_link)
     # image_href = "https://beta-3.babel.hathitrust.org/cgi/imgsrv/iiif/#{issue_doc[:ht_namespace]}.#{issue_doc[:ht_barcode]}/#{img_link}/info.json"
-    return {} if ( img_link.nil? || issue_doc[:manifest].nil? )
-    key = "#{issue_doc[:ht_barcode]}/#{img_link}"
-    issue_doc[:manifest][key]
+    # return {} if ( img_link.nil? || issue_doc[:manifest].nil? )
+    # key = "#{issue_doc[:ht_barcode]}/#{img_link}"
+    # issue_doc[:manifest][key]
+
+    info_href = "#{Rails.configuration.iiif_service}#{Rails.configuration.media_collection}:#{page_identifier}:#{img_link}/info.json"
+    STDERR.puts info_href
+    image_uri = URI(info_href)
+    response = Net::HTTP.get(image_uri)
+    JSON.parse(response)
+
   end
 
 end

@@ -18,15 +18,7 @@ $().ready(function() {
     })
     
     var toggle_highlighting = function(status) {
-        if ( $map.length  ) {
-            // dealing with an image
-            if ( status ) {
-                F.map.addLayer(F.annoFeatures);
-            } else {
-                F.map.removeLayer(F.annoFeatures);
-            }
-        }
-        $text.find("span.highlight").toggleClass("de-highlighted", ! status);
+        $("body").toggleClass('activate-highlighting', status);
     }
 
     var toggle_label = function(status) {
@@ -35,9 +27,6 @@ $().ready(function() {
         $action.prop("checked", status);
     }
 
-    if ( $map.length == 0 ) {
-        // map will take care of initial highlighting
-        toggle_highlighting($content.data('highlighting'));        
-    }
+    toggle_highlighting($content.data('highlighting'));    
 
 });

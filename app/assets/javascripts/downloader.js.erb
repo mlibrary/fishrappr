@@ -1,5 +1,5 @@
 var F = F || {};
-F.ht_host = '<%= Rails.configuration.ht_host %>';
+F.ht_host = '';
 F.Downloader = function(args) {
     this.barcode = args.barcode;
     this.pages = args.pages;
@@ -226,13 +226,13 @@ F.Downloader.prototype.clearTimer = function() {
 };
 
 
-$().ready(function() {
-    $(".action-download-pdf").on('click', function(e) {
-        e.preventDefault();
-        var identnfier = $("#content").data('identifier');
-        $.getJSON(window.location.href + "/issue_data", function(data) {
-            F.downloader = new F.Downloader(data);
-            F.downloader.startDownload();
-        })
-    })
-})
+// $().ready(function() {
+//     $(".action-download-pdf").on('click', function(e) {
+//         e.preventDefault();
+//         var identnfier = $("#content").data('identifier');
+//         $.getJSON(window.location.href + "/issue_data", function(data) {
+//             F.downloader = new F.Downloader(data);
+//             F.downloader.startDownload();
+//         })
+//     })
+// })

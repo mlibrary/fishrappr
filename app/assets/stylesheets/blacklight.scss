@@ -11,16 +11,19 @@
     border-right: 2px solid #666;
 }
 
-.highlight {
-    background-color: #4C7ED1;
-    background-color: rgba(76, 126, 209, 0.4);
-    font-weight: bold;
+body.activate-highlighting {
+    .highlight {
+        background-color: #4C7ED1;
+        background-color: rgba(76, 126, 209, 0.4);
+        font-weight: bold;
 
-    &.de-highlighted {
-        background-color: transparent;
-        font-weight: normal;
-    }
+        &.de-highlighted {
+            background-color: transparent;
+            font-weight: normal;
+        }
+    }    
 }
+
 
 .grid .highlight, a.thumbnail .highlight {
     // background-color: blue;

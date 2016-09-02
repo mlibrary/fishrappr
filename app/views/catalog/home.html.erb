@@ -1,40 +1,40 @@
 <div class="home">
 
     <div class="head">
-      <h2><%= t('views.static.home.head.h2') %></h2>
-      <h3><%= t('views.static.home.head.h3') %></h3>
-      <p class="para1"><%= t('views.static.home.head.p1') %></p>
-      <p class="para2"><%= t('views.static.home.head.p2') %></p>
-      <%= link_to "Read More", static_path("about") %>
+      <h1><%= t('views.static.home.head.page_title') %></h1>
+      <span class="subtitle"><%= t('views.static.home.head.subtitle') %></p>
+      <p class="description1"><%= t('views.static.home.head.description1') %></p>
+      <p class="description2"><%= t('views.static.home.head.description2') %></p>
+      <%= link_to t('views.static.home.head.link'), static_path("about") %>
 
       <% if true %><%= render partial: "search_form", locals: { container_class: 'container' } %><% end %>
       <% if false %><%= render "search_form", locals: { container_class: 'container' } %><% end %>
     </div>
 
     <div class="donors">
-      <h3><%= t('views.static.home.donors.h3') %></h3>
-      <p class="description"><%= t('views.static.home.donors.p') %></p>
-      <%= link_to "Our Donors", static_path("about") %>
+      <h2><%= t('views.static.home.donors.title') %></h2>
+      <p class="description"><%= t('views.static.home.donors.description') %></p>
+      <%= link_to t('views.static.home.donors.link'), static_path("about") %>
     </div>
 
     <div class="featured">
-      <h3>Today in the Michigan Daily</h3>
+      <h2><%= t('views.static.home.today.title') %></h2>
       <div id="documents" class="row grid">
         <% if false %><%= render collection: @featured_list, as: :document, partial: 'index_grid' %><% end %>
 
         <% @featured_list.each do |document| %>
-          <div data-identifier="<%= document.id %>">
+          <figure data-identifier="<%= document.id %>">
               <%= link_to hathitrust_thumbnail(document, size: '200,'), url_for_document(document), { class: 'thumbnail', style: hathitrust_thumbnail_style(document, size: '200,') } %>
               <div class="caption">
-                <h3>
+                <figcaptions>
                   <%= link_to_document document, render_index_field_value(document, field: :date_issued_display) %>
-                </h3>
+                </figcaptions>
               </div>
-          </div>
+          </figure>
         <% end %>
       </div>
 
-      <%= link_to "Read More", browse_path(date_issued_mm_ti: @now.strftime("%-m"), date_issued_dd_ti: @now.strftime("%-d")), class: 'btn btn-default btn-squared' %>
+      <%= link_to t('views.static.home.today.link'), browse_path(date_issued_mm_ti: @now.strftime("%-m"), date_issued_dd_ti: @now.strftime("%-d")), class: 'btn btn-default btn-squared' %>
 
     </div>
 

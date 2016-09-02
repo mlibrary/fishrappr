@@ -22,8 +22,9 @@
 // --- TODO: work out a different way to load this in development
 //= require holder
 
-//= require leaflet
-//= require leaflet.label
+//= xxxrequire leaflet
+//= xxxrequire leaflet.label
+//= require openseadragon
 //= require_tree .
 
 
