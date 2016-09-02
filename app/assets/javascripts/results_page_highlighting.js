@@ -11,25 +11,22 @@ $().ready(function() {
         var words = $div.data('words');
         if ( words === undefined || words.length == 0 ) { return ; }
 
-        var $img = $div.find("a.thumbnail");
+        var $link = $div.find("a.thumbnail");
 
-        var padding_top = parseInt($img.css('padding-top'));
-        var padding_left = parseInt($img.css('padding-left'));
+        var img_width = $link.data('min-width');
+        var img_height = $link.data('min-height');
+
+        var padding_left = ( $link.width() - img_width ) / 2;
+        var padding_top = 0;
 
         var identifier = $div.data('identifier');
         var coords_url = '/services/coords/' + identifier;
         $.getJSON(coords_url, function(data) {
 
-            var img_width = $img.data('min-width'); // $img.width();
-            var img_height = $img.data('min-height'); // $img.height();
-
             var true_width = data.width;
             var true_height = data.height;
             var hScale = img_width / true_width;
             var vScale = hScale;
-
-            // and then remote the min-width
-            // $img.css({ 'min-width': 0, 'min-height': 0});
 
             $.each(words, function(idx, word) {
                 var coords = data.coords[word]
@@ -48,11 +45,22 @@ $().ready(function() {
 
                     var min = 5;
                     if ( height < min ) { var r = min / height; height = min;  width *= r; }
-                    if ( left + width > img_width ) { width = img_width - left; }
+                    console.log("AHOY", left, "+", width, img_width, "/", left + width > img_width, "/", img_width - left);
+                    if ( left + width > img_width ) { 
+                        width = img_width - left; 
+                        if ( left > ( img_width + padding_left ) ) {
+                            left = img_width - padding_left;
+                        }
+                        if ( width <= min ) {
+                            // left = ( img_width - min ) + padding_left;
+                            width = min;
+                        }
+                        console.log("AHOY REDUX", left, width, img_width );
+                    }
 
-                    left = ( left / ( img_width + padding_left ) ) * 100;
-                    top = ( top / ( img_height + padding_top ) ) * 100;
-                    width = ( width / img_width ) * 100;
+                    left = ( left / ( img_width + ( padding_left * 2 ) ) ) * 100;
+                    top = ( top / ( img_height ) ) * 100;
+                    width = ( width / ( img_width + ( padding_left * 2 ) ) ) * 100;
                     height = ( height / img_height ) * 100;
                     unit = '%';
 
@@ -60,7 +68,7 @@ $().ready(function() {
 
 
                     var $span = $('<div class="highlight"></div>').css({ top: top + unit, left: left + unit, width: width + unit, height: height + unit });
-                    $span.appendTo($img);
+                    $span.appendTo($link);
                 })
 
             })

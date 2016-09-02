@@ -90,7 +90,7 @@ class DailyXmlToDb_v2
     # note: issue_id is autoincremented by the db
     # and we will want to select it from the last row created
 
-    track_issue_keys = []
+    track_issue_keys = Hash.new(0)
     key_separater = '-'
 
     issues_target = "//METS:mets[@TYPE='urn:library-of-congress:ndnp:mets:newspaper:issue']"
@@ -99,7 +99,7 @@ class DailyXmlToDb_v2
     # pp issues[0]
 
     # delete the entries
-    Issue.where(ht_namespace: 'mdp', ht_barcode: File.basename(f, '.issue.mets.xml')).destroy
+    Issue.where(ht_namespace: 'mdp', ht_barcode: File.basename(f, '.issue.mets.xml')).destroy_all
 
 
     @doc.xpath(issues_target, @NSMAP).each do |node1|
@@ -131,17 +131,10 @@ class DailyXmlToDb_v2
       pp_ok "newspaper is #{newspaper}"
 
       # Check for duplicate dates in array track_dates
-      issue_sequence = 1
-      issue_key_to_check = ht_namespace + key_separater + ht_barcode + key_separater + date_issued + key_separater + issue_sequence.to_s
-      until ((track_issue_keys.bsearch { |id| id == issue_key_to_check}).nil?) do
-        puts "\nWE HAVE A DUPLICATE OF: " + issue_key_to_check
-        issue_sequence += 1
-        issue_key_to_check = ht_namespace + key_separater + ht_barcode + key_separater + date_issued + key_separater + issue_sequence.to_s
-      end
-
-      track_issue_keys.push(issue_key_to_check).sort
-
-
+      issue_key_to_check = [ ht_namespace, ht_barcode, date_issued ].join(key_separater)
+      track_issue_keys[issue_key_to_check] += 1
+      
+      issue_sequence = track_issue_keys[issue_key_to_check]
       issue_id = add_data_issue(ht_namespace, ht_barcode, volume, issue_no, edition, date_issued, issue_sequence,  @pub_id)
 
       pp_ok "ISSUE ID IS: #{issue_id} and issue_sequence IS: #{issue_sequence}"
@@ -171,8 +164,10 @@ class DailyXmlToDb_v2
         img_link_a = node2.xpath("METS:mptr[2]", @NSMAP)
         img_link_b = img_link_a.xpath("@xlink:href", @NSMAP)
         pp_ok "text_link value is #{img_link_b}"
+
+        volume_sequence = img_link_b.to_s.gsub('IMG', '').to_i
         
-        add_data_page(issue_id, page_no, sequence, text_link_b, img_link_b)
+        add_data_page(issue_id, page_no, sequence, volume_sequence, text_link_b, img_link_b)
 
       end # each page
     end # each issue
@@ -200,11 +195,11 @@ class DailyXmlToDb_v2
     return i.id 
   end
   
-  def add_data_page(issue_id, page_no, sequence, text_link, img_link)
+  def add_data_page(issue_id, page_no, sequence, volume_sequence, text_link, img_link)
     pp_ok "page row will be (issue_id, page_no, sequence, text_link, img_link)" 
 
     coordinates_link = text_link.to_s.gsub('TXT', 'WORDS')
-    p = Page.create issue_id: issue_id, page_no: page_no, sequence: sequence, text_link: text_link, img_link: img_link, coordinates_link: coordinates_link
+    p = Page.create issue_id: issue_id, page_no: page_no, issue_sequence: sequence, volume_sequence: volume_sequence, text_link: text_link, img_link: img_link, coordinates_link: coordinates_link
   end
 
   def pp_ok(s)

@@ -71,12 +71,12 @@ class IssueIndexer
 
     # solr_doc[:manifest] = get_image_info
 
-    Page.where(issue_id: issue.id).order(:sequence).each do |page|
+    Page.where(issue_id: issue.id).order(:issue_sequence).each do |page|
       # solr_doc[:pages] << [ page.id, page.sequence, page.page_no ]
       solr_doc[:pages] << [
         page.id,
-        "#{solr_doc[:id]}-#{page.sequence}",
-        page.sequence,
+        "#{solr_doc[:volume_identifier]}-#{page.volume_sequence}",
+        page.issue_sequence,
         page.page_no
       ]
     end

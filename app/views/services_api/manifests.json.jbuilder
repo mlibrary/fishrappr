@@ -1,14 +1,14 @@
 json.set! :@context, 'http://www.shared-canvas.org/ns/context.json'
 json.set! :@id, services_manifests_url(@identifier)
 json.set! :@type, 'sc:Manifest'
-json.label "#{@document.fetch('publication_label')} - #{@document.fetch('date_issued_display').first} - #{@document.fetch('sequence')}"
+json.label "#{@document.fetch('publication_label')} - #{@document.fetch('date_issued_display').first} - #{@document.fetch('issue_sequence')}"
 json.description 'Page Image'
 json.attribution 'Michigan Daily / Bentley Library'
 
 json.sequences Jbuilder.new.array!(['']) do |sequence|
   json.set! :@id, "#{@identifier}/normal"
   json.set! :@type, 'sc:Sequence'
-  json.label "#{@document.fetch('sequence')}"
+  json.label "#{@document.fetch('issue_sequence')}"
   json.canvases Jbuilder.new.array!(['']) do |canvas|
     json.set! :@id, "#{@identifier}/canvas/canvas-1"
     json.set! :@type, 'sc:Canvas'

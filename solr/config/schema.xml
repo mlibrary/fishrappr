@@ -536,10 +536,11 @@
    <!-- for fishrappr -->
    <dynamicField name="ht_*" type="string" stored="true" indexed="true" multiValued="false"/>
    <dynamicField name="*_id" type="string" stored="true" indexed="true" multiValued="false"/>
+   <dynamicField name="*_identifier" type="string" stored="true" indexed="true" multiValued="false"/>
    <dynamicField name="*_link" type="string" stored="true" indexed="true" multiValued="false"/>
    <dynamicField name="*_label" type="string" stored="true" indexed="false" multiValued="false"/>
    <field name="sequence" type="int" indexed="true" stored="true" required="false" />
-   <field name="issue_sequence" type="int" indexed="true" stored="true" required="false" />
+   <dynamicField name="*_sequence" type="int" stored="true" indexed="true" multiValued="false"/>
    <field name="page_text" type="text_en_splitting" indexed="true" stored="true" required="false" />
    <field name="page_abstract" type="text" indexed="false" stored="true" required="false" />
    <copyField source="page_text" dest="page_abstract" maxChars="750" />
