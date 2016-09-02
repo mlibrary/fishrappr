@@ -12,6 +12,12 @@ class PageIndexer
     coordinates_data = get_coordinates_data(issue_doc, @page.coordinates_link)
     image_info = get_image_info(issue_doc, @page.img_link)
     page_id = "#{issue_doc[:id]}-#{@page.sequence}"
+    volume_sequence = @page.img_link.gsub('IMG', '').to_i
+    page_identifier = "#{issue_doc[:ht_namespace]}.#{issue_doc[:ht_barcode]}-#{volume_sequence}"
+    STDERR.puts "INDEXING: #{issue_doc[:volume_identifier]} : #{volume_sequence} :: #{issue_doc[:issue_identifier]} :: #{@page.issue_id}"
+    # image_info = get_image_info(page_identifier, @page.img_link)
+    image_info = get_image_info_from_manifest(issue_doc[:manifest], @page.img_link)
+
     solr_doc = { 
       id: page_id, # @page.id,
       page_no_t:@page.page_no, 
@@ -93,7 +99,14 @@ class PageIndexer
   end
 
   def get_coordinates_data(issue_doc, coordinates_link)
-    return get_data(issue_doc, coordinates_link, ".js")
+    return get_data(issue_doc, coordinates_link.gsub('WORDS', ''), ".js")
+  end
+
+  def get_image_info_from_manifest(manifest, img_link)
+    if manifest[img_link].nil?
+      STDERR.puts "DID NOT FIND: #{img_link}"
+    end
+    manifest[img_link]
   end
 
   def get_image_info(issue_doc, img_link)
