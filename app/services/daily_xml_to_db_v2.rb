@@ -164,8 +164,10 @@ class DailyXmlToDb_v2
         img_link_a = node2.xpath("METS:mptr[2]", @NSMAP)
         img_link_b = img_link_a.xpath("@xlink:href", @NSMAP)
         pp_ok "text_link value is #{img_link_b}"
+
+        volume_sequence = img_link_b.to_s.gsub('IMG', '').to_i
         
-        add_data_page(issue_id, page_no, sequence, text_link_b, img_link_b)
+        add_data_page(issue_id, page_no, sequence, volume_sequence, text_link_b, img_link_b)
 
       end # each page
     end # each issue
@@ -193,11 +195,11 @@ class DailyXmlToDb_v2
     return i.id 
   end
   
-  def add_data_page(issue_id, page_no, sequence, text_link, img_link)
+  def add_data_page(issue_id, page_no, sequence, volume_sequence, text_link, img_link)
     pp_ok "page row will be (issue_id, page_no, sequence, text_link, img_link)" 
 
     coordinates_link = text_link.to_s.gsub('TXT', 'WORDS')
-    p = Page.create issue_id: issue_id, page_no: page_no, sequence: sequence, text_link: text_link, img_link: img_link, coordinates_link: coordinates_link
+    p = Page.create issue_id: issue_id, page_no: page_no, issue_sequence: sequence, volume_sequence: volume_sequence, text_link: text_link, img_link: img_link, coordinates_link: coordinates_link
   end
 
   def pp_ok(s)

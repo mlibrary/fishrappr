@@ -12,7 +12,7 @@ class PageIndexer
 
     full_text = get_full_text(issue_doc, @page.text_link)
     coordinates_data = get_coordinates_data(issue_doc, @page.coordinates_link)
-    volume_sequence = @page.img_link.gsub('IMG', '').to_i
+    volume_sequence = @page.volume_sequence
     page_identifier = "#{issue_doc[:ht_namespace]}.#{issue_doc[:ht_barcode]}-#{volume_sequence}"
     # image_info = get_image_info(page_identifier, @page.img_link)
     image_info = get_image_info_from_manifest(issue_doc[:manifest], @page.img_link)
@@ -20,9 +20,10 @@ class PageIndexer
     solr_doc = { 
       id: "#{issue_doc[:volume_identifier]}-#{volume_sequence}",
       page_no_t:@page.page_no, 
-      sequence: @page.sequence,
-      page_id: page_identifier,
-      issue_id: issue_doc[:issue_identifier],
+      issue_sequence: @page.issue_sequence,
+      volume_sequence: @page.volume_sequence,
+      page_identifier: page_identifier,
+      issue_identifier: issue_doc[:issue_identifier],
       text_link: @page.text_link, 
       img_link: @page.img_link, 
       coordinates_data_ssm: coordinates_data,

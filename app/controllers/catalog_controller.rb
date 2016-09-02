@@ -38,6 +38,9 @@ class CatalogController < ApplicationController
     config.add_nav_action(:help, partial: 'shared/nav/help')
     config.add_nav_action(:contact, partial: 'shared/nav/contact')
 
+    config.index.collection_actions.delete(:view_type_group)
+    config.index.collection_actions.delete(:per_page_widget)
+
     config.navbar.partials.delete(:bookmark)
     config.navbar.partials.delete(:saved_searches)
     config.navbar.partials.delete(:search_history)
@@ -57,9 +60,10 @@ class CatalogController < ApplicationController
       :"hl.simple.post" => ']]]]', # change to something accessible
       fl: [
             'id',
-            'page_id',
-            'issue_id',
-            'sequence',
+            'page_identifier',
+            'issue_identifier',
+            'issue_sequence',
+            'volume_sequence',
             'text_link',
             'img_link',
             'image_height_ti',

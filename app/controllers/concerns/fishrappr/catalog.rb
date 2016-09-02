@@ -197,7 +197,7 @@ module Fishrappr::Catalog
   def fetch_in_context(params, search_query)
     fq = []
     fq_param = {}
-    [ :publication_link, :ht_barcode, :date_issued_link, :sequence ].each do |key|
+    [ :publication_link, :ht_barcode, :date_issued_link, :issue_sequence ].each do |key|
       fq << %{#{key}:"#{params[key]}"}
       fq_param[key.to_s] = params[key]
     end

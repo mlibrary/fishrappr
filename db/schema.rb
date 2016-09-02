@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160413202258) do
+ActiveRecord::Schema.define(version: 20160902151434) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id",       null: false
@@ -44,13 +44,14 @@ ActiveRecord::Schema.define(version: 20160413202258) do
 
   create_table "pages", force: :cascade do |t|
     t.string   "page_no"
-    t.integer  "sequence"
+    t.integer  "issue_sequence"
     t.string   "text_link"
     t.string   "coordinates_link"
     t.string   "img_link"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.integer  "issue_id"
+    t.integer  "volume_sequence"
   end
 
   add_index "pages", ["id"], name: "index_pages_on_id"

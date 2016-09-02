@@ -24,14 +24,14 @@ module ApplicationHelper
   def current_page_number(document)
     page_number = document.fetch('page_no_t').first
     unless page_number
-      page_number = "(seq #{document.fetch('sequence')})"
+      page_number = "(seq #{document.fetch('issue_sequence')})"
     end
     page_number
   end
 
   def hathitrust_pdf_link(document, fld, **kw)
     rgn1 = ( fld == 'page_identifier' ) ? 'ic_id' : fld
-    value = document.fetch(fld.sub('_identifier', '_id'))
+    value = document.fetch(fld)
     Rails.configuration.download_service + "?cc=#{Rails.configuration.media_collection}&rgn1=#{rgn1}&q1=#{value}&sort=page_identifier&attachment=1"
   end
 
@@ -46,7 +46,7 @@ module ApplicationHelper
     # barcode = document.fetch('ht_barcode')
     # path_info << "#{namespace}.#{barcode}"
 
-    page_identifier = document.fetch('page_id')
+    page_identifier = document.fetch('page_identifier')
 
     img_link = document.fetch('img_link')
     path_info << [ Rails.configuration.media_collection, page_identifier, img_link ].join(':')
@@ -113,7 +113,7 @@ module ApplicationHelper
       height = ( image_height * ( width.to_f / image_width ) ).to_i
     else
       height = height.to_i
-      width = ( image_width * ( height.to_f / image_height ) ).to_i
+      width = ( image_width * ( height.to_f / image_height ) ).ceil
     end
 
     { :'data-min-width' => width, :'data-min-height' => height }
@@ -199,7 +199,7 @@ module ApplicationHelper
     barcode = document.fetch('ht_barcode')
     text_link = document.fetch('text_link')
     issue_no = document.fetch("issue_no_t").first
-    page_sequence = document.fetch("sequence")
+    page_sequence = document.fetch("issue_sequence")
     key = namespace + "." + barcode + "/" + text_link
     bgcolor = Rails.cache.fetch("#{namespace}.#{barcode}/bgcolor") do
       # [ 'sky', 'vine', 'lava', 'gray', 'industrial', 'social' ].sample
