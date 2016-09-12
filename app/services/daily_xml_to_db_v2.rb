@@ -98,6 +98,7 @@ class DailyXmlToDb_v2
     # pp_ok "Issue one is:"
     # pp issues[0]
 
+    pp_ok "About to delete some issues"
     # delete the entries
     Issue.where(ht_namespace: 'mdp', ht_barcode: File.basename(f, '.issue.mets.xml')).destroy_all
 

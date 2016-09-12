@@ -22,7 +22,7 @@ module ApplicationHelper
   end
 
   def current_page_number(document)
-    page_number = document.fetch('page_no_t').first
+    page_number = document.fetch('page_no_t', []).first
     unless page_number
       page_number = "(seq #{document.fetch('issue_sequence')})"
     end
@@ -354,7 +354,7 @@ module ApplicationHelper
     when "date_issued_mm_ti"
       items = data['date_issued_dd_ti']["items"]
       bl_items = data['date_issued_dd_ti']["bl_items"]
-      rtn['chart_title'] = "Dates in Month #{Date::MONTHNAMES[val]}"
+      rtn['chart_title'] = "Days in Month #{Date::MONTHNAMES[val]}"
       rtn['facet_key'] = 'date_issued_dd_ti'
 
       case val
@@ -367,6 +367,15 @@ module ApplicationHelper
       end
 
       this_range = (1..end_date)
+
+    when 'date_issued_dd_ti' # display months in one year
+      items = data['date_issued_dd_ti']["items"]
+      bl_items = data['date_issued_dd_ti']["bl_items"]
+      rtn['chart_title'] = "Day #{val}"
+      rtn['facet_key'] = 'date_issued_dd_ti'
+
+      # we don't know what months may be includes so use widest range.
+      this_range = (1..31) 
 
     else
       rtn['chart_title'] = "Graph data not available."
@@ -398,7 +407,7 @@ module ApplicationHelper
         rtn['js_values_str'] += "#{return_items[d]}"
 
         # bar links
-        if ( bl_items.key?(d.to_s) && rtn['facet_key'] != 'date_issued_dd_ti' )
+        if ( bl_items.key?(d.to_s) ) # && rtn['facet_key'] != 'date_issued_dd_ti' )
           path = path_for_facet(rtn['facet_key'], bl_items[d.to_s])
           rtn['js_links_str'] += path
         else
@@ -471,6 +480,9 @@ module ApplicationHelper
     else
       filters = parms['f']
     end
+
+    # show one date in month
+    return 'date_issued_dd_ti', filters['date_issued_dd_ti'].first.to_i if (filters.key?('date_issued_dd_ti'))    
 
     # show dates in month
     return 'date_issued_mm_ti', filters['date_issued_mm_ti'].first.to_i if (filters.key?('date_issued_mm_ti'))
