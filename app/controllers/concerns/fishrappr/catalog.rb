@@ -170,7 +170,7 @@ module Fishrappr::Catalog
 
     # add sequence to fq hash
     fq_arr << "publication_link:#{session[:publication]}"
-    fq_arr << "sequence:1"
+    fq_arr << "issue_sequence:1"
 
     # get month number and add to fq_arr
     unless time.nil?
