@@ -25,6 +25,8 @@ en:
     thumbnail-image: Thumbnail of Daily page
     large-image: Full image of Daily page
   views:
+    catalog:
+      fishrappr_panel_title: Search Options
     issue:
         next: 'Next Page <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>'
         previous: '<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Previous Page'
