@@ -111,7 +111,7 @@ module Fishrappr::Catalog
 
     # add sequence to fq hash
     fq_arr << "publication_link:#{session[:publication]}"
-    fq_arr << "sequence:1"
+    fq_arr << "issue_sequence:1"
 
     unless (params["date_issued_yyyy10_ti"] == "Any Decade" || params["date_issued_yyyy10_ti"].blank?)
        fq_arr << "date_issued_yyyy10_ti:#{params['date_issued_yyyy10_ti']}"

@@ -160,9 +160,15 @@ module ApplicationHelper
 
   def render_plain_text(document, field, breaks=true)
     retval = []
+    texts = nil
+    search_params = current_search_session.try(:query_params) 
+    search_field = search_params["q"] 
     if document.has_highlight_field?(field)
       texts = document.highlight_field(field)
-    elsif document.fetch('page_text', nil)
+      if search_field.blank?
+        texts.collect!{|text| text.truncate(750)}
+      end
+    elsif breaks and document.fetch('page_text', nil)
       texts = document.fetch(field)
     else
       texts = document.fetch('page_abstract', 'WUT')
