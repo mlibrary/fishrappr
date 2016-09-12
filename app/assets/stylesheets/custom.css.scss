@@ -509,9 +509,6 @@ body.blacklight-catalog-browse {
   h3.group-key {
     padding-bottom: 8px;
   }
-
-
-
 }
 
 
@@ -549,26 +546,27 @@ div.top-panel-heading {
 }
 
 body.blacklight-catalog-index {
-  div.document {
+  article.document {
+      @include make-row;
 
-    span.document-metadata {
-      font-weight: bold;
+      span.document-metadata {
+        font-weight: bold;
 
-      span.blacklight-page_text {
-        display: block;
-        font-weight: normal;
+        span.blacklight-page_text {
+          display: block;
+          font-weight: normal;
+        }
+      }  
+
+      div.document-thumbnail {
+        float: left !important;
+        height: 150px;
+        margin-left: 0 !important;
+        margin-right: 20px;
+        padding: 0;
+        width: 150px;
       }
-    }  
-
-    div.document-thumbnail {
-      float: left !important;
-      height: 150px;
-      margin-left: 0 !important;
-      margin-right: 20px;
-      padding: 0;
-      width: 150px;
     }
-  }
 
   div.fishrappr_panel {
     background-color: #fff;
@@ -577,9 +575,9 @@ body.blacklight-catalog-index {
     color: #337ab7;
     display: inline-block;
     font-size: 16px;
+    margin-bottom: 1em;
     padding: 10px;
     vertical-align: middle;
-    margin-bottom: 1em;
   }
 
   div#sortAndPerPage {
