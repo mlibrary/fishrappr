@@ -64,7 +64,7 @@ class IssueIndexer
     solr_doc[:ht_namespace] = @issue.ht_namespace
     solr_doc[:publication_link] = publication.slug
     solr_doc[:publication_label] = publication.title
-    solr_doc[:issue_sequence] = @issue.issue_sequence
+    solr_doc[:issue_issue_sequence] = @issue.issue_sequence
     solr_doc[:pages] = []
     solr_doc[:manifest] = get_image_info(solr_doc[:issue_identifier])
     pp solr_doc[:manifest]
