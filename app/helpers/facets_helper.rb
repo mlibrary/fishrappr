@@ -33,5 +33,4 @@ module FacetsHelper
     classes = (options[:classes] || []) << "facet-count"
     content_tag("span", t('blacklight.search.facets.count', :number => number_with_delimiter(num)), :title=> 'Number of records', :class => classes)
   end
-
 end
