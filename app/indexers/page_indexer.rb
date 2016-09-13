@@ -41,7 +41,7 @@ class PageIndexer
     current_index = issue_doc[:pages].index { |v| v[0] == @page.id }
     [ :date_issued_display, 
       :issue_no_t,
-      :issue_sequence,
+      :issue_issue_sequence,
       :date_issued_dt, 
       :issue_id_t, 
       :date_issued_yyyy_ti,
