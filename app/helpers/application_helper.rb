@@ -514,5 +514,29 @@ module ApplicationHelper
     # show all decades
     return nil
   end
+
+  def active_date_facets?(prms)
+
+    if (!prms.key?('f'))
+      return false # show all decades
+    else
+      filters = prms['f']
+    end
+
+    # show one date in month
+    return true if (filters.key?('date_issued_dd_ti'))    
+
+    # show dates in month
+    return true if (filters.key?('date_issued_mm_ti'))
+
+    # show months in year
+    return true if (filters.key?('date_issued_yyyy_ti'))
+
+    # show years in decade
+    return true if (filters.key?('date_issued_yyyy10_ti'))
+
+    false
+
+  end
   
 end

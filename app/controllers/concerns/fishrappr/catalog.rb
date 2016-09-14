@@ -468,4 +468,5 @@ module Fishrappr::Catalog
         STDERR.puts "SETTING UP THE DEFAULT BROWSE"
       end
     end
+     
 end
