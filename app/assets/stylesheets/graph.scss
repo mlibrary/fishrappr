@@ -2,7 +2,7 @@
 @import "globals";
 
 .day { 
-  background-color: brown;  // #CDDEB6;
+  background-color: rgb(27,111,191);  // brown #CDDEB6;
   color: black;
   display: block;
   font-family: arial;
@@ -63,7 +63,7 @@
 
 #hit_instructions {
   display: block;
-  font-size: 12px;
+  font-size: 14px;
   font-style: italic;
   margin: 0 0 30px 0;
 }
@@ -87,6 +87,6 @@
   font-size: .8em;
   left: 50;
   position: absolute;
-  top: -8px;
+  bottom: -0;
 }
 

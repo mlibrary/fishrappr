@@ -21,7 +21,7 @@ en:
       index:
         label: '%{label}'
       facets:
-        title: 'Narrow results'
+        title: 'Narrow Results by Date Range'
     range_limit:
       submit_limit: Narrow Results
   views:
