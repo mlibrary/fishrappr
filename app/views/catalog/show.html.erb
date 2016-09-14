@@ -1,33 +1,28 @@
 <%= replace :search_navbar do %>
-  <% if current_search_session %>
-    <div class="navigation-toolbar">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-3">
-            <% if ( session[:show_browse_return] ) %>
-              <%= link_to t('blacklight.back_to_browse_html'), session[:show_browse_return_link], :class => 'btn btn-search-primary' %>
-            <% else %>
-              <%= link_back_to_catalog class: 'btn btn-search-primary', label: t('blacklight.back_to_search_html') %>
-             <% end %>
-                       
-          </div>
-          <div class="col-md-6 align-center">
-            <ul class="pager" style="margin-bottom: 0">
-              <li>
-                <%= link_to_previous_issue_page @previous_page %>
-              </li>
-              <li><span class="current-page-number">Image <%= current_page_number(@document) %> of <%= @issue_data[:pages].size %></span></li>
-              <li>
-                <%= link_to_next_issue_page @next_page %>
-              </li>
-            </ul>            
-          </div>
-          <div class="col-md-3 align-right">
-          </div>
+  <div class="navigation-toolbar">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3">
+          <% if current_search_session %>
+            <%= link_back_to_catalog class: 'btn btn-search-primary', label: back_to_results_label %>
+          <% end %>
+        </div>
+        <div class="col-md-6 align-center">
+          <ul class="pager" style="margin-bottom: 0">
+            <li>
+              <%= link_to_previous_issue_page @previous_page %>
+            </li>
+            <li><span class="current-page-number">Image <%= current_page_number(@document) %> of <%= @issue_data[:pages].size %></span></li>
+            <li>
+              <%= link_to_next_issue_page @next_page %>
+            </li>
+          </ul>            
+        </div>
+        <div class="col-md-3 align-right">
         </div>
       </div>
     </div>
-  <% end %>
+  </div>
 <% end %>
 
 <div id="image-viewer-wrap">
