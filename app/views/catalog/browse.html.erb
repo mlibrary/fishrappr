@@ -1,8 +1,8 @@
 <div class="col-sm-12 ">
-  <h2>Browse Issues</h2>
-  <h5>Browse The Michigan Daily Issues back to 1890</h5>
+  <h1>Browse Issues</h1>
+  <h2 class="browse-subtitle">Browse The Michigan Daily Issues back to 1890</h2>
 
-  <h3>Select a decade, year, month or day to browse issues</h3>
+  <p class="browse-instructions">Select a decade, year, month or day to browse issues</p>
 
   <% decade_browse_options = get_decade_browse_options %>
   <% year_browse_options = get_year_browse_options %>
@@ -28,7 +28,7 @@
       </div>
     <% end %>
 </div>
-
+<h2 class="sr-only">Browse Results</h2>
 <div class="col-sm-12">
   <div class="issues-display">
 
@@ -49,7 +49,7 @@
 
       <div id="groups">
         <%- @response.groups.each do |g| %>
-          <h3 class="group-key"><%= Date.strptime(g.key.to_s, "%Y%m").strftime("%B %Y") %> (<%= pluralize(g.total, 'issue') %>)</h3>
+          <h3 class="group-key browse-month-group"><%= Date.strptime(g.key.to_s, "%Y%m").strftime("%B %Y") %> (<%= pluralize(g.total, 'issue') %>)</h3>
           <div class="grouped-documents">
             <%= render_document_index g.docs %>
           </div>

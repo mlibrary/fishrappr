@@ -456,6 +456,15 @@ body.blacklight-catalog-browse {
     display: none;
   }
 
+  .browse-subtitle {
+    font-size: 16px;
+    margin-top: 0;
+  }
+
+  .browse-month-group, .browse-instructions {
+    font-size: 24px;
+  }
+
   background-color: #F8F8F8;
 
   form {
