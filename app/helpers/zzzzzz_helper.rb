@@ -13,5 +13,12 @@ module ZzzzzzHelper
   #   end
   # end
 
+  def document_index_view_type query_params=params
+    if query_params["action"] == 'browse'
+      :grid
+    else
+      default_document_index_view_type
+    end
+  end
 
 end

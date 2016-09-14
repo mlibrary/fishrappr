@@ -10,21 +10,27 @@ module Fishrappr::Catalog
     helper_method :highlights_available?
     helper_method :highlights_visible?
     helper_method :container_classes
+
+    setup_browse_defaults_hack
+    record_search_parameters only: [ :index, :browse ]
+  end
+
+  module ClassMethods
+    def setup_browse_defaults_hack
+      before_action :set_browse_defaults, only: :browse
+    end
   end
 
   def search_results(user_params)
     if user_params["date_filter"] and user_params["date_filter"] != 'any'
       user_params["date_filter_options"] = get_date_params(user_params)
     end
+    # binding.pry
     super
   end
 
   # get search results from the solr index
   def index
-    params['view'] = 'list'
-
-    # update show page back link to return to index page
-    session[:show_browse_return] = false
 
     (@response, @document_list) = search_results(params)
     respond_to do |format|
@@ -97,41 +103,33 @@ module Fishrappr::Catalog
   end
 
   def browse
-    # update show page back link to return to browse page
-    session[:show_browse_return] = true
-
-    # build back to browse link
-    session[:show_browse_return_link] = "/browse?utf8=✓"
-
-    # set browse to use grid view
-    params['view'] = 'grid'
 
     # build fq Array
     fq_arr = []
 
-    # add sequence to fq hash
-    fq_arr << "publication_link:#{session[:publication]}"
-    fq_arr << "issue_sequence:1"
-
     unless (params["date_issued_yyyy10_ti"] == "Any Decade" || params["date_issued_yyyy10_ti"].blank?)
-       fq_arr << "date_issued_yyyy10_ti:#{params['date_issued_yyyy10_ti']}"
-       session[:show_browse_return_link] << "&date_issued_yyyy10_ti=#{params['date_issued_yyyy10_ti']}"
+      fq_arr << "date_issued_yyyy10_ti:#{params['date_issued_yyyy10_ti']}"
     end
 
     unless (params["date_issued_yyyy_ti"] == "Any Year" || params["date_issued_yyyy_ti"].blank?)
       fq_arr << "date_issued_yyyy_ti:#{params['date_issued_yyyy_ti']}"
-       session[:show_browse_return_link] << "&date_issued_yyyy_ti=#{params['date_issued_yyyy_ti']}"
     end
 
     unless (params["date_issued_mm_ti"] == "Any Month" || params["date_issued_mm_ti"].blank?)
-       fq_arr << "date_issued_mm_ti:#{params['date_issued_mm_ti']}"
-        session[:show_browse_return_link] << "&date_issued_mm_ti=#{params['date_issued_mm_ti']}"
-   end
+      fq_arr << "date_issued_mm_ti:#{params['date_issued_mm_ti']}"
+    end
 
     unless (params["date_issued_dd_ti"] == "Any Day" || params["date_issued_dd_ti"].blank?)
-       fq_arr << "date_issued_dd_ti:#{params['date_issued_dd_ti']}"
-       session[:show_browse_return_link] << "&date_issued_dd_ti=#{params['date_issued_dd_ti']}"
+      fq_arr << "date_issued_dd_ti:#{params['date_issued_dd_ti']}"
     end
+
+    if fq_arr.empty?
+      params[:date_issued_yyyy10_ti] = 'Any Decade'
+    end
+
+    # add sequence and publication to fq query
+    fq_arr.unshift "publication_link:#{session[:publication]}"
+    fq_arr.unshift "issue_sequence:1"
 
     search_params = {
       fl: blacklight_config.default_solr_params[:fl] + ",date_issued_dt,page_abstract",
@@ -150,8 +148,6 @@ module Fishrappr::Catalog
   end
 
   def home
-    # query = search_builder.merge(rows: 0)
-    # @response = repository.search(query)
 
     @now = Time.now
     @featured_list = fetch_random(@now)
@@ -164,6 +160,15 @@ module Fishrappr::Catalog
   end
 
   # UTILITY
+
+  def start_new_search_session?
+    action_name == 'index' or action_name == 'browse'
+  end
+
+  # A list of query parameters that should not be persisted for a search
+  def blacklisted_search_session_params
+    [:commit, :counter, :total, :search_id, :per_page, :publication]
+  end
 
   def fetch_random(time=nil)
     fq_arr = []
@@ -281,7 +286,7 @@ module Fishrappr::Catalog
   end
 
   def search_state
-    # binding.pry
+    # STDERR.puts "AHOY SEARCH STATE : #{@search_state} : #{@search_state.to_h unless @search_state.nil?}"
     @search_state ||= Fishrappr::SearchState.new(params, blacklight_config)
   end
 
@@ -456,5 +461,11 @@ module Fishrappr::Catalog
       end
       retval
     end
-     
+    
+    def set_browse_defaults
+      if params.reject { |k,v| [:action, :controller].include? k.to_sym }.blank?
+        params['date_issued_yyyy10_ti'] = 'Any Decade'
+        STDERR.puts "SETTING UP THE DEFAULT BROWSE"
+      end
+    end
 end

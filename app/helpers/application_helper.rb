@@ -226,6 +226,17 @@ module ApplicationHelper
     end
   end
 
+  def back_to_results_label
+    search_params = current_search_session.try(:query_params) || {}
+    return if search_params.blank?
+    STDERR.puts "AHOY ACTION #{search_params[:action]} : #{search_params}"
+    if search_params[:action] == 'browse'
+      t('blacklight.back_to_browse_html')
+    else
+      t('blacklight.back_to_search_html')
+    end
+  end
+
   # SEARCH SELECT OPTIONS  
   # See blacklight_range_limit/app/helpers/range_limit_helper.rb, use date_issued_yyy_ti
   # Used by date search box
@@ -265,6 +276,7 @@ module ApplicationHelper
   end  
   
   # BROWSE OPTIONS  
+
   # Used by browse page
   def get_decade_browse_options
     decades = [1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010]
