@@ -19,7 +19,7 @@ $( document ).ready(function() {
   function setup_date_filters($select) {
     var option = $select.val();
     var $form = $select.parents("form");
-    $form.find(".date-option").hide();
+    $form.find(".date-option").hide().css("width: 0;");
     $form.find(".date-option-" + option).show();
   }
 

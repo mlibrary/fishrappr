@@ -6,57 +6,49 @@
   <%= form_tag(search_action_url, role: 'search', method: :get, class: "form-horizontal site-search-form") do %>
     <%= render_hash_as_hidden_fields(search_state.params_for_search.except(:q, :search_field, :qt, :page, :utf8)) %>
     <%= hidden_field_tag :search_field, search_fields.first.last %>
-    <div class="form-group form-group-lg">
-      <label for="q" class="col-md-2 col-sm-4 control-label"><h1 class="search-title"><%= t('blacklight.search.form.search.label') %></h1></label>
-      <div class="col-md-8 col-sm-4">
-        <%= text_field_tag(:q, params[:q], placeholder: 'Enter one or more search words', class: 'form-control' ) %>
-      </div>
-      <div class="col-md-2 col-sm-4">
-        <!-- <button class="btn btn-primary btn-lg">Search </button> -->
-        <button type="submit" class="btn btn-action btn-lg" xid="search">
-          <span class="glyphicon glyphicon-search"></span>
-          <span class="hidden glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> 
-          <span class="submit-search-text"><%= t('blacklight.search.form.submit') %></span>
-        </button>
-      </div>
-    </div>
-
-    <% # if there are active date facets suppress date in catalog search box %>
-    <% # assumes that the search partial is only show on the home and catalog pages %>
-    <% #if (! has_search_parameters? || ! active_date_facets?(params) ) # on home page || no facets %>
-    <% if (! (!params[:q].blank? or !params[:f].blank? or !params[:search_field].blank?) || ! active_date_facets?(params) ) # on home page || no facets %>
     <div class="form-group">
-      <label for="date_filter" class="col-sm-2 control-label filter-title"><%= t('blacklight.search.form.filter.label') %></label>
-      <div class="col-sm-3">
-        <%= select_tag('date_filter', options_for_select([['Any Date', 'any'], ['On this date...', 'on'], ['After this date...', 'after'], ['Before this date...', 'before'], ['Specific date range...', 'between']], params[:date_filter] || 'any'), class: 'form-control') %>
-      </div>
-      <div class="col-sm-7">
-        <div class="date-option date-option-on date-option-after date-option-before date-option-between">
-          <div class="date-input-control">
-            <div class="input-layout-group">
+      <div class="col-xs-12">
+        <label for="date_filter" class="control-label search-label date_filter"><%= t('blacklight.search.form.search.label') %></label>
+        <% # if there are active date facets suppress date in catalog search box %>
+        <% # assumes that the search partial is only show on the home and catalog pages %>
+        <% #if (! has_search_parameters? || ! active_date_facets?(params) ) # on home page || no facets %>
+        <% if (! (!params[:q].blank? or !params[:f].blank? or !params[:search_field].blank?) || ! active_date_facets?(params) ) # on home page || no facets %>
+        <label class="sr-only">Search by date</label>
+         <%= select_tag('date_filter', options_for_select([['Any Date', 'any'], ['On this date...', 'on'], ['After this date...', 'after'], ['Before this date...', 'before'], ['Specific date range...', 'between']], params[:date_filter] || 'any'), class: 'form-control') %>
+        <span class="date-option date-option-on date-option-after date-option-before date-option-between">
+          <span class="date-input-control">
+            <span class="input-layout-group">
               <%=  label_tag 'date_issued_begin_mm', 'Select month', class: 'sr-only' %>
               <%= select_tag(name="date_issued_begin_mm", options_for_select(month_options, params[:date_issued_begin_mm]), class: 'form-control date_filter_control_mm') %>
               <%=  label_tag 'date_issued_begin_dd', 'Select date', class: 'sr-only' %>
               <%= select_tag(name="date_issued_begin_dd", options_for_select(date_options, params[:date_issued_begin_dd]), class: 'form-control date_filter_control_dd') %>
               <%=  label_tag 'date_issued_begin_yyyy', 'Enter four digit year', class: 'sr-only' %>
               <%= text_field_tag(name="date_issued_begin_yyyy", params[:date_issued_begin_yyyy], placeholder: "YYYY", class: 'form-control date_issued_yyyy', size: 4, maxlength: 4) %>
-            </div>
-            <div class="input-layout-group date-option-between date-option">
-              <span class="between-to"> to </span>
-            </div>
-            <div class="input-layout-group date-option-between date-option">
+            </span>
+
+            <span class="input-layout-group date-option-between date-option">
+              <span> &mdash; </span>
               <%=  label_tag 'date_issued_end_mm', 'Selecting ending month', class: 'sr-only' %>
               <%= select_tag(name="date_issued_end_mm", options_for_select(month_options, params[:date_issued_end_mm]), class: 'form-control date_filter_control_mm') %>
               <%=  label_tag 'date_issued_end_dd', 'Selecting ending date', class: 'sr-only' %>
               <%= select_tag(name="date_issued_end_dd", options_for_select(date_options, params[:date_issued_end_dd]), class: 'form-control date_filter_control_dd') %>
               <%=  label_tag 'date_issued_end_yyyy', 'Enter four digit ending year', class: 'sr-only' %>
               <%= text_field_tag(name="date_issued_end_yyyy",  params[:date_issued_end_yyyy], placeholder: "YYYY", class: 'form-control date_issued_yyyy', size: 4, maxlength: 4) %>
-            </div>
-          </div>
-        </div>
+            </span>
+          </span>
+        </span>
+        <% end %>
+        <span class="q-block">
+        <label for="q1" class="control-label search-label for-label">For</label>
+        <%= text_field_tag(:q, params[:q], placeholder: 'Enter one or more search words', class: 'form-control' ) %>
+        <!-- <button class="btn btn-primary btn-lg">Search </button> -->
+        <button type="submit" class="btn btn-action btn-primary" xid="search">
+          <span class="glyphicon glyphicon-search"></span>
+          <span class="hidden glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> 
+          <span class="submit-search-text"><%= t('blacklight.search.form.submit') %></span>
+        </button>
       </div>
     </div>
-  <% end %>
   <% end %>
 </div>
 
