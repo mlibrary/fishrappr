@@ -23,7 +23,8 @@
 
     <% # if there are active date facets suppress date in catalog search box %>
     <% # assumes that the search partial is only show on the home and catalog pages %>
-    <% if (! has_search_parameters? || ! active_date_facets?(params) ) # on home page || no facets %>
+    <% #if (! has_search_parameters? || ! active_date_facets?(params) ) # on home page || no facets %>
+    <% if (! (!params[:q].blank? or !params[:f].blank? or !params[:search_field].blank?) || ! active_date_facets?(params) ) # on home page || no facets %>
     <div class="form-group">
       <label for="date_filter" class="col-sm-2 control-label filter-title"><%= t('blacklight.search.form.filter.label') %></label>
       <div class="col-sm-3">
