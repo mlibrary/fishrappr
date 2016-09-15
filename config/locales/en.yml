@@ -27,6 +27,8 @@ en:
   views:
     catalog:
       fishrappr_panel_title: Search Options
+      fishrappr_graph_title: Results Frequency Graph
+      fishrappr_graph_instructions: Put the cursor on a bar to see its page count and click a bar to zoom in on bar data
     issue:
         next: 'Next Page <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>'
         previous: '<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Previous Page'
