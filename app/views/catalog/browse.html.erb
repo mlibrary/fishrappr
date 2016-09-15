@@ -10,7 +10,7 @@
   <% date_browse_options = get_date_options; date_browse_options.unshift(['Any Day', 'Any Day']) %>
 
     <%= form_tag(browse_path, role: 'browse', method: :get, class: "form-inline browse-form") do %>
-      <div class="browse-select-box">
+      <div class="browse-select-box" aria-live="polite">
         <div class="form-group">
           <label class="sr-only">Browse issues by</label>
           <%= select_tag(name="date_issued_yyyy10_ti", options_for_select(decade_browse_options, params[:date_issued_yyyy10_ti]), class: 'changeable form-control') %>          
