@@ -2,19 +2,20 @@ $().ready(function() {
     var do_log = true;
 
     $("#documents .thumbnail.loading img").on('load', function() {
-        var $link = $(this).parents(".thumbnail");
-        $link.removeClass("loading");
+        load_highlights($(this));
     })
 
-    $("#documents > div").each(function() {
-        var $div = $(this);
+    var load_highlights = function($img) {
+
+        var $link = $img.parents(".thumbnail");
+        $link.removeClass("loading");
+
+        var $div = $link.parents(".document");
         var words = $div.data('words');
         if ( words === undefined || words.length == 0 ) { return ; }
 
-        var $link = $div.find("a.thumbnail");
-
-        var img_width = $link.data('min-width');
-        var img_height = $link.data('min-height');
+        var img_width = $img.width();
+        var img_height = $img.height();
 
         var padding_left = ( $link.width() - img_width ) / 2;
         var padding_top = 0;
@@ -45,7 +46,7 @@ $().ready(function() {
 
                     var min = 5;
                     if ( height < min ) { var r = min / height; height = min;  width *= r; }
-                    console.log("AHOY", left, "+", width, img_width, "/", left + width > img_width, "/", img_width - left);
+                    // console.log("AHOY", left, "+", width, img_width, "/", left + width > img_width, "/", img_width - left);
                     if ( left + width > img_width ) { 
                         width = img_width - left; 
                         if ( left > ( img_width + padding_left ) ) {
@@ -55,7 +56,7 @@ $().ready(function() {
                             // left = ( img_width - min ) + padding_left;
                             width = min;
                         }
-                        console.log("AHOY REDUX", left, width, img_width );
+                        // console.log("AHOY REDUX", left, width, img_width );
                     }
 
                     left = ( left / ( img_width + ( padding_left * 2 ) ) ) * 100;
@@ -74,6 +75,6 @@ $().ready(function() {
             })
 
         })
-    })
+    };
 })
 
