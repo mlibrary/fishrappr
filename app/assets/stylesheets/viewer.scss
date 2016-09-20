@@ -11,7 +11,7 @@
 #image-viewer {
 
     background: $image-viewer-bgcolor;
-    height: 99%;
+    height: 98%;
 
     &:focus {
         outline: auto 5px -webkit-focus-ring-color;
@@ -23,7 +23,10 @@
     top: 5px;
     left: 0;
     right: 0;
-    height: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    z-index: 9000;
+    background: $image-viewer-bgcolor;
 
     div > span {
         color: white;
@@ -152,7 +155,7 @@
 }
 
 *[class*='panel-actions-'] {
-    h4 {
+    h3, h4 {
         margin-bottom: 0;
     }
 
@@ -184,5 +187,29 @@
 .document .dl-horizontal {
     dt {
         text-align: left;
+    }
+}
+
+.extension {
+    float: right;
+}
+
+@media (max-width: $screen-xs-max) {
+    .image-viewer-toolbar .btn {
+        min-width: 1em;
+    }
+
+    .navigation-toolbar .pager li {
+        a, span {
+            min-width: 1em;
+        }
+    }
+
+    .btn-issue-link {
+        padding-left: 0;
+    }
+
+    .navbar-brand img {
+        max-width: 100%;
     }
 }

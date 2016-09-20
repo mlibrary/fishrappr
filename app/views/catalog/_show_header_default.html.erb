@@ -1,8 +1,10 @@
-<h2>
+<h3>
     <%= document['date_issued_display'].first %>
      - 
      Issue <%= document['issue_no_t'].first %>
-</h2>
+     - 
+     Image <%= current_image_sequence(@document) %>
+</h3>
 <dl class="dl-horizontal">
     <dt>Resource type:</dt>
     <dd>Text</dd>
