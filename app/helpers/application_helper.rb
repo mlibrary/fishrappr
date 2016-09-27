@@ -29,6 +29,23 @@ module ApplicationHelper
     page_number
   end
 
+  def current_image_sequence(document)
+    document.fetch('issue_sequence')
+  end
+
+  # http://localhost:3000/catalog?utf8=%E2%9C%93&publication=the-michigan-daily&search_field=all_fields&q=&date_filter=on&date_issued_begin_mm=4&date_issued_begin_dd=18&date_issued_begin_yyyy=1986&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy= -->
+
+  def document_to_date_params(document)
+    params = {}
+
+    params[:search_field] = 'all_fields'
+    params[:date_filter] = 'on'
+    params[:date_issued_begin_dd] = document.fetch(:date_issued_dd_ti)
+    params[:date_issued_begin_mm] = document.fetch(:date_issued_mm_ti)
+    params[:date_issued_begin_yyyy] = document.fetch(:date_issued_yyyy_ti)
+    params
+  end
+
   def hathitrust_pdf_link(document, fld, **kw)
     rgn1 = ( fld == 'page_identifier' ) ? 'ic_id' : fld
     value = document.fetch(fld)

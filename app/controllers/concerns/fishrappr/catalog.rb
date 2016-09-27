@@ -318,6 +318,7 @@ module Fishrappr::Catalog
         session[:publication] ||= Rails.configuration.default_publication
         params[:publication] = session[:publication]
       end
+      @publication = Publication.where(slug: session[:publication]).first
     end
 
     def get_view
@@ -373,7 +374,7 @@ module Fishrappr::Catalog
       fl = [ 'id', 'sequence', 'text_link', 'img_link', flds].flatten.compact
       params = {
         fl: fl.join(','),
-        fq: [ "ht_namespace:#{ht_namespace}", "ht_barcode:#{ht_barcode}", "issue_sequence:#{@document.fetch('issue_sequence')}", "date_issued_link:#{@document.fetch('date_issued_link')}" ],
+        fq: [ "ht_namespace:#{ht_namespace}", "ht_barcode:#{ht_barcode}", "issue_issue_sequence:#{@document.fetch('issue_issue_sequence')}", "date_issued_link:#{@document.fetch('date_issued_link')}" ],
         sort: "sequence asc",
         rows: 500
       }

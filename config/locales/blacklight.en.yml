@@ -1,8 +1,8 @@
 en:
   blacklight:
     application_name: 'Fishrappr'
-    back_to_search_html: '<span class="glyphicon glyphicon-arrow-left"></span> Back to Search'
-    back_to_browse_html: '<span class="glyphicon glyphicon-arrow-left"></span> Back to Browse'
+    back_to_search_html: '<span class="glyphicon glyphicon-arrow-left"></span><span class="hidden-xs"> Back to Search</span>'
+    back_to_browse_html: '<span class="glyphicon glyphicon-arrow-left"></span><span class="hidden-xs"> Back to Browse</span>'
     start_over_search: 'Start Search Over'
     start_over_browse: 'Start Browse Over'
     search:
@@ -33,5 +33,5 @@ en:
         truncate: '…'
 
       pagination_compact:
-        previous: '<span class="prev-next"><span class="glyphicon glyphicon-arrow-left"></span> Previous page</span>'
-        next: '<span class="prev-next">Next page <span class="glyphicon glyphicon-arrow-right"></span></span>'
+        previous: '<span class="prev-next"><span class="glyphicon glyphicon-arrow-left"></span><span class="hidden-xs"> Previous page</span></span>'
+        next: '<span class="prev-next"><span class="hidden-xs">Next page </span><span class="glyphicon glyphicon-arrow-right"></span></span>'

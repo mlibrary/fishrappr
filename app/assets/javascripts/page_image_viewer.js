@@ -58,7 +58,7 @@
       })
     }
 
-    var viewer;
+    var viewer; var selection; var mode;
 
     var i = 1;
     $.getJSON('/services/manifests/' + identifier, function(data) {
@@ -92,6 +92,11 @@
 
       viewer.world.addHandler('add-item', function() {
         addHighlightOverlay(viewer);
+        if ( sessionStorage.getItem('best-fit-width') == 'true' ) {
+          setTimeout(function() {
+            viewer.viewport.fitHorizontally();
+          }, 500)
+        }
       })
 
       viewer.addHandler('open', function() {
@@ -109,6 +114,38 @@
       viewer.open(info_url);
       F.viewer = viewer;
 
+      selection = viewer.selection({
+        prefixUrl: '/assets/selection/',
+        restrictToImage: false,
+        onSelection: function(rect) {
+          var translated = viewer.viewport.imageToViewportRectangle(rect)
+          viewer.viewport.fitBounds(translated);
+          $(".action-toggle-mode[value=pan]").prop('checked', true).trigger('change');
+        },
+        onDownloadSelection: function(rect) {
+          var params = [];
+          params.push(rect.x + "," + rect.y + "," + rect.width + "," + rect.height);
+          params.push("full");
+          params.push("0");
+          params.push("native.jpg");
+          params = params.join("/");
+          var href = viewer.source['@id'] + "/" + params;
+          window.open(href, "_blank");
+          // href += "?attachment=0";
+          // window.location.href = href;
+
+          // var translated = viewer.viewport.imageToViewportRectangle(rect)
+          // viewer.viewport.fitBounds(translated);
+          $(".action-toggle-mode[value=pan]").prop('checked', true).trigger('change');
+        },
+        onZoomSelection: function(rect) {
+          var translated = viewer.viewport.imageToViewportRectangle(rect)
+          viewer.viewport.fitBounds(translated);
+          $(".action-toggle-mode[value=pan]").prop('checked', true).trigger('change');
+        }
+      })
+      F.selection = selection;
+
     });
 
     $(".action-download-view").on('click', function(e) {
@@ -119,6 +156,17 @@
 
       // var href = baseLayer.getViewRequest() + "?attachment=1";
       // window.location.href = href;
+    })
+
+    $(".action-toggle-mode").on('change', function() {
+      var $input = $(this);
+      mode = $input.val();
+      if ( mode == 'pan' ) {
+        selection.disable();
+      } else {
+        selection.enable();
+      }
+      console.log("AHOY MODE", mode);
     })
 
     window.delta = 1; window.total_time = 1;

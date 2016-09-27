@@ -1,6 +1,8 @@
 <div class="navbar-right">
   <ul class="nav navbar-nav">
-    <li style="border-right: 1px solid"><%= link_to(session[:publication], static_url('toggle'), { style: 'font-style: italic; opacity: 0.8'}) %></li>
+    <li class="publication-link">
+        <p class="navbar-text"><%= @publication.title %></p>
+    </li>
     <%= render_nav_actions do |config, action|%>
       <li><%= action %></li>
     <% end %>

@@ -210,6 +210,15 @@ p.help-block {
 
 #header-navbar {
   margin-bottom: 0;
+
+  // SHOULD BE REMOVED
+  .navbar-text {
+    font-size: 16px;
+  }
+}
+
+li.publication-link {
+  border-right: 1px solid;
 }
 
 .blacklight-catalog-home {
@@ -889,6 +898,9 @@ body.blacklight-contacts-new {
   display: none;
 }
 
+.align-right {
+  text-align: right;
+}
 
 
 // searching icon animation
