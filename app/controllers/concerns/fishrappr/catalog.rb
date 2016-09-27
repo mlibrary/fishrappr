@@ -43,6 +43,7 @@ module Fishrappr::Catalog
                                                    facets_from_request,
                                                    blacklight_config)
       end
+
       additional_response_formats(format)
       document_export_formats(format)
     end
