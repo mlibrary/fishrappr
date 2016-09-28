@@ -1,6 +1,6 @@
-<div class="home">
+<div class="home container-fluid">
 
-    <div class="head">
+    <div class="head col-md-12">
       <h1><%= t('views.static.home.head.page_title') %></h1>
       <span class="subtitle"><%= t('views.static.home.head.subtitle') %></p>
       <p class="description1"><%= t('views.static.home.head.description1') %></p>
@@ -8,16 +8,15 @@
       <%= link_to t('views.static.home.head.link'), static_path("about") %>
 
       <% if true %><%= render partial: "search_form", locals: { container_class: 'container' } %><% end %>
-      <% if false %><%= render "search_form", locals: { container_class: 'container' } %><% end %>
     </div>
 
-    <div class="donors">
+    <div class="donors col-md-12">
       <h2><%= t('views.static.home.donors.title') %></h2>
       <p class="description"><%= t('views.static.home.donors.description') %></p>
       <%= link_to t('views.static.home.donors.link'), static_path("about") %>
     </div>
 
-    <div class="featured">
+    <div class="featured col-md-12">
       <h2><%= t('views.static.home.today.title') %></h2>
       <div id="documents" class="row grid">
         <% if false %><%= render collection: @featured_list, as: :document, partial: 'index_grid' %><% end %>

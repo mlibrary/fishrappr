@@ -49,17 +49,17 @@ en:
       home:
         title: Home Page
         head:
-          page_title: The Michigan Daily Archives
-          subtitle: 1890 - 2016
-          description1: Student News at the University of Michigan
-          description2: 130,000 papers covering over 120 years of campus life
+          page_title: The Michigan Daily Digital Archives
+          subtitle: 1890 - Present
+          description1: The student newspaper at the University of Michigan
+          description2: 125 years of editorial freedom
           link: About this Collection
         donors:
-          title: Thank You to Our Alumni Donors!
-          description: We couldn't have created the Michigan Daily archive without the generous financial support of our donors.
-          link: About Our Donors
+          title: Thank You to the Kemp Family Foundation
+          description: We couldn't have created the Michigan Daily archive without the generous financial support of our donor
+          link: About Our Donor
         today:
-          title: Random Issues of The Michigan Daily
+          title: This date in The Michigan Daily
           link: Browse Issues
       how-to-search:
         h2: How to Search
