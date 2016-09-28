@@ -30,7 +30,7 @@ $( document ).ready(function() {
   $('ul.help-ul li.current a').addClass('currentlyActive');
 
   // Back to top window scroll for catalog index page
-  if (true || ("body.blacklight-catalog-index").length > 0) {
+  if (true || ("body.blacklight-catalog-index, body.blacklight-catalog-show").length > 0) {
       $(window).scroll(function () {
           if ($(this).scrollTop() > 50) {
               $('#back-to-top').fadeIn();
