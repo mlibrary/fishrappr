@@ -209,129 +209,100 @@ p.help-block {
 /* STYLES FOR SEARCH PARTIAL ON HOME AND CATALOG PAGE */
 
 #header-navbar {
-  margin-bottom: 0;
-
-  // SHOULD BE REMOVED
-  .navbar-text {
-    font-size: 16px;
+  li.publication-link {
+    border-right: 1px solid;
   }
 }
 
-li.publication-link {
-  border-right: 1px solid;
-}
-
-.blacklight-catalog-home {
-  .site-search {
-    width: 85%;
-  }
-}
-
-.blacklight-catalog-index {
-  #search-navbar {
-    .container-fluid {
-      padding-left: 0;
-      padding-right: 0;
-      margin-top: 0;
-    }
-  }
-
-}
-
-body.blacklight-catalog-index, body.blacklight-catalog-home {
+body.blacklight-catalog-index #search-navbar , body.blacklight-catalog-home {
 
   .site-search {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    background: #4E4E4E;
+    background: rgb(230,230,230);
     padding: 20px;
     padding-left: 10%;
     padding-right: 10%;
-
-    color: #fff;
-
-    // .form-group {
-    //   margin-bottom: 0;
-    // }
-
-    .form-horizontal .form-group-lg .control-label {
-      padding-top: 0;
-    }
+    color: black;
+    font-size: 16px !important;
+    margin-top: -20px;
 
     .btn-action {
       background: #6E6E6E;
-      background: #126DC1;
-      box-shadow: inset 0px -2px 0px 0px rgba(0,0,0,0.36);
-      border-radius: 3px;
+      background: #126DC1;   
+      box-shadow: inset 0px -2px 0px 0px rgba(0,0,0,0.36);   
+      border-radius: 3px;    
+        
+      &:hover {    
+      background: black;   
+      }    
+    }
+
+    .form-control, .q-block {
+      display: block;
+      margin-top:  .5em;
+      text-align: left;
+    }
+
+    .form-control, .date-option, .input-layout-group {
+      width: 12em;
+    }
+
+    #date_filter, #q, .search-label {
+      display: inline-block;
+    }
+
+    .search-label {
+      width: 8em;
+      text-align: left !important;
+    }
+
+    .for-label {
+      width: 2em;
+    }
+
+    input[name="yy[1]"] {
+      width: 5em !important;
+    }
+
+    .date-option {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .date-input-control {
+        .form-control, span {
+          width: auto;
+        }
+      }
+      .input-layout-group {
+        display: inline-block;
+      }
       
-      &:hover {
-        background: black;
-      }
-    }
-
-    .search-title {
-      font-size: 16px;
-      margin-top: 10px;
-    }
-
-    .filter-title {
-      font-size: 16px;
-      margin-top: -5px;
-    }
-  }
-
-  .date-input-control {
-    .form-control, span {
-      width: 100%;
+      .form-control, .q-block {
       display: inline-block;
-    }
-
-    span {
-      padding: 0 10px;
-    }
-  }
-
-  .date-option {
-    display: none;
-  }
-
-  .input-layout-group {
-    display: block;
-    text-align: left;
-    
-    .form-control {
-      width: 100%;
-
-      &.date_issued_yyyy {
-        width: 5em;
+      margin-top:  .5em;
+      text-align: left;
+     }
+      
+      .for-label {
+        text-align:  center !important;
+        width: 3em;
       }
     }
-    
-    span {
-      width: 100% !important;
-      text-align: center;
-    }
-  }
 
-  @media (min-width: 768px) {
-    .date-input-control {
-      .form-control, span {
-        width: auto;
-      }
-    }
-    .input-layout-group {
-      display: inline-block;
+    #q {
+      min-width: 20em;
     }
   }
 }
 
-// Ugh here separate styling for home page
+// Separate styling for home page search
 body.blacklight-catalog-home {
 
   .site-search {
+    width: 85%;
+    margin-top: 0;
 
     .search-title {
-      font-size: 16px;
       margin-top: 0;
       padding-top: 0;
     }
@@ -342,6 +313,7 @@ body.blacklight-catalog-home {
     }
   }
 }
+
 
 // facet styling
 body.blacklight-catalog-index {
