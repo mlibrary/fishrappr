@@ -637,13 +637,16 @@ body.blacklight-catalog-home {
   }
 
   .head a, .donors a {
+    background: transparent;
+    border: solid 2px white;
     color: white;
     display: block;
+    font-size: 16px;
     margin-left:auto;
     margin-right:auto;
-    margin-top: 2em;
+    margin-bottom: 30px;
     padding: .5em;
-    width: 10em;
+    width: 12em;
   }
 }
 
@@ -679,7 +682,6 @@ body.blacklight-catalog-home {
     margin-right:auto;
     min-width: 15em;
   }  
-
 } /* .home .head */
 
 .home .donors {
@@ -732,6 +734,8 @@ body.blacklight-catalog-home {
     background: transparent;
     border: 2px solid darkgray;
     border-radius: 0;
+    min-width: 12em;
+    font-size: 16px;
 
     &:hover {
       text-decoration: underline;
