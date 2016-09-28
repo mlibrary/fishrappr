@@ -299,8 +299,9 @@ body.blacklight-catalog-index #search-navbar , body.blacklight-catalog-home {
 body.blacklight-catalog-home {
 
   .site-search {
-    width: 85%;
     margin-top: 0;
+    margin-right: 50px !important;
+    margin-left: 50px !important;
 
     .search-title {
       margin-top: 0;
@@ -586,12 +587,27 @@ body.blacklight-catalog-index {
 }
 
 body.blacklight-catalog-home {
-  // background-image: image-url("home_page_banner.png");
-  // background-position: 0 50px;
-  // background-repeat: repeat-x;
-  // background-size: 1440px 500px;
   display: block;
   padding: 0;
+
+  footer {
+    padding-right: 30px;
+    padding-left: 30px;
+  }
+
+  .container-fluid {
+    padding: 0;
+
+    .site-search {
+      padding: 20px;
+      padding-left: 10%;
+      padding-right: 10%;    
+    }
+  }
+
+  h2 {
+    font-size: 40px;
+  }
 
   .navbar-static-top {
     margin-bottom: 0;
@@ -602,7 +618,6 @@ body.blacklight-catalog-home {
 .home {
 
   .head, .donors, .featured {
-    color: white;
     margin: 0;
     padding: 20px;
     text-align: center;
@@ -614,11 +629,7 @@ body.blacklight-catalog-home {
     background-position: 0 0;
     background-repeat: repeat-x;
     background-size: cover;
-    // background-size: 1440px 500px;
-
-    h1 {
-      margin-top: 0;
-    }
+    color: white;
   }
 
   form {
@@ -639,21 +650,20 @@ body.blacklight-catalog-home {
 .home .head {
 
   h1 {
-    font-size: 4em;
+    font-size: 60px;
   }
 
   .subtitle {
     color: white;
-    font-size: 2.5em;
+    font-size: 40px;
   }
 
   p.description1, p.description2 {
     color: white;
     display: block;
-    font-size: .5em;
+    font-size: 20px;
     margin-left:auto;
     margin-right:auto;
-    width: 30em;
   }
 
   .description1 {
@@ -663,24 +673,23 @@ body.blacklight-catalog-home {
   a {
     border: solid 2px white;
     color: white;
-    font-size: .5em;
-    margin-top: 0;
-    width: 15em;
+    font-size: 20px;
+    margin: 0 0 2em 0;
+    margin-left:auto;
+    margin-right:auto;
+    min-width: 15em;
   }  
 
 } /* .home .head */
 
 .home .donors {
   background-color: rgb(232,244,255);
+  display: block;
   color: black;
-  height: 200px;
-
-  h2 {
-    font-size: 2.5em;
-  }
+  height: auto;
 
   p.description {
-    font-size: 1.3em;
+    font-size: 20px;
     width: 80%;
     margin-left: auto;
     margin-right: auto;
@@ -689,12 +698,16 @@ body.blacklight-catalog-home {
   a {
     border: solid 2px #126DC1;
     color: #126DC1;
-    font-size: 1em;
-    // margin-top: 0;
+    font-size: 20px;
+    margin: 0 0 1em 0;
+    margin-left:auto;
+    margin-right:auto;
+    min-width: 15em;
   }  
 }
 
 .home .featured {
+  padding: 1em 0 1em 0;
   background-color: lightgray;
   color: black;
   min-height: 300px;
@@ -712,11 +725,6 @@ body.blacklight-catalog-home {
   }
   .grid > div {
     border: none;
-  }
-
-  h2 {
-    font-size: 2.5em;
-    // padding-top: 3em;
   }
 
   .btn-squared {
@@ -750,7 +758,6 @@ body {
 
 footer { 
 
-  // margin-top: 50px;
   border-radius: 0 !important;
   padding: 10px;
 
