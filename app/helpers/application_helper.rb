@@ -139,13 +139,13 @@ module ApplicationHelper
   def hathitrust_image(document, **kw)
     namespace = document.fetch('ht_namespace')
     return fake_image(document).html_safe if namespace == 'fake'
-    %Q{<img src="#{hathitrust_image_src(document, **kw)}" alt="Full image of Daily page" />}.html_safe
+    %Q{<img src="#{hathitrust_image_src(document, **kw)}" tabindex="-1", aria-hidden="true", alt="Full image of Daily page" />}.html_safe
   end
 
   def hathitrust_thumbnail(document, **kw)
     namespace = document.fetch('ht_namespace')
     return fake_image(document, kw.fetch(:size, ',250')) if namespace == 'fake'
-    %Q{<img src="#{hathitrust_thumbnail_src(document, **kw)}" alt="Thumbnail of Daily page" />}.html_safe
+    %Q{<img src="#{hathitrust_thumbnail_src(document, **kw)}" tabindex="-1", aria-hidden="true", alt="Thumbnail of Daily page" />}.html_safe
   end
 
   # TO DO: Needs to be moved into a style using a data attribute
