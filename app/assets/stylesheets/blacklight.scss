@@ -24,7 +24,6 @@
     }    
 }
 
-
 .grid .highlight, a.thumbnail .highlight {
     // background-color: blue;
     background-color: #4C7ED1;
@@ -84,4 +83,111 @@ span.subtitle {
 
 .caption span.subtitle {
     font-size: 90%;
+}
+
+// SCSS for index page only
+.blacklight-catalog-index {
+
+    #documents-list article {
+        background: #fff;
+        border: 2px solid #ddd;
+        border-bottom: 4px solid #666;
+        border-right: 2px solid #666;
+    }
+
+    #documents h3 {
+        display: inline-block;
+    }
+
+    #documents .row-thumbnail {
+        display: inline-block;
+        width: 200px;
+        margin-top: 0;
+        vertical-align: top;
+    }
+
+    // Use calc to resize row article text
+    #documents .row-article-text {
+        display: inline-block;
+        width: calc(100% - 250px);
+        padding-left: 20px;
+        
+        h3 {
+         display: inline-block;
+        }
+    }
+
+    .activate-highlighting {
+        .highlight {
+            background-color: #4C7ED1;
+            background-color: rgba(76, 126, 209, 0.4);
+            font-weight: bold;
+
+            &.de-highlighted {
+                background-color: transparent;
+                font-weight: normal;
+            }
+        }    
+    }
+
+    .row-thumbnail .highlight, .row-thumbnail a.thumbnail .highlight {
+        // background-color: blue;
+        background-color: #4C7ED1;
+
+        // min-width: 15px;
+        // min-height: 15px;
+        z-index: 5000;
+    }
+
+    .row-thumbnail .grid .thumbnail, .row-thumbnail .thumbnail {
+        position: relative;
+        display: inline-block;
+        width: 200px;
+        height: auto;
+    }
+
+    // .thumbnail {
+    //     width: 100%;
+    //     height: 100%;
+    // }
+
+    .blacklight-catalog-index .row-thumbnail {
+        display: inline-block;
+        text-align: right;
+    }
+
+    .thumbnail.loading {
+        visibility: hidden;
+    }
+
+    #documents h3 {
+        margin-top: 0;
+    }
+
+    .caption h3 {
+        font-size: inherit;
+    }
+
+    #documents .row {
+        margin-bottom: 1em;
+
+        &.document {
+            background: #fff;
+            border: 1px solid #E6E6E6;
+            padding: 20px 0px;
+            padding-right: 10px;
+            box-shadow: 2px 2px 5px 0px rgba(177,177,177,1);
+        }
+    }
+
+    span.subtitle {
+        font-size: 75%;
+        margin-top: 4px;
+        display: block;
+        color: #5c9bd2
+    }
+
+    .caption span.subtitle {
+        font-size: 90%;
+    }
 }

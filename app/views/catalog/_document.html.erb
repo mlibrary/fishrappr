@@ -1,10 +1,11 @@
 <% # container for a single doc -%>
 <article class="row document" data-words="<%= process_highlighted_words(document) %>" data-identifier="<%= document.id %>">
-    <div class="col-md-9 col-md-push-3">
+    <span class="row-thumbnail" aria-hidden="true" tabindex="-1">
+        <%= link_to hathitrust_thumbnail(document, size: ',250'), url_for_document(document), { tabindex: '-1', class: 'thumbnail loading' , **(hathitrust_thumbnail_data(document, size: ',250')) } %>
+    </span>
+    <span class="row-article-text">
         <%= render partial: '/catalog/index_default.html', locals: { document: document } %>
-    </div>
-    <div class="col-md-3 col-md-pull-9 row-thumbnail">
-        <%= link_to hathitrust_thumbnail(document, size: ',250'), url_for_document(document), { class: 'thumbnail loading', **(hathitrust_thumbnail_data(document, size: ',250')) } %>
-    </div>
+    </span>
+
 </article>
     
