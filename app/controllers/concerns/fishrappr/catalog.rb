@@ -312,16 +312,6 @@ module Fishrappr::Catalog
 
   
   private
-    def setup_publication
-      if params[:publication]
-        session[:publication] = params[:publication] # || Rails.configuration.default_publication
-      else
-        session[:publication] ||= Rails.configuration.default_publication
-        params[:publication] = session[:publication]
-      end
-      @publication = Publication.where(slug: session[:publication]).first
-    end
-
     def get_view
       session[:view] = params[:view] if params[:view]
       session[:view] ||= 'image'
