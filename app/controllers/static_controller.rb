@@ -1,5 +1,5 @@
 class StaticController < ApplicationController
-  
+
   def page
 
     @page = SolrDocument.new(

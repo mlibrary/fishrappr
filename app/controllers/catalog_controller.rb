@@ -9,7 +9,6 @@ class CatalogController < ApplicationController
 
   helper Fishrappr::ControllerOverride
 
-  before_action :setup_publication
   layout :resolve_layout
 
 
