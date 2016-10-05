@@ -30,11 +30,39 @@
       var placement = OpenSeadragon.OverlayPlacement.BOTTOM;
 
       var highlightColor;
-      $.getJSON(page.otherContent[0]['@id'], function(annoData) {
+      console.log("OTHER CONTENT", page.otherContent);
+      // find the text layer. How, exactly?
+      var coordinates_url;
+      $.each(page.otherContent, function(index, data) {
+        if ( data['@id'].indexOf('/contentAsText/') > -1 ) {
+          coordinates_url = data['@id'];
+        }
+      })
+
+      console.log("AHOY", coordinates_url);
+      $.getJSON(coordinates_url, function(annoData) {
 
         $.each(annoData.resources, function(i, value) {
           var content = value.resource.chars;
-          if ( words.indexOf(content) < 0 ) { return ; }
+          var possibles = [ content ];
+          var hash_match = false;
+          if ( typeof(content) == 'string' && content.indexOf("-") >= 0 ) {
+            var tmp = content.split("-");
+            possibles.push(tmp[0]);
+          }
+
+          // if ( words.indexOf(content) < 0 ) { return ; }
+
+          var did_match = false;
+          for(var i = 0; i < possibles.length; i++) {
+            if ( words.indexOf(possibles[i]) >= 0 ) {
+              did_match = true;
+              break;
+            }
+          }
+
+          if ( ! did_match ) { return ; }
+
           var b = /xywh=(.*)/.exec(value.on)[1].split(',');
 
           var h = parseFloat(b[3]) * 1.5;  // w
@@ -61,7 +89,8 @@
     var viewer; var selection; var mode;
 
     var i = 1;
-    $.getJSON('/services/manifests/' + identifier, function(data) {
+    var service_url = $("link[rel='media-service']").attr("href");
+    $.getJSON(service_url + 'image/' + identifier + '/manifest', function(data) {
       console.log(data);
       page = data.sequences[0].canvases[0];
       var info_url = page.images[0].resource.service['@id'] + '/info.json';

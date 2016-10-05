@@ -6,8 +6,8 @@ class Issue < ActiveRecord::Base
 
   def slug(complete=true)
     retval = self.date_issued
-    if complete or self.issue_sequence > 1
-      retval = "#{retval}_#{self.issue_sequence}"
+    if complete or self.variant > 1
+      retval = "#{retval}_#{self.variant}"
     end
     retval
   end

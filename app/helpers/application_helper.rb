@@ -43,18 +43,19 @@ module ApplicationHelper
     params[:date_issued_begin_dd] = document.fetch(:date_issued_dd_ti)
     params[:date_issued_begin_mm] = document.fetch(:date_issued_mm_ti)
     params[:date_issued_begin_yyyy] = document.fetch(:date_issued_yyyy_ti)
+    params[:sort] = 'date_issued_dt desc, issue_no_t_sort asc, issue_sequence asc'
     params
   end
 
   def hathitrust_pdf_link(document, fld, **kw)
     rgn1 = ( fld == 'page_identifier' ) ? 'ic_id' : fld
     value = document.fetch(fld)
-    Rails.configuration.download_service + "?cc=#{Rails.configuration.media_collection}&rgn1=#{rgn1}&q1=#{value}&sort=page_identifier&attachment=1"
+    Rails.configuration.download_service + "?cc=#{Rails.configuration.media_collection}&rgn1=#{rgn1}&q1=#{value}&sort=sortable_page_identifier&attachment=1"
   end
 
   def hathitrust_image_src(document, **kw)
     path_info = []
-    namespace = document.fetch('ht_namespace')
+    namespace = document.fetch('volume_identifier').split('.').first
 
     if namespace == 'fake'
       return '#'
@@ -65,8 +66,8 @@ module ApplicationHelper
 
     page_identifier = document.fetch('page_identifier')
 
-    img_link = document.fetch('img_link')
-    path_info << [ Rails.configuration.media_collection, page_identifier, img_link ].join(':')
+    image_link = document.fetch('image_link')
+    path_info << [ Rails.configuration.media_collection, page_identifier, image_link ].join(':')
 
     format = nil
     unless kw.empty?
@@ -89,7 +90,7 @@ module ApplicationHelper
   end
 
   def hathitrust_thumbnail_style(document, **kw)
-    namespace = document.fetch('ht_namespace')
+    namespace = document.fetch('volume_identifier').split('.').first
 
     if namespace == 'fake'
       image_height = 1600
@@ -114,7 +115,7 @@ module ApplicationHelper
   end
 
   def hathitrust_thumbnail_data(document, **kw)
-    namespace = document.fetch('ht_namespace')
+    namespace = document.fetch('volume_identifier').split('.').first
 
     if namespace == 'fake'
       image_height = 1600
@@ -137,20 +138,20 @@ module ApplicationHelper
   end
 
   def hathitrust_image(document, **kw)
-    namespace = document.fetch('ht_namespace')
+    namespace = document.fetch('volume_identifier').split('.').first
     return fake_image(document).html_safe if namespace == 'fake'
     %Q{<img src="#{hathitrust_image_src(document, **kw)}" tabindex="-1", aria-hidden="true", alt="Full image of Daily page" />}.html_safe
   end
 
   def hathitrust_thumbnail(document, **kw)
-    namespace = document.fetch('ht_namespace')
+    namespace = document.fetch('volume_identifier').split('.').first
     return fake_image(document, kw.fetch(:size, ',250')) if namespace == 'fake'
     %Q{<img src="#{hathitrust_thumbnail_src(document, **kw)}" tabindex="-1", aria-hidden="true", alt="Thumbnail of Daily page" />}.html_safe
   end
 
   # TO DO: Needs to be moved into a style using a data attribute
   def hathitrust_background_thumbnail(document, **kw)
-    namespace = document.fetch('ht_namespace')
+    namespace = document.fetch('volume_identifier').split('.').first
     tn = "style=\'background: url(\""
     if namespace == 'fake'
       tn += "#{image_url("fake_image.png")}"
@@ -159,6 +160,13 @@ module ApplicationHelper
     end
     tn += "\") top left no-repeat;\'"
     tn.html_safe
+  end
+
+  def iiif_identifier(document, fld='image_link')
+    tmp = [ Rails.configuration.media_collection ]
+    tmp << document.fetch('page_identifier')
+    tmp << document.fetch(fld)
+    tmp.join(':')
   end
 
   def render_date_format(args)
@@ -218,8 +226,8 @@ module ApplicationHelper
 
   require 'ffaker'
   def fake_image(document, size=nil)
-    namespace = document.fetch('ht_namespace')
-    barcode = document.fetch('ht_barcode')
+    namespace = document.fetch('volume_identifier').split('.').first
+    barcode = document.fetch('volume_identifier').split('.').last
     text_link = document.fetch('text_link')
     issue_no = document.fetch("issue_no_t").first
     page_sequence = document.fetch("issue_sequence")

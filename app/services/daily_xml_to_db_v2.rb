@@ -21,56 +21,32 @@ require 'nokogiri'
 # IMPLEMENTATION
 
 class DailyXmlToDb_v2
-  attr_accessor :db, :db_name, :xml_dir, :file_list, :doc, :yml_file, :yml, :print_ok, :publication, :pub_id
+  attr_accessor :db, :db_name, :input_filename, :doc, :print_ok, :publication, :pub_id
 
-  def initialize(slug, testing)
+  def initialize(publication_slug, input_filename, testing=nil)
 
-    if testing == "testing"
+    if testing
       pp "TESTING..."
       @print_ok = true
     else
       @print_ok = false
     end
 
-    pp "Slug is: #{slug}"
+    pp "Slug is: #{publication_slug}"
 
-    # @pub_id = add_daily_publication
-    @pub_id = add_daily_publication
+    @pub_id = add_daily_publication(publication_slug)
+    @input_filename = input_filename
+
+    import_data
  
-    # set directory for xml files
-    @xml_dir = "./tmp/xml_data/"
-
-    # get list of xml files
-    @xml_list = []
-    @xml_list = get_flist
-
-    pp_ok "File list:"
-    pp_ok @xml_list
-
-    # parse the files xml
-    @xml_list.each { |f| parse_file_to_ar(f) }
-
   end # initialize
 
-  # get file list
-  # make xml dir the current directory
-  def get_flist
-    pp_ok "Started in directory #{Dir.pwd}"
-    Dir.chdir(@xml_dir)
-    pp_ok "Moved to directory #{Dir.pwd}"
-    return Dir.glob("*.{xml}")
-  end
+  def import_data
+    pp_ok "STARTING PARSE for file #{@input_filename}..."
 
-  def parse_file_to_ar(f)
-    pp_ok "STARTING PARSE for file #{f}..."
-
-    @doc = Nokogiri::XML(File.open(f), 'UTF-8') do |config|
+    @doc = Nokogiri::XML(File.open(@input_filename), 'UTF-8') do |config|
       config.options = Nokogiri::XML::ParseOptions::STRICT | Nokogiri::XML::ParseOptions::NOBLANKS
     end
-
-    # Extend name space to include METS
-    # The following actually modifies the xml, which we don't want. But it works.
-    #ns = @doc.root.add_namespace_definition("xmlns:METS", "http://www.loc.gov/METS/")
 
     @NSMAP = { 
       "METS" => "http://www.loc.gov/METS/",
@@ -78,20 +54,13 @@ class DailyXmlToDb_v2
       "MODS" => "http://www.loc.gov/mods/v3",
     }
 
-    pp @NSMAP
 
-    # @doc = @doc.xpath(@doc, "METS" => "http://www.loc.gov/METS/")
-
-    # pp "Collection .first"
-    # pp @doc.xpath("collection").first
-
-    pp_ok "Current file is: #{f}"
     # issue information -------------
     # note: issue_id is autoincremented by the db
     # and we will want to select it from the last row created
 
     track_issue_keys = Hash.new(0)
-    key_separater = '-'
+    key_separator = '-'
 
     issues_target = "//METS:mets[@TYPE='urn:library-of-congress:ndnp:mets:newspaper:issue']"
 
@@ -99,21 +68,23 @@ class DailyXmlToDb_v2
     # pp issues[0]
 
     pp_ok "About to delete some issues"
-    # delete the entries
-    Issue.where(ht_namespace: 'mdp', ht_barcode: File.basename(f, '.issue.mets.xml')).destroy_all
-
+    # delete the entries for all the volumes referenced in this XML
+    volume_identifiers = {}
+    @doc.xpath(issues_target, @NSMAP).each do |node1|
+      volume_identifier = node1.xpath(".//MODS:identifier[@type='hathitrust']/text()").to_s
+      volume_identifiers[volume_identifier] = true
+    end
+    volume_identifiers.keys.each do |volume_identifier|
+      Issue.where(volume_identifier: volume_identifier).destroy_all
+    end
 
     @doc.xpath(issues_target, @NSMAP).each do |node1|
 
-      print "."
-
       pp_ok "ISSUE INFO ------------------------------------------"
       
-      hathitrust = node1.xpath(".//MODS:identifier[@type='hathitrust']/text()").to_s
-      ht_namespace, ht_barcode = hathitrust.split(".", 2)
+      volume_identifier = node1.xpath(".//MODS:identifier[@type='hathitrust']/text()").to_s
 
-      pp_ok "hathitrust value is #{hathitrust}"
-      pp_ok "ht_namespace is #{ht_namespace} and ht_barcode is #{ht_barcode}"
+      pp_ok "volume_identifier value is #{volume_identifier}"
 
       volume = node1.xpath(".//MODS:detail[@type='volume']/MODS:number/text()").to_s
       pp_ok "volume value is #{volume}"
@@ -127,18 +98,21 @@ class DailyXmlToDb_v2
       date_issued = node1.xpath(".//MODS:dateIssued/text()").to_s
       pp_ok "dateIssued value is #{date_issued}"
 
-      newspaper = node1.xpath("@LABEL").to_s
-      newspaper = newspaper.split(",").first.strip
-      pp_ok "newspaper is #{newspaper}"
+      publication_title = node1.xpath("@LABEL").to_s
+      if publication_title.blank?
+        publication_title = 'The Michigan Daily'
+      end
+      publication_title = publication_title.split(",").first.strip
+      pp_ok "publication_title is #{publication_title}"
 
       # Check for duplicate dates in array track_dates
-      issue_key_to_check = [ ht_namespace, ht_barcode, date_issued ].join(key_separater)
+      issue_key_to_check = [ volume_identifier, date_issued ].join(key_separator)
       track_issue_keys[issue_key_to_check] += 1
       
-      issue_sequence = track_issue_keys[issue_key_to_check]
-      issue_id = add_data_issue(ht_namespace, ht_barcode, volume, issue_no, edition, date_issued, issue_sequence,  @pub_id)
+      variant = track_issue_keys[issue_key_to_check]
+      issue_id = add_data_issue(volume_identifier, volume, issue_no, edition, date_issued, variant, publication_title)
 
-      pp_ok "ISSUE ID IS: #{issue_id} and issue_sequence IS: #{issue_sequence}"
+      pp_ok "ISSUE ID IS: #{issue_id} and variant IS: #{variant}"
 
       # page information -------------
       # note: page_id is autoincremented by the db
@@ -155,33 +129,41 @@ class DailyXmlToDb_v2
         page_no = node2['ORDERLABEL'].to_s
         pp_ok "page_no value is #{page_no}"
 
-        sequence = node2['ORDER'].to_s.to_i
-        pp_ok "sequence value is #{sequence}"
+        issue_sequence = node2['ORDER'].to_s.to_i
+        pp_ok "sequence value is #{issue_sequence}"
 
-        text_link_a = node2.xpath("METS:mptr[1]", @NSMAP)
-        text_link_b = text_link_a.xpath("@xlink:href", @NSMAP)
-        pp_ok "text_link value is #{text_link_b}"
+        page_label = node2['LABEL']
+        if page_label
+          page_label = page_label.to_s
+        end
 
-        img_link_a = node2.xpath("METS:mptr[2]", @NSMAP)
-        img_link_b = img_link_a.xpath("@xlink:href", @NSMAP)
-        pp_ok "text_link value is #{img_link_b}"
+        # my $expr = $xpc->findvalue(q{METS:mptr[1]/@xlink:href}, $div);
+        # my ( $volume_seq ) = ( $expr =~ m,.*//METS:div\[\@ORDER='(\d+)\'\]/METS:fptr, );
+        # my $page_identifier = $objID . "-" . sprintf("%08d", $volume_seq);
 
-        volume_sequence = img_link_b.to_s.gsub('IMG', '').to_i
+        expr = node2.xpath('METS:mptr[1]/@xlink:href', @NSMAP).to_s
+        # STDERR.puts "EXPR : #{expr}"
+        volume_sequence = expr.match(/ORDER=.(\d+)./)[1].to_i
+        basename = "%08d" % volume_sequence
+
+        text_link = "TXT#{basename}"
+        image_link = "IMG#{basename}"
+        coordinates_link = "WORDS#{basename}"
         
-        add_data_page(issue_id, page_no, sequence, volume_sequence, text_link_b, img_link_b)
+        add_data_page(issue_id, page_no, issue_sequence, volume_sequence, image_link, text_link, coordinates_link, "#{volume_identifier}-#{basename}", page_label)
 
       end # each page
     end # each issue
 
 
-  puts "\nFile >#{f}< processed"
+  puts "\nFile >#{@input_filename}< processed"
 
   end # parse_file_to_ar
 
-  def add_daily_publication
-    publication = Publication.find_or_create_by(slug: "the-michigan-daily") do |publication|
-      publication.title = "The Michigan Daily"
-      publication.info_link = "https://michigandaily.com"
+  def add_daily_publication(publication_slug)
+    publication = Publication.find_or_create_by(slug: publication_slug) do |publication|
+      publication.title = publication_slug.split("-").each {|word| word.capitalize!}.join (" ")
+      # publication.info_link = "https://michigandaily.com"
     end
     
     # pp_ok "Publication record added or found, slug: #{p.slug}, title: #{p.title}, info_link: #{p.info_link}"
@@ -189,18 +171,14 @@ class DailyXmlToDb_v2
     publication.id
   end
 
-  def add_data_issue(ht_namespace, ht_barcode, volume, issue_no, edition, date_issued, issue_sequence,  pub_id)
-    pp_ok "issue row will be (hathitrust, volume, issue_no, edition, date_issued, newspaper)"
+  def add_data_issue(volume_identifier, volume, issue_no, edition, date_issued, variant, publication_title)
 
-    i = Issue.create  ht_namespace: ht_namespace, ht_barcode: ht_barcode, volume: volume, issue_no: issue_no, edition: edition, date_issued: date_issued, issue_sequence: issue_sequence, publication_id: pub_id
+    i = Issue.create  volume_identifier: volume_identifier, volume: volume, issue_no: issue_no, edition: edition, date_issued: date_issued, variant: variant, publication_id: @pub_id, publication_title: publication_title
     return i.id 
   end
   
-  def add_data_page(issue_id, page_no, sequence, volume_sequence, text_link, img_link)
-    pp_ok "page row will be (issue_id, page_no, sequence, text_link, img_link)" 
-
-    coordinates_link = text_link.to_s.gsub('TXT', 'WORDS')
-    p = Page.create issue_id: issue_id, page_no: page_no, issue_sequence: sequence, volume_sequence: volume_sequence, text_link: text_link, img_link: img_link, coordinates_link: coordinates_link
+  def add_data_page(issue_id, page_no, issue_sequence, volume_sequence, image_link, text_link, coordinates_link, page_identifier, page_label)
+    p = Page.create issue_id: issue_id, page_no: page_no, issue_sequence: issue_sequence, volume_sequence: volume_sequence, text_link: text_link, image_link: image_link, coordinates_link: coordinates_link, page_identifier: page_identifier, page_label: page_label
   end
 
   def pp_ok(s)

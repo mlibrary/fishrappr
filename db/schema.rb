@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160902151434) do
+ActiveRecord::Schema.define(version: 20161006141834) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id",       null: false
@@ -26,16 +26,17 @@ ActiveRecord::Schema.define(version: 20160902151434) do
   add_index "bookmarks", ["user_id"], name: "index_bookmarks_on_user_id"
 
   create_table "issues", force: :cascade do |t|
-    t.string   "ht_namespace"
-    t.string   "ht_barcode"
+    t.string   "volume_identifier"
+    t.integer  "publication_year"
+    t.string   "publication_title"
     t.string   "volume"
     t.string   "issue_no"
     t.string   "edition"
     t.string   "date_issued"
-    t.integer  "issue_sequence", default: 1
+    t.integer  "variant",           default: 1
     t.integer  "pages_count"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.integer  "publication_id"
   end
 
@@ -45,16 +46,19 @@ ActiveRecord::Schema.define(version: 20160902151434) do
   create_table "pages", force: :cascade do |t|
     t.string   "page_no"
     t.integer  "issue_sequence"
+    t.integer  "volume_sequence"
     t.string   "text_link"
     t.string   "coordinates_link"
-    t.string   "img_link"
+    t.string   "image_link"
+    t.string   "page_identifier"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.integer  "issue_id"
-    t.integer  "volume_sequence"
+    t.string   "page_label"
   end
 
   add_index "pages", ["id"], name: "index_pages_on_id"
+  add_index "pages", ["page_label"], name: "index_pages_on_page_label"
 
   create_table "publications", force: :cascade do |t|
     t.string   "title"

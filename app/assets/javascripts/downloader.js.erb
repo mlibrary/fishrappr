@@ -225,14 +225,75 @@ F.Downloader.prototype.clearTimer = function() {
     }
 };
 
+var setCookie = function(name, value, expiracy) {
+  var exdate = new Date();
+  exdate.setTime(exdate.getTime() + expiracy * 1000);
+  var c_value = escape(value) + ((expiracy == null) ? "" : "; expires=" + exdate.toUTCString());
+  document.cookie = name + "=" + c_value + '; path=/; domain=.umich.edu';
+};
 
-// $().ready(function() {
-//     $(".action-download-pdf").on('click', function(e) {
-//         e.preventDefault();
-//         var identnfier = $("#content").data('identifier');
-//         $.getJSON(window.location.href + "/issue_data", function(data) {
-//             F.downloader = new F.Downloader(data);
-//             F.downloader.startDownload();
-//         })
-//     })
-// })
+var getCookie = function(name) {
+  var i, x, y, ARRcookies = document.cookie.split(";");
+  for (i = 0; i < ARRcookies.length; i++) {
+    x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+    y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+    x = x.replace(/^\s+|\s+$/g, "");
+    if (x == name) {
+      return y ? decodeURI(unescape(y.replace(/\+/g, ' '))) : y; //;//unescape(decodeURI(y));
+    }
+  }
+};
+
+$().ready(function() {
+
+    var pdf_download_href;
+
+    $(window).on('message', function(e) {
+        var evt = e.originalEvent;
+        console.log("AHOY MESSAGE", evt.data);
+        if ( typeof(evt.data) == 'object' ) { return ; }
+        var message = evt.data;
+        if ( message.indexOf("trackDownload") > -1 ) {
+            if ( message == "trackDownload:FIN" ) {
+                bootbox.hideAll();
+            } else {
+                // bootbox.dialog({ message: '<div class="text-center"><span class="spinner"></span> Downloading PDF...</div>' });
+                // bootbox.dialog({ message: '<div class="text-center"><p>Downloading PDF...</p><div class="load-bar"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div></div>' });
+                bootbox.dialog({ message: '<div class="text-center"><p>Downloading PDF...</p><div class="loader"></div></div>' });                
+                var track = (message.split(":"))[1];
+                $("body").append('<iframe src="' + pdf_download_href + '&track=' + track + '"></iframe>');        
+            }
+        }
+    })
+
+    $(".action-download-pdf").on('click', function(e) {
+
+        e.preventDefault();
+        pdf_download_href = $(this).attr("href");
+        $("iframe").remove();
+        $("body").append('<iframe src="' + pdf_download_href + '&monitor=1"></iframe>');
+
+        // setCookie('downloadStarted', 0, 100);
+        // setTimeout(checkDownloadCookie, 1000);
+        // bootbox.alert("Downloading...");
+
+        // e.preventDefault();
+        // var identnfier = $("#content").data('identifier');
+        // $.getJSON(window.location.href + "/issue_data", function(data) {
+        //     F.downloader = new F.Downloader(data);
+        //     F.downloader.startDownload();
+        // })
+    })
+
+    var downloadTimeout;
+    var checkDownloadCookie = function() {
+      if (getCookie("downloadStarted") == 1) {
+        setCookie("downloadStarted", "false", 100); //Expiration could be anything... As long as we reset the value
+        bootbox.hideAll();
+        // $('#fader').css('display', 'none');
+      } else {
+        console.log("AHOY WAITING DOWNLOAD");
+        downloadTimeout = setTimeout(checkDownloadCookie, 1000); //Re-run this function in 1 second.
+      }
+    };
+})

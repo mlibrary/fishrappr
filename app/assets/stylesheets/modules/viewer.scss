@@ -1,4 +1,4 @@
-@import "globals";
+// @import "globals";
 
 #image-viewer-wrap {
     height: 75%;
@@ -129,6 +129,27 @@
 }
 
 .blacklight-catalog-show {
+
+    h2 {
+        margin-top: 0;
+    }
+
+    .panel {
+        h3 {
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        .panel-heading {
+            padding-top: 0;
+            padding-bottom: 8px;
+        }
+
+        .panel-body {
+            padding-top: 8px;
+        }
+    }
+
     article {
         font-size: 1.2em;
         line-height: 1.7em;
@@ -151,6 +172,7 @@
         text-align: left;
         padding-top: 10px;
         padding-bottom: 10px;
+        position: relative;
     }
 }
 
@@ -191,7 +213,14 @@
 }
 
 .extension {
-    float: right;
+    display: inline-block;
+    padding: 4px 8px;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #083863;
+    border-radius: 4px;
 }
 
 @media (max-width: $screen-xs-max) {

@@ -1,3 +1,5 @@
+<% @page_title = t('blacklight.show.page_title.title', date_issued: @document['date_issued_display'].first, issue_vol_iss: @document.fetch('issue_vol_iss_display', []).first, issue_sequence: @document['issue_sequence'], application_name: application_name) %>
+
 <%= replace :search_navbar do %>
   <div class="navigation-toolbar">
     <div class="container-fluid">
@@ -20,9 +22,9 @@
         </div>
         <div class="col-md-3 col-xs-2 align-right">
           <a class="btn btn-link btn-issue-link" href="<%= search_catalog_url document_to_date_params(@document) %>">
-            <span class="hidden-xs">View </span>Issue <span class="hidden-xs hidden-sm"><%= @document['date_issued_display'].first %> 
-            (<!-- volume -->iss. <%= @document['issue_no_t'].first %>) </span> 
-            <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+            <span class="hidden-xs">View </span> <span class="hidden-xs hidden-sm"><%= @document['date_issued_display'].first %> 
+            <%= @document.fetch('issue_vol_iss_display', []).first %>
+          </span> 
           </a>
         </div>
       </div>
@@ -54,19 +56,12 @@
       </div>
     </div>
   </div>
-  <div id="image-viewer" data-words="<%= process_highlighted_words(@document) %>" data-identifier="<%= @document.id %>" data-highlighting="<%= highlights_visible? ? 'true' : 'false' %>"></div>
+  <div id="image-viewer" data-words="<%= process_highlighted_words(@document) %>" data-identifier="<%= iiif_identifier(@document) %>" data-highlighting="<%= highlights_visible? ? 'true' : 'false' %>"></div>
 </div>
 
 
 <div class="container">
-  <div class="col-md-8">
-    <div id="document" class="document <%= render_document_class %>" itemscope  itemtype="<%= @document.itemtype %>" style="background: white; padding: 20px">
-      <div id="doc_<%= @document.id.to_s.parameterize %>">
-        <%= render_document_partials @document, blacklight_config.view_config(:show).partials %>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
+  <div class="col-md-4 col-md-push-8 col-xs-12">
     <h2 class="sr-only">Page Options</h2>
     <div class="panel panel-actions-page">
       <div class="panel-heading">
@@ -108,35 +103,19 @@
         </form>
       </div>
     </div>
-
-<!--     <div class="page-action-toolbar" style="background: white; padding: 20px;">
-      <h4>Download Options</h4>
-
-      <h4>This Issue</h4>
-      <form>
-        <div class="form-group">
-          <label for="permalink">Permalink for this page</label>
-          <input type="text" class="form-control" id="permalink" value="<%= solr_document_url(@document) %>" />
-        </div>
-        <button class="btn btn-action">Copy Link</button>
-      </form>
-    </div> -->
+  </div>
+  <div class="col-md-8 col-md-pull-4 col-xs-12">
+    <div id="document" class="document <%= render_document_class %>" itemscope  itemtype="<%= @document.itemtype %>" style="background: white; padding: 20px">
+      <div id="doc_<%= @document.id.to_s.parameterize %>">
+        <%= render_document_partials @document, blacklight_config.view_config(:show).partials %>
+      </div>
+    </div>
   </div>
 </div>
 
-<% if false %>
-<button id="configure-fit" class="btn btn-default" style="position: fixed; bottom: 10px; left: 5px;"><span class="glyphicon glyphicon-equalizer"></span></button>
 <script>
-  $().ready(function() {
-    $("#configure-fit").on('click', function(e) {
-      e.preventDefault();
-      var value = sessionStorage.getItem('best-fit-width') || 'false';
-      sessionStorage.setItem('best-fit-width', value == 'false');
-      window.location.reload();
-    })
-
-    $(".image-viewer-toolbar").stick_in_parent();
-  });
+$().ready(function() {
+  $(".image-viewer-toolbar").stick_in_parent();
+});
 </script>
-<% end %>
 <%= render partial: 'back_to_top' %>

@@ -61,16 +61,16 @@ class CatalogController < ApplicationController
             'id',
             'page_identifier',
             'issue_identifier',
+            'volume_identifier',
             'issue_sequence',
             'volume_sequence',
+            'variant_sequence',
             'text_link',
-            'img_link',
+            'image_link',
+            'coordinates_link',
             'image_height_ti',
             'image_width_ti',
-            'issue_sequence',
             'date_issued_display',
-            'ht_namespace',
-            'ht_barcode',
             'publication_link',
             'publication_label',
             'issue_no_t',
@@ -249,7 +249,7 @@ class CatalogController < ApplicationController
     # except in the relevancy case).
     config.add_sort_field 'date_issued_dt desc', label: 'Latest Date'
     config.add_sort_field 'date_issued_dt asc', label: 'Earliest Date'
-    config.add_sort_field 'date_issued_dt desc, issue_no_t_sort asc', label: 'Page Number'
+    config.add_sort_field 'date_issued_dt desc, issue_no_t_sort asc, issue_sequence asc', label: 'Page Number'
     #config.add_sort_field 'author_sort asc, title_sort asc', label: 'author'
     #config.add_sort_field 'title_sort asc, pub_date_sort desc', label: 'title'
 

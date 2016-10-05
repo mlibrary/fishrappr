@@ -29,11 +29,12 @@ module Fishrappr
     # config.download_service = config.ht_service + 'download/pdf'
     config.sdrdataroot = "tmp/sdr1/obj"
 
-    config.media_host = 'https://beta1.quod.lib.umich.edu'
+    config.media_host = 'https://roger.quod.lib.umich.edu'
+    config.media_service = config.media_host + '/cgi/i/image/api/'
     config.iiif_service = config.media_host + '/cgi/i/image/api/image/'
     config.manifest_service = config.media_host + '/cgi/i/image/api/manifest/'
     config.download_service = config.media_host + '/cgi/i/image/pdf-idx'
-    config.media_collection = 'midaily2ic'
+    config.media_collection = 'bhl_midaily'
 
     config.index_enabled = true
     config.batch_commit = true

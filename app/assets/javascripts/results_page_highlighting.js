@@ -5,6 +5,13 @@ $().ready(function() {
         load_highlights($(this));
     })
 
+    var lpad = function(str, length) {
+        var padString = '0';
+        while (str.length != length)
+            str = padString + str;
+        return str;
+    };
+
     var load_highlights = function($img) {
 
         var $link = $img.parents(".thumbnail");
@@ -21,16 +28,24 @@ $().ready(function() {
         var padding_top = 0;
 
         var identifier = $div.data('identifier');
-        var coords_url = '/services/coords/' + identifier;
+        // var coords_url = '/services/coords/' + identifier;
+        // var tmp = identifier.replace('mdp-', 'mdp.').split('-');
+        // var volume_identiifer = tmp[0];
+        // var basename = lpad(tmp[1], 8);
+        // var page_identifier = volume_identiifer + "-" + basename;
+
+        // this having the URL here is stupid
+        var service_url = $("link[rel='media-service']").attr("href");
+        var coords_url = service_url + 'file/' + identifier;
         $.getJSON(coords_url, function(data) {
 
-            var true_width = data.width;
-            var true_height = data.height;
+            var true_width = data.page.width;
+            var true_height = data.page.height;
             var hScale = img_width / true_width;
             var vScale = hScale;
 
             $.each(words, function(idx, word) {
-                var coords = data.coords[word]
+                var coords = data.words[word]
                 if ( coords == null ) {
                     return;
                 }
