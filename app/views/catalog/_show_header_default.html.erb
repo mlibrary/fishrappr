@@ -1,14 +1,23 @@
 <h3>
     <%= document['date_issued_display'].first %>
-     - 
-     Issue <%= document['issue_no_t'].first %>
-     - 
-     Image <%= current_image_sequence(@document) %>
+    <%= document.fetch('issue_vol_iss_display', []).first %>
+    - 
+     Image <%= current_image_sequence(document) %>
 </h3>
 <dl class="dl-horizontal">
     <dt>Resource type:</dt>
     <dd>Text</dd>
-    <dt>Division:</dt>
-    <dd>Bentley Historical Library</dd>
+    <dt>Publication:</dt>
+    <dd><%= document.fetch('publication_label') %></dd>
+    <% if document.fetch('page_no_t').first %>
+    <dt>Page Number:</dt>
+    <dd><%= document.fetch('page_no_t').first %></dd>
+    <% end %>
+    <!-- <dt>Division:</dt>
+    <dd>Bentley Historical Library</dd> -->
+    <% if document.fetch('page_label', nil) == 'tabloid' %>
+    <dt>Note:</dt>
+    <dd><span class="label label-default">This page was tagged a <strong>tabloid</strong></dd></dd>
+    <% end %>
 </dl>
 <hr />

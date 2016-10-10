@@ -1,11 +1,13 @@
 en:
   blacklight:
-    application_name: 'Fishrappr'
+    application_name: 'Michigan Daily Digital Archives'
     back_to_search_html: '<span class="glyphicon glyphicon-arrow-left"></span><span class="hidden-xs"> Back to Search</span>'
     back_to_browse_html: '<span class="glyphicon glyphicon-arrow-left"></span><span class="hidden-xs"> Back to Browse</span>'
     start_over_search: 'Start Search Over'
     start_over_browse: 'Start Browse Over'
     search:
+      page_title:
+        title: '%{constraints}%{application_name} - Search Results'
       form:
         search:
           label: 'Search Full Text'
@@ -24,6 +26,9 @@ en:
         title: 'Filter Results by Date Range'
     range_limit:
       submit_limit: Narrow Results
+    show:
+      page_title:
+        title: '%{application_name} - %{date_issued} %{issue_vol_iss} - Image %{issue_sequence}'
   views:
       pagination:
         first: '&laquo; First'

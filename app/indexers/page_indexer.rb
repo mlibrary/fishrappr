@@ -10,23 +10,24 @@ class PageIndexer
 
   def generate_solr_doc(issue_doc)
 
-    full_text = get_full_text(issue_doc, @page.text_link)
-    coordinates_data = get_coordinates_data(issue_doc, @page.coordinates_link)
-    volume_sequence = @page.volume_sequence
-    page_identifier = "#{issue_doc[:ht_namespace]}.#{issue_doc[:ht_barcode]}-#{volume_sequence}"
-    # image_info = get_image_info(page_identifier, @page.img_link)
-    image_info = get_image_info_from_manifest(issue_doc[:manifest], @page.img_link)
+    full_text = get_full_text(@page.page_identifier, @page.text_link)
+    # coordinates_data = get_coordinates_data(issue_doc, @page.coordinates_link)
+
+    # page_identifier = "#{issue_doc[:ht_namespace]}.#{issue_doc[:ht_barcode]}-#{volume_sequence}"
+
+    image_info = get_image_info_from_manifest(issue_doc[:manifest], @page.image_link)
 
     solr_doc = { 
-      id: "#{issue_doc[:volume_identifier]}-#{volume_sequence}",
+      id: @page.page_identifier, # "#{issue_doc[:volume_identifier]}-#{volume_sequence}",
       page_no_t:@page.page_no, 
       issue_sequence: @page.issue_sequence,
       volume_sequence: @page.volume_sequence,
-      page_identifier: page_identifier,
+      page_identifier: @page.page_identifier,
       issue_identifier: issue_doc[:issue_identifier],
+      page_label: @page.page_label,
       text_link: @page.text_link, 
-      img_link: @page.img_link, 
-      coordinates_data_ssm: coordinates_data,
+      image_link: @page.image_link, 
+      coordinates_link: @page.coordinates_link,
       page_text:full_text,
       image_height_ti: image_info.fetch("height", nil),
       image_width_ti: image_info.fetch("width", nil),
@@ -38,12 +39,14 @@ class PageIndexer
       prev_page_label: nil
     }
 
-    current_index = issue_doc[:pages].index { |v| v[0] == @page.id }
+    STDERR.puts "??? #{solr_doc[:id]} :: #{solr_doc[:page_label]}"
+
     [ :date_issued_display, 
       :issue_no_t,
-      :issue_issue_sequence,
+      :variant_sequence,
       :date_issued_dt, 
       :issue_id_t, 
+      :issue_vol_iss_display,
       :date_issued_yyyy_ti,
       :date_issued_yyyymm_ti,
       :date_issued_yyyymmdd_ti,
@@ -51,20 +54,20 @@ class PageIndexer
       :date_issued_mm_ti,
       :date_issued_dd_ti,
       :date_issued_link,
-      :ht_namespace,
-      :ht_barcode,
+      :volume_identifier,
       :publication_link,
       :publication_label
     ].each do |key|
       solr_doc[key] = issue_doc[key]
     end
 
+    current_index = issue_doc[:pages].index { |v| v[0] == @page.id }
     unless current_index - 1 < 0
       solr_doc[:prev_page_link] = issue_doc[:pages][current_index - 1][1]
       solr_doc[:prev_page_sequence_label] = issue_doc[:pages][current_index - 1][2]
       solr_doc[:prev_page_label] = issue_doc[:pages][current_index - 1][3]
     end
-    if current_index + 1 < ( issue_doc[:pages].size - 1 )
+    if current_index + 1 <= ( issue_doc[:pages].size - 1 )
       solr_doc[:next_page_link] = issue_doc[:pages][current_index + 1][1]
       solr_doc[:next_page_sequence_label] = issue_doc[:pages][current_index + 1][2]
       solr_doc[:next_page_label] = issue_doc[:pages][current_index + 1][3]
@@ -92,12 +95,32 @@ class PageIndexer
     end
   end
 
-  def get_full_text(issue_doc, text_link)
+  def get_full_text(page_identifier, text_link)
     # File.read(Rails.root.join(
     #   Rails.configuration.sdrdataroot, 
     #   "#{issue_doc[:ht_namespace]}/#{issue_doc[:ht_barcode]}", 
     #   text_link+'.txt'))
-    get_data(issue_doc, text_link.gsub('TXT', ''), ".txt")
+    ## get_data(issue_doc, text_link.gsub('TXT', ''), ".txt")
+    resource_uri = "#{Rails.configuration.media_service}file/#{Rails.configuration.media_collection}:#{page_identifier}:#{text_link}"
+    STDERR.puts "== #{resource_uri}"
+    resource_uri = URI.parse(resource_uri)
+
+    http = Net::HTTP.new(resource_uri.host, resource_uri.port)
+    http.use_ssl = true
+    request = Net::HTTP::Get.new(resource_uri.request_uri)
+    PP.pp http, STDERR
+    PP.pp request, STDERR
+    response = http.request(request)
+
+    # response = Net::HTTP.request_get(resource_uri)
+    PP.pp response, STDERR
+    unless response.is_a?(Net::HTTPSuccess)
+      STDERR.puts "#{resource_uri} : #{response.code}"
+      response = ""
+    else
+      response = response.body
+    end
+    response
   end
 
   def get_coordinates_data(issue_doc, coordinates_link)

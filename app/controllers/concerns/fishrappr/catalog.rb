@@ -67,7 +67,7 @@ module Fishrappr::Catalog
     end
 
     @subview = get_view
-    @subview = 'plaintext' if @document.fetch('img_link', nil).nil?
+    @subview = 'plaintext' if @document.fetch('image_link', nil).nil?
 
     respond_to do |format|
       format.html { setup_next_and_previous_documents; setup_next_and_previous_issue_pages; setup_issue_data }
@@ -135,7 +135,7 @@ module Fishrappr::Catalog
     search_params = {
       fl: blacklight_config.default_solr_params[:fl] + ",date_issued_dt,page_abstract",
       fq: fq_arr,
-      sort: "date_issued_dt asc, sequence asc",
+      sort: "date_issued_dt asc, issue_sequence asc",
       group: true,
       'group.field': "date_issued_yyyymm_ti",
       'group.limit': 1000,
@@ -359,20 +359,20 @@ module Fishrappr::Catalog
 
     def get_issue_data(flds=[])
       # need to find all the issues for this issue
-      ht_namespace = @document.fetch('ht_namespace')
-      ht_barcode = @document.fetch('ht_barcode')
+      issue_identifier = @document.fetch('issue_identifier')
 
-      fl = [ 'id', 'sequence', 'text_link', 'img_link', flds].flatten.compact
+      fl = [ 'id', 'issue_sequence', 'text_link', 'image_link', 'coordinates_link', flds].flatten.compact
       params = {
         fl: fl.join(','),
-        fq: [ "ht_namespace:#{ht_namespace}", "ht_barcode:#{ht_barcode}", "issue_issue_sequence:#{@document.fetch('issue_issue_sequence')}", "date_issued_link:#{@document.fetch('date_issued_link')}" ],
-        sort: "sequence asc",
+        fq: [ "issue_identifier:#{issue_identifier}"], # , "date_issued_link:#{@document.fetch('date_issued_link')}"
+        sort: "issue_sequence asc",
         rows: 500
       }
 
       solr_response = repository.search(params)
       data = {}
-      data[:barcode] =  "#{ht_namespace}.#{ht_barcode}"
+      data[:volume_identifier] = @document.fetch('volume_identifier')
+      data[:issue_identifier] = issue_identifier
       data[:pages] = []
 
       solr_response.documents.each do |document|
@@ -380,7 +380,7 @@ module Fishrappr::Catalog
         fl.each do |fld|
           datum[fld.to_sym] = document[fld]
         end
-        datum[:seq] = datum[:text_link].gsub(/[^\d]+/, '').to_i
+        datum[:seq] = datum[:volume_sequence] # datum[:text_link].gsub(/[^\d]+/, '').to_i
         
         data[:pages] << datum
       end
@@ -455,9 +455,8 @@ module Fishrappr::Catalog
     end
     
     def set_browse_defaults
-      if params.reject { |k,v| [:action, :controller].include? k.to_sym }.blank?
+      if params.reject { |k,v| [:action, :controller, :publication ].include? k.to_sym }.blank?
         params['date_issued_yyyy10_ti'] = 'Any Decade'
-        STDERR.puts "SETTING UP THE DEFAULT BROWSE"
       end
     end
      
