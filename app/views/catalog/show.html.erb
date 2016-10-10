@@ -4,28 +4,24 @@
   <div class="navigation-toolbar">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-3 col-xs-2">
+        <div class="col-md-6 col-xs-12 navigate-issue">
           <% if current_search_session %>
             <%= link_back_to_catalog class: 'btn btn-search-primary', label: back_to_results_label %>
           <% end %>
-        </div>
-        <div class="col-md-6 col-xs-8 align-center">
-          <ul class="pager">
-            <li>
-              <%= link_to_previous_issue_page @previous_page %>
-            </li>
-            <li><span class="current-page-number"><span class="hidden-xs">Image </span><%= current_image_sequence(@document) %> of <%= @issue_data[:pages].size %></span></li>
-            <li>
-              <%= link_to_next_issue_page @next_page %>
-            </li>
-          </ul>            
-        </div>
-        <div class="col-md-3 col-xs-2 align-right">
           <a class="btn btn-link btn-issue-link" href="<%= search_catalog_url document_to_date_params(@document) %>">
-            <span class="hidden-xs">View </span> <span class="hidden-xs hidden-sm"><%= @document['date_issued_display'].first %> 
-            <%= @document.fetch('issue_vol_iss_display', []).first %>
-          </span> 
+            <span class="xhidden-xs xhidden-sm"><%= @document['date_issued_display'].first %> 
+              <%= @document.fetch('issue_vol_iss_display', []).first %>
+            </span> 
           </a>
+          <span class=""><i class="glyphicon glyphicon glyphicon-chevron-right"></i></span>
+          <span class="">Image <%= current_image_sequence(@document) %></span>
+        </div>
+        <div class="col-md-6 col-xs-12 navigate-pages">
+          <%= link_to_previous_issue_page @previous_page %>
+          <span class="current-page-number"><span class="sr-only">Image </span><%= current_image_sequence(@document) %> of <%= @issue_data[:pages].size %></span>
+          <%= link_to_next_issue_page @next_page %>
+
+           
         </div>
       </div>
     </div>
@@ -38,20 +34,20 @@
 <div id="image-viewer-wrap">
   <div class="image-viewer-toolbar">
     <div class="container">
-      <div class="col-md-3 col-xs-3">
+      <div class="col-md-3 hidden-xs">
         <label><input type="radio" name="toggle-mode" class="action-toggle-mode" value="pan" checked="checked" /> Pan</label>
         <label><input type="radio" name="toggle-mode" class="action-toggle-mode" value="select" /> Select</label>
       </div>
-      <div class="col-md-6 col-xs-6">
+      <div class="col-md-6 col-xs-12">
         <div class="zoom-toolbar center-block" style="text-align: center">
-          <button id="action-zoom-out" class="btn btn-sm btn-action action-zoom-out"><%= raw(t('views.issue.zoom_out')) %></button>
+          <button id="action-zoom-out" class="btn btn-action action-zoom-out"><%= raw(t('views.issue.zoom_out')) %></button>
           <span class="span-zoom-status">100%</span>
-          <button id="action-zoom-in" class="btn btn-sm btn-action action-zoom-in"><%= raw(t('views.issue.zoom_in')) %></button>
+          <button id="action-zoom-in" class="btn btn-action action-zoom-in"><%= raw(t('views.issue.zoom_in')) %></button>
         </div>
       </div>
-      <div class="col-md-3 col-xs-3" style="text-align: right">
+      <div class="col-md-3 col-xs-12 align-right">
         <% if highlights_available? %>
-          <label><input type="checkbox" class="action-toggle-highlight" <%= highlights_visible? ? 'checked="checked"' : '' %> /> Search Result Highlights</label>
+          <label><input type="checkbox" class="action-toggle-highlight" <%= highlights_visible? ? 'checked="checked"' : '' %> /> <%= t('views.issue.search_highlights') %></label>
         <% end %>
       </div>
     </div>
@@ -69,10 +65,10 @@
       </div>
       <div class="panel-body">
         <div class="btn-group-vertical action-group" role="group">
-          <a class="btn btn-default action-download-view" href="#"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Download Current View <span class="extension">JPG</span></a>
-          <a class="btn btn-default" href="<%= hathitrust_pdf_link @document, 'page_identifier' %>"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Download PDF <span class="extension">PDF</span></a>
-          <a class="btn btn-default" download="<%= @document.id %>.jpg" href="<%= hathitrust_image_src @document, size: 'full' %>"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Download Image <span class="extension">JPG</span></a></li>
-          <a class="btn btn-default" href="<%= download_text_solr_document_path @document %>"><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span> Download Text <span class="extension">TXT</span></a></li>
+          <a class="btn btn-default btn-action action-download-view" href="#"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Download Current View <span class="extension">JPG</span></a>
+          <a class="btn btn-default btn-action" href="<%= hathitrust_pdf_link @document, 'page_identifier' %>"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Download PDF <span class="extension">PDF</span></a>
+          <a class="btn btn-default btn-action" download="<%= @document.id %>.jpg" href="<%= hathitrust_image_src @document, size: 'full' %>"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Download Image <span class="extension">JPG</span></a></li>
+          <a class="btn btn-default btn-action" href="<%= download_text_solr_document_path @document %>"><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span> Download Text <span class="extension">TXT</span></a></li>
         </div>
       </div>
     </div>
@@ -83,8 +79,8 @@
       </div>
       <div class="panel-body">
         <div class="btn-group-vertical action-group" role="group">
-          <a class="btn btn-default action-download-pdf" href="<%= hathitrust_pdf_link @document, 'issue_identifier' %>"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Download PDF (<%= @issue_data[:pages].size %>pg) <span class="extension">PDF</span></a>
-          <a class="btn btn-default" href="<%= download_issue_text_solr_document_path @document %>"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Download Text (<%= @issue_data[:pages].size %>pg) <span class="extension">ZIP</span></a>
+          <a class="btn btn-default btn-action action-download-pdf" href="<%= hathitrust_pdf_link @document, 'issue_identifier' %>"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Download PDF <span class="extension"><%= @issue_data[:pages].size %> pages</span></a>
+          <a class="btn btn-default btn-action" href="<%= download_issue_text_solr_document_path @document %>"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Download Text <span class="extension">ZIP</span></a>
         </div>
       </div>
     </div>
@@ -97,9 +93,9 @@
         <form>
           <div class="form-group">
             <label for="permalink sr-only">Permalink for this page</label>
-            <input type="text" class="form-control" id="permalink" value="<%= solr_document_url(@document) %>" />
+            <input type="text" class="form-control" id="permalink" value="<%= solr_document_url(@document) %>" readonly="readonly" onclick="this.select()" />
           </div>
-          <button class="btn btn-action">Copy Link</button>
+          <button class="btn btn-action action-copy-permalink">Copy Link</button>
         </form>
       </div>
     </div>
@@ -116,6 +112,11 @@
 <script>
 $().ready(function() {
   $(".image-viewer-toolbar").stick_in_parent();
+  $(".action-copy-permalink").on('click', function(e) {
+    e.preventDefault();
+    $("#permalink").select();
+    document.execCommand('copy');
+  })
 });
 </script>
 <%= render partial: 'back_to_top' %>

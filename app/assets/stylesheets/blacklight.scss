@@ -2,7 +2,10 @@
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
 
+@import 'bootstrap-overrides';
+
 @import 'blacklight/blacklight';
+
 
 // #documents .row.document {
 //     background: #fff;

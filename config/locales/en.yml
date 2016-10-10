@@ -33,8 +33,9 @@ en:
         next: '<span class="hidden-xs">Next Page </span><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>'
         previous: '<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span><span class="hidden-xs"> Previous Page</span>'
 
-        zoom_in: '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span class="hidden-xs"> Zoom In</span>'
+        zoom_in: '<span class="hidden-xs"> Zoom In </span><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>'
         zoom_out: '<span class="hidden-xs">Zoom Out </span><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>'
+        search_highlights: 'Search Keyword Highlights'
     static:
       about:
         title: Help - About
