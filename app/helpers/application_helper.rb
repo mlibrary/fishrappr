@@ -229,7 +229,7 @@ module ApplicationHelper
     namespace = document.fetch('volume_identifier').split('.').first
     barcode = document.fetch('volume_identifier').split('.').last
     text_link = document.fetch('text_link')
-    issue_no = document.fetch("issue_no_t").first
+    issue_no = document.fetch("issue_no_t", ['-']).first
     page_sequence = document.fetch("issue_sequence")
     key = namespace + "." + barcode + "/" + text_link
     bgcolor = Rails.cache.fetch("#{namespace}.#{barcode}/bgcolor") do

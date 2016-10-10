@@ -28,7 +28,7 @@
   </div>
 <% end %>
 
-<h1 class="sr-only"><%= @document['date_issued_display'].first %> -  Issue <%= @document['issue_no_t'].first %> - Image <%= current_image_sequence(@document) %></h1>
+<h1 class="sr-only"><%= @document['date_issued_display'].first %> -  Issue <%= @document.fetch('issue_no_t', ['-']).first %> - Image <%= current_image_sequence(@document) %></h1>
 
 <h2 class="sr-only">Page Image</h2>
 <div id="image-viewer-wrap">
