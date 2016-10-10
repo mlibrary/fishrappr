@@ -29,6 +29,7 @@ en:
     show:
       page_title:
         title: '%{application_name} - %{date_issued} %{issue_vol_iss} - Image %{issue_sequence}'
+      disclaimer: '<i class="glyphicon glyphicon-info-sign"></i> <strong>Disclaimer: </strong> Computer generated plain text may have errors. <a href="#">Read more about this.</a>'
   views:
       pagination:
         first: '&laquo; First'

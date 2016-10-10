@@ -4,10 +4,18 @@ $footer-bgcolor: #323333;
 $header-bgcolor: #00274C;
 $body-bgcolor: #F2F2F2;
 
-$image-viewer-bgcolor: #323333;
+$image-viewer-bgcolor: #333; // #323333;
 
 $base-fonts: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 // $brand-primary: red;
 
-$text-color:            blue !default; // $gray-dark !default;
+$text-color:            #4a4a4a !default; // $gray-dark !default;
+$btn-default-color:     #333333 !default;
+
+$body-bg: $body-bgcolor;
+$link-color: #126dc1;
+
+$font-size-base: 16px;
+$padding-base-vertical: 9px;
+$padding-base-horizontal: 16px;

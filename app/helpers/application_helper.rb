@@ -6,16 +6,16 @@ module ApplicationHelper
   ##
   # Link to the previous document in the current search context
   def link_to_previous_issue_page(previous_document)
-    link_opts = {}
+    link_opts = { class: 'btn btn-page-navigation' }
     link_to_unless previous_document.nil?, raw(t('views.issue.previous')), url_for_document(previous_document), link_opts do
-      content_tag :span, raw(t('views.issue.previous')), :class => ''
+      content_tag :span, raw(t('views.issue.previous')), :class => 'btn btn-page-navigation'
     end
   end
 
   ##
   # Link to the next document in the current search context
   def link_to_next_issue_page(next_document)
-    link_opts = {}
+    link_opts = { class: 'btn btn-page-navigation' }
     link_to_unless next_document.nil?, raw(t('views.issue.next')), url_for_document(next_document), link_opts do
       content_tag :span, raw(t('views.issue.next')), :class => ''
     end
