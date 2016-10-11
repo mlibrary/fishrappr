@@ -7,7 +7,7 @@ class SearchBuilder < Blacklight::SearchBuilder
 
   def filter_by_publication(solr_parameters)
     solr_parameters[:fq] ||= []
-    publication = blacklight_params['publication'] || Rails.configuration.default_publication
+    publication = blacklight_params['publication'] || Settings.default_publication
     solr_parameters[:fq] << "{!term f=publication_link}#{publication}"
   end
 

@@ -35,7 +35,7 @@ $().ready(function() {
         // var page_identifier = volume_identiifer + "-" + basename;
 
         // this having the URL here is stupid
-        var service_url = $("link[rel='media-service']").attr("href");
+        var service_url = $("link[rel='repository']").attr("href");
         var coords_url = service_url + 'file/' + identifier;
         $.getJSON(coords_url, function(data) {
 

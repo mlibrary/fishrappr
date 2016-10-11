@@ -1,8 +1,6 @@
 require 'digest'
 module ApplicationHelper
 
-  # extend RangeLimitHelper
-
   ##
   # Link to the previous document in the current search context
   def link_to_previous_issue_page(previous_document)
@@ -33,8 +31,6 @@ module ApplicationHelper
     document.fetch('issue_sequence')
   end
 
-  # http://localhost:3000/catalog?utf8=%E2%9C%93&publication=the-michigan-daily&search_field=all_fields&q=&date_filter=on&date_issued_begin_mm=4&date_issued_begin_dd=18&date_issued_begin_yyyy=1986&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy= -->
-
   def document_to_date_params(document)
     params = {}
 
@@ -47,13 +43,13 @@ module ApplicationHelper
     params
   end
 
-  def hathitrust_pdf_link(document, fld, **kw)
+  def download_pdf_link(document, fld, **kw)
     rgn1 = ( fld == 'page_identifier' ) ? 'ic_id' : fld
     value = document.fetch(fld)
-    Rails.configuration.download_service + "?cc=#{Rails.configuration.media_collection}&rgn1=#{rgn1}&q1=#{value}&sort=sortable_page_identifier&attachment=1"
+    RepositoryService.download_pdf_url(rgn1, value)
   end
 
-  def hathitrust_image_src(document, **kw)
+  def document_image_src(document, **kw)
     path_info = []
     namespace = document.fetch('volume_identifier').split('.').first
 
@@ -61,35 +57,15 @@ module ApplicationHelper
       return '#'
     end
 
-    # barcode = document.fetch('ht_barcode')
-    # path_info << "#{namespace}.#{barcode}"
-
-    page_identifier = document.fetch('page_identifier')
-
-    image_link = document.fetch('image_link')
-    path_info << [ Rails.configuration.media_collection, page_identifier, image_link ].join(':')
-
-    format = nil
-    unless kw.empty?
-      path_info << kw.fetch(:region, 'full')
-      path_info << kw.fetch(:size, 'full')
-      path_info << kw.fetch(:rotation, '0')
-      path_info << kw.fetch(:quality, 'default')
-      format = kw.fetch(:format, 'jpg')
-    end
-
-    path_info = path_info.join('/')
-    path_info += "." + format if ( format )
-
-    "#{Rails.configuration.iiif_service}#{path_info}"
+    RepositoryService.dlxs_image_url(document, **kw)
   end
 
-  def hathitrust_thumbnail_src(document, **kw)
+  def document_thumbnail_src(document, **kw)
     size = kw.fetch(:size, ',250')
-    hathitrust_image_src(document, size: size)
+    document_image_src(document, size: size)
   end
 
-  def hathitrust_thumbnail_style(document, **kw)
+  def document_thumbnail_style(document, **kw)
     namespace = document.fetch('volume_identifier').split('.').first
 
     if namespace == 'fake'
@@ -114,7 +90,7 @@ module ApplicationHelper
 
   end
 
-  def hathitrust_thumbnail_data(document, **kw)
+  def document_thumbnail_data(document, **kw)
     namespace = document.fetch('volume_identifier').split('.').first
 
     if namespace == 'fake'
@@ -137,36 +113,42 @@ module ApplicationHelper
     { :'data-min-width' => width, :'data-min-height' => height }
   end
 
-  def hathitrust_image(document, **kw)
+  def document_image(document, **kw)
     namespace = document.fetch('volume_identifier').split('.').first
     return fake_image(document).html_safe if namespace == 'fake'
-    %Q{<img src="#{hathitrust_image_src(document, **kw)}" tabindex="-1", aria-hidden="true", alt="Full image of Daily page" />}.html_safe
+    %Q{<img src="#{document_image_src(document, **kw)}" tabindex="-1", aria-hidden="true", alt="Full image of Daily page" />}.html_safe
   end
 
-  def hathitrust_thumbnail(document, **kw)
+  def document_thumbnail(document, **kw)
     namespace = document.fetch('volume_identifier').split('.').first
     return fake_image(document, kw.fetch(:size, ',250')) if namespace == 'fake'
-    %Q{<img src="#{hathitrust_thumbnail_src(document, **kw)}" tabindex="-1", aria-hidden="true", alt="Thumbnail of Daily page" />}.html_safe
+    %Q{<img src="#{document_thumbnail_src(document, **kw)}" tabindex="-1", aria-hidden="true", alt="Thumbnail of Daily page" />}.html_safe
   end
 
   # TO DO: Needs to be moved into a style using a data attribute
-  def hathitrust_background_thumbnail(document, **kw)
+  def document_background_thumbnail(document, **kw)
     namespace = document.fetch('volume_identifier').split('.').first
     tn = "style=\'background: url(\""
     if namespace == 'fake'
       tn += "#{image_url("fake_image.png")}"
     else
-      tn += "#{hathitrust_thumbnail_src(document, **kw)}"
+      tn += "#{document_thumbnail_src(document, **kw)}"
     end
     tn += "\") top left no-repeat;\'"
     tn.html_safe
   end
 
   def iiif_identifier(document, fld='image_link')
-    tmp = [ Rails.configuration.media_collection ]
-    tmp << document.fetch('page_identifier')
-    tmp << document.fetch(fld)
-    tmp.join(':')
+    RepositoryService.dlxs_identifier(document, fld)
+  end
+
+  def link_to_repository(document=nil)
+    html = %Q{<link rel="repository" href="#{RepositoryService.dlxs_repository_url}" />}
+    html.html_safe
+  end
+
+  def link_to_manifest(document)
+    %Q{<link rel="manifest" href="#{RepositoryService.dlxs_manifest_url(document)}" />}.html_safe
   end
 
   def render_date_format(args)
@@ -254,7 +236,6 @@ module ApplicationHelper
   def back_to_results_label
     search_params = current_search_session.try(:query_params) || {}
     return if search_params.blank?
-    STDERR.puts "AHOY ACTION #{search_params[:action]} : #{search_params}"
     if search_params[:action] == 'browse'
       t('blacklight.back_to_browse_html')
     else

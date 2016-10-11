@@ -3,9 +3,9 @@ module Fishrappr::Context
 
   def setup_publication
     if params[:publication]
-      session[:publication] = params[:publication] # || Rails.configuration.default_publication
+      session[:publication] = params[:publication]
     else
-      session[:publication] ||= Rails.configuration.default_publication
+      session[:publication] ||= Settings.default_publication
       params[:publication] = session[:publication]
     end
     @publication = Publication.where(slug: session[:publication]).first
