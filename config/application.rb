@@ -23,29 +23,10 @@ module Fishrappr
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
-    # config.ht_host = 'https://beta-3.babel.hathitrust.org'
-    # config.ht_service = config.ht_host + '/cgi/imgsrv/'
-    # config.iiif_service = config.ht_service + 'iiif/'
-    # config.download_service = config.ht_service + 'download/pdf'
-    config.sdrdataroot = "tmp/sdr1/obj"
-
-    config.media_host = 'https://roger.quod.lib.umich.edu'
-    config.media_service = config.media_host + '/cgi/i/image/api/'
-    config.iiif_service = config.media_host + '/cgi/i/image/api/image/'
-    config.manifest_service = config.media_host + '/cgi/i/image/api/manifest/'
-    config.download_service = config.media_host + '/cgi/i/image/pdf-idx'
-    config.media_collection = 'bhl_midaily'
-
     config.index_enabled = true
     config.batch_commit = true
 
     config.autoload_paths += Dir["#{config.root}/lib"]
-
-    config.default_publication = 'the-michigan-daily'
-
-    # fishrappr emails
-    config.contact_address = "bhl-digital-support@umich.edu"
-    config.permissions_address = "bhl-student-pub-contact@umich.edu"
 
   end
 end

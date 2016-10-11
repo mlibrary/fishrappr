@@ -1,0 +1,6 @@
+default_publication: "the-michigan-daily"
+contact_address: "bhl-digital-support@umich.edu"
+permissions_address: "bhl-student-pub-contact@umich.edu"
+
+DLXS_COLLECTION: "bhl_midaily"
+DLXS_SERVICE_URL: "https://path/to/service/host"

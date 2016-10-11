@@ -16,7 +16,7 @@ class Contact < MailForm::Base
   def normal_header
     nh = { 
         subject: "BHL Daily Contact Form from #{username} about #{type}",
-        to: "#{Rails.configuration.contact_address}",
+        to: "#{Settings.contact_address}",
         from: "#{email}"
       }
     return nh
@@ -25,7 +25,7 @@ class Contact < MailForm::Base
   def permissions_header
     ph = { 
         subject: "DHL Daily Contact Form from #{username} about Permissions",
-        to: "#{Rails.configuration.permissions_address}",
+        to: "#{Settings.permissions_address}",
         from: "#{email}"
       }
     return ph

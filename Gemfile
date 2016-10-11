@@ -34,6 +34,8 @@ gem "blacklight_range_limit"
 
 gem 'bootbox-rails', '~>0.4'
 
+gem 'config'
+
 gem 'rubyzip', '>= 1.0.0' # will load new rubyzip version
 
 # Use ActiveModel has_secure_password

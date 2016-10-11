@@ -1,5 +1,10 @@
 <% @page_title = t('blacklight.show.page_title.title', date_issued: @document['date_issued_display'].first, issue_vol_iss: @document.fetch('issue_vol_iss_display', []).first, issue_sequence: @document['issue_sequence'], application_name: application_name) %>
 
+<%= replace :head do %>
+  <%= link_to_repository(@document) %>
+  <%= link_to_manifest(@document) %>
+<% end %>
+
 <%= replace :search_navbar do %>
   <div class="navigation-toolbar">
     <div class="container-fluid">
@@ -66,7 +71,7 @@
       <div class="panel-body">
         <div class="btn-group-vertical action-group" role="group">
           <a class="btn btn-default btn-action action-download-view" href="#"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Download Current View <span class="extension">JPG</span></a>
-          <a class="btn btn-default btn-action" href="<%= hathitrust_pdf_link @document, 'page_identifier' %>"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Download PDF <span class="extension">PDF</span></a>
+          <a class="btn btn-default btn-action" href="<%= download_pdf_link @document, 'page_identifier' %>"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Download PDF <span class="extension">PDF</span></a>
           <a class="btn btn-default btn-action" download="<%= @document.id %>.jpg" href="<%= hathitrust_image_src @document, size: 'full' %>"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Download Image <span class="extension">JPG</span></a></li>
           <a class="btn btn-default btn-action" href="<%= download_text_solr_document_path @document %>"><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span> Download Text <span class="extension">TXT</span></a></li>
         </div>
@@ -79,7 +84,7 @@
       </div>
       <div class="panel-body">
         <div class="btn-group-vertical action-group" role="group">
-          <a class="btn btn-default btn-action action-download-pdf" href="<%= hathitrust_pdf_link @document, 'issue_identifier' %>"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Download PDF <span class="extension"><%= @issue_data[:pages].size %> pages</span></a>
+          <a class="btn btn-default btn-action action-download-pdf" href="<%= download_pdf_link @document, 'issue_identifier' %>"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Download PDF <span class="extension"><%= @issue_data[:pages].size %> pages</span></a>
           <a class="btn btn-default btn-action" href="<%= download_issue_text_solr_document_path @document %>"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Download Text <span class="extension">ZIP</span></a>
         </div>
       </div>
