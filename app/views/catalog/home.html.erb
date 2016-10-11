@@ -26,7 +26,7 @@
 
         <% @featured_list.each do |document| %>
           <figure data-identifier="<%= document.id %>">
-              <%= link_to hathitrust_thumbnail(document, size: '200,'), url_for_document(document), { class: 'thumbnail', style: hathitrust_thumbnail_style(document, size: '200,') } %>
+              <%= link_to document_thumbnail(document, size: '200,'), url_for_document(document), { class: 'thumbnail', style: document_thumbnail_style(document, size: '200,') } %>
               <div class="caption">
                 <figcaptions>
                   <%= link_to_document document, render_index_field_value(document, field: :date_issued_display) %>

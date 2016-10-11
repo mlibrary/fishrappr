@@ -1,5 +1,5 @@
 <div data-words="<%= process_highlighted_words(document) %>" data-identifier="<%= document.id %>">
-    <%= link_to hathitrust_thumbnail(document, size: '200,'), url_for_document(document), { class: 'thumbnail', style: hathitrust_thumbnail_style(document, size: '200,') } %>
+    <%= link_to document_thumbnail(document, size: '200,'), url_for_document(document), { class: 'thumbnail', style: document_thumbnail_style(document, size: '200,') } %>
     <div class="caption">
         <%= render partial: 'catalog/document_header', locals: { document: document } %>
     </div>
