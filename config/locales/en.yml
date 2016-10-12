@@ -50,18 +50,20 @@ en:
       home:
         title: Home Page
         head:
-          page_title: The Michigan Daily Digital Archives
-          subtitle: 1890 - Present
+          page_title: Digital Archives
+          subtitle: 1890 - 2014
           description1: The student newspaper at the University of Michigan
           description2: 125 years of editorial freedom
           link: About the Archives
         donors:
-          title: Thank You to the Kemp Family Foundation
-          description: We couldn't have created The Michigan Daily Archives without the generous financial support of our donor
-          link: About Our Donor
+          title: Thank You to The Kemp Family Foundation!
+          description: The archive is made possible by The University of Michigan Library, The Bentley Historical Library, and The Michigan Daily, with generous support from The Kemp Family Foundation.
+          link: Read More About The Kemp Family Foundation
+        partnerships:
+          description: In Partnership With
         today:
           title: This date in The Michigan Daily
-          link: Browse Issues
+          link: Browse Other Issues
       how-to-search:
         h2: How to Search
 

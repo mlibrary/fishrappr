@@ -10,7 +10,7 @@ en:
         title: '%{constraints}%{application_name} - Search Results'
       form:
         search:
-          label: 'Search Full Text'
+          label: 'Search'
         filter:
           label: 'Date Filter'         
       view:
