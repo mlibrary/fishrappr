@@ -955,71 +955,54 @@ body.blacklight-contacts-create {
 }
 
 help-top-row {
-  height: 15em;
 
   h2, p {
-    margin-left: 0;
   }
 }
 
 .help-middle-col {
   background-color: white;
-  margin-top: 1.5em;
-  padding: 1em 4em 4em 4em;
 }
 
 /* HELP SIDEBAR */
 
 body.blacklight-static-how_to_search,
-body.blacklight-static-about,
+body.blacklight-static-using_page_viewer,
+body.blacklight-static-about_daily,
+body.blacklight-static-about_project,
 body.blacklight-static-donors,
 body.blacklight-contacts-new {
-  background-color: #F8F8F8;
+  background-color: white;
+  color: #6e6e6e;    
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
 }
 
 .sidebars {
-  background-color: white;
   border-radius: 4px; 
   border: 1px solid #ddd;
-  width: 19em;
-  margin-top: 1.5em;
-  padding: .5em 0 1em 0;
 }
 
 .help-sbar h2 {
-  font-size: 2em;  
-  padding-left: 1em;
-  color: #666666;
-  margin-bottom: -20px;
 }
 
 .help-ul {
   -webkit-padding-start: 0;
   list-style-type:none;
-  margin: 1.5em 0 0 2em;
   padding: 0;
-  padding-top: 1em;
-  width: 18em;
 }
 
 .help-ul li {
   display: block;
-  font-size: 1.5em;
   height: 1.5em;
-  margin: 0 0 .5em 0;
-  padding: 0 0 0 .5em;
-  vertical-align: middle;
-  width: 111em;
 
   a {
     color: #666666 !important;
     display: block;
-    height: 2em;
-    margin: 0 0 .5em 0;
-    padding: 0 0 0 .5em;
     text-align: left;
     vertical-align: middle;
-    width: 10em;
+    width: inherit;
   }
 
   a:hover, a:focus {

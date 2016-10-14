@@ -1,10 +1,9 @@
 <% @page_title = t('views.static.contact.title') %>
 
-<div class="row"</div>
-  <div class="col-md-4">
+<div class="container-fluid">
     <%= render partial: 'static/unified_sidebar' %>
-  </div>
-    <div class="col-md-7 help-middle-col">
+
+  <div class="<%= main_content_classes %> help-middle-col">
     <h2><%= t('views.static.contact.header') %></h2>
     <p class="para">We are happy to answer any questions you have about using the Michigan Daily archive, to hear about any problem you are experiencing with the system and to hear your feeback on how we can improve our services.</p>
     <div class="<%= main_content_classes %>">
@@ -19,5 +18,4 @@
     <% end %>
       </div>
     </div> 
-    <div class="col-md-1"></div>
 </div>
