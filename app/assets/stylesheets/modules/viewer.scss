@@ -2,7 +2,9 @@
 
 #image-viewer-wrap {
     height: 75%;
-    padding-top: 45px;
+    width: 100%;
+    display: table;
+    // padding-top: 45px;
     margin-bottom: 20px;
     background: $image-viewer-bgcolor;
     position: relative;
@@ -11,7 +13,8 @@
 #image-viewer {
 
     background: $image-viewer-bgcolor;
-    height: 98%;
+    display: table-row;
+    height: 100%;
 
     &:focus {
         outline: auto 5px -webkit-focus-ring-color;
@@ -19,14 +22,15 @@
 }
 
 .image-viewer-toolbar {
-    position: absolute;
-    top: 0; // 5px;
-    left: 0;
-    right: 0;
+    // position: static;
+    // top: 0; // 5px;
+    // left: 0;
+    // right: 0;
     padding-top: 14px; // 5px;
     padding-bottom: 14px; // 5px;
     z-index: 5000;
     background: $image-viewer-bgcolor;
+    // border-bottom: 1px dotted yellow;
 
     div > span {
         color: white;
@@ -96,6 +100,7 @@
 
         .navigate-pages {
             text-align: right;
+            white-space: nowrap;
         }
 
     }
@@ -160,6 +165,10 @@
             h3 {
                 margin-top: $line-height-computed;
             }
+        }
+
+        &:last-child {
+            margin-bottom: 20px;
         }
     }
 
@@ -288,3 +297,49 @@
     }
 
 }
+
+@media (min-width: $screen-xs-max) {
+    .page-options {
+        padding-left: 0;
+        padding-right: 0;
+    }    
+}
+
+@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    .image-viewer-toolbar {
+        // border-bottom: 1px dotted blue;
+
+        .btn.btn-action {
+            min-width: 1em;
+        }
+
+        label {
+            white-space: nowrap;
+        }
+
+    }
+
+    .btn-page-navigation {
+        min-width: 7.5em;
+    }
+
+    .container-morph {
+        @include container-fixed;
+        width: 100%;
+    }
+
+}
+
+// @media (max-width: $screen-md-max ) {
+@media (min-width: $screen-sm-max) and (max-width: $screen-md-max) {    
+
+    .image-viewer-toolbar {
+        // border-bottom: 1px dotted green;
+
+        label {
+            white-space: nowrap;
+        }
+    }
+    
+}
+
