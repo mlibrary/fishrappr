@@ -5,7 +5,7 @@
 
     box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.48);
 
-    &:hover {
+    &:hover, &:focus {
         background: #353535;
         color: #EEE;
     }
@@ -29,8 +29,13 @@
     border: solid 2px #126dc1;
     min-width: 10em;
 
-    span {
-        color: #0c5292;
+    color: #0c5292;
+
+    &.endpoint {
+        border: solid 2px rgba(0, 0, 0, 0.65); // rgba(18, 109, 193, 0.65);
+        opacity: 0.65;
+        color: black;
+        cursor: initial;
     }
 }
 

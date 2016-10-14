@@ -1,6 +1,5 @@
 <h3>
-    <%= document['date_issued_display'].first %>
-    <%= document.fetch('issue_vol_iss_display', []).first %>
+    <%= issue_title(document, true) %>
     - 
      Image <%= current_image_sequence(document) %>
 </h3>

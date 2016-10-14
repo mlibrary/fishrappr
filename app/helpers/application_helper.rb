@@ -6,7 +6,7 @@ module ApplicationHelper
   def link_to_previous_issue_page(previous_document)
     link_opts = { class: 'btn btn-page-navigation' }
     link_to_unless previous_document.nil?, raw(t('views.issue.previous')), url_for_document(previous_document), link_opts do
-      content_tag :span, raw(t('views.issue.previous')), :class => 'btn btn-page-navigation'
+      content_tag :span, raw(t('views.issue.previous')), :class => 'btn btn-page-navigation endpoint'
     end
   end
 
@@ -15,7 +15,7 @@ module ApplicationHelper
   def link_to_next_issue_page(next_document)
     link_opts = { class: 'btn btn-page-navigation' }
     link_to_unless next_document.nil?, raw(t('views.issue.next')), url_for_document(next_document), link_opts do
-      content_tag :span, raw(t('views.issue.next')), :class => ''
+      content_tag :span, raw(t('views.issue.next')), :class => 'btn btn-page-navigation endpoint'
     end
   end
 
@@ -29,6 +29,14 @@ module ApplicationHelper
 
   def current_image_sequence(document)
     document.fetch('issue_sequence')
+  end
+
+  def issue_title(document, complete=false)
+    title = document['date_issued_display'].first
+    if complete
+      title += " " + document.fetch('issue_vol_iss_display', []).first
+    end
+    title
   end
 
   def document_to_date_params(document)

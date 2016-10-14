@@ -30,11 +30,11 @@ en:
       fishrappr_graph_title: Results Frequency Graph
       fishrappr_graph_instructions: Put the cursor on a bar to see its page count and click a bar to zoom in on bar data
     issue:
-        next: '<span class="hidden-xs">Next Page </span><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>'
-        previous: '<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span><span class="hidden-xs"> Previous Page</span>'
+        next: '<span class="hidden-xs">Next <span class="hidden-sm">Page </span></span><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>'
+        previous: '<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span><span class="hidden-xs"> Previous<span class="hidden-sm"> Page</span></span>'
 
-        zoom_in: '<span class="hidden-xs"> Zoom In </span><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>'
-        zoom_out: '<span class="hidden-xs">Zoom Out </span><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>'
+        zoom_in: '<span class="hidden-xs hidden-sm"> Zoom In </span><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>'
+        zoom_out: '<span class="hidden-xs hidden-sm">Zoom Out </span><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>'
         search_highlights: 'Search Keyword Highlights'
     static:
       about:

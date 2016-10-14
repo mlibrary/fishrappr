@@ -3,25 +3,24 @@
 <%= replace :head do %>
   <%= link_to_repository(@document) %>
   <%= link_to_manifest(@document) %>
+  <%= render partial: 'document_share_metadata' %>
 <% end %>
 
 <%= replace :search_navbar do %>
   <div class="navigation-toolbar">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-6 col-xs-12 navigate-issue">
+        <div class="col-md-7 col-sm-7 col-xs-12 navigate-issue">
           <% if current_search_session %>
             <%= link_back_to_catalog class: 'btn btn-search-primary', label: back_to_results_label %>
           <% end %>
           <a class="btn btn-link btn-issue-link" href="<%= search_catalog_url document_to_date_params(@document) %>">
-            <span class="xhidden-xs xhidden-sm"><%= @document['date_issued_display'].first %> 
-              <%= @document.fetch('issue_vol_iss_display', []).first %>
-            </span> 
+            <span><%= issue_title(@document) %></span> 
           </a>
           <span class=""><i class="glyphicon glyphicon glyphicon-chevron-right"></i></span>
           <span class="">Image <%= current_image_sequence(@document) %></span>
         </div>
-        <div class="col-md-6 col-xs-12 navigate-pages">
+        <div class="col-md-5 col-sm-5 col-xs-12 navigate-pages">
           <%= link_to_previous_issue_page @previous_page %>
           <span class="current-page-number"><span class="sr-only">Image </span><%= current_image_sequence(@document) %> of <%= @issue_data[:pages].size %></span>
           <%= link_to_next_issue_page @next_page %>
@@ -39,18 +38,18 @@
 <div id="image-viewer-wrap">
   <div class="image-viewer-toolbar">
     <div class="container">
-      <div class="col-md-3 hidden-xs">
+      <div class="col-md-3 col-sm-3 hidden-xs">
         <label><input type="radio" name="toggle-mode" class="action-toggle-mode" value="pan" checked="checked" /> Pan</label>
         <label><input type="radio" name="toggle-mode" class="action-toggle-mode" value="select" /> Select</label>
       </div>
-      <div class="col-md-6 col-xs-12">
+      <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="zoom-toolbar center-block" style="text-align: center">
           <button id="action-zoom-out" class="btn btn-action action-zoom-out"><%= raw(t('views.issue.zoom_out')) %></button>
           <span class="span-zoom-status">100%</span>
           <button id="action-zoom-in" class="btn btn-action action-zoom-in"><%= raw(t('views.issue.zoom_in')) %></button>
         </div>
       </div>
-      <div class="col-md-3 col-xs-12 align-right">
+      <div class="col-md-3 col-sm-3 col-xs-12 align-right">
         <% if highlights_available? %>
           <label><input type="checkbox" class="action-toggle-highlight" <%= highlights_visible? ? 'checked="checked"' : '' %> /> <%= t('views.issue.search_highlights') %></label>
         <% end %>
@@ -61,8 +60,8 @@
 </div>
 
 
-<div class="container">
-  <div class="col-md-4 col-md-push-8 col-xs-12">
+<div class="container container-morph">
+  <div class="col-md-4 col-md-push-8 col-sm-4 col-sm-push-8 col-xs-12 page-options">
     <h2 class="sr-only">Page Options</h2>
     <div class="panel panel-actions-page">
       <div class="panel-heading">
@@ -105,7 +104,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-8 col-md-pull-4 col-xs-12">
+  <div class="col-md-8 col-md-pull-4 col-sm-8 col-sm-pull-4 col-xs-12">
     <div id="document" class="document <%= render_document_class %>" itemscope  itemtype="<%= @document.itemtype %>" style="background: white; padding: 20px">
       <div id="doc_<%= @document.id.to_s.parameterize %>">
         <%= render_document_partials @document, blacklight_config.view_config(:show).partials %>
