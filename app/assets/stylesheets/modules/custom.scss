@@ -899,6 +899,19 @@ body.blacklight-contacts-new {
   text-align: right;
 }
 
+.debug-breakpoints {
+  position: fixed;
+  bottom: 4px;
+  left: 4px;
+  height: auto;
+  width: 100px;
+  text-align: center;
+  padding: 4px;
+  background: rgba(0,0,0, 0.25);
+  color: white;
+  font-weight: bold;
+}
+
 
 // searching icon animation
 .glyphicon-refresh-animate {

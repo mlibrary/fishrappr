@@ -42,5 +42,12 @@
   <% end %>
 
   <%= render :partial => 'shared/footer' %>
+
+  <% if ENV['DEBUG_CSS'] %>
+  <div class="debug-breakpoints visible-xs-block">XS</div>
+  <div class="debug-breakpoints visible-sm-block">SM</div>
+  <div class="debug-breakpoints visible-md-block">MD</div>
+  <div class="debug-breakpoints visible-lg-block">LG</div>
+  <% end %>
   </body>
 </html>
