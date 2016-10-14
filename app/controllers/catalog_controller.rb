@@ -170,7 +170,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'date_issued_display', label: ''
     config.add_index_field 'issue_no_t', label: 'Issue'
     #config.add_index_field 'page_no_t', label: 'Page'
-    config.add_index_field 'sequence', label: 'Image'
+    config.add_index_field 'issue_sequence', label: 'Image Number'
     config.add_index_field 'page_text', label: '' , highlight: true, separator_options: { words_connector: ' ... '}
 
     # solr fields to be displayed in the show (single result) view
@@ -178,7 +178,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'issue_no_t', label: 'Issue'
     config.add_show_field 'date_issued_display', label: 'Date'
     config.add_show_field 'page_no_t', label: 'Page No'
-    config.add_show_field 'sequence', label: 'Page Order'
+    config.add_show_field 'issue_sequence', label: 'Image Number'
     config.add_show_field 'page_text', label: 'Page Text'
 
     config.add_show_field 'next_page_link', label: 'Next Page Link'
@@ -214,10 +214,10 @@ class CatalogController < ApplicationController
       field.solr_parameters = { :qf => "page_text" } 
     end
 
-    config.add_search_field 'ht_barcode' do |field|
-      field.include_in_simple_select = false
-      field.solr_parameters = { :qf => "ht_barcode" } 
-    end
+    # config.add_search_field 'ht_barcode' do |field|
+    #   field.include_in_simple_select = false
+    #   field.solr_parameters = { :qf => "ht_barcode" } 
+    # end
 
 
     #config.add_search_field 'OCR Text' do |field|
@@ -247,18 +247,18 @@ class CatalogController < ApplicationController
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
-    config.add_sort_field 'date_issued_dt desc', label: 'Latest Date'
-    config.add_sort_field 'date_issued_dt asc', label: 'Earliest Date'
-    config.add_sort_field 'date_issued_dt desc, issue_no_t_sort asc, issue_sequence asc', label: 'Page Number'
-    #config.add_sort_field 'author_sort asc, title_sort asc', label: 'author'
-    #config.add_sort_field 'title_sort asc, pub_date_sort desc', label: 'title'
+
+    config.add_sort_field 'relevance', sort: 'score desc, date_issued_dt desc, issue_no_t_sort asc, issue_sequence asc', label: 'Interesting'
+    config.add_sort_field 'date_issued_dt desc, issue_no_t_sort asc, issue_sequence asc', label: 'Latest Date'
+    config.add_sort_field 'date_issued_dt asc, issue_no_t_sort asc, issue_sequence asc', label: 'Earliest Date'
+    # config.add_sort_field 'date_issued_dt desc, issue_no_t_sort asc, issue_sequence asc', label: 'Image Number'
 
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
-    config.spell_max = 5
+    config.spell_max = 0
 
     # Configuration for autocomplete suggestor
-    config.autocomplete_enabled = true
+    config.autocomplete_enabled = false
     config.autocomplete_path = 'suggest'
 
     config.show.route = { controller: 'catalog', action: 'show' }

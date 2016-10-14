@@ -39,7 +39,7 @@ module ApplicationHelper
     params[:date_issued_begin_dd] = document.fetch(:date_issued_dd_ti)
     params[:date_issued_begin_mm] = document.fetch(:date_issued_mm_ti)
     params[:date_issued_begin_yyyy] = document.fetch(:date_issued_yyyy_ti)
-    params[:sort] = 'date_issued_dt desc, issue_no_t_sort asc, issue_sequence asc'
+    params[:sort] = 'score desc, date_issued_dt desc, issue_no_t_sort asc, issue_sequence asc' # relevance
     params
   end
 
