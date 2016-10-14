@@ -662,8 +662,16 @@ body.blacklight-catalog-home {
     margin-bottom: 30px;
     padding: .5em;
     width: 12em;
+
+    &:hover {
+      background: #bbb;
+      color: black;
+    }
+
+
   }
 }
+
 
 .home .head {
 
@@ -881,6 +889,7 @@ body.blacklight-catalog-home {
 
     &:hover {
       text-decoration: underline;
+      background: #eee;
     }
   }
 }
@@ -930,6 +939,11 @@ footer {
   color: white;
   font-size: 16px;
   font-weight: normal;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
 }
 
 /* STATIC PAGES */
