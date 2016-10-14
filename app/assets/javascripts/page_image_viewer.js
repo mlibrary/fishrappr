@@ -113,6 +113,9 @@
             flickEnabled: true,
             pinchRotate: true
           },
+          gestureSettingsTouch: {
+            pinchRotate: true
+          },
           showNavigationControl: true,
           zoomInButton: 'action-zoom-in',
           zoomOutButton: 'action-zoom-out'
@@ -195,6 +198,23 @@
         selection.enable();
       }
       console.log("AHOY MODE", mode);
+    })
+
+    var rotation_total_time = 1;
+    var rotateViewer = function(delta) {
+      var rotation_step_delta = 1; 
+      var deg = viewer.viewport.getRotation();
+      var next_deg = deg + delta;
+      if ( next_deg < 0 ) { next_deg = 360 + next_deg; }
+      viewer.viewport.setRotation(next_deg);     
+    }
+
+    $(".action-rotate-left").on('click', function() {
+      rotateViewer(-90);
+    })
+
+    $(".action-rotate-right").on('click', function() {
+      rotateViewer(90);
     })
 
     window.delta = 1; window.total_time = 1;
