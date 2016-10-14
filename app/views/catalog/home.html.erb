@@ -1,8 +1,9 @@
 <div class="home container-fluid">
 
     <div class="head col-md-12">
-      <h1><%= t('views.static.home.head.page_title') %></h1>
-      <span class="subtitle"><%= t('views.static.home.head.subtitle') %></p>
+      <h1><%= image_tag("The-Michigan-Daily-Digital-Archive-Header.png", :width => 800, :alt => "Michigan Daily Masthead", :class => 'masthead') %></h1>
+      <span class="subtitle"><%= t('views.static.home.head.page_title') %></span>
+      <p class="description1"><%= t('views.static.home.head.subtitle') %></p>
       <p class="description1"><%= t('views.static.home.head.description1') %></p>
       <p class="description2"><%= t('views.static.home.head.description2') %></p>
       <%= link_to t('views.static.home.head.link'), static_path("about") %>
@@ -12,21 +13,32 @@
 
 </div>
 <div class="home container-fluid">
-
     <div class="donors col-md-12">
-      <h2><%= t('views.static.home.donors.title') %></h2>
+      <h2 class="donor-title"><%= t('views.static.home.donors.title') %></h2>
       <p class="description"><%= t('views.static.home.donors.description') %></p>
       <%= link_to t('views.static.home.donors.link'), static_path("about") %>
-    </div>
+  </div>
+</div>
 
+<div class="home container-fluid">
+  <div class="partnerships col-md-12">
+    <p class="description"><%= t('views.static.home.partnerships.description') %></p>
+    <span class="logos"><%= image_tag("The-Michigan-Daily-Digital-Archive.png", :alt => "Michigan Daily Graphic", :class => 'daily-logo') %><%= image_tag("u-m_library_logo.png", :alt => "M Library Graphic", :class => 'mlibrary-logo') %><%= image_tag("bentley_historical_library_logo.png", :alt => "Bentley Library Graphic", :class => 'bentley-logo') %></span>
+
+  </div>
+</div>
+
+<div class="home container-fluid">
     <div class="featured col-md-12">
-      <h2><%= t('views.static.home.today.title') %></h2>
+      <h2 class="featured-title"><%= t('views.static.home.today.title') %></h2>
+      <p class="description"><%= @featured_list.first["date_issued_display"].first.split(",").first %></p>
       <div id="documents" class="row grid">
         <% if false %><%= render collection: @featured_list, as: :document, partial: 'index_grid' %><% end %>
 
+        
         <% @featured_list.each do |document| %>
           <figure data-identifier="<%= document.id %>">
-              <%= link_to document_thumbnail(document, size: '200,'), url_for_document(document), { class: 'thumbnail', style: document_thumbnail_style(document, size: '200,') } %>
+              <%= link_to document_thumbnail(document, size: '273,'), url_for_document(document), { class: 'thumbnail', style: document_thumbnail_style(document, size: '273,') } %>
               <div class="caption">
                 <figcaptions>
                   <%= link_to_document document, render_index_field_value(document, field: :date_issued_display) %>

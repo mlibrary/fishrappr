@@ -251,7 +251,7 @@ body.blacklight-catalog-index #search-navbar , body.blacklight-catalog-home {
     }
 
     .search-label {
-      width: 8em;
+      width: 4em;
       text-align: left !important;
     }
 
@@ -299,9 +299,15 @@ body.blacklight-catalog-index #search-navbar , body.blacklight-catalog-home {
 body.blacklight-catalog-home {
 
   .site-search {
+    background-color: $home-site-search-bgcolor;
+    border-radius: 3px;
+    color: #ffffff;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
     margin-top: 0;
-    margin-right: 50px !important;
-    margin-left: 50px !important;
+    text-align: left;
 
     .search-title {
       margin-top: 0;
@@ -665,17 +671,32 @@ body.blacklight-catalog-home {
     font-size: 60px;
   }
 
+  .masthead {
+    filter:invert(100%);
+    width: 706.1px;
+    height: 96px;
+  }
+
   .subtitle {
-    color: white;
+    color: #ffffff;
+    font-family: 'Open Sans', sans-serif;
     font-size: 40px;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.36);
   }
 
   p.description1, p.description2 {
-    color: white;
+    color: #ffffff;
     display: block;
-    font-size: 20px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 24px;
+    line-height: 1.3;
     margin-left:auto;
     margin-right:auto;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.36);
   }
 
   .description1 {
@@ -683,69 +704,180 @@ body.blacklight-catalog-home {
   }
 
   a {
-    border: solid 2px white;
-    color: white;
-    font-size: 20px;
-    margin: 0 0 2em 0;
+    border: solid 2px #ffffff;
+    color: #ffffff;
+    font-family: Helvetica;
+    font-size: 16px;
     margin-left:auto;
     margin-right:auto;
-    min-width: 15em;
+    margin-bottom: 30px;
+    min-width: 166px;
   }  
 } /* .home .head */
 
 .home .donors {
-  background-color: rgb(232,244,255);
+  background-color: #00274c;
+  color: #ffffff;
   display: block;
-  color: black;
+  font-weight: normal important;
   height: auto;
 
+  .donor-title {
+    color: #ffffff;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 32px;
+    margin-bottom: .5em;
+    text-align: center;
+  }
+
   p.description {
+    color: #ffffff;
+    font-family: 'Open Sans', sans-serif;
     font-size: 20px;
-    width: 80%;
+    line-height: 1.6;
+    margin-bottom: 1em;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
   }
 
   a {
-    border: solid 2px #126DC1;
-    color: #126DC1;
-    font-size: 20px;
-    margin: 0 0 1em 0;
+    border: solid 2px #ffffff;
+    color: #ffffff;
+    font-family: Helvetica;
+    font-size: 16px;
     margin-left:auto;
     margin-right:auto;
-    min-width: 15em;
-  }  
+    width: 400px;
+  }
+}
+
+.home .partnerships {
+  min-height: 152px;
+  background-color: #e6f3ff;
+  width: 100%;
+
+  .description {
+    color: #00274c;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1em;
+    text-align: center;
+  }
+
+  .logos {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-left: 10%;
+    margin-right: 10%;
+
+    .daily-logo {
+      width: 294.2px;
+      height: 40px;
+      background-color: #e6f3ff;
+      margin-bottom: 20px;
+    }  
+
+    .mlibrary-logo {
+      width: 243px;
+      height: 39.6px;
+      background-color: #e6f3ff;
+      margin-left: 50px;
+      margin-bottom: 20px;
+    }
+
+    .bentley-logo {
+      width: 538px;
+      height: 39.9px;
+      background-color: #e6f3ff;
+      margin-left: 50px;
+      margin-bottom: 20px;
+    }      
+  }
+ 
 }
 
 .home .featured {
-  padding: 1em 0 1em 0;
-  background-color: lightgray;
+  background-color: #ffffff;
   color: black;
   min-height: 300px;
+  padding: 1em 0 1em 0;
+
+  .featured-title {
+    color: #333333;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 32px;
+    text-align: center;
+  }
+
+  .description {
+    color: #6e6e6e;    
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1em;
+    text-align: center;
+  }
 
   #documents {
     margin-top: 2em;
   }
 
   figure {
-    margin: 0 10px 0 10px;
+    margin: 0 60px 0 60px;
+  
+    .caption {
+      color: #0c5292;
+      display: block;
+      font-size: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: -6px;
+      text-align: center;
+      width: 273px;
+
+      figcaptions {
+        width: 273px;
+
+        a {
+          color: #126dc1;
+          font-size: 16px;
+          margin-left: auto;
+          margin-right: auto;
+          text-align: center;
+          width: 273px;
+        }
+      }
+    }
   }
 
-  .caption {
-    margin-top: -6px;
-    text-align: center;
-  }
   .grid > div {
     border: none;
+    }
+
+  .gird > figure img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto 
   }
 
   .btn-squared {
-    margin-top: 25px;
     background: transparent;
-    border: 2px solid darkgray;
-    border-radius: 0;
-    min-width: 12em;
+    border-radius: 3px;
+    border: 2px solid #126dc1;
+    color: #126dc1;
+    font-family: Helvetica;
     font-size: 16px;
+    margin-top: 25px;
+    min-width: 12em;
 
     &:hover {
       text-decoration: underline;
@@ -764,7 +896,7 @@ body {
 }
 
 .navigation-toolbar {
-    background: $navbar-bgcolor;
+    background-color: $navbar-bgcolor;
     // margin-top: -20px;
     padding: 10px;
     margin-bottom: 0px;
@@ -787,6 +919,7 @@ footer {
   }
 }  
 
+
 /* TOP NAV BAR */
 
 .navbar {
@@ -798,7 +931,6 @@ footer {
   font-size: 16px;
   font-weight: normal;
 }
-
 
 /* STATIC PAGES */
 
