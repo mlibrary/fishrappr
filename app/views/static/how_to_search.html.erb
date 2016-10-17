@@ -4,59 +4,52 @@
     <%= render partial: 'unified_sidebar' %>
 
   <div class="<%= main_content_classes %> help-middle-col">
-    <h2><%= t('views.static.how-to-search.h2') %></h2>
+    <h2 classs="title"><%= t('views.static.how-to-search.title') %></h2>
     <p>The key ways you can search The Michigan Daily are by keyword and by date. We have provided a robust search experience using these features. This help page will help clarify the options you have when searching this data.</p>
 
-    <h3>Search by Date</h3>
+    <h3 classs="subtitle">Search by Date</h3>
     <p>You have the option to include a date or date range when searching. The “Any date”  option is used by default. Your other options for date search are:</p>
-    <ul class="help-list">
-      <li>On this date - Choose a date to search on. You may also enter just a year and get results for that year only, or a month and year combination to get results for that month and year. This is true for all search options.</li>
-      <li>After this date - Choose a date and retrieve results after that date.</li>
-      <li>Before this date - Choose a date and retrieve results before that date.</li>
-      <li>Date range - Choose a particular date range to search on. </li>
-    </ul>
+    <dl class="help-list">
+      <p><span class="example">On this date </span>Choose a date to search on. You may also enter just a year and get results for that year only, or a month and year combination to get results for that month and year. This is true for all search options.</p>
+      <p><span class="example">After this date </span>Choose a date and retrieve results after that date.</p>
+      <p><span class="example">Before this date </span>Choose a date and retrieve results before that date.</p>
+      <p><span class="example">Date range </span>Choose a particular date range to search on.</p>
+    </dl>
 
-    <h3>Wildcard Search</h3>
+    <h3 classs="subtitle">Wildcard Search</h3>
     <p>Use wildcards in your search to help retrieve a greater range of results. There are two options for wildcard searching:</p>
-    <ul class="help-list">
-      <li>* - the asterisk matches zero or more non-whitespace characters.</li>
-      <ul class="help-sub-list">
-        <li>Example: the search term watch* may return pages containing the terms watch, watches, or watchtower.</li>
-      </ul>
-      <li>? - the question mark wildcard character matches one non-whitespace character.</li>
-       <ul class="help-sub-list">
-        <li>Example: the search term w?tch may return pages containing the terms witch or watch.</li>
-      </ul>
-    </ul>
+    <dl>
+      <dt>*</dt>
+      <dd class="dd_indent">The asterisk matches zero or more non-whitespace characters. <br /><span class="example">Example: </span>The search term watch* may return pages containing the terms watch, watches, or watchtower.</dd>
+      <dt>?</dt>
+      <dd class="dd_indent">The question mark wildcard character matches one non-whitespace character. <br /><span class="example">Example: </span>The search term w?tch may return pages containing the terms witch or watch.</dd>
+    </dl>
 
-    <h3>Boolean Search</h3>
+    <h3 classs="subtitle">Boolean Search</h3>
     <p>You have the option of using boolean operators in your search. These are:</p>
-    <ul class="help-list">
-      <li>AND</li>
-      <ul class="help-sub-list">
-        <li>example: rotc AND military. This will return pages that include the terms rotc as well as military. If a page contains one of these terms but not the other, it will not appear in your search results.</li>
+    <dl class="help-list">
+      <dt>AND</dt>
+      <dd><span class="example">Example: </span>rotc AND military. This will return pages that include the terms rotc as well as military. If a page contains one of these terms but not the other, it will not appear in your search results.</li>
       </ul>
-      <li>OR</li>
-       <ul class="help-sub-list">
-        <li>example: rotc OR military. This will return pages that include the term rotc or military. If a page contains either one of these terms, it will appear in your search results.</li>
+      <dt>OR</dt>
+       <dd><span class="example">Example: </span>rotc OR military. This will return pages that include the term rotc or military. If a page contains either one of these terms, it will appear in your search results.</dd>
       </ul>
-      <li>NOT</li>
-       <ul class="help-sub-list">
-        <li>example: rotc NOT military. This will return pages that include the term rotc but do not include the term military. If a page includes the term military, it will be appear in your search results whether or not it includes the term rotc.</li>
+      <dt>NOT</dt>
+       <dd><span class="example">Example: </span>rotc NOT military. This will return pages that include the term rotc but do not include the term military. If a page includes the term military, it will be appear in your search results whether or not it includes the term rotc.</dd>
       </ul>
-    </ul>
+    </dl>
 
     <p>These operators may be used in conjunction with each other and using quoted keyterms (“small buttons” NOT “large buttons”). Please note that boolean operators must be capitalized to work correctly.</p>
 
-    <h3>What is this strange search result?</h3>
+    <h3 classs="subtitle">What is this strange search result?</h3>
     <p>Sometimes you may notice a page containing terms you know you searched for but were not highlighted, or even false matches. While optical character recognition technology - or OCR - works great on clean text, newspapers can sometimes have stray marks or blurred characters that result in suboptimal character recognition. This is especially common near headers, in classified ads where text is small and close together, and in advertisements. If you notice OCR errors that are negatively affecting your search experience, you can notify us on the “Contact” page and we will investigate.</p>
 
-    <h3>This date doesn’t seem to match the paper…</h3>
+    <h3 classs="subtitle">This date doesn’t seem to match the paper…</h3>
     <p>You may come across a newspaper whose date metadata doesn’t appear to match the date on one or more pages in the newspaper. The Michigan Daily is a student newspaper where many students receive training as journalists, editors, and (another position?). As such, there may be mistakes in some papers. There may be other examples of errors such as this that we will not be able to correct.</p>
 
     <p>However, the <span class="help-highlight">issue date should match the date stated on the front page</span>. If you see examples where this is not the case, please let us know! Please also inform us of any other suspect data or content problems that you may come across so that we may evaluate and correct where necessary.</p>
 
-    <h3>Downloading</h3>
+    <h3 classs="subtitle">Downloading</h3>
     <p>We have provided options for the user to download particular pages in a newspaper or an entire issue.</p>
 
     <p>For the page, you may:</p>

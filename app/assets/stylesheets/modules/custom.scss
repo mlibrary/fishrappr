@@ -147,7 +147,9 @@
 }
 
 #new_contact .btn {
+  color: white;
   margin-left: -15px;
+  margin-bottom: 50px;
 }
 
 p.help-block {
@@ -951,27 +953,6 @@ footer {
 body.blacklight-static,
 body.blacklight-contacts-new,
 body.blacklight-contacts-create {
-  background-color: lightgray;
-}
-
-help-top-row {
-
-  h2, p {
-  }
-}
-
-.help-middle-col {
-  background-color: white;
-}
-
-/* HELP SIDEBAR */
-
-body.blacklight-static-how_to_search,
-body.blacklight-static-using_page_viewer,
-body.blacklight-static-about_daily,
-body.blacklight-static-about_project,
-body.blacklight-static-donors,
-body.blacklight-contacts-new {
   background-color: white;
   color: #6e6e6e;    
   font-family: 'Open Sans', sans-serif;
@@ -979,26 +960,77 @@ body.blacklight-contacts-new {
   line-height: 1.6;
 }
 
+/* HELP MIDDLE COL */
+.help-middle-col {
+  background-color: white;
+  margin-bottom: 15px;
+
+  .title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333333;
+  }
+
+  .subtitle {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333333;
+  }
+
+  dt {
+    display: inline-block;
+    height: 32px;
+    border-radius: 3px;
+    background-color: #e6f3ff;
+    border: solid 1px #cce6ff;
+    vertical-align: middle;
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+  }
+
+  dd {
+    display: inline-block;
+    margin-left: 75px;
+    margin-right: 25px;
+    margin-top: -25px;
+  }
+
+  .example {
+    font-weight: bold;
+  }
+
+}
+
+/* HELP SIDEBAR */
+
 .sidebars {
   border-radius: 4px; 
   border: 1px solid #ddd;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .help-sbar h2 {
+  color: #6e6e6e;
+  font-size: 24px;
+  margin-top: 20px;
+  padding-left: 5px;
 }
 
 .help-ul {
   -webkit-padding-start: 0;
   list-style-type:none;
-  padding: 0;
+  padding: 0 5px 0 5px;
 }
 
 .help-ul li {
   display: block;
-  height: 1.5em;
+  margin-bottom: 10px;
 
   a {
-    color: #666666 !important;
+    color: #6e6e6e !important;
     display: block;
     text-align: left;
     vertical-align: middle;
@@ -1006,12 +1038,19 @@ body.blacklight-contacts-new {
   }
 
   a:hover, a:focus {
-    border-radius: 4px;
+    border-radius: 3px;
     border: 1px solid #337ab7;
+    padding-left: 3px;
+    padding-right: 3px;
+    text-decoration: none;
   }
 
   a.currentlyActive {
-    text-decoration: underline !important;
+    border-radius: 3px;
+    color: white !important;
+    background-color: #337ab7 !important;
+    padding-left: 3px;
+    padding-right: 3px;
   }
 }
 
