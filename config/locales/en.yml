@@ -37,16 +37,20 @@ en:
         zoom_out: '<span class="hidden-xs hidden-sm">Zoom Out </span><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>'
         search_highlights: 'Search Keyword Highlights'
     static:
-      about:
-        title: Help - About
-        header: About Fishrappr
-        donors: 
-          header: Fishrappr Donors
-        about: 
-          header: About Fishrappr
+      about-daily:
+        title: About The Michigan Daily
+      about-archives:
+        title: About The Digital Archives
+      rights:
+        title: Rights Statement
+      donors: 
+        title: About The Kemp Family Foundation
+      using-image-viewer: 
+        title: Using the Image Viewer Page
       contact:
-        title: Help - Contact Us
-        header: Contact Us
+        title: Contact Us
+      how-to-search:
+        title: How to Search the Digital Archives  
       home:
         title: Home Page
         head:
@@ -64,7 +68,5 @@ en:
         today:
           title: This date in The Michigan Daily
           link: Browse Other Issues
-      how-to-search:
-        h2: How to Search
 
 
