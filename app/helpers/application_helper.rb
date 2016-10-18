@@ -1,6 +1,14 @@
 require 'digest'
 module ApplicationHelper
 
+  def publication_root_url
+    if @publication
+      publication_home_url(@publication.slug)
+    else
+      root_url
+    end
+  end
+
   ##
   # Link to the previous document in the current search context
   def link_to_previous_issue_page(previous_document)

@@ -8,7 +8,7 @@
     <dd>Text</dd>
     <dt>Publication:</dt>
     <dd><%= document.fetch('publication_label') %></dd>
-    <% if document.fetch('page_no_t').first %>
+    <% if document.fetch('page_no_t', []).first %>
     <dt>Page Number:</dt>
     <dd><%= document.fetch('page_no_t').first %></dd>
     <% end %>
