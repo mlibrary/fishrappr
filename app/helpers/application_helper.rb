@@ -42,9 +42,13 @@ module ApplicationHelper
   def issue_title(document, complete=false)
     title = document['date_issued_display'].first
     if complete
-      title += " " + document.fetch('issue_vol_iss_display', []).first
+      title += "<span class='hidden-xs'> " + issue_subtitle(document) + '</span>'
     end
-    title
+    title.html_safe
+  end
+
+  def issue_subtitle(document)
+    document.fetch(:issue_vol_iss_display, []).first.gsub(/, ed\. \d+/, '')
   end
 
   def document_to_date_params(document)

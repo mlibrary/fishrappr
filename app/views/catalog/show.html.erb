@@ -15,7 +15,7 @@
             <%= link_back_to_catalog class: 'btn btn-search-primary', label: back_to_results_label %>
           <% end %>
           <a class="btn btn-link btn-issue-link" href="<%= search_catalog_url document_to_date_params(@document) %>">
-            <span><%= issue_title(@document) %></span> 
+            <span><%= issue_title(@document, true) %></span> 
           </a>
           <span class=""><i class="glyphicon glyphicon glyphicon-chevron-right"></i></span>
           <span class="">Image <%= current_image_sequence(@document) %></span>
@@ -36,32 +36,12 @@
 
 <h2 class="sr-only">Page Image</h2>
 <div id="image-viewer-wrap">
-  <div class="image-viewer-toolbar">
-    <div class="container" style="padding: 0">
-      <div class="col-md-3 col-sm-4 hidden-xs" style="white-space: nowrap">
+  <%= render partial: "image_viewer_toolbar_top" %>
 
-        <button class="btn btn-default btn-sm action-rotate-left"><span class="sr-only">Left </span><i class="glyphicon glyphicon-hand-left"></i></button>
-        <label class="sr-only" style="text-align: center; margin-right: 0">Rotate</label>
-        <button class="btn btn-default btn-sm action-rotate-right"><span class="sr-only">Right </span><i class="glyphicon glyphicon-hand-right"></i></button></button>
-        &nbsp;&nbsp;
-        <label><input type="radio" name="toggle-mode" class="action-toggle-mode" value="pan" checked="checked" /> Pan</label>
-        <label><input type="radio" name="toggle-mode" class="action-toggle-mode" value="select" /> Select</label>
-      </div>
-      <div class="col-md-6 col-sm-4 col-xs-6">
-        <div class="zoom-toolbar center-block">
-          <button id="action-zoom-out" class="btn btn-action action-zoom-out"><%= raw(t('views.issue.zoom_out')) %></button>
-          <span class="span-zoom-status">100%</span>
-          <button id="action-zoom-in" class="btn btn-action action-zoom-in"><%= raw(t('views.issue.zoom_in')) %></button>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-4 col-xs-6 align-right">
-        <% if highlights_available? %>
-          <label><input type="checkbox" class="action-toggle-highlight" <%= highlights_visible? ? 'checked="checked"' : '' %> /> <%= t('views.issue.search_highlights') %></label>
-        <% end %>
-      </div>
-    </div>
-  </div>
   <div id="image-viewer" data-words="<%= process_highlighted_words(@document) %>" data-identifier="<%= iiif_identifier(@document) %>" data-highlighting="<%= highlights_visible? ? 'true' : 'false' %>"></div>
+
+  <%= render partial: "image_viewer_toolbar_bottom" rescue nil %>
+
   <p class="sr-only">scanned image of the page</p>
 </div>
 
@@ -75,10 +55,10 @@
       </div>
       <div class="panel-body">
         <div class="btn-group-vertical action-group" role="group">
-          <a class="btn btn-default btn-action action-download-view" href="#"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Download Current View <span class="extension">JPG</span></a>
-          <a class="btn btn-default btn-action" href="<%= download_pdf_link @document, 'page_identifier' %>"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Download PDF <span class="extension">PDF</span></a>
-          <a class="btn btn-default btn-action" download="<%= @document.id %>.jpg" href="<%= document_image_src @document, size: 'full' %>"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Download Image <span class="extension">JPG</span></a></li>
-          <a class="btn btn-default btn-action" href="<%= download_text_solr_document_path @document %>"><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span> Download Text <span class="extension">TXT</span></a></li>
+          <a class="btn btn-default btn-action action-download-view" href="#"><span class="fa fa-file-image-o" aria-hidden="true"></span> Download Current View <span class="extension">JPG</span></a>
+          <a class="btn btn-default btn-action" href="<%= download_pdf_link @document, 'page_identifier' %>"><span class="fa fa-file-pdf-o" aria-hidden="true"></span> Download PDF <span class="extension">PDF</span></a>
+          <a class="btn btn-default btn-action" download="<%= @document.id %>.jpg" href="<%= document_image_src @document, size: 'full' %>"><span class="fa fa-file-image-o" aria-hidden="true"></span> Download Image <span class="extension">JPG</span></a></li>
+          <a class="btn btn-default btn-action" href="<%= download_text_solr_document_path @document %>"><span class="fa fa-file-text-o" aria-hidden="true"></span> Download Text <span class="extension">TXT</span></a></li>
         </div>
       </div>
     </div>
@@ -89,8 +69,8 @@
       </div>
       <div class="panel-body">
         <div class="btn-group-vertical action-group" role="group">
-          <a class="btn btn-default btn-action action-download-pdf" href="<%= download_pdf_link @document, 'issue_identifier' %>"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Download PDF <span class="extension"><%= @issue_data[:pages].size %> pages</span></a>
-          <a class="btn btn-default btn-action" href="<%= download_issue_text_solr_document_path @document %>"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Download Text <span class="extension">ZIP</span></a>
+          <a class="btn btn-default btn-action action-download-pdf" href="<%= download_pdf_link @document, 'issue_identifier' %>"><span class="fa fa-file-pdf-o" aria-hidden="true"></span> Download PDF <span class="extension"><%= @issue_data[:pages].size %> pages</span></a>
+          <a class="btn btn-default btn-action" href="<%= download_issue_text_solr_document_path @document %>"><span class="fa fa-file-archive-o" aria-hidden="true"></span> Download Text <span class="extension">ZIP</span></a>
         </div>
       </div>
     </div>

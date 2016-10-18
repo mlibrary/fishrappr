@@ -75,6 +75,7 @@ class CatalogController < ApplicationController
             'publication_label',
             'issue_no_t',
             'page_no_t',
+            'issue_vol_iss_display',
           ].join(',')
     }
 

@@ -23,10 +23,6 @@
 }
 
 .image-viewer-toolbar {
-    // position: static;
-    // top: 0; // 5px;
-    // left: 0;
-    // right: 0;
     padding-top: 14px; // 5px;
     padding-bottom: 14px; // 5px;
     z-index: 5000;
@@ -45,7 +41,7 @@
         }
     }
 
-    label {
+    label:not(.btn-action) {
         font-size: $font-size-base;
         color: white;
         font-weight: normal;
@@ -70,6 +66,28 @@
         &:hover {
             background: #3d3d3d;
         }
+    }
+}
+
+.image-viewer-toolbar.option-2, .image-viewer-toolbar.option-3 {
+    .btn-action + .btn-action {
+        border-left: 1px solid #333;
+    }
+
+    // label.btn-action + label.btn-action {
+    //     border-left: 2px solid #333;
+    // }
+
+    .btn-action {
+        min-width: 0;
+    }
+
+    .btn-action.active {
+        background-color: darken(#6e6e6e, 10%);
+    }
+
+    .btn-link {
+        color: #fff;
     }
 }
 
@@ -279,6 +297,10 @@
     }
 }
 
+.navigate-issue {
+    white-space: nowrap;
+}
+
 @media (max-width: $screen-xs-max) {
 
     #image-viewer-wrap {
@@ -289,10 +311,10 @@
         min-width: 1em;
     }
 
-    .image-viewer-toolbar div {
-        padding-left: 2px;
-        padding-right: 2px;
-    }
+    // .image-viewer-toolbar div {
+    //     padding-left: 2px;
+    //     padding-right: 2px;
+    // }
 
     .btn-issue-link {
         padding-left: 0;
@@ -308,6 +330,8 @@
             text-align: left;
         }
     }
+
+    .option-3 .center-block { text-align: center; }
 
     .blacklight-catalog-show {
         .navigation-toolbar {
