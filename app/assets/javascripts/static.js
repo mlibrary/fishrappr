@@ -32,7 +32,7 @@ $( document ).ready(function() {
   // Back to top window scroll for catalog index page
   if (true || ("body.blacklight-catalog-index, body.blacklight-catalog-show").length > 0) {
       $(window).scroll(function () {
-          if ($(this).scrollTop() > 50) {
+          if ($(this).scrollTop() > 150) {
               $('#back-to-top').fadeIn();
           } else {
               $('#back-to-top').fadeOut();

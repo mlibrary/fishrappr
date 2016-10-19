@@ -151,7 +151,7 @@
         onSelection: function(rect) {
           var translated = viewer.viewport.imageToViewportRectangle(rect)
           viewer.viewport.fitBounds(translated);
-          $(".action-toggle-mode[value=pan]").prop('checked', true).trigger('change');
+          reset_selection();
         },
         onDownloadSelection: function(rect) {
           var params = [];
@@ -167,12 +167,12 @@
 
           // var translated = viewer.viewport.imageToViewportRectangle(rect)
           // viewer.viewport.fitBounds(translated);
-          $(".action-toggle-mode[value=pan]").prop('checked', true).trigger('change');
+          reset_selection();
         },
         onZoomSelection: function(rect) {
           var translated = viewer.viewport.imageToViewportRectangle(rect)
           viewer.viewport.fitBounds(translated);
-          $(".action-toggle-mode[value=pan]").prop('checked', true).trigger('change');
+          reset_selection();
         }
       })
       F.selection = selection;
@@ -197,7 +197,6 @@
       } else {
         selection.enable();
       }
-      console.log("AHOY MODE", mode);
     })
 
     var rotation_total_time = 1;
@@ -207,6 +206,11 @@
       var next_deg = deg + delta;
       if ( next_deg < 0 ) { next_deg = 360 + next_deg; }
       viewer.viewport.setRotation(next_deg);     
+    }
+
+    var reset_selection = function() {
+      var $parent = $(".action-toggle-mode[value=pan]").prop('checked', true).trigger('change').parents(".btn");
+      $parent.siblings().toggleClass("active").end().addClass("active");
     }
 
     $(".action-rotate-left").on('click', function() {
