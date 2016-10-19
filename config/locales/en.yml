@@ -28,7 +28,7 @@ en:
     catalog:
       fishrappr_panel_title: Search Options
       fishrappr_graph_title: Results Frequency Graph
-      fishrappr_graph_instructions: Put the cursor on a bar to see its page count and click a bar to zoom in on bar data
+      fishrappr_graph_instructions: Hover the cursor over a bar to see its page count and select (click or tap) a bar to zoom in on its data. Bar sizes are relative to the bar with the highest number of results.
     issue:
         next: '<span class="hidden-xs hidden-sm">Next <span class="hidden-sm">Page </span></span><span class="fa fa-arrow-right" aria-hidden="true"></span>'
         previous: '<span class="fa fa-arrow-left" aria-hidden="true"></span><span class="hidden-xs hidden-sm"> Previous<span class="hidden-sm"> Page</span></span>'

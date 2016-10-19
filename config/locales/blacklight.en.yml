@@ -6,6 +6,8 @@ en:
     start_over_search: 'Start Search Over'
     start_over_browse: 'Start Browse Over'
     search:
+      filters:
+          title: 'Current Search'
       page_title:
         title: '%{constraints}%{application_name} - Search Results'
       form:
@@ -23,7 +25,7 @@ en:
       index:
         label: '%{label}'
       facets:
-        title: 'Filter Results by Date Range'
+        title: 'Filter by Date Range Facet'
     range_limit:
       submit_limit: Narrow Results
     show:

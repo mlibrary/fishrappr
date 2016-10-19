@@ -16,7 +16,7 @@
  }
 
 .day0 { 
-  background-color: lightgray;
+  background-color: #e5e5e5;
   color: black;
   display: block;
   font-family: arial;
@@ -28,6 +28,20 @@
   text-align: left;
   white-space: nowrap;
  }
+
+.barfill {
+  position: fixed;
+  background-color: red;
+  color: black;
+  display: block;
+  font-family: arial;
+  font-size: 15px;
+  font-weight: 400;
+  margin-top: 3px;
+  padding: 1px 2px;
+  text-align: left;
+  white-space: nowrap;
+}
 
 .tip {
   background: #fff;
@@ -57,7 +71,7 @@
 #hit_chart_frame {
   // border: 1px solid gray;
   margin: 10px 10px 10px 15px;
-  padding: 20px 0 20px 55px;
+  padding: 10px 0 20px 55px;
   position: relative;
 }
 
@@ -65,7 +79,7 @@
   display: block;
   font-size: 14px;
   font-style: italic;
-  margin: 0 0 30px 0;
+  margin: 0;
 }
 
 #y-axis-title {
