@@ -326,111 +326,194 @@ body.blacklight-catalog-home {
 
 // facet styling
 body.blacklight-catalog-index {
-  form.range_date_issued_yyyymmdd_ti {
 
-    input#range_date_issued_yyyymmdd_ti_begin,
-    input#range_date_issued_yyyymmdd_ti_end {
-      // display: none;
+  h2.facets-heading {
+    display: none;
+    height: 0;
+    width: 0;
+  }
+
+  #sidebar {
+    #appliedParams {
+      background-color: #e5e5e5 !important;
+      margin-top: 20px;
+
+      .constraints-label {
+        display: block;
+        font-family: Helvetica;
+        font-size: 14px;
+        color: #333333;
+        margin: 0 0 5px 0;
+      }
+
+      .constraint-value {
+        background-color: #05a657 !important;
+        color: #ffffff;      
+        font-family: Helvetica;
+        font-size: 16px;
+        padding: 6px 10px;
+        width: 141px;
+      }
+
+      a.dropdown-toggle {
+        background-color: rgba(26,165,90, .36);
+        font-family: Helvetica;
+        font-size: 16px;
+        padding: 6px 10px;
+      }
+
+      a.catalog_startOverLink {
+        background-color: #6e6e6e;
+        border-radius: 3px;
+        box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.36);
+        color: #ffffff;
+        font-family: Helvetica;
+        font-size: 14px;
+        font-weight: normal !important;
+        margin-top: 5px;
+      }
     }
 
-    input[name="commit"] {
-      /*
-      -moz-border-radius: 10px;
-      -webkit-border-radius: 10px;
-      border-radius: 10px; 
-      -khtml-border-radius: 10px;
-      */
-      background-color: gray;
-      border-radius: 4px; 
-      border: 1px solid gray;
-      color: white;
-      font-size: 1em;
-      margin-top: .5em;
+    #searchGraph {
+      background-color: #ffffff;
+      border-radius: 3px; 
+      border: 1px solid #ffffff;
+      color: #337ab7;
+      display: inline-block;
+      font-size: 16px;
+      margin-bottom: 16px;
+      padding: 10px;
       vertical-align: middle;
-    }
 
-    button.range-toggle {
-      background-color: white;
-      border: 1px solid white;
-      color: black;
-      font-size: 1em;
-      height: 2.5em;
-      margin: 0;
-      padding: 0;
-      vertical-align: middle;
+      #hit_instructions {
+        border-top: 2px solid #e5e5e5;
+        color: #555555;
+        padding-top: 5px;
+      }
 
-      span.glyphicon {
-        color: black;
+      h5 {
+        color: #555555;
+        font-family: Helvetica;
+        font-size: 16px;
+      }
+
+      .result-frequency-by-range {
+        color: #126dc1 !important;
       }
     }
 
-    button.range-toggle:hover {
-      color: blue;
-    }
-
-   div.date-query-box {
-
-      margin-left: 0;
-      margin-top: 0;
-      text-align: left;
-
-      div.start-year,
-      div.start-month,
-      div.start-date,
-      div.end-year,
-      div.end-month,
-      div.end-date
-       {
-        display: inline-block;
-        margin: .5em 0 0 0;
-        padding: 0;
-        position: relative;
-
-
-        select#range_start_month,
-        select#range_end_month,
-        select#range_start_date,
-        select#range_end_date {
-          border-radius: 4px; 
-          color: black;
-          font-size: 1em;
-          margin: 0 .2em;
-          text-align: center;
-          vertical-align: middle;
-          width: 4em;
-
-        }
-
-        input#range_start_year,
-        input#range_end_year {
-          border-radius: 4px; 
-          border: 1px solid gray;
-          color: black;
-          font-size: 1em;
-          height: 2em;
-          line-height: 1em;
-          margin: 0;
-          padding: 0;
-          text-align: center;
-          width: 4em;
-        }
-
-        span.hint {
-          bottom: 0px;
-          color: gray;
-          margin: 0;
-          padding: 0;
-          position: absolute;
-          right: -35px;
-        }
-      }
-
-      #dash {
-        display: none;
-      }
+    .facets-heading {
+      color: #555555;
+      font-family: Helvetica;
+      font-size: 16px;
     }
   }
-} // end facet style
+}
+//   form.range_date_issued_yyyymmdd_ti {
+
+//     input#range_date_issued_yyyymmdd_ti_begin,
+//     input#range_date_issued_yyyymmdd_ti_end {
+//       // display: none;
+//     }
+
+//     input[name="commit"] {
+//       /*
+//       -moz-border-radius: 10px;
+//       -webkit-border-radius: 10px;
+//       border-radius: 10px; 
+//       -khtml-border-radius: 10px;
+//       */
+//       background-color: gray;
+//       border-radius: 4px; 
+//       border: 1px solid gray;
+//       color: white;
+//       font-size: 1em;
+//       margin-top: .5em;
+//       vertical-align: middle;
+//     }
+
+//     button.range-toggle {
+//       background-color: white;
+//       border: 1px solid white;
+//       color: black;
+//       font-size: 1em;
+//       height: 2.5em;
+//       margin: 0;
+//       padding: 0;
+//       vertical-align: middle;
+
+//       span.glyphicon {
+//         color: black;
+//       }
+//     }
+
+//     button.range-toggle:hover {
+//       color: blue;
+//     }
+
+//    div.date-query-box {
+
+//       margin-left: 0;
+//       margin-top: 0;
+//       text-align: left;
+
+//       div.start-year,
+//       div.start-month,
+//       div.start-date,
+//       div.end-year,
+//       div.end-month,
+//       div.end-date
+//        {
+//         display: inline-block;
+//         margin: .5em 0 0 0;
+//         padding: 0;
+//         position: relative;
+
+
+//         select#range_start_month,
+//         select#range_end_month,
+//         select#range_start_date,
+//         select#range_end_date {
+//           border-radius: 4px; 
+//           color: black;
+//           font-size: 1em;
+//           margin: 0 .2em;
+//           text-align: center;
+//           vertical-align: middle;
+//           width: 4em;
+
+//         }
+
+//         input#range_start_year,
+//         input#range_end_year {
+//           border-radius: 4px; 
+//           border: 1px solid gray;
+//           color: black;
+//           font-size: 1em;
+//           height: 2em;
+//           line-height: 1em;
+//           margin: 0;
+//           padding: 0;
+//           text-align: center;
+//           width: 4em;
+//         }
+
+//         span.hint {
+//           bottom: 0px;
+//           color: gray;
+//           margin: 0;
+//           padding: 0;
+//           position: absolute;
+//           right: -35px;
+//         }
+//       }
+
+//       #dash {
+//         display: none;
+//       }
+//     }
+//   }
+// } // end facet style
 
 // hide search from search-bar of show page
 body.blacklight-catalog-show div.search {
@@ -572,17 +655,17 @@ body.blacklight-catalog-index {
       }
     }
 
-  div.fishrappr_panel {
-    background-color: #fff;
-    border-radius: 4px; 
-    border: 1px solid #ccc;
-    color: #337ab7;
-    display: inline-block;
-    font-size: 16px;
-    margin-bottom: 1em;
-    padding: 10px;
-    vertical-align: middle;
-  }
+  // div.fishrappr_panel {
+  //   background-color: #fff;
+  //   border-radius: 4px; 
+  //   border: 1px solid #ccc;
+  //   color: #337ab7;
+  //   display: inline-block;
+  //   font-size: 16px;
+  //   margin-bottom: 1em;
+  //   padding: 10px;
+  //   vertical-align: middle;
+  // }
 
   div#sortAndPerPage {
     @include pagination-toolbar;
