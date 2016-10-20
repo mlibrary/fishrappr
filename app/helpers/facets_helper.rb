@@ -14,7 +14,7 @@ module FacetsHelper
       content_tag(:span, facet_display_value(facet_field, item), class: "selected") +
       # remove link
       link_to(remove_href, class: "remove") do
-        content_tag(:span, '', class: "glyphicon glyphicon-remove") +
+        content_tag(:span, '', class: "fa fa-close") +
         content_tag(:span, sr_only_str, class: 'sr-only')
       end
     end + render_facet_count(item.hits, :classes => ["selected"])

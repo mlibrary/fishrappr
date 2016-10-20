@@ -1,7 +1,7 @@
 <% # container for a single doc -%>
 <article class="row document" data-words="<%= process_highlighted_words(document) %>" data-identifier="<%= iiif_identifier(document, 'coordinates_link') %>">
     <span class="row-thumbnail" aria-hidden="true" tabindex="-1">
-        <%= link_to document_thumbnail(document, size: ',250'), url_for_document(document), { tabindex: '-1', class: 'thumbnail loading' , **(document_thumbnail_data(document, size: ',250')) } %>
+        <%= link_to document_thumbnail(document, size: '150,'), url_for_document(document), { tabindex: '-1', class: 'thumbnail loading' , **(document_thumbnail_data(document, size: '150,')) } %>
     </span>
     <span class="row-article-text">
         <%= render partial: '/catalog/index_default.html', locals: { document: document } %>
