@@ -27,13 +27,14 @@ ActiveRecord::Schema.define(version: 20161006141834) do
 
   create_table "issues", force: :cascade do |t|
     t.string   "volume_identifier"
+    t.string   "issue_identifier"
     t.integer  "publication_year"
     t.string   "publication_title"
     t.string   "volume"
-    t.string   "issue_no"
+    t.string   "issue_number"
     t.string   "edition"
     t.string   "date_issued"
-    t.integer  "variant",           default: 1
+    t.integer  "variant_sequence",  default: 1
     t.integer  "pages_count"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
@@ -41,16 +42,20 @@ ActiveRecord::Schema.define(version: 20161006141834) do
   end
 
   add_index "issues", ["id"], name: "index_issues_on_id"
+  add_index "issues", ["issue_identifier"], name: "index_issues_on_issue_identifier"
   add_index "issues", ["publication_id"], name: "index_issues_on_publication_id"
+  add_index "issues", ["volume_identifier"], name: "index_issues_on_volume_identifier"
 
   create_table "pages", force: :cascade do |t|
-    t.string   "page_no"
+    t.string   "page_number"
     t.integer  "issue_sequence"
     t.integer  "volume_sequence"
     t.string   "text_link"
     t.string   "coordinates_link"
     t.string   "image_link"
     t.string   "page_identifier"
+    t.integer  "width"
+    t.integer  "height"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.integer  "issue_id"

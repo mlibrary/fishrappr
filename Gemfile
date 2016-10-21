@@ -37,6 +37,8 @@ gem 'bootbox-rails', '~>0.4'
 gem 'config'
 gem "font-awesome-sass"
 
+gem 'osullivan'
+
 gem 'rubyzip', '>= 1.0.0' # will load new rubyzip version
 
 # Use ActiveModel has_secure_password

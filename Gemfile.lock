@@ -147,6 +147,10 @@ GEM
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
     orm_adapter (0.5.0)
+    osullivan (0.0.3)
+      activesupport (>= 3.2.18)
+      faraday (~> 0.9.0)
+      json
     parser (2.3.1.2)
       ast (~> 2.2)
     parslet (1.7.1)
@@ -311,6 +315,7 @@ DEPENDENCIES
   mail_form
   mysql2
   nestive
+  osullivan
   pry-byebug
   pry-rails
   puma
