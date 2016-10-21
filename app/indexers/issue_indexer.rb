@@ -44,10 +44,10 @@ class IssueIndexer
 
     solr_doc[:volume_identifier] = @issue.volume_identifier
     # solr_doc[:issue_identifier] = "#{d.strftime('%Y-%m-%d')}-#{@issue.variant}-#{@issue.volume_identifier}"
-    solr_doc[:issue_identifier] = "#{@issue.volume_identifier}-#{d.strftime('%Y-%m-%d')}-#{@issue.variant}"
+    solr_doc[:issue_identifier] = @issue.issue_identifier
     solr_doc[:date_issued_display] = dt
-    solr_doc[:issue_no_t] = @issue.issue_no
-    solr_doc[:issue_vol_iss_display] = "(vol. #{@issue.volume}, iss. #{@issue.issue_no}, ed. #{@issue.edition})"
+    solr_doc[:issue_number_t] = @issue.issue_number
+    solr_doc[:issue_vol_iss_display] = "(vol. #{@issue.volume}, iss. #{@issue.issue_number})" # , ed. #{@issue.edition}
     solr_doc[:date_issued_dt] = d
     solr_doc[:date_issued_yyyy_ti] = d.strftime('%Y').to_i
     solr_doc[:date_issued_yyyymm_ti] = d.strftime('%Y%m').to_i
@@ -60,39 +60,18 @@ class IssueIndexer
 
     solr_doc[:publication_link] = publication.slug
     solr_doc[:publication_label] = @issue.publication_title
-    solr_doc[:variant_sequence] = @issue.variant
+    solr_doc[:variant_sequence] = @issue.variant_sequence
     solr_doc[:pages] = []
-    solr_doc[:manifest] = get_image_info(solr_doc[:issue_identifier])
-    pp solr_doc[:manifest]
-
-    # solr_doc[:manifest] = get_image_info
 
     @issue.pages.each do |page|
       solr_doc[:pages] << [
         page.id,
         page.page_identifier,
         page.issue_sequence,
-        page.page_no
+        page.page_number
       ]
     end
     solr_doc
-  end
-
-  def get_image_info(issue_identifier)
-
-    info_href = "#{Rails.configuration.media_service}manifest/#{Rails.configuration.media_collection}?rgn1=issue_identifier&q1=#{issue_identifier}&m_source=1"
-    STDERR.puts info_href
-    image_uri = URI(info_href)
-    response = Net::HTTP.get(image_uri)
-    response = JSON.parse(response)
-    data = {}
-    response['sequences'][0]['canvases'].each do |canvas|
-      # key = (canvas['@id'].split('/')[-3]).split(':')[-1]
-      image_basename = canvas['images'][0]['resource']['service']['@id'].split(':').last
-      data[image_basename] = { 'height' => canvas['height'], 'width' => canvas['width'], }
-    end
-    data
-
   end
 
 

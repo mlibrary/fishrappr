@@ -9,6 +9,35 @@ module ApplicationHelper
     end
   end
 
+  def toggle_highlight_solr_document_path(document)
+    _build_document_url(document, { action: :toggle_highlight })
+  end
+
+  def download_text_solr_document_path(document)
+    _build_document_url(document, { action: :download_text })
+  end
+
+  def download_issue_text_solr_document_path(document)
+    _build_document_url(document, { action: :download_issue_text })
+  end
+
+  def issue_data_solr_document_path(document)
+    _build_document_url(document, { action: :issue_data })
+  end
+
+  def solr_document_path(document, options)
+    _build_document_url(document, options)
+  end
+
+  def solr_document_url(document, options = {})
+    STDERR.puts "AHOY SOLR DOCUMENT URL HACKING: #{options}"
+    _build_document_url(document, options.merge(only_path: false))
+  end
+
+  def _build_document_url(document, options)
+    url_for url_for_document(@document, options)
+  end
+
   ##
   # Link to the previous document in the current search context
   def link_to_previous_issue_page(previous_document)

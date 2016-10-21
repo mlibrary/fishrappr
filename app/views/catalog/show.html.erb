@@ -55,7 +55,7 @@
       </div>
       <div class="panel-body">
         <div class="btn-group-vertical action-group" role="group">
-          <a class="btn btn-default btn-action action-download-view" href="#"><span class="fa fa-file-image-o" aria-hidden="true"></span> Download Current View <span class="extension">JPG</span></a>
+          <a class="btn btn-default btn-action action-download-view" href="#"><span class="fa fa-file-image-o" aria-hidden="true"></span> Download<span class="hidden-sm"> Current</span> View <span class="extension">JPG</span></a>
           <a class="btn btn-default btn-action" href="<%= download_pdf_link @document, 'page_identifier' %>"><span class="fa fa-file-pdf-o" aria-hidden="true"></span> Download PDF <span class="extension">PDF</span></a>
           <a class="btn btn-default btn-action" download="<%= @document.id %>.jpg" href="<%= document_image_src @document, size: 'full' %>"><span class="fa fa-file-image-o" aria-hidden="true"></span> Download Image <span class="extension">JPG</span></a></li>
           <a class="btn btn-default btn-action" href="<%= download_text_solr_document_path @document %>"><span class="fa fa-file-text-o" aria-hidden="true"></span> Download Text <span class="extension">TXT</span></a></li>
@@ -83,7 +83,7 @@
         <form>
           <div class="form-group">
             <label for="permalink sr-only">Permalink for this page</label>
-            <input type="text" class="form-control" id="permalink" value="<%= solr_document_url(@document) %>" readonly="readonly" onclick="this.select()" />
+            <input type="text" class="form-control" id="permalink" value="<%= url_for url_for_document(@document).merge(only_path: false) %>" readonly="readonly" onclick="this.select()" />
           </div>
           <button class="btn btn-action action-copy-permalink">Copy Link</button>
         </form>
