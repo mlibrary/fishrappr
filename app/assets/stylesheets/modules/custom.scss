@@ -1,5 +1,3 @@
-/* CONTACT FORM */
-// @import "globals";
 
 @mixin pagination-toolbar {
   background-color: transparent; // #f5f5f5;
@@ -111,73 +109,11 @@
 
 .hidden { display: none; }
 
-#new_contact label, .contact {
-  display: block;
-  margin-right: 0px;
-  margin-top: 10px;
-  text-align: left;
-  width: 20em;
-}
-
-#new_contact  .checkbox label {
-  margin-top: 12px;
-}
-
-#new_contact  span.spacer {
-  display: block;
-  height: 40px;
-}
-
-#new_contact  textarea {
-  height: 100px;
-  width: 500px;
-}
-
-#new_contact span.error {
-  bolder: solid 2px red;
-  display: inline-block;
-  margin-left: 20px;
-  padding: 4px;
-}
-
-#new_contact div.field_with_errors span.error {
-  font-style: bold italic;
-  font-size: 1.2em;
-}
-
-#new_contact .btn {
-  color: white;
-  margin-left: -15px;
-  margin-bottom: 50px;
-}
-
-p.help-block {
-  font-style: italic;
-  margin-bottom: 0;
-}
-
-#new_contact abbr {
-  display: none;
-}
-
-
-#new_contact .required-tag {
-  background-color: #10788E;
-  border-radius: 0.2rem;
-  bottom: 0.2rem;
-  color: #FFF;
-  display: inline-block;
-  font-size: 0.7rem; // falafel
-  font-size: 90%;
-  font-weight: normal;
-  line-height: 1em;
-  padding: 0.2rem 0.4rem;
-  position: relative;
-  text-shadow: none;
-  vertical-align: super;
-}
-
 /*flash*/
+
+#main-flashes {
+  margin-top: 20px;
+}
 
 .alert-error {
   background-color: #f2dede;

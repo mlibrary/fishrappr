@@ -7,6 +7,7 @@ class Contact < MailForm::Base
   attribute :email, validate: /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i
   attribute :type
   attribute :message, validate: true
+  attribute :referer, validate: false
   # - can't use this without ActiveRecord::Base validates_inclusion_of :issue_type, in: ISSUE_TYPES
 
   # Declare the e-mail headers. It accepts anything the mail method

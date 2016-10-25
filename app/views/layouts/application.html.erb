@@ -36,19 +36,17 @@
         <%= render :partial => 'shared/header_navbar' %>
     <% end %>
 
-  <%= render partial: 'shared/ajax_modal' %>
+    <%= area :main do %>
+      <p>Main content goes here.</p>
+    <% end %>
 
-  <%= area :main do %>
-    <p>Main content goes here.</p>
-  <% end %>
+    <%= render :partial => 'shared/footer' %>
 
-  <%= render :partial => 'shared/footer' %>
-
-  <% if ENV['DEBUG_CSS'] %>
-  <div class="debug-breakpoints visible-xs-block">XS</div>
-  <div class="debug-breakpoints visible-sm-block">SM</div>
-  <div class="debug-breakpoints visible-md-block">MD</div>
-  <div class="debug-breakpoints visible-lg-block">LG</div>
-  <% end %>
+    <% if ENV['DEBUG_CSS'] %>
+    <div class="debug-breakpoints visible-xs-block">XS</div>
+    <div class="debug-breakpoints visible-sm-block">SM</div>
+    <div class="debug-breakpoints visible-md-block">MD</div>
+    <div class="debug-breakpoints visible-lg-block">LG</div>
+    <% end %>
   </body>
 </html>
