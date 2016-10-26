@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   end
 
   get '/browse' => 'catalog#browse', as: :browse
+  get '/search' => 'catalog#search', as: :search
 
   if true
 

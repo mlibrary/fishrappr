@@ -32,10 +32,11 @@ class CatalogController < ApplicationController
     config.document_presenter_class = Fishrappr::DocumentPresenter
 
     # Add actions for splash, about, and donors pages
-    config.add_nav_action(:about, partial: 'shared/nav/about')
+    config.add_nav_action(:search, partial: 'shared/nav/search')    
     config.add_nav_action(:about, partial: 'shared/nav/browse')
     config.add_nav_action(:help, partial: 'shared/nav/help')
     config.add_nav_action(:contact, partial: 'shared/nav/contact')
+
 
     config.index.collection_actions.delete(:view_type_group)
     config.index.collection_actions.delete(:per_page_widget)
