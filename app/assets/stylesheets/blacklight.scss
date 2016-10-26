@@ -90,7 +90,7 @@ span.subtitle {
     font-size: 90%;
 }
 
-// SCSS for index page only
+// SCSS for index page only **************
 .blacklight-catalog-index {
 
     // #documents-list article {
@@ -102,23 +102,31 @@ span.subtitle {
 
     #documents h3 {
         display: inline-block;
+        font-family: 'Open Sans';
+        font-size: 27px;
+        color: #333333;
     }
 
     #documents .row-thumbnail {
         display: inline-block;
-        width: 200px;
+        width: 160px;
         margin-top: 0;
+        margin-left: 10px;
         vertical-align: top;
     }
 
     // Use calc to resize row article text
     #documents .row-article-text {
         display: inline-block;
-        width: calc(100% - 250px);
+        width: calc(100% - 230px);
         padding-left: 20px;
-        
+        font-family: Helvetica;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #333333;
+
         h3 {
-         display: inline-block;
+            display: inline-block;
         }
     }
 
@@ -149,6 +157,8 @@ span.subtitle {
         display: inline-block;
         width: auto;
         height: auto;
+        background-color: #ffffff; // override bootstrap
+        border: 0 solid white;     // override bootstrap
     }
 
     // .thumbnail {
@@ -193,10 +203,12 @@ span.subtitle {
     }
 
     span.subtitle {
-        font-size: 75%;
-        margin-top: 4px;
+        color: #6e6e6e;
         display: block;
-        color: #5c9bd2
+        font-family: 'Open Sans';
+        font-size: 16px;
+        line-height: 1.2;
+        margin-top: 3px;
     }
 
     .caption span.subtitle {
