@@ -3,7 +3,11 @@ namespace :fishrappr do
   desc "Reindex issues"
   # task :reindex_issues, [:volume_identifier] => :environment do |t, args|
   task :reindex_issues => :environment do |t, args|
-    args.extras.each do |volume_identifier|
+    identifiers = args.extras
+    if identifiers.empty?
+      identifiers = Issue.select(:volume_identifier).distinct.collect { |x| x.volume_identifier }
+    end
+    identifiers.each do |volume_identifier|
       STDERR.puts "-- indexing: #{volume_identifier}"
       IssueIndexer.run volume_identifier
     end
@@ -27,14 +31,15 @@ namespace :fishrappr do
   desc "Import volume"
   task :import_volume, [ :publication_slug, :collid ] => :environment do |t, args|
     ingest = DlxsIngest.new(args[:publication_slug], args[:collid])
-    args.extra.each do |volume_identifier|
-      ingest.load volume_identifier
+    PP.pp args.extras, STDERR
+    args.extras.each do |volume_identifier|
+      ingest.fetch_volume volume_identifier
     end
   end
 
   desc "Import volume (old)"
   task :import_volume_old, [ :publication_slug, :input_filename, :testing ] => :environment do |t, args|
-    DailyXmlToDb_v2.new(args[:publication_slug], args[:input_filename], args[:testing]) 
+    DailyXmlToDb_v2.new(args[:publication_slug], args[:input_filename], args[:testing])
   end
 
 end

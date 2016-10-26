@@ -76,6 +76,7 @@ class PageIndexer
   end
 
   def get_full_text(page_identifier, text_link)
+    return "" unless text_link
     resource_url = RepositoryService.dlxs_file_url(text_link)
     resource_uri = URI.parse(resource_url)
 
