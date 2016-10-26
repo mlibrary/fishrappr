@@ -79,5 +79,8 @@ en:
         today:
           title: This date in The Michigan Daily
           link: Browse Other Issues
+  rights_statement: 
+    midaily: "Curabitur vestibulum faucibus mauris ac auctor. Sed consectetur libero vel finibus interdum. Donec et lectus pulvinar, convallis ligula vel, hendrerit purus. Sed id velit nec orci ultricies fringilla. Fusce ac pellentesque ligula. Cras tempor diam dolor, vitae lacinia ipsum convallis non. Pellentesque pharetra semper ex tincidunt eleifend."
+    the-michigan-daily: "Curabitur vestibulum faucibus mauris ac auctor. Sed consectetur libero vel finibus interdum. Donec et lectus pulvinar, convallis ligula vel, hendrerit purus. Sed id velit nec orci ultricies fringilla. Fusce ac pellentesque ligula. Cras tempor diam dolor, vitae lacinia ipsum convallis non. Pellentesque pharetra semper ex tincidunt eleifend."
 
 

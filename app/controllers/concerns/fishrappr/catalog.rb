@@ -93,7 +93,7 @@ module Fishrappr::Catalog
    def download_issue_text(document=nil)      
     @response, @document = fetch params[:id]
     data = get_issue_data(['page_text'])
-    get_page_data(data)   
+    build_issue_zip(data)   
   end
 
   def issue_data
@@ -330,18 +330,18 @@ module Fishrappr::Catalog
       ! ( session[:show_highlight] == false )
     end
 
-    def get_page_data(data)
+    def build_issue_zip(data)
 
       require 'zip'
       require 'tempfile'
 
-      fname =  data[:id]+".zip"
+      fname =  data[:issue_identifier]+".zip"
       tmpname = "tmp_zip.zip"
       tmp_file = Tempfile.new(tmpname)
-      readme_txt = "The Michigan Daily"
+      readme_txt = generate_zip_colophon(data)
       Zip::File.open(tmp_file.path, Zip::File::CREATE) {
         |zipfile|
-        zipfile.get_output_stream(data[:id] + '/' + 'readme.txt') { |f| f.puts readme_txt }
+        zipfile.get_output_stream(data[:id] + '/' + 'README.txt') { |f| f.puts readme_txt }
         data[:pages].each do |page|
           zipfile.get_output_stream(data[:id] + '/' + page[:id] + ".txt") { |f| f.puts page[:page_text] }
         end
@@ -355,7 +355,23 @@ module Fishrappr::Catalog
       @container_fluid ? 'container-fluid' : 'container'
     end
 
-    
+    def generate_zip_colophon(data)
+      buf = []
+      buf << @document.fetch(:publication_label)
+      buf << @document.fetch(:date_issued_display)
+      buf << @document.fetch(:issue_vol_iss_display)
+      buf << ""
+      buf << "#{data[:pages].size} pages"
+      data[:pages].each do |page|
+        buf << "- #{page[:issue_sequence]}: #{page[:id]}.txt"
+      end
+      buf << ""
+      buf << @publication.title
+      buf << @publication.info_link
+      buf << ""
+      buf << t("rights_statement.#{@publication.slug}")
+      buf.join("\n")
+    end
 
     def get_issue_data(flds=[])
       # need to find all the issues for this issue
@@ -381,6 +397,7 @@ module Fishrappr::Catalog
           datum[fld.to_sym] = document[fld]
         end
         datum[:seq] = datum[:volume_sequence] # datum[:text_link].gsub(/[^\d]+/, '').to_i
+        datum[:issue_seq] = datum[:issue_sequence]
         
         data[:pages] << datum
       end
