@@ -53,21 +53,22 @@ module Fishrappr::Catalog
     search_params = current_search_session.try(:query_params)
     search_field = search_params ? search_params["q"] : nil
     @raw_layout = true
-    if params[:id] and search_field
-      @response, @document = fetch_with_highlights params[:id], search_field
+
+    document_id = id(params)
+    STDERR.puts "AHOY : #{document_id}"
+    # mdp.39015071730621-00000083
+    # mdp.39015071730621-00000004
+
+    if document_id and search_field
+      @response, @document = fetch_with_highlights document_id, search_field
       # still fighting with blacklight to build the right kind of query
       # for when the search_field does not apply to this page
       if @document.nil?
-        @response, @document = fetch params[:id]
+        @response, @document = fetch document_id
       end
-    elsif params[:id]
-      @response, @document = fetch params[:id]
-    elsif params[:ht_barcode]
-      @response, @document = fetch_in_context params, search_field
+    elsif document_id
+      @response, @document = fetch document_id
     end
-
-    @subview = get_view
-    @subview = 'plaintext' if @document.fetch('image_link', nil).nil?
 
     respond_to do |format|
       format.html { setup_next_and_previous_documents; setup_next_and_previous_issue_pages; setup_issue_data }
@@ -84,20 +85,20 @@ module Fishrappr::Catalog
   end
 
   def download_text(document=nil)      
-    @response, @document = fetch params[:id]
+    @response, @document = fetch id(params)
     document = @document unless document
     ocr = document.fetch('page_text')
     send_data ocr, filename: document.id+'.txt'
   end
 
    def download_issue_text(document=nil)      
-    @response, @document = fetch params[:id]
+    @response, @document = fetch id(params)
     data = get_issue_data(['page_text'])
     build_issue_zip(data)   
   end
 
   def issue_data
-    @response, @document = fetch params[:id]
+    @response, @document = fetch id(params)
     data = get_issue_data
 
     render json: data
@@ -148,6 +149,20 @@ module Fishrappr::Catalog
     @response = @response.group("date_issued_yyyymm_ti")
   end
 
+  # def volume
+
+  #   # if we do a solr query, then we can re-use the same search result views
+  #   search_params = {
+  #     fl: blacklight_config.default_solr_params[:fl] + ",date_issued_dt,page_abstract",
+  #     fq: [ "volume_identifier:#{params[:volume_identifier]}", "publication_link:#{params[:publication]}", "issue_sequence:1" ],
+  #     sort: "date_issued_dt asc, issue_sequence asc",
+  #     rows: 50,
+  #   }
+
+  #   @response = repository.search(search_params)
+  #   @document_list = @response.documents
+  # end
+
   def home
 
     @now = Time.now
@@ -161,6 +176,14 @@ module Fishrappr::Catalog
   end
 
   # UTILITY
+  def id(params)
+    if params[:id]
+      document_id = params[:id]
+    elsif params[:volume_sequence]
+      document_id = [ params[:volume_identifier], sprintf("%08d", params[:volume_sequence].to_i) ].join('-')
+    end
+    document_id
+  end
 
   def start_new_search_session?
     action_name == 'index' or action_name == 'browse'
@@ -232,16 +255,19 @@ module Fishrappr::Catalog
   def fetch_with_highlights(id, search_query)
     fq = []
     fq_param = {}
-    [ :id ].each do |key|
-      fq << %{#{key}:"#{params[key]}"}
-      fq_param[key.to_s] = params[key]
-    end
+    # [ :id ].each do |key|
+    #   fq << %{#{key}:"#{params[key]}"}
+    #   fq_param[key.to_s] = params[key]
+    # end
+    fq << %{id:"#{id}"}
+    fq_param['id'] = id
+
     if search_query
       builder = ::DocumentSearchBuilder.new(self).with({ 
         :search_field => "advanced",
         :op => 'OR',
         :page_text => search_query,
-        :ht_barcode => params[:ht_barcode] || params[:id].split('-').first,
+        # :ht_barcode => params[:ht_barcode] || params[:id].split('-').first,
         :"controller" => "catalog",
         :"action" => "index",
         :"f" => fq_param,

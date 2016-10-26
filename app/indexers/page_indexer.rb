@@ -11,26 +11,21 @@ class PageIndexer
   def generate_solr_doc(issue_doc)
 
     full_text = get_full_text(@page.page_identifier, @page.text_link)
-    # coordinates_data = get_coordinates_data(issue_doc, @page.coordinates_link)
-
-    # page_identifier = "#{issue_doc[:ht_namespace]}.#{issue_doc[:ht_barcode]}-#{volume_sequence}"
-
-    image_info = get_image_info_from_manifest(issue_doc[:manifest], @page.image_link)
 
     solr_doc = { 
       id: @page.page_identifier, # "#{issue_doc[:volume_identifier]}-#{volume_sequence}",
-      page_no_t:@page.page_no, 
+      page_number_t:@page.page_number, 
       issue_sequence: @page.issue_sequence,
       volume_sequence: @page.volume_sequence,
       page_identifier: @page.page_identifier,
       issue_identifier: issue_doc[:issue_identifier],
       page_label: @page.page_label,
       text_link: @page.text_link, 
-      image_link: @page.image_link, 
+      image_link: @page.image_link,
       coordinates_link: @page.coordinates_link,
       page_text:full_text,
-      image_height_ti: image_info.fetch("height", nil),
-      image_width_ti: image_info.fetch("width", nil),
+      image_height_ti: @page.height,
+      image_width_ti: @page.width,
       prev_page_link: nil,
       next_page_link: nil,
       next_page_sequence_label: nil,
@@ -39,10 +34,8 @@ class PageIndexer
       prev_page_label: nil
     }
 
-    STDERR.puts "??? #{solr_doc[:id]} :: #{solr_doc[:page_label]}"
-
     [ :date_issued_display, 
-      :issue_no_t,
+      :issue_number_t,
       :variant_sequence,
       :date_issued_dt, 
       :issue_id_t, 
@@ -82,34 +75,13 @@ class PageIndexer
     conn.add solr_doc
   end
 
-  def get_data(issue_doc, link, ext)
-    return nil if link.nil?
-    filename = Rails.root.join(
-      Rails.configuration.sdrdataroot, 
-      "#{issue_doc[:ht_namespace]}/#{issue_doc[:ht_barcode]}", 
-      link+ext)
-    if File.exists?(filename)
-      File.read(filename)
-    else
-      nil
-    end
-  end
-
   def get_full_text(page_identifier, text_link)
-    # File.read(Rails.root.join(
-    #   Rails.configuration.sdrdataroot, 
-    #   "#{issue_doc[:ht_namespace]}/#{issue_doc[:ht_barcode]}", 
-    #   text_link+'.txt'))
-    ## get_data(issue_doc, text_link.gsub('TXT', ''), ".txt")
-    resource_uri = "#{Rails.configuration.media_service}file/#{Rails.configuration.media_collection}:#{page_identifier}:#{text_link}"
-    STDERR.puts "== #{resource_uri}"
-    resource_uri = URI.parse(resource_uri)
+    resource_url = RepositoryService.dlxs_file_url(text_link)
+    resource_uri = URI.parse(resource_url)
 
     http = Net::HTTP.new(resource_uri.host, resource_uri.port)
     http.use_ssl = true
     request = Net::HTTP::Get.new(resource_uri.request_uri)
-    PP.pp http, STDERR
-    PP.pp request, STDERR
     response = http.request(request)
 
     # response = Net::HTTP.request_get(resource_uri)
@@ -123,29 +95,5 @@ class PageIndexer
     response
   end
 
-  def get_coordinates_data(issue_doc, coordinates_link)
-    return get_data(issue_doc, coordinates_link.gsub('WORDS', ''), ".js")
-  end
-
-  def get_image_info_from_manifest(manifest, img_link)
-    if manifest[img_link].nil?
-      STDERR.puts "DID NOT FIND: #{img_link}"
-    end
-    manifest[img_link]
-  end
-
-  def get_image_info(page_identifier, img_link)
-    # image_href = "https://beta-3.babel.hathitrust.org/cgi/imgsrv/iiif/#{issue_doc[:ht_namespace]}.#{issue_doc[:ht_barcode]}/#{img_link}/info.json"
-    # return {} if ( img_link.nil? || issue_doc[:manifest].nil? )
-    # key = "#{issue_doc[:ht_barcode]}/#{img_link}"
-    # issue_doc[:manifest][key]
-
-    info_href = "#{Rails.configuration.iiif_service}#{Rails.configuration.media_collection}:#{page_identifier}:#{img_link}/info.json"
-    STDERR.puts info_href
-    image_uri = URI(info_href)
-    response = Net::HTTP.get(image_uri)
-    JSON.parse(response)
-
-  end
 
 end

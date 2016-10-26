@@ -30,8 +30,17 @@ module RepositoryService
     "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/api/image/#{path_info}"
   end
 
+  def self.dlxs_file_url(document)
+    identifier = dlxs_identifier(document)
+    "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/api/file/#{identifier}"
+  end
+
   def self.dlxs_manifest_url(document)
-    "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/api/image/#{dlxs_identifier(document)}/manifest"
+    "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/api/manifest/#{dlxs_identifier(document)}"
+  end
+
+  def self.dlxs_collection_url(document)
+    "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/api/collection/#{dlxs_identifier(document)}"
   end
 
   def self.download_pdf_url(rgn1, q1)
@@ -39,6 +48,8 @@ module RepositoryService
   end
 
   def self.dlxs_identifier(document, fld='image_link')
+    return document if document.is_a?(String)
+    return document.fetch(fld)
     tmp = [ Settings.DLXS_COLLECTION ]
     tmp << document.fetch('page_identifier')
     tmp << document.fetch(fld)
