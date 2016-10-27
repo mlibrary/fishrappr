@@ -39,7 +39,6 @@ en:
         previous: '<span class="sr-only">Previous page arrow button</span><span class="fa fa-arrow-left">'
         next: '<span class="sr-only">Next page arrow button</span><span class="fa fa-arrow-right">'
         truncate: '…'
-
       pagination_compact:
         previous: '<span class="prev-next"><span class="fa fa-arrow-left"></span><span class="hidden-xs"><span class="sr-only">Previous page arrow button</span> Previous<span class="hidden-sm"> page</span></span></span>'
         next: '<span class="prev-next"><span class="hidden-xs"><span class="sr-only">Next page arrow button</span>Next<span class="hidden-sm"> page</span> </span><span class="fa fa-arrow-right"></span></span>'

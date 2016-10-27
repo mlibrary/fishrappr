@@ -36,9 +36,25 @@ class IssueIndexer
   def generate_solr_doc
     solr_doc = {}
 
-    d = @issue.date_issued.to_date
-    pp @issue
-    dt = d.strftime('%B %d, %Y')
+    if @issue.date_issued.end_with?('-00-00')
+      # stupid mysql
+      d = Time.new(@issue.date_issued)
+      dt = d.strftime("%Y")
+    elsif @issue.date_issued.end_with?('-00')
+      d = Time.new(@issue.date_issued)
+      dt = d.strftime("%B %Y")
+    else
+      begin
+        d = @issue.date_issued.to_date
+        dt = d.strftime('%B %d, %Y')
+      rescue
+        d = Date.new(2021, 1, 1)
+        dt = 'SPECIAL EDITION'
+        STDERR.puts "AHOY DATE : #{@issue.issue_identifier} : #{@issue.date_issued}"
+      end
+    end
+
+    # pp @issue
 
     publication = @issue.publication
 
