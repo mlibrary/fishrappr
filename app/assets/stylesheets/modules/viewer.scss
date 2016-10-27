@@ -215,7 +215,7 @@
 
 .action-group {
     width: 100%;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
 
     .btn {
         text-align: left;
@@ -234,6 +234,10 @@
         .btn {
             margin-bottom: 10px;
         }
+    }
+
+    form {
+        margin-bottom: 20px;
     }
 }
 
@@ -261,9 +265,35 @@
     }
 }
 
+.blacklight-catalog-show {
+    .panel-actions-share, .panel-actions-issue {
+        margin-bottom: 2px;
+    }
+
+    .panel-actions-share, .panel-actions-contact {
+        padding-top: 15px;
+    }
+
+    .panel-actions-contact a {
+        color: #333333;
+        color: var(--black);
+        text-decoration: underline;
+    }
+}
+
 .document .dl-horizontal {
     dt {
         text-align: left;
+    }
+}
+
+.label.label-note {
+    background: #f2f2f2;
+    color: #4e4e4e;
+
+    a {
+        text-decoration: underline;
+        color: #666;
     }
 }
 

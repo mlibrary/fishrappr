@@ -20,7 +20,7 @@
         <% if highlights_available? %>
           <label><input type="checkbox" class="action-toggle-highlight" <%= highlights_visible? ? 'checked="checked"' : '' %> /> <%= raw t('views.issue.search_highlights') %></label>
         <% end %>
-        <a href="<%= contacts_path type: 'image' %>" class="btn btn-primary action-report-problem" style="color: #fff"><i class="fa fa-exclamation-triangle"></i> Report Problem</a>
+        <a href="<%= contacts_path type: 'image' %>" class="btn btn-action action-report-problem" style="color: #fff"><i class="fa fa-exclamation-triangle"></i> Report Problem</a>
       </div>
 
     </div>
