@@ -48,7 +48,12 @@ module RepositoryService
   end
 
   def self.dlxs_identifier(document, fld='image_link')
-    return document if document.is_a?(String)
+    if document.is_a?(String)
+      unless document.start_with?(Settings.DLXS_COLLECTION)
+        document = [ Settings.DLXS_COLLECTION, document, '1' ].join(':')
+      end
+      return document
+    end
     return document.fetch(fld)
     tmp = [ Settings.DLXS_COLLECTION ]
     tmp << document.fetch('page_identifier')

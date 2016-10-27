@@ -1,6 +1,55 @@
-require 'iiif/presentation'
-require 'iiif/service'
+# require 'iiif/presentation'
+# require 'iiif/service'
 require 'pp'
+
+module IIIF
+
+  class Nop
+    attr_accessor :data
+    def initialize(data)
+      @data = data
+    end
+
+    def collections
+      @data['collections']
+    end
+
+    def sequences
+      @data['sequences']
+    end
+
+    def metadata
+      @data['metadata']
+    end
+
+    def manifests
+      @data['manifests']
+    end
+
+    def see_also
+      @data['seeAlso']
+    end
+
+    def images
+      @data['images']
+    end
+
+    def height
+      @data['height']
+    end
+
+    def width
+      @data['width']
+    end
+  end
+
+  class Service
+    attr_accessor :data
+    def self.parse(response)
+      ob = Nop.new(JSON.parse(response))
+    end
+  end
+end
 
 class DlxsIngest
 
@@ -14,14 +63,21 @@ class DlxsIngest
     collection_url = RepositoryService.dlxs_collection_url(@collid)
     response = fetch_data(collection_url)
     collection = IIIF::Service.parse(response)
-    collection.collections.each do |member|
+    t0 = Time.now
+    tdelta = t0
+    total = collection.collections.size
+    collection.collections.each_with_index do |member, member_idx|
       fetch_volume(member['@id'])
+      STDERR.puts "-- #{Time.now - tdelta} : #{member_idx} / #{total} : #{member['@id']}"
+      tdelta = Time.now
     end
+    STDERR.puts "-- #{Time.now - t0} : EOT"
   end
 
   def fetch_volume(volume_identifier)
     volume_url = service_collection_url(volume_identifier)
     volume_collection = IIIF::Service.parse(fetch_data(volume_url))
+
 
     # delete all the issues because the issue manifests may have changed
     Issue.where(volume_identifier: local_identifier(volume_identifier)).destroy_all
@@ -65,20 +121,21 @@ class DlxsIngest
     issue = Issue.create \
       volume_identifier: metadata[:volume_identifier],
       issue_identifier: metadata[:issue_identifier],
-      volume: metadata[:volume], 
+      volume: metadata[:issue_volume], 
       issue_number: metadata[:issue_number], 
-      edition: metadata[:edition], 
-      date_issued: metadata[:date_issued], 
+      edition: metadata[:issue_edition], 
+      date_issued: metadata[:date_issued],
+      publication_year: Time.new(metadata[:date_issued]).strftime("%Y"),
       variant_sequence: metadata[:variant_sequence].to_i, 
       publication_title: metadata[:publication_title],
-      publication: @publication, 
+      publication: @publication
 
     t0 = Time.now
     num_processed = 0
     manifest.sequences.each do |sequence|
-      sequence.canvases.each do |canvas|
+      sequence['canvases'].each do |canvas|
         # each page is a canvas
-        page = build_page(canvas, issue)
+        page = build_page(IIIF::Nop.new(canvas), issue)
         num_processed += 1
       end
     end
@@ -102,7 +159,8 @@ class DlxsIngest
       coordinates_link = File.basename(coordinates_link['@id'])
     end
 
-    image_link = File.basename(canvas.images.first.resource['@id'])
+    # image_link = File.basename(canvas.images.first.resource['@id'])
+    image_link = File.basename(canvas.images.first['resource']['@id'])
 
     page = Page.create \
       issue: issue,
@@ -131,7 +189,9 @@ class DlxsIngest
   end
 
   def local_identifier(identifier)
-    File.basename(identifier).split(":")[1]
+    tmp = File.basename(identifier).split(":")
+    return tmp[1] if tmp.size == 3
+    tmp[0]
   end
 
 end
