@@ -5,9 +5,27 @@ namespace :fishrappr do
   task :reindex_issues => :environment do |t, args|
     identifiers = args.extras
     if identifiers.empty?
-      identifiers = Issue.select(:volume_identifier).distinct.collect { |x| x.volume_identifier }
+      identifiers = Issue.select(:volume_identifier).distinct.collect { |x| x.volume_identifier }.sort
     end
+    total = identifiers.size
+    identifiers.each_with_index do |volume_identifier, i|
+      STDERR.puts "-- indexing: #{i}/#{total} : #{volume_identifier}"
+      IssueIndexer.run volume_identifier
+    end
+  end
+
+  desc "Reindex from"
+  task :reindex_issues_from, [ :start ] => :environment do |t, args|
+    identifiers = args.extras
+    if identifiers.empty?
+      identifiers = Issue.select(:volume_identifier).distinct.collect { |x| x.volume_identifier }.sort
+    end  
+    do_skip = true  
     identifiers.each do |volume_identifier|
+      if volume_identifier == args[:start]
+        do_skip = false
+      end
+      next if do_skip
       STDERR.puts "-- indexing: #{volume_identifier}"
       IssueIndexer.run volume_identifier
     end
