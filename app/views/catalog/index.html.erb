@@ -22,5 +22,7 @@
 
 
 <script>
-  $(".row-article-text p").shave(150);
+  if ( window.location.href.indexOf("noskip=1") < 0 ) {
+    $(".row-article-text p").shave(150);    
+  }
 </script>
