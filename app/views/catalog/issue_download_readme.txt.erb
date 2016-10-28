@@ -1,0 +1,16 @@
+<%= publication_label %>
+<%= date_issued_display %>
+<%= issue_vol_iss_display %>
+
+<%=  "#{data[:pages].size} pages" %>
+<% data[:pages].each do |page| %>
+<%=  "- #{page[:issue_sequence]}: #{page[:id]}.txt" %>
+<% end %>
+
+<%=  publication_title %>
+<%=  publication_info_link %>
+
+<%=  word_wrap(t(rights_statement_key)) %>
+
+
+
