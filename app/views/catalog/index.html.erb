@@ -23,6 +23,9 @@
 
 <script>
   if ( window.location.href.indexOf("noskip=1") < 0 ) {
-    $(".row-article-text p").shave(150);    
+    $(".row-article-text p").each(function() {
+      $(this).shave(150);
+    })
+    //$(".row-article-text p").shave(150);
   }
 </script>
