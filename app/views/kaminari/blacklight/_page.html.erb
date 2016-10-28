@@ -7,7 +7,7 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<li class="<%= 'active' if page.current? %>">
+<li class="<%= 'active' if page.current? %> <%= 'hidden-xs hidden-sm' unless ( page.current? or page.inside_window? ) %>">
   <% if page.current? %>
     <span><%= number_with_delimiter(page.to_s) %></span>
   <% else %>

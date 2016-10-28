@@ -1226,3 +1226,29 @@ body.blacklight-contacts-create {
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}
 }
+
+@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+
+  body.blacklight-catalog-index {
+
+    .page-links {
+      white-space: nowrap;
+    }
+
+    > .container {
+      margin-right: auto;
+      margin-left: auto;
+      padding: 0 15px;
+      width: 100%;
+
+      > .row {
+        margin: 0;
+      }
+
+      // do not do this if we're hiding elements
+      // .pagination {
+      //   margin: 0 -15px;
+      // }
+    }
+  }
+}
