@@ -235,13 +235,14 @@ module ApplicationHelper
     seen = Hash.new(0)
     Array(texts).each do |text|
       next if text.strip.blank?
+      text = text.truncate(450) # less jiggering in results view
 
       text.scan(/\[\[\[([^\]]+)\]\]\]/).each do |match|
         counter[match.first.downcase] += 1
       end
 
       do_skip = counter.each.collect { |match, value| value > 2 && seen[match] > 0 }.index(true)
-      do_skip = false if params[:noskip]
+      # do_skip = false if params[:noskip]
       next if do_skip
 
       counter.keys.each { |key| seen[key] += 1 }
