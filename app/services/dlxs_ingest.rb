@@ -78,7 +78,6 @@ class DlxsIngest
     volume_url = service_collection_url(volume_identifier)
     volume_collection = IIIF::Service.parse(fetch_data(volume_url))
 
-
     # delete all the issues because the issue manifests may have changed
     Issue.where(volume_identifier: local_identifier(volume_identifier)).destroy_all
 
@@ -159,9 +158,9 @@ class DlxsIngest
       coordinates_link = File.basename(coordinates_link['@id'])
     end
 
+
     # image_link = File.basename(canvas.images.first.resource['@id'])
     image_link = File.basename(canvas.images.first['resource']['@id'])
-
     page = Page.create \
       issue: issue,
       height: canvas.height,
