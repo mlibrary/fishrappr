@@ -76,19 +76,29 @@
     </div>
 
     <div class="panel panel-actions-share">
-      <div class="panel-heading">
+      <div class="panel-heading sr-only">
         <h3>Share</h3>
       </div>
       <div class="panel-body">
         <form>
           <div class="form-group">
-            <label for="permalink sr-only">Permalink for this page</label>
+            <label for="permalink">Permalink for this page</label>
             <input type="text" class="form-control" id="permalink" value="<%= url_for url_for_document(@document).merge(only_path: false) %>" readonly="readonly" onclick="this.select()" />
           </div>
           <button class="btn btn-action action-copy-permalink">Copy Link</button>
         </form>
       </div>
     </div>
+
+    <div class="panel panel-actions-contact">
+      <div class="panel-heading sr-only">
+        <h3>Something wrong?</h3>
+      </div>
+      <div class="panel-body">
+        <p>Something wrong with this page? <a href="<%= contacts_path type: 'content' %>">Report problem.</a></p>
+      </div>
+    </div>
+
   </div>
   <div class="col-md-8 col-md-pull-4 col-sm-8 col-sm-pull-4 col-xs-12">
     <div id="document" class="document <%= render_document_class %>" itemscope  itemtype="<%= @document.itemtype %>" style="background: white; padding: 20px">
