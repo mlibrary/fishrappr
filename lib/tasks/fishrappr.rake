@@ -49,24 +49,15 @@ namespace :fishrappr do
   desc "Import volume"
   task :import_volume, [ :publication_slug, :collid ] => :environment do |t, args|
     ingest = DlxsIngest.new(args[:publication_slug], args[:collid])
-<<<<<<< HEAD
-    args.extra.each do |volume_identifier|
-      ingest.load volume_identifier
-=======
     PP.pp args.extras, STDERR
     args.extras.each do |volume_identifier|
       ingest.fetch_volume volume_identifier
->>>>>>> 2a3006f8aab11a2ded08244627af02f340e8359f
     end
   end
 
   desc "Import volume (old)"
   task :import_volume_old, [ :publication_slug, :input_filename, :testing ] => :environment do |t, args|
-<<<<<<< HEAD
-    DailyXmlToDb_v2.new(args[:publication_slug], args[:input_filename], args[:testing]) 
-=======
     DailyXmlToDb_v2.new(args[:publication_slug], args[:input_filename], args[:testing])
->>>>>>> 2a3006f8aab11a2ded08244627af02f340e8359f
   end
 
 end
