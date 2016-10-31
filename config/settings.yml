@@ -4,3 +4,19 @@ permissions_address: "bhl-student-pub-contact@umich.edu"
 
 DLXS_COLLECTION: "bhl_midaily"
 DLXS_SERVICE_URL: "https://path/to/service/host"
+
+icons:
+  rotate_left: "rotate-left"
+  rotate_right: "rotate-right"
+  zoom_in: "plus"
+  zoom_out: "minus"
+  pan: "arrow-expand-all"
+  select: "select"
+  alert: "alert"
+
+fa:
+  rotate_left: "refresh"
+  rotate_right: "undo"
+  pan: "arrows"
+  select: "crop"
+  alert: "exclamation-triangle"

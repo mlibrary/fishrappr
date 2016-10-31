@@ -36,6 +36,7 @@ gem 'bootbox-rails', '~>0.4'
 
 gem 'config'
 gem "font-awesome-sass"
+gem 'material_design_icons'
 
 gem 'osullivan'
 

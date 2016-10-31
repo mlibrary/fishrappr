@@ -30,7 +30,6 @@ module ApplicationHelper
   end
 
   def solr_document_url(document, options = {})
-    STDERR.puts "AHOY SOLR DOCUMENT URL HACKING: #{options}"
     _build_document_url(document, options.merge(only_path: false))
   end
 
