@@ -213,15 +213,16 @@ module ApplicationHelper
     return @document["page_text"].first 
   end
 
-  def render_plain_text(document, field, breaks=true)
+  def render_plain_text(document, field, breaks: true, truncate: true)
     retval = []
     texts = nil
     search_params = current_search_session.try(:query_params) 
     search_field = search_params ? search_params["q"] : nil
+    STDERR.puts "AHOY PLAIN TEXT : #{truncate}"
     if document.has_highlight_field?(field)
       texts = document.highlight_field(field)
       if search_field.blank?
-        texts.collect!{|text| text.truncate(750)}
+        texts.collect!{|text| text.truncate(750) if truncate}
       end
     elsif breaks and document.fetch('page_text', nil)
       texts = document.fetch(field)
@@ -234,7 +235,7 @@ module ApplicationHelper
     seen = Hash.new(0)
     Array(texts).each do |text|
       next if text.strip.blank?
-      text = text.truncate(450) # less jiggering in results view
+      text = text.truncate(450) if truncate # less jiggering in results view
 
       text.scan(/\[\[\[([^\]]+)\]\]\]/).each do |match|
         counter[match.first.downcase] += 1
