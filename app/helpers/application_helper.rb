@@ -41,8 +41,8 @@ module ApplicationHelper
   # Link to the previous document in the current search context
   def link_to_previous_issue_page(previous_document)
     link_opts = { class: 'btn btn-page-navigation' }
-    link_to_unless previous_document.nil?, raw(t('views.issue.previous')), url_for_document(previous_document), link_opts do
-      content_tag :span, raw(t('views.issue.previous')), :class => 'btn btn-page-navigation endpoint'
+    link_to_unless previous_document.nil?, use_icon('previous') + " " + raw(t('views.issue.previous')), url_for_document(previous_document), link_opts do
+      content_tag :span, use_icon('previous') + " " + raw(t('views.issue.previous')), :class => 'btn btn-page-navigation endpoint'
     end
   end
 
@@ -50,8 +50,8 @@ module ApplicationHelper
   # Link to the next document in the current search context
   def link_to_next_issue_page(next_document)
     link_opts = { class: 'btn btn-page-navigation' }
-    link_to_unless next_document.nil?, raw(t('views.issue.next')), url_for_document(next_document), link_opts do
-      content_tag :span, raw(t('views.issue.next')), :class => 'btn btn-page-navigation endpoint'
+    link_to_unless next_document.nil?, raw(t('views.issue.next')) + " " + use_icon('next'), url_for_document(next_document), link_opts do
+      content_tag :span, raw(t('views.issue.next')) + " " + use_icon('next'), :class => 'btn btn-page-navigation endpoint'
     end
   end
 
@@ -299,9 +299,9 @@ module ApplicationHelper
     search_params = current_search_session.try(:query_params) || {}
     return if search_params.blank?
     if search_params[:action] == 'browse'
-      t('blacklight.back_to_browse_html')
+      use_icon('previous') + " " + t('blacklight.back_to_browse_html')
     else
-      t('blacklight.back_to_search_html')
+      use_icon("previous") + " " + t('blacklight.back_to_search_html')
     end
   end
 

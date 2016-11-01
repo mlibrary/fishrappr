@@ -311,7 +311,7 @@ body.blacklight-catalog-index {
       background-color: #126dc1;
       border: solid 2px #0c5292;
       margin-left: 3px;
-      margin-right: 3px;    
+      margin-right: 3px;
     }
 
     .gap-truncate {
@@ -325,6 +325,11 @@ body.blacklight-catalog-index {
       border: solid 2px #126dc1;
       background-color: rgb(242,242,242);
       width: 56px;
+    }
+
+    // --- different padding needed for MD
+    a.next, a.prev {
+      padding: 8px 9px;
     }
 
     &.active span {
@@ -354,6 +359,7 @@ body.blacklight-catalog-index {
         font-size: 16px;
         padding: 6px 10px;
         width: 141px;
+        text-align: left;
 
         .filterName:after {
           color: white;
@@ -364,7 +370,8 @@ body.blacklight-catalog-index {
         background-color: rgba(26,165,90, .36);
         font-family: $sys-font-family;
         font-size: 16px;
-        padding: 6px 10px;
+        padding: 6px 10px; // --- disable for MD
+        padding-bottom: 5px; // --- for icomoon font
       }
 
       a.catalog_startOverLink {
@@ -1206,6 +1213,10 @@ body.blacklight-contacts-create {
   background: rgba(0,0,0, 0.25);
   color: white;
   font-weight: bold;
+}
+
+.mdi {
+  vertical-align: middle;
 }
 
 .mdi-set.mdi-16px,

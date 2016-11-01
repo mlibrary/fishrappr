@@ -80,7 +80,7 @@ $( document ).ready(function() {
         }
     }
 
-    $button.find(".glyphicon").toggleClass('hidden');
+    $button.find(".icon_16px").toggleClass('hidden');
     $("body").css("cursor", "wait");
 
     return true;

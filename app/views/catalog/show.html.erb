@@ -17,7 +17,7 @@
           <a class="btn btn-link btn-issue-link" href="<%= search_catalog_url document_to_date_params(@document) %>">
             <span><%= issue_title(@document, true) %></span> 
           </a>
-          <span class=""><i class="glyphicon glyphicon glyphicon-chevron-right"></i></span>
+          <span class=""><%= use_icon('divider') %></span>
           <span class="">Image <%= current_image_sequence(@document) %></span>
         </div>
         <div class="col-md-5 col-sm-5 col-xs-12 navigate-pages">
@@ -53,10 +53,10 @@
       </div>
       <div class="panel-body">
         <div class="btn-group-vertical action-group" role="group">
-          <a class="btn btn-default btn-action action-download-view" href="#"><span class="fa fa-file-image-o" aria-hidden="true"></span> Download<span class="hidden-sm"> Current</span> View <span class="extension">JPG</span></a>
-          <a class="btn btn-default btn-action" href="<%= download_pdf_link @document, 'page_identifier' %>"><span class="fa fa-file-pdf-o" aria-hidden="true"></span> Download PDF <span class="extension">PDF</span></a>
-          <a class="btn btn-default btn-action" download="<%= @document.id %>.jpg" href="<%= document_image_src @document, size: 'full' %>"><span class="fa fa-file-image-o" aria-hidden="true"></span> Download Image <span class="extension">JPG</span></a></li>
-          <a class="btn btn-default btn-action" href="<%= download_text_solr_document_path @document %>"><span class="fa fa-file-text-o" aria-hidden="true"></span> Download Text <span class="extension">TXT</span></a></li>
+          <a class="btn btn-default btn-action action-download-view" href="#"><%= use_icon('file_image') %> Download<span class="hidden-sm"> Current</span> View <span class="extension">JPG</span></a>
+          <a class="btn btn-default btn-action" href="<%= download_pdf_link @document, 'page_identifier' %>"><%= use_icon('file_pdf') %> Download PDF <span class="extension">PDF</span></a>
+          <a class="btn btn-default btn-action" download="<%= @document.id %>.jpg" href="<%= document_image_src @document, size: 'full' %>"><%= use_icon('file_image') %> Download Image <span class="extension">JPG</span></a></li>
+          <a class="btn btn-default btn-action" href="<%= download_text_solr_document_path @document %>"><%= use_icon('file_text') %> Download Text <span class="extension">TXT</span></a></li>
         </div>
       </div>
     </div>
@@ -67,8 +67,8 @@
       </div>
       <div class="panel-body">
         <div class="btn-group-vertical action-group" role="group">
-          <a class="btn btn-default btn-action action-download-pdf" href="<%= download_pdf_link @document, 'issue_identifier' %>"><span class="fa fa-file-pdf-o" aria-hidden="true"></span> Download PDF <span class="extension"><%= @issue_data[:pages].size %> pages</span></a>
-          <a class="btn btn-default btn-action" href="<%= download_issue_text_solr_document_path @document %>"><span class="fa fa-file-archive-o" aria-hidden="true"></span> Download Text <span class="extension">ZIP</span></a>
+          <a class="btn btn-default btn-action action-download-pdf" href="<%= download_pdf_link @document, 'issue_identifier' %>"><%= use_icon('file_pdf') %> Download PDF <span class="extension"><%= @issue_data[:pages].size %> pages</span></a>
+          <a class="btn btn-default btn-action" href="<%= download_issue_text_solr_document_path @document %>"><%= use_icon('file_zip') %> Download Text <span class="extension">ZIP</span></a>
         </div>
       </div>
     </div>

@@ -11,13 +11,10 @@
  * file per style scope.
  *
  *= require 'blacklight_advanced_search'
- *= require 'materialdesignicons'
 */
 
 @import 'blacklight';
 @import 'fishrappr';
-@import "font-awesome-sprockets";
-@import 'font-awesome';
-
-/*
- */
+// @import "font-awesome-sprockets";
+// @import 'font-awesome';
+@import '_fishrappr-icons.scss';

@@ -41,8 +41,8 @@ en:
       prompts:
         image: "Does something seem wrong with the image? Upside down or Rotated?"
     issue:
-        next: '<span class="hidden-xs hidden-sm">Next <span class="hidden-sm">Page </span></span><span class="fa fa-arrow-right" aria-hidden="true"></span>'
-        previous: '<span class="fa fa-arrow-left" aria-hidden="true"></span><span class="hidden-xs hidden-sm"> Previous<span class="hidden-sm"> Page</span></span>'
+        next: '<span class="hidden-xs hidden-sm">Next <span class="hidden-sm">Page </span></span>'
+        previous: '<span class="hidden-xs hidden-sm"> Previous<span class="hidden-sm"> Page</span></span>'
 
         zoom_in: '<span class="hidden-xs hidden-sm"> Zoom In </span>'
         zoom_out: '<span class="hidden-xs hidden-sm">Zoom Out </span>'
