@@ -1,0 +1,88 @@
+@font-face {
+  font-family: 'michigan_daily';
+  src:  font-url('michigan_daily.eot?q1zofd');
+  src:  font-url('michigan_daily.eot?q1zofd#iefix') format('embedded-opentype'),
+    font-url('michigan_daily.ttf?q1zofd') format('truetype'),
+    font-url('michigan_daily.woff?q1zofd') format('woff'),
+    font-url('michigan_daily.svg?q1zofd#michigan_daily') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon_"], [class*=" icon_"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'michigan_daily' !important;
+  speak: none;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  vertical-align: text-top;
+  position: relative;
+  display: inline-block;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon_rotate_left:before {
+  content: "\e419";
+}
+.icon_rotate_right:before {
+  content: "\e41a";
+}
+.icon_arrow_all:before {
+  content: "\e900";
+}
+.icon_selection:before {
+  content: "\e901";
+}
+.icon_text_file:before {
+  content: "\e873";
+}
+.icon_image_file:before {
+  content: "\e410";
+}
+.icon_pdf:before {
+  content: "\e24d";
+}
+.icon_search:before {
+  content: "\e8b6";
+}
+.icon_info_outline:before {
+  content: "\e88f";
+}
+.icon_warning:before {
+  content: "\e002";
+}
+.icon_close:before {
+  content: "\e5cd";
+}
+.icon_add:before {
+  content: "\e145";
+}
+.icon_remove:before {
+  content: "\e15b";
+}
+.icon_arrow_back:before {
+  content: "\e5c4";
+}
+.icon_arrow_forward:before {
+  content: "\e5c8";
+}
+.icon_keyboard_arrow_down:before {
+  content: "\e313";
+}
+.icon_keyboard_arrow_left:before {
+  content: "\e314";
+}
+.icon_keyboard_arrow_right:before {
+  content: "\e315";
+}
+.icon_keyboard_arrow_up:before {
+  content: "\e316";
+}
+

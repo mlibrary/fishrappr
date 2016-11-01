@@ -1,10 +1,10 @@
-<% @page_title = t('views.static.faq.title') %>
+<% @page_title = t('views.static.rights.title') %>
 
 <div class="container-fluid">
     <%= render partial: 'unified_sidebar' %>
 
   <div class="<%= main_content_classes %> help-middle-col">
-    <h2 classs="title"><%= t('views.static.rights.title') %></h2>
-    <p>This collection, digitized in collaboration with the <em>Michigan Daily</em> and the Board of Student Publications, contains materials that are protected by copyright law. The Bentley Library provides access to digital collections where materials are in the public domain or the Bentley Library is permitted to provide access to the materials, either by the rightsholder or by copyright law. If you use an item from this collection, it is your responsibility to consider the work’s copyright status and obtain any required permission. If you have concerns about the inclusion of an item in this collection, please contact the Bentley Historical Library at bentley.ref@umich.edu. PERHAPS THIS SHOULD LINK TO THE CONTACT US PAGE</p>
+    <h2 class="title"><%= t('views.static.rights.header') %></h2>
+    <p>This collection, digitized in collaboration with the <em>Michigan Daily</em> and the Board of Student Publications, contains materials that are protected by copyright law. The Bentley Library provides access to digital collections where materials are in the public domain or the Bentley Library is permitted to provide access to the materials, either by the rightsholder or by copyright law. If you use an item from this collection, it is your responsibility to consider the work’s copyright status and obtain any required permission. If you have concerns about the inclusion of an item in this collection, please contact the Bentley Historical Library here: <a href="<%= contacts_path type: 'permissions' %>">Permissions Issues.</a></p>
 
 </div>

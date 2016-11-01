@@ -40,6 +40,15 @@
     // margin-right: auto;
     width: auto;
 
+    a {
+      &:hover, &:focus {
+        // background: #ddd;
+        padding-top: 10px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid black;
+      }
+    }
+
     span.page_entries {
         -khtml-border-radius: 3px;
         -moz-border-radius: 3px;
@@ -52,6 +61,7 @@
         display: inline-block;
         font-size: 16px;
         line-height: 2.1;
+        margin-left: 10px;
         margin-right: 10px;
         padding: 0 10px;
         vertical-align: middle;
@@ -61,15 +71,23 @@
       margin-left: 10px;
     }
 
+     a > span.prev-next {
+      color: #126dc1;
+     }
+
      span.prev-next {
       color: #333333;
       display: inline-block;
       font-family: $sys-font-family;
       font-size: 16px;
       line-height: 2.1;
-      min-width: 140px;
-      text-align: center;
+      // min-width: 140px;
+      text-align: right;
       vertical-align: middle;
+
+      &:last-of-type {
+        text-align: left;
+      }
 
      }
 
@@ -305,13 +323,14 @@ body.blacklight-catalog-index {
   }
 
   .pagination > li {
-    a {
-      color: white;
+    a, > span {
+      color: $link-color;
       border-radius: 3px;
-      background-color: #126dc1;
-      border: solid 2px #0c5292;
+      background-color: rgb(242,242,242);
+      // border: solid 2px #0c5292;
+      border: solid 2px $link-color;
       margin-left: 3px;
-      margin-right: 3px;    
+      margin-right: 3px;
     }
 
     .gap-truncate {
@@ -322,15 +341,30 @@ body.blacklight-catalog-index {
     &.active span, .next, .prev {
       color: #126dc1;
       border-radius: 3px;
-      border: solid 2px #126dc1;
-      background-color: rgb(242,242,242);
+      border: solid 2px $link-color;
+      // background-color: rgb(242,242,242);
       width: 56px;
+    }
+
+    // --- different padding needed for MD
+    .next, .prev {
+      padding: 8px 9px;
     }
 
     &.active span {
       margin-left: 3px;
       margin-right: 3px; 
+      background-color: #126dc1;
+      color: white;
       width: auto;
+    }
+
+    &.disabled {
+      > span.next, > span.prev {
+        opacity: 0.75;
+        color: #666;
+        border: solid 2px #666;
+      }
     }
   }
 
@@ -354,6 +388,7 @@ body.blacklight-catalog-index {
         font-size: 16px;
         padding: 6px 10px;
         width: 141px;
+        text-align: left;
 
         .filterName:after {
           color: white;
@@ -364,7 +399,8 @@ body.blacklight-catalog-index {
         background-color: rgba(26,165,90, .36);
         font-family: $sys-font-family;
         font-size: 16px;
-        padding: 6px 10px;
+        padding: 6px 10px; // --- disable for MD
+        padding-bottom: 5px; // --- for icomoon font
       }
 
       a.catalog_startOverLink {
@@ -1097,6 +1133,10 @@ body.blacklight-contacts-create {
     margin-left: -36px;
   }
 
+  .action-report-problem {
+    margin-bottom: 10px;
+  }
+
   dt {
     background-color: #e6f3ff;
     background-color: #e6f3ff;
@@ -1204,6 +1244,20 @@ body.blacklight-contacts-create {
   font-weight: bold;
 }
 
+.mdi {
+  vertical-align: middle;
+}
+
+.mdi-set.mdi-16px,
+.mdi.mdi-16px:before {
+  font-size: 16px;
+}
+
+.mdi-set.mdi-20px,
+.mdi.mdi-20px:before {
+  font-size: 20px;
+}
+
 
 // searching icon animation
 .glyphicon-refresh-animate {
@@ -1225,4 +1279,30 @@ body.blacklight-contacts-create {
 @keyframes spin {
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}
+}
+
+@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+
+  body.blacklight-catalog-index {
+
+    .page-links {
+      white-space: nowrap;
+    }
+
+    > .container {
+      margin-right: auto;
+      margin-left: auto;
+      padding: 0 15px;
+      width: 100%;
+
+      > .row {
+        margin: 0;
+      }
+
+      // do not do this if we're hiding elements
+      // .pagination {
+      //   margin: 0 -15px;
+      // }
+    }
+  }
 }

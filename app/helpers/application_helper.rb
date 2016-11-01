@@ -30,7 +30,6 @@ module ApplicationHelper
   end
 
   def solr_document_url(document, options = {})
-    STDERR.puts "AHOY SOLR DOCUMENT URL HACKING: #{options}"
     _build_document_url(document, options.merge(only_path: false))
   end
 
@@ -42,8 +41,8 @@ module ApplicationHelper
   # Link to the previous document in the current search context
   def link_to_previous_issue_page(previous_document)
     link_opts = { class: 'btn btn-page-navigation' }
-    link_to_unless previous_document.nil?, raw(t('views.issue.previous')), url_for_document(previous_document), link_opts do
-      content_tag :span, raw(t('views.issue.previous')), :class => 'btn btn-page-navigation endpoint'
+    link_to_unless previous_document.nil?, use_icon('previous') + " " + raw(t('views.issue.previous')), url_for_document(previous_document), link_opts do
+      content_tag :span, use_icon('previous') + " " + raw(t('views.issue.previous')), :class => 'btn btn-page-navigation endpoint'
     end
   end
 
@@ -51,8 +50,8 @@ module ApplicationHelper
   # Link to the next document in the current search context
   def link_to_next_issue_page(next_document)
     link_opts = { class: 'btn btn-page-navigation' }
-    link_to_unless next_document.nil?, raw(t('views.issue.next')), url_for_document(next_document), link_opts do
-      content_tag :span, raw(t('views.issue.next')), :class => 'btn btn-page-navigation endpoint'
+    link_to_unless next_document.nil?, raw(t('views.issue.next')) + " " + use_icon('next'), url_for_document(next_document), link_opts do
+      content_tag :span, raw(t('views.issue.next')) + " " + use_icon('next'), :class => 'btn btn-page-navigation endpoint'
     end
   end
 
@@ -231,8 +230,22 @@ module ApplicationHelper
     end
     prefix = breaks ? '' : '&#8230;'.html_safe
     retval = ActiveSupport::SafeBuffer.new
+    counter = Hash.new(0)
+    seen = Hash.new(0)
     Array(texts).each do |text|
       next if text.strip.blank?
+      text = text.truncate(450) # less jiggering in results view
+
+      text.scan(/\[\[\[([^\]]+)\]\]\]/).each do |match|
+        counter[match.first.downcase] += 1
+      end
+
+      do_skip = counter.each.collect { |match, value| value > 2 && seen[match] > 0 }.index(true)
+      # do_skip = false if params[:noskip]
+      next if do_skip
+
+      counter.keys.each { |key| seen[key] += 1 }
+
       retval << '<p>'.html_safe
       retval << prefix + text + prefix # .gsub("\n", " ")
       retval << '</p>'.html_safe
@@ -286,9 +299,9 @@ module ApplicationHelper
     search_params = current_search_session.try(:query_params) || {}
     return if search_params.blank?
     if search_params[:action] == 'browse'
-      t('blacklight.back_to_browse_html')
+      use_icon('previous') + " " + t('blacklight.back_to_browse_html')
     else
-      t('blacklight.back_to_search_html')
+      use_icon("previous") + " " + t('blacklight.back_to_search_html')
     end
   end
 

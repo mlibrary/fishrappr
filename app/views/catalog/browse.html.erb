@@ -20,8 +20,8 @@
           <%= select_tag(name="date_issued_mm_ti", options_for_select(month_browse_options, params[:date_issued_mm_ti]), class: 'changeable form-control') %>
           <%= select_tag(name="date_issued_dd_ti", options_for_select(date_browse_options, params[:date_issued_dd_ti]), class: 'changeable form-control') %>
           <button type="submit" class="btn btn-action btn-lg" xid="browse">
-            <span class="glyphicon glyphicon-search"></span>
-            <span class="hidden glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> 
+            <span class="<%= use_icon_class('search') %>"></span>
+            <span class="hidden <%= use_icon_class('rotate_left') %> glyphicon-refresh-animate"></span> 
             <span class="submit-browse-text">Browse</span>
           </button>
         </div>

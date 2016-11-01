@@ -44,8 +44,8 @@
           <%= text_field_tag(:q, params[:q], placeholder: 'Search Anything', class: 'form-control' ) %>
           <!-- <button class="btn btn-primary btn-lg">Search </button> -->
           <button type="submit" class="btn btn-action btn-primary" xid="search">
-            <span class="glyphicon glyphicon-search"></span>
-            <span class="hidden glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> 
+            <span class="<%= use_icon_class('search') %>"></span>
+            <span class="hidden <%= use_icon_class('rotate_right') %> glyphicon-refresh-animate"></span> 
             <span class="submit-search-text"><%= t('blacklight.search.form.submit') %></span>
           </button>
         </div>
