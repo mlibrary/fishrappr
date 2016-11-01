@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'michigan_daily';
-  src:  url('michigan_daily.eot?q1zofd');
-  src:  url('michigan_daily.eot?q1zofd#iefix') format('embedded-opentype'),
-    url('michigan_daily.ttf?q1zofd') format('truetype'),
-    url('michigan_daily.woff?q1zofd') format('woff'),
-    url('michigan_daily.svg?q1zofd#michigan_daily') format('svg');
+  src:  font-url('michigan_daily.eot?q1zofd');
+  src:  font-url('michigan_daily.eot?q1zofd#iefix') format('embedded-opentype'),
+    font-url('michigan_daily.ttf?q1zofd') format('truetype'),
+    font-url('michigan_daily.woff?q1zofd') format('woff'),
+    font-url('michigan_daily.svg?q1zofd#michigan_daily') format('svg');
   font-weight: normal;
   font-style: normal;
 }
