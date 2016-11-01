@@ -40,6 +40,15 @@
     // margin-right: auto;
     width: auto;
 
+    a {
+      &:hover, &:focus {
+        // background: #ddd;
+        padding-top: 10px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid black;
+      }
+    }
+
     span.page_entries {
         -khtml-border-radius: 3px;
         -moz-border-radius: 3px;
@@ -52,6 +61,7 @@
         display: inline-block;
         font-size: 16px;
         line-height: 2.1;
+        margin-left: 10px;
         margin-right: 10px;
         padding: 0 10px;
         vertical-align: middle;
@@ -61,15 +71,23 @@
       margin-left: 10px;
     }
 
+     a > span.prev-next {
+      color: #126dc1;
+     }
+
      span.prev-next {
       color: #333333;
       display: inline-block;
       font-family: $sys-font-family;
       font-size: 16px;
       line-height: 2.1;
-      min-width: 140px;
-      text-align: center;
+      // min-width: 140px;
+      text-align: right;
       vertical-align: middle;
+
+      &:last-of-type {
+        text-align: left;
+      }
 
      }
 
