@@ -323,11 +323,12 @@ body.blacklight-catalog-index {
   }
 
   .pagination > li {
-    a {
-      color: white;
+    a, > span {
+      color: $link-color;
       border-radius: 3px;
-      background-color: #126dc1;
-      border: solid 2px #0c5292;
+      background-color: rgb(242,242,242);
+      // border: solid 2px #0c5292;
+      border: solid 2px $link-color;
       margin-left: 3px;
       margin-right: 3px;
     }
@@ -340,20 +341,30 @@ body.blacklight-catalog-index {
     &.active span, .next, .prev {
       color: #126dc1;
       border-radius: 3px;
-      border: solid 2px #126dc1;
-      background-color: rgb(242,242,242);
+      border: solid 2px $link-color;
+      // background-color: rgb(242,242,242);
       width: 56px;
     }
 
     // --- different padding needed for MD
-    a.next, a.prev {
+    .next, .prev {
       padding: 8px 9px;
     }
 
     &.active span {
       margin-left: 3px;
       margin-right: 3px; 
+      background-color: #126dc1;
+      color: white;
       width: auto;
+    }
+
+    &.disabled {
+      > span.next, > span.prev {
+        opacity: 0.75;
+        color: #666;
+        border: solid 2px #666;
+      }
     }
   }
 
