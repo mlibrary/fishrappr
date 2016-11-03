@@ -90,7 +90,6 @@
     var manifest_url = $("link[rel='manifest']").attr("href");
 
     $.getJSON(manifest_url, function(data) {
-      console.log(data);
       page = data.sequences[0].canvases[0];
       var info_url = page.images[0].resource.service['@id'] + '/info.json';
 
@@ -158,12 +157,12 @@
           params.push(rect.x + "," + rect.y + "," + rect.width + "," + rect.height);
           params.push("full");
           params.push("0");
-          params.push("native.jpg");
+          params.push("default.jpg");
           params = params.join("/");
           var href = viewer.source['@id'] + "/" + params;
-          window.open(href, "_blank");
-          // href += "?attachment=0";
-          // window.location.href = href;
+          // window.open(href, "_blank");
+          href += "?attachment=1";
+          window.location.href = href;
 
           // var translated = viewer.viewport.imageToViewportRectangle(rect)
           // viewer.viewport.fitBounds(translated);
@@ -172,6 +171,9 @@
         onZoomSelection: function(rect) {
           var translated = viewer.viewport.imageToViewportRectangle(rect)
           viewer.viewport.fitBounds(translated);
+          reset_selection();
+        },
+        onCancelSelection: function() {
           reset_selection();
         }
       })
@@ -184,9 +186,8 @@
       var params = resizePrint(viewer);
       var href = viewer.source['@id'] + "/" + params + "?attachment=1";
       window.location.href = href;
-
-      // var href = baseLayer.getViewRequest() + "?attachment=1";
-      // window.location.href = href;
+      // var href = viewer.source['@id'] + "/" + params + "?attachment=0";
+      // window.open(href, "download");
     })
 
     $(".action-toggle-mode").on('change', function() {
@@ -232,7 +233,6 @@
       }, window.total_time);
     };
 
-    // from chronam
     function resizePrint(viewer) {
         var image = viewer.source;
         var zoom = viewer.viewport.getZoom(); 
@@ -240,17 +240,22 @@
         var container = viewer.viewport.getContainerSize();
         var fit_source = fitWithinBoundingBox(size, container);
         var total_zoom = fit_source.x/image.dimensions.x;
+
         var container_zoom = fit_source.x/container.x;
-        var level =  (zoom * total_zoom) / container_zoom;
-        var box = getDisplayRegion(viewer, new OpenSeadragon.Point(parseInt(image.dimensions.x*level), parseInt(image.dimensions.y*level)));
-        var scaledBox = new OpenSeadragon.Rect(parseInt(box.x/level), parseInt(box.y/level), parseInt(box.width/level), parseInt(box.height/level));
-        var d = fitWithinBoundingBox(box, new OpenSeadragon.Point(681, 817));
-        console.log("RESIZE", zoom, size, container, fit_source, total_zoom, level, box, scaledBox);
+        var percentage =  parseInt(100 * (zoom * total_zoom) / container_zoom);
+
+        var bounds = viewer.viewport.getBounds();
+        var rect = viewer.viewport.viewportToImageRectangle(bounds);
+
+        if ( rect.x < 0 ) { rect.x = 0 ; }
+        if ( rect.y < 0 ) { rect.y = 0 ; }
+
         var params = [];
-        params.push(scaledBox.x + "," + scaledBox.y + "," + scaledBox.width + "," + scaledBox.height);
-        params.push(box.width + "," + box.height);
-        params.push(box.degrees);
-        params.push('default.jpg');
+        params.push(rect.x + "," + rect.y + "," + rect.width + "," + rect.height);
+        // params.push("pct:" + percentage);
+        params.push("full");
+        params.push(viewer.viewport.getRotation());
+        params.push("default.jpg");
         return params.join("/");
     };
 
@@ -261,58 +266,6 @@
             return new OpenSeadragon.Point(parseInt(d.width * max.y/d.height),max.y);
         }
     }
-    
-    function getDisplayRegion(viewer, source) {
-        //Determine portion of scaled image that is being displayed
-        var box = new OpenSeadragon.Rect(0, 0, source.x, source.y);
-        var container = viewer.viewport.getContainerSize();
-        var bounds = viewer.viewport.getBounds();
-
-        console.log(container, box);
-        var rotation = viewer.viewport.getRotation();
-        if ( rotation == 90 ) {
-          var tmp = viewer.viewport.getBounds();
-          bounds.x = tmp.y;
-          bounds.y = tmp.x;
-          bounds.height = tmp.width;
-          bounds.width = tmp.height;
-
-          tmp = viewer.viewport.getContainerSize();
-          container = new OpenSeadragon.Rect(tmp.y, tmp.x, tmp.height, tmp.width);
-
-          // box = new OpenSeadragon.Rect(0, 0, source.y, source.x);
-
-          console.log(container, bounds, box);
-        }
-
-        //If image is offset to the left
-        if (bounds.x > 0){
-          var offset = viewer.viewport.pixelFromPoint(new OpenSeadragon.Point(0,0));
-          var dim = ( rotation == 0 ) ? 'x' : 'y';
-            box.x = box.x - offset[dim];
-        }
-        //If full image doesn't fit
-        if (box.x + source.x > container.x) {
-            box.width = container.x - viewer.viewport.pixelFromPoint(new OpenSeadragon.Point(0,0)).x;
-            if (box.width > container.x) {
-                box.width = container.x;
-            }
-        }
-        //If image is offset up
-        if (bounds.y > 0) {
-            var offset = viewer.viewport.pixelFromPoint(new OpenSeadragon.Point(0,0));
-            var dim = ( rotation == 0 ) ? 'y' : 'x';
-
-            box.y = box.y - offset[dim];
-        }
-        //If full image doesn't fit
-        if (box.y + source.y > container.y) {
-            box.height = container.y - viewer.viewport.pixelFromPoint(new OpenSeadragon.Point(0,0)).y;
-            if (box.height > container.y) {
-                box.height = container.y;
-            }
-        }
-        return box;
-    }
+  
 
   })

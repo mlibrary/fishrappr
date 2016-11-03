@@ -9,6 +9,11 @@
     margin-bottom: 20px;
     background: $image-viewer-bgcolor;
     position: relative;
+
+    canvas:focus {
+        border: 2px solid blue;
+    }
+
 }
 
 #image-viewer {
