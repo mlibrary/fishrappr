@@ -55,7 +55,7 @@
         <div class="btn-group-vertical action-group" role="group">
           <a class="btn btn-default btn-action action-download-view" href="#"><%= use_icon('file_image') %> Download<span class="hidden-sm"> Current</span> View <span class="extension">JPG</span></a>
           <a class="btn btn-default btn-action" href="<%= download_pdf_link @document, 'page_identifier' %>"><%= use_icon('file_pdf') %> Download PDF <span class="extension">PDF</span></a>
-          <a class="btn btn-default btn-action" download="<%= @document.id %>.jpg" href="<%= document_image_src @document, size: 'full' %>"><%= use_icon('file_image') %> Download Image <span class="extension">JPG</span></a></li>
+          <a class="btn btn-default btn-action" download="<%= @document.id %>.jpg" href="<%= document_image_src @document, size: 'full' %>?attachment=1"><%= use_icon('file_image') %> Download Image <span class="extension">JPG</span></a></li>
           <a class="btn btn-default btn-action" href="<%= download_text_solr_document_path @document %>"><%= use_icon('file_text') %> Download Text <span class="extension">TXT</span></a></li>
         </div>
       </div>
