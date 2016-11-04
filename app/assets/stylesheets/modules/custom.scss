@@ -770,10 +770,15 @@ body.blacklight-catalog-home {
     background-repeat: repeat-x;
     background-size: cover;
     color: white;
+    padding-bottom: 20px;
   }
 
   form {
     text-align: left;
+
+    .form-group {
+      margin-bottom: 0;
+    }
   }
 
   .head a, .donors a {
