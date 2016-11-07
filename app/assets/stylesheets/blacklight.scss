@@ -101,7 +101,7 @@ span.subtitle {
     // }
 
     #documents h3 {
-        display: inline-block;
+        // display: inline-block;
         font-family: 'Open Sans';
         font-size: 27px;
         color: #333333;
@@ -120,14 +120,14 @@ span.subtitle {
         display: inline-block;
         width: calc(100% - 230px);
         padding-left: 20px;
-        font-family: Helvetica;
+        // font-family: Helvetica;
         font-size: 16px;
         line-height: 1.5;
         color: #333333;
 
-        h3 {
-            display: inline-block;
-        }
+        // h3 {
+        //     display: inline-block;
+        // }
     }
 
     .activate-highlighting {
