@@ -6,7 +6,7 @@
       <p class="description1"><%= t('views.static.home.head.subtitle') %></p>
       <p class="description1"><%= t('views.static.home.head.description1') %></p>
       <p class="description2"><%= t('views.static.home.head.description2') %></p>
-      <%= link_to t('views.static.home.head.link'), static_path("about") %>
+      <%= link_to t('views.static.home.head.link'), static_path("about_daily") %>
 
       <% if true %><%= render partial: "search_form", locals: { container_class: 'container' } %><% end %>
     </div>
@@ -16,7 +16,7 @@
     <div class="donors col-md-12">
       <h2 class="donor-title"><%= t('views.static.home.donors.title') %></h2>
       <p class="description"><%= t('views.static.home.donors.description') %></p>
-      <%= link_to t('views.static.home.donors.link'), static_path("about") %>
+      <%= link_to t('views.static.home.donors.link'), static_path("donors") %>
   </div>
 </div>
 
