@@ -54,7 +54,7 @@ module RepositoryService
       end
       return document
     end
-    return document.fetch(fld)
+    return document.fetch(fld, nil)
     tmp = [ Settings.DLXS_COLLECTION ]
     tmp << document.fetch('page_identifier')
     tmp << document.fetch(fld)
