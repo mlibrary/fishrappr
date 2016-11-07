@@ -1,10 +1,10 @@
-<% @page_title = "Help | How to Search" %>
+<% @page_title = t('views.static.how-to-search.title') %>
 
 <div class="container-fluid">
     <%= render partial: 'unified_sidebar' %>
 
   <div class="<%= main_content_classes %> help-middle-col">
-    <h2 class="title"><%= t('views.static.how-to-search.title') %></h2>
+    <h2 class="title"><%= t('views.static.how-to-search.header') %></h2>
     <p>You can search The Michigan Daily by date and by keyword.</p>
 
     <h3 class="subtitle">Search by Date</h3>
@@ -51,7 +51,7 @@
 
     <div class="btn btn-primary action-report-problem" style="color: #fff"><i class="fa fa-exclamation-triangle"></i> Report Problem</div>
     
-    <p style="margin-top: 15px;">If you notice OCR errors that are negatively affecting your search experience, you can notify us by using the Report Problem link on the image viewer page.</p>
+    <p>If you notice OCR errors that are negatively affecting your search experience, you can notify us by using the Report Problem link on the image viewer page.</p>
 
     <h3 class="subtitle">This date doesn’t seem to match the paper…</h3>
 

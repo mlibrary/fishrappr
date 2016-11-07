@@ -224,3 +224,35 @@ span.subtitle {
     padding: 0;
     width: auto;
 }
+
+.panel-heading.collapse-toggle.collapsed .panel-title:after {
+  /* symbol for "collapsed" panels */
+  // content: "\e080";
+  content: "\e315";
+  /* adjust as needed, taken from bootstrap.css */
+}
+
+.panel-heading.collapse-toggle .panel-title:after {
+    font-family: 'michigan_daily' !important;
+    speak: none;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    vertical-align: text-top;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    content: "\e313";
+}
+
+.panel-heading.collapse-toggle.collapsed .panel-title:after {
+  /* symbol for "collapsed" panels */
+  // content: "\e080";
+  content: "\e315";
+  /* adjust as needed, taken from bootstrap.css */
+}

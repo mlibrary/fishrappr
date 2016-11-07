@@ -1,5 +1,5 @@
 <div class="alert-plaintext-disclaimer">
-  <%= raw(t('blacklight.show.disclaimer')) %>
+  <%= use_icon('info') %> <%= raw(t('blacklight.show.disclaimer')) %>
 </div>
 <article>
   <%== render_plain_text(@document, 'page_text') %>

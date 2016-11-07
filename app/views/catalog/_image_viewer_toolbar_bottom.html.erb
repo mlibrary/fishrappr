@@ -5,13 +5,13 @@
       <div class="col-md-6 col-sm-6 col-xs-12" style="white-space: nowrap">
 
         <div class="btn-group" role="group" aria-label="rotate controls">
-          <button class="btn btn-action action-rotate-left"><i class="fa fa-undo"></i> <span class="hidden-xs hidden-sm">Rotate Left </span></button>
-          <button class="btn btn-action action-rotate-right"><span class="hidden-xs hidden-sm">Rotate Right </span><i class="fa fa-repeat"></i></button>
+          <button class="btn btn-action action-rotate-left"><%= use_icon('rotate_left') %> <span class="hidden-xs hidden-sm">Rotate Left </span></button>
+          <button class="btn btn-action action-rotate-right"><span class="hidden-xs hidden-sm">Rotate Right </span><%= use_icon('rotate_right') %> </i></button>
         </div>
 
         <div class="btn-group" data-toggle="buttons">
-          <label class="btn btn-action active"><input type="radio" class="action-toggle-mode" name="toggle-mode" id="option2" autocomplete="off" value="pan" checked="checked"><i class="fa fa-arrows"></i><span class="hidden-xs"> Pan</span></label>
-          <label class="btn btn-action"><input class="action-toggle-mode" type="radio" name="toggle-mode" id="option3" autocomplete="off" value="select"><i class="fa fa-crop"></i><span class="hidden-xs"> Select</span></label>
+          <label class="btn btn-action active"><input type="radio" class="action-toggle-mode" name="toggle-mode" id="option2" autocomplete="off" value="pan" checked="checked"><%= use_icon('pan') %> <span class="hidden-xs"> Pan</span></label>
+          <label class="btn btn-action"><input class="action-toggle-mode" type="radio" name="toggle-mode" id="option3" autocomplete="off" value="select"><%= use_icon('select') %> <span class="hidden-xs"> Select</span></label>
         </div>
 
       </div>
@@ -20,7 +20,7 @@
         <% if highlights_available? %>
           <label><input type="checkbox" class="action-toggle-highlight" <%= highlights_visible? ? 'checked="checked"' : '' %> /> <%= raw t('views.issue.search_highlights') %></label>
         <% end %>
-        <a href="<%= contacts_path type: 'image' %>" class="btn btn-action action-report-problem" style="color: #fff"><i class="fa fa-exclamation-triangle"></i> Report Problem</a>
+        <a href="<%= contacts_path type: 'image' %>" class="btn btn-action action-report-problem" style="color: #fff"><%= use_icon('alert') %> Report Problem</a>
       </div>
 
     </div>

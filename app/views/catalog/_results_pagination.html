@@ -2,7 +2,8 @@
  <div class="row record-padding">
   <div class="col-md-12">
     <div class="pagination pull-right">
-      <%= paginate @response, :outer_window => 2, :theme => 'blacklight' %>
+      <!-- outer_window: 2 -->
+      <%= paginate @response, left: 1,  right: 1, inner_window: 2, :theme => 'blacklight' %>
     </div>
   </div>
  </div>

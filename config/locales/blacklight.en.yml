@@ -1,8 +1,8 @@
 en:
   blacklight:
     application_name: 'Michigan Daily Digital Archives'
-    back_to_search_html: '<span class="glyphicon glyphicon-arrow-left"></span><span class="hidden-xs"> <span class="hidden-sm">Back to</span> Search</span>'
-    back_to_browse_html: '<span class="glyphicon glyphicon-arrow-left"></span><span class="hidden-xs"> <span class="hidden-sm">Back to</span> Browse</span>'
+    back_to_search_html: '<span class="hidden-xs"> <span class="hidden-sm">Back to</span> Search</span>'
+    back_to_browse_html: '<span class="hidden-xs"> <span class="hidden-sm">Back to</span> Browse</span>'
     start_over_search: 'Start Search Over'
     start_over_browse: 'Start Browse Over'
     search:
@@ -31,14 +31,16 @@ en:
     show:
       page_title:
         title: '%{application_name} - %{date_issued} %{issue_vol_iss} - Image %{issue_sequence}'
-      disclaimer: '<i class="glyphicon glyphicon-info-sign"></i> <strong>Disclaimer: </strong> Computer generated plain text may have errors. <a href="#">Read more about this.</a>'
+      disclaimer: '<strong>Disclaimer: </strong> Computer generated plain text may have errors. <a href="#">Read more about this.</a>'
   views:
       pagination:
         first: '&laquo; First'
         last: 'Last &raquo;'
-        previous: '<span class="sr-only">Previous page arrow button</span><span class="fa fa-arrow-left">'
-        next: '<span class="sr-only">Next page arrow button</span><span class="fa fa-arrow-right">'
+        # previous: '<span class="sr-only">Previous page arrow button</span><span class="fa fa-arrow-left">'
+        # next: '<span class="sr-only">Next page arrow button</span><span class="fa fa-arrow-right">'
+        previous: '<span class="icon_arrow_back"></span><span class="sr-only"> Previous page</span>'
+        next: '<span class="sr-only">Next page </span><span class="icon_arrow_forward"></span>'
         truncate: '…'
       pagination_compact:
-        previous: '<span class="prev-next"><span class="fa fa-arrow-left"></span><span class="hidden-xs"><span class="sr-only">Previous page arrow button</span> Previous<span class="hidden-sm"> page</span></span></span>'
-        next: '<span class="prev-next"><span class="hidden-xs"><span class="sr-only">Next page arrow button</span>Next<span class="hidden-sm"> page</span> </span><span class="fa fa-arrow-right"></span></span>'
+        previous: '<span class="prev-next"><span class="icon_arrow_back" aria-hidden="true"></span><span class="hidden-xs"> Previous<span class="hidden-sm"> page</span></span></span>'
+        next: '<span class="prev-next"><span class="hidden-xs">Next<span class="hidden-sm"> page</span> </span><span class="icon_arrow_forward" aria-hidden="true"></span></span>'
