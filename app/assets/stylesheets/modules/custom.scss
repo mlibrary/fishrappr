@@ -765,12 +765,33 @@ body.blacklight-catalog-home {
   .head {
     padding: 0;
     min-height: 500px;
-    background-image: image-url("home_page_banner.png");
+    background-image: url(data:image/png;base64,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);
     background-position: 0 0;
     background-repeat: repeat-x;
     background-size: cover;
     color: white;
     padding-bottom: 20px;
+  }
+
+  .head-enhanced {
+    background-image: image-url("home_page_banner.png");
+  }
+
+  @supports (background-image: filter(url('i.jpg'), blur(1px))) {
+    .head {
+      transform: translateZ(0);
+    }
+    .head-enhanced {
+      animation: sharpen .5s both;
+    }
+    @keyframes sharpen {
+      from {
+        background-image: filter(image-url("home_page_banner.png"), blur(20px));
+      }
+      to {
+        background-image: filter(image-url("home_page_banner.png"), blur(0px));
+      }
+    }
   }
 
   form {
