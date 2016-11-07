@@ -6,6 +6,10 @@
   <%= render partial: 'document_share_metadata' %>
 <% end %>
 
+<%= replace :skiplinks do %>
+  <%= render 'show_skiplinks' %>
+<% end %>
+
 <%= replace :search_navbar do %>
   <div class="navigation-toolbar">
     <div class="container-fluid">
@@ -45,7 +49,7 @@
 
 
 <div class="container container-morph">
-  <div class="col-md-4 col-md-push-8 col-sm-4 col-sm-push-8 col-xs-12 page-options">
+  <div class="col-md-4 col-md-push-8 col-sm-4 col-sm-push-8 col-xs-12 page-options" id="page-options">
     <h2 class="sr-only">Page Options</h2>
     <div class="panel panel-actions-page">
       <div class="panel-heading">
