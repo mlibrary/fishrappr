@@ -372,13 +372,14 @@ body.blacklight-catalog-index {
     #appliedParams {
       background-color: #e5e5e5 !important;
       margin-top: 20px;
+      margin-bottom: 15px;
 
       .constraints-label {
         display: block;
         font-family: $sys-font-family;
         font-size: 14px;
         color: #333333;
-        margin: 0 0 5px 0;
+        margin: 0;
       }
 
       .constraint-value {
@@ -403,7 +404,7 @@ body.blacklight-catalog-index {
         padding-bottom: 5px; // --- for icomoon font
       }
 
-      a.catalog_startOverLink {
+      a.catalog_startOverLink, a.FrontPageOnly {
         background-color: #6e6e6e;
         border-radius: 3px;
         box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.36);
@@ -414,6 +415,28 @@ body.blacklight-catalog-index {
         margin-top: 5px;
       }
     }
+
+    // .front-page-checkbox {
+    //   display: block;
+    //   padding: 6px 10px 6px 20px;
+    //   background-color: #e5e5e5;
+    //   font-family: "Open Sans";
+    //   font-size: 16px;
+    //   color: #333333;
+    //   margin-top: 0;
+    //   margin-bottom: 15px;
+
+    //   #issue_sequence {
+    //     display: inline-block;
+    //     margin-left: 20;
+    //   }
+
+    //   .front-page-only-label {
+    //     display: inline-block;
+    //     margin-left: 5px;   
+    //     font-weight: normal  !important;
+    //   }
+    // }
 
     #searchGraph {
       background-color: #ffffff;

@@ -1,11 +1,14 @@
 <% if query_has_constraints? %>
+  <div id="appliedParams" class="clearfix constraints-container">
+    <span class="constraints-label"><%= t('blacklight.search.filters.title') %></span>
+    <%= render_constraints(params) %>
+    <div>
+      <%=link_to t('blacklight.search.start_over'), start_over_path, :class => "catalog_startOverLink btn btn-text", :id=>"startOverLink" %>
+    </div>
+    <div class="front-page-button">
+       <%=link_to "Search Front Page Only", "/search?date_filter=any&amp;date_issued_begin_dd=-&amp;date_issued_begin_mm=-&amp;date_issued_begin_yyyy=&amp;date_issued_end_dd=-&amp;date_issued_end_mm=-&amp;date_issued_end_yyyy=&amp;f%5Bissue_sequence_field%5D%5B%5D=issue_sequence_1&amp;publication=midaily&amp;q=rotc&amp;search_field=all_fields", :class => "FrontPageOnly btn btn-text", :id=>"FrontPageOnly" %>
+    </div>
+  </div>      
 
-      <div id="appliedParams" class="clearfix constraints-container">
-
-        <span class="constraints-label"><%= t('blacklight.search.filters.title') %></span>
-        <%= render_constraints(params) %>
-        <div>
-          <%=link_to t('blacklight.search.start_over'), start_over_path, :class => "catalog_startOverLink btn btn-text", :id=>"startOverLink" %>
-        </div>
-      </div>
+  
 <% end %>

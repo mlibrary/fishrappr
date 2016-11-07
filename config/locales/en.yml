@@ -28,7 +28,7 @@ en:
     catalog:
       fishrappr_panel_title: Search Options
       fishrappr_graph_title: Results Frequency Graph
-      fishrappr_graph_instructions: Hover the cursor over a bar to see its page count and select (click or tap) a bar to zoom in on its data. Bar sizes are relative to the bar with the highest number of results.
+      fishrappr_graph_instructions: The graph is meant to give a relative scale of results. Hover over to see number of results.
     contacts:
       types:
         search: "Searching"

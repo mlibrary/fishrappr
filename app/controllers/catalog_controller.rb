@@ -150,9 +150,10 @@ class CatalogController < ApplicationController
     config.add_facet_field 'date_issued_yyyy_ti', label: 'Year', sort: 'index', limit: 20
     config.add_facet_field 'date_issued_mm_ti', label: 'Month', sort: 'index', helper_method: :get_month_label
     config.add_facet_field 'date_issued_dd_ti', label: 'Day', sort: 'index', limit: 20
-
     config.add_facet_field 'date_issued_yyyymmdd_ti', label: 'Date', show: false
-
+    config.add_facet_field 'issue_sequence_field', label: 'First Page', query: {
+        issue_sequence_1: { label: 'First Page', fq: 'issue_sequence:1' }
+    }
     #config.add_facet_field 'example_pivot_field', label: 'Pivot Field', :pivot => ['format', 'language_facet']
 
     #config.add_facet_field 'example_query_facet_field', label: 'Date', :query => {
