@@ -342,9 +342,14 @@ body.blacklight-catalog-index {
     }
 
     .gap-truncate {
-      background-color: rgb(242,242,242);
-      border: 0;
-      font-size: 75%;
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        background-color: #cccccc;
+        display: inline-block;
+        border: 0;
+        margin-top: 15px;
+        padding: 0;
     }
 
     &.active span, .next, .prev {
