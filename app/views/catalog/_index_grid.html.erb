@@ -1,6 +1,13 @@
-<div data-words="<%= process_highlighted_words(document) %>" data-identifier="<%= document.id %>">
-    <%= link_to document_thumbnail(document, size: '200,'), url_for_document(document), { class: 'thumbnail', style: document_thumbnail_style(document, size: '200,') } %>
-    <div class="caption">
-        <%= render partial: 'catalog/document_header', locals: { document: document } %>
-    </div>
-</div>
+<a href="<%= url_for_document(document) %>" class="xthumbnail" style="display: block; <%= document_thumbnail_style(document, size: '200,') %>">
+    <figure data-identifier="<%= document.id %>" data-words="<%= process_highlighted_words(document) %>">
+        <div class="thumbnail" style=" <%= document_thumbnail_style(document, size: '200,') %>">
+            <%= document_thumbnail(document, size: '200,') %>
+        </div>
+        <figcaption>
+            <h4>
+                <%= document.fetch(:date_issued_display).first %>
+                <span class="subtitle"><%= issue_subtitle(document) %></span>
+            </h4>
+        </figcaption>
+    </figure>
+</a>
