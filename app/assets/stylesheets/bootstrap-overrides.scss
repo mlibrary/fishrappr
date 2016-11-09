@@ -23,4 +23,11 @@
 
 .btn.btn-link {
   color: $link-color;
+  &:active {
+    color: $link-active-color;
+    text-decoration: underline;
+  }
+  &:hover {
+    text-decoration: underline;
+  }
 }

@@ -6,8 +6,10 @@
     num_pages:     total number of pages
     per_page:      number of items to fetch per page
     remote:        data-remote
+
+    # add ( or page.inside_window? ) to class condition to avoid hiding the 
 -%>
-<li class="<%= 'active' if page.current? %> <%= 'hidden-xs hidden-sm' unless ( page.current? or page.inside_window? ) %>">
+<li class="<%= 'active' if page.current? %> <%= 'hidden-xs ' unless ( page.current? ) %><%= 'hidden-sm' unless page.inside_window? or page.current? %>">
   <% if page.current? %>
     <span><%= number_with_delimiter(page.to_s) %></span>
   <% else %>
