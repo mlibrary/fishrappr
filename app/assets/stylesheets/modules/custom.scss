@@ -389,6 +389,10 @@ body.blacklight-catalog-index {
       margin-top: 20px;
       margin-bottom: 15px;
 
+      .appliedFilter {
+        width: 100%;
+      }
+
       .constraints-label {
         display: block;
         font-family: $sys-font-family;
@@ -403,7 +407,7 @@ body.blacklight-catalog-index {
         font-family: $sys-font-family;
         font-size: 16px;
         padding: 6px 10px;
-        width: 141px;
+        width: 80%;
         text-align: left;
 
         .filterName:after {

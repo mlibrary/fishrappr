@@ -147,9 +147,8 @@ class CatalogController < ApplicationController
     # # seg was 6, len was 8
     # config.add_facet_field 'issue_sequence', single: true
 
-    config.add_facet_field 'issue_sequence_field', label: 'Only Front Pages', query: {
-        issue_sequence_1: { label: 'Select only front pages', fq: 'issue_sequence:1' }
-    }
+    config.add_facet_field 'issue_sequence_field', label: 'On Page', collapse: false,
+        query: { issue_sequence_1: { label: 'Front Page', fq: 'issue_sequence:1' } }
     config.add_facet_field 'date_issued_yyyy10_ti', label: 'Decade', sort: 'index', limit: 20, collapse: false
     config.add_facet_field 'date_issued_yyyy_ti', label: 'Year', sort: 'index', limit: 20
     config.add_facet_field 'date_issued_mm_ti', label: 'Month', sort: 'index', helper_method: :get_month_label
