@@ -475,6 +475,7 @@ body.blacklight-catalog-index {
 
   li.active > span {
     color: #fff;
+    background-color: $link-color;
   }
 
   span.gap-truncate {
