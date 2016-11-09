@@ -20,8 +20,8 @@ en:
         grid: "Grid"
       pagination_info:
         pages:
-          one: '<span class="pages-box">Page %{start_num} - %{end_num}</span> <span class="results-box">%{total_num} results</span>'
-          other: '<span class="pages-box">Page %{start_num} - %{end_num}</span> <span class="results-box">%{total_num} results</span>'
+          one: '<span class="pages-box">Page %{start_num} - %{end_num}</span> <span class="results-box hidden-xs">%{total_num} results</span>'
+          other: '<span class="pages-box">Page %{start_num} - %{end_num}</span> <span class="results-box hidden-xs">%{total_num} results</span>'
       index:
         label: '%{label}'
       facets:
@@ -38,8 +38,10 @@ en:
         last: 'Last &raquo;'
         # previous: '<span class="sr-only">Previous page arrow button</span><span class="fa fa-arrow-left">'
         # next: '<span class="sr-only">Next page arrow button</span><span class="fa fa-arrow-right">'
-        previous: '<span class="icon_arrow_back"></span><span class="sr-only"> Previous page</span>'
-        next: '<span class="sr-only">Next page </span><span class="icon_arrow_forward"></span>'
+        # previous: '<span class="icon_arrow_back"></span><span class="sr-only"> Previous page</span>'
+        # next: '<span class="sr-only">Next page </span><span class="icon_arrow_forward"></span>'
+        previous: '<span class="hidden-xs"> Previous<span class="hidden-md"> page</span></span>'
+        next: '<span class="hidden-xs">Next <span class="hidden-md">page </span></span>'
         truncate: '…'
       pagination_compact:
         previous: '<span class="prev-next"><span class="icon_arrow_back" aria-hidden="true"></span><span class="hidden-xs"> Previous<span class="hidden-sm"> page</span></span></span>'

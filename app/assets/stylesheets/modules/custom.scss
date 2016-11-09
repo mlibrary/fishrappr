@@ -40,15 +40,6 @@
     // margin-right: auto;
     width: auto;
 
-    a {
-      &:hover, &:focus {
-        // background: #ddd;
-        padding-top: 10px;
-        padding-bottom: 12px;
-        border-bottom: 1px solid black;
-      }
-    }
-
     span.page_entries {
         -khtml-border-radius: 3px;
         -moz-border-radius: 3px;
@@ -331,11 +322,29 @@ body.blacklight-catalog-index {
       border: solid 2px $link-color;
       margin-left: 3px;
       margin-right: 3px;
+
+      &:hover {
+        background-color: $link-color;
+        color: #fff;
+      }
+
+      &:active {
+        background-color: #0c5292;
+        color: #fff;
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.24);
+        background-color: $link-color;
+        color: #fff;
+      }
+
     }
 
     .gap-truncate {
       background-color: rgb(242,242,242);
       border: 0;
+      font-size: 75%;
     }
 
     &.active span, .next, .prev {
@@ -349,6 +358,7 @@ body.blacklight-catalog-index {
     // --- different padding needed for MD
     .next, .prev {
       padding: 8px 9px;
+
     }
 
     &.active span {
@@ -1334,7 +1344,7 @@ body.blacklight-contacts-create {
 
   body.blacklight-catalog-index {
 
-    .page-links {
+    .page_links {
       white-space: nowrap;
     }
 
@@ -1353,5 +1363,11 @@ body.blacklight-contacts-create {
       //   margin: 0 -15px;
       // }
     }
+  }
+}
+
+@media (min-width: $screen-xs-min) and (max-width: $screen-xs-max) {
+  .page_links {
+    white-space: nowrap;
   }
 }

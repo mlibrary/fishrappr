@@ -6,13 +6,11 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<% if current_page.first? %>
-    <li class="disabled">
-      <span class="prev"><%= raw(t 'views.pagination.previous') %></span>
-    </li>
-<% else %>
-    <li>
-      <%= link_to raw(t 'views.pagination.previous'), url, :class => 'prev', :rel => 'prev', :remote => remote %>
-    </li>
-<% end %>
-
+<li>
+<%=
+    link_opts = { class: 'btn btn-page-navigation' }
+    link_to_unless current_page.first?, use_icon('previous') + " " + raw(t('views.pagination.previous')), url, link_opts do
+      content_tag :span, use_icon('previous') + " " + raw(t('views.pagination.previous')), :class => 'btn btn-page-navigation endpoint'
+    end
+%>
+</li>
