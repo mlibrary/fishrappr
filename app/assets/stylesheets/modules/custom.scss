@@ -993,8 +993,8 @@ body.blacklight-catalog-home {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    margin-left: 10%;
-    margin-right: 10%;
+    display: inline-block;
+    width: 100%;
 
     .daily-logo {
       width: 294.2px;
@@ -1062,7 +1062,7 @@ body.blacklight-catalog-home {
       margin-right: auto;
       margin-top: -6px;
       text-align: center;
-      width: 273px;
+      // width: 273px;
 
       figcaptions {
         width: 273px;
@@ -1083,7 +1083,7 @@ body.blacklight-catalog-home {
     border: none;
     }
 
-  .gird > figure img {
+  .grid > figure img {
     display: block;
     margin-left: auto;
     margin-right: auto 
