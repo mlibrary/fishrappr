@@ -20,6 +20,10 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  facets:
+    front:
+      facet-title: Only Front Pages
+      facet-selection: Select only front pages
   hello: "Hello world"
   screen-reader:
     thumbnail-image: Thumbnail of Daily page

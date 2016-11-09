@@ -416,6 +416,25 @@ body.blacklight-catalog-index {
       }
     }
 
+    .front-page-radio {
+      background-color: #e5e5e5;
+      color: #333333;
+      display: block;
+      font-family: "Open Sans";
+      font-size: 16px;
+      margin-bottom: 15px;
+      margin-top: 0;
+      padding: 6px 10px 6px 20px;
+
+      .group-radio {
+        display: block;
+      }
+
+      .group-radio label {
+        font-weight: normal;        
+      }
+    }
+
     // .front-page-checkbox {
     //   display: block;
     //   padding: 6px 10px 6px 20px;
