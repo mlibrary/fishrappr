@@ -16,8 +16,7 @@
 
 .activate-highlighting {
     .highlight {
-        background-color: #4C7ED1;
-        background-color: rgba(76, 126, 209, 0.4);
+        background-color: $highlight-color;
         font-weight: bold;
 
         &.de-highlighted {
@@ -29,7 +28,7 @@
 
 .grid .highlight, a.thumbnail .highlight {
     // background-color: blue;
-    background-color: #4C7ED1;
+    background-color: $highlight-color;
     position: absolute;
 
     // min-width: 15px;
@@ -132,8 +131,7 @@ span.subtitle {
 
     .activate-highlighting {
         .highlight {
-            background-color: #4C7ED1;
-            background-color: rgba(76, 126, 209, 0.4);
+            background-color: $highlight-color;
             font-weight: bold;
 
             &.de-highlighted {
@@ -145,7 +143,7 @@ span.subtitle {
 
     .row-thumbnail .highlight, .row-thumbnail a.thumbnail .highlight {
         // background-color: blue;
-        background-color: #4C7ED1;
+        background-color: $highlight-color;
 
         // min-width: 15px;
         // min-height: 15px;
