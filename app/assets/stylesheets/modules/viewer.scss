@@ -335,10 +335,11 @@
 
     border-radius: 3px;
     background-color: #126dc1;
-    // box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.36);
+    box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.36);
 
-    &:hover {
-        background: #0e5393;
+    &:hover, &:active {
+        background: #0c5292;
+        box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.36);
     }
 }
 
@@ -346,10 +347,27 @@
     color: white;
 
     background-color: #0c5292;
-    // box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.48);
+    box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.48);
 
-    &:hover {
-        background: #083863;
+    &:hover, &:active {
+        background: #033664;
+        box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.48);
+    }
+}
+
+.panel-actions-share {
+    input[readonly] {
+        background: transparent;
+        border: solid 2px #cccccc;
+        border-radius: 3px;
+
+        &:hover {
+            border: solid 2px #126dc1;
+        }
+
+        &:active {
+            border: solid 2px #0c5292;
+        }
     }
 }
 
