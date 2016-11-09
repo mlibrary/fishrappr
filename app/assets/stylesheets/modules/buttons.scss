@@ -38,8 +38,23 @@
     color: #0c5292;
 
     &:not(.endpoint):hover {
-        background-color: darken($navbar-bgcolor, 10%);
-        border: solid 2px darken(#126dc1, 75%);
+        // background-color: darken($navbar-bgcolor, 10%);
+        // border: solid 2px darken(#126dc1, 75%);
+        color: #fff;
+        background-color: #126dc1;
+    }
+
+    &:not(.endpoint):active {
+        // background-color: darken($navbar-bgcolor, 10%);
+        // border: solid 2px darken(#126dc1, 75%);
+        color: #fff;
+        background-color: #0c5292;
+    }
+
+    &:not(.endpoint):focus {
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.24);
+        background-color: #126dc1;
+        color: #fff;
     }
 
     &.endpoint {
