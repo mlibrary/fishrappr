@@ -25,7 +25,6 @@ module Fishrappr::Catalog
     if user_params["date_filter"] and user_params["date_filter"] != 'any'
       user_params["date_filter_options"] = get_date_params(user_params)
     end
-    # binding.pry
     super
   end
 
@@ -50,14 +49,12 @@ module Fishrappr::Catalog
   end
 
   def show
+
     search_params = current_search_session.try(:query_params)
     search_field = search_params ? search_params["q"] : nil
     @raw_layout = true
 
     document_id = id(params)
-    STDERR.puts "AHOY : #{document_id}"
-    # mdp.39015071730621-00000083
-    # mdp.39015071730621-00000004
 
     if document_id and search_field
       @response, @document = fetch_with_highlights document_id, search_field
@@ -293,17 +290,11 @@ module Fishrappr::Catalog
     begin
       response, @previous_page = fetch @document.fetch('prev_page_link')
     rescue Exception => e
-      STDERR.puts "PREVIOUS : #{e}"
     end
     begin
       response, @next_page = fetch @document.fetch('next_page_link')
     rescue Exception => e
-      STDERR.puts "NEXT : #{e}"
     end
-    # response, documents = get_previous_and_next_documents_for_issue_page sequence, ActiveSupport::HashWithIndifferentAccess.new(current_search_session.query_params)
-    # @search_page_response = response
-    # @previous_page = documents.first
-    # @next_page = document.last
   rescue Blacklight::Exceptions::InvalidRequest => e
     logger.warn "Unable to setup next and previous documents: #{e}"
   end
@@ -313,7 +304,6 @@ module Fishrappr::Catalog
   end
 
   def search_state
-    # STDERR.puts "AHOY SEARCH STATE : #{@search_state} : #{@search_state.to_h unless @search_state.nil?}"
     @search_state ||= Fishrappr::SearchState.new(params, blacklight_config)
   end
 
@@ -338,9 +328,40 @@ module Fishrappr::Catalog
 
   
   private
-    def get_view
-      session[:view] = params[:view] if params[:view]
-      session[:view] ||= 'image'
+    def current_search_session
+      unless @current_search_session
+        domain = request.env['SERVER_NAME']
+        query_params = cookies.delete(:query_params, domain: domain, path: '/')
+        if query_params
+          @current_search_session = OpenStruct.new(query_params: JSON.parse(query_params).with_indifferent_access)
+        end
+      end
+      @current_search_session
+    end
+
+    def find_search_session
+      if params[:search_context].present?
+        find_or_initialize_search_session_from_params JSON.load(params[:search_context])
+      elsif params[:search_id].present?
+        begin
+          # TODO: check the search id signature.
+          searches_from_history.find(params[:search_id])
+        rescue ActiveRecord::RecordNotFound
+          nil
+        end
+      elsif start_new_search_session?
+        find_or_initialize_search_session_from_params search_state.to_h
+      elsif search_session['id']
+        begin
+          searches_from_history.find(search_session['id'])
+        rescue ActiveRecord::RecordNotFound
+          nil
+        end
+      end
+    end
+
+    def find_or_initialize_search_session_from_params params
+      # noop
     end
 
     def search_field

@@ -23,12 +23,6 @@
 // --- TODO: work out a different way to load this in development
 //= require holder
 
-//= xxxrequire leaflet
-//= xxxrequire leaflet.label
 //= require openseadragon
 //= require_tree .
 
-
-// For blacklight_range_limit built-in JS, if you don't want it you don't need
-// this:
-//= xxxrequire 'blacklight_range_limit'
