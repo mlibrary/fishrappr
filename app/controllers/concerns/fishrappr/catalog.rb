@@ -330,34 +330,13 @@ module Fishrappr::Catalog
   private
     def current_search_session
       unless @current_search_session
-        domain = request.env['SERVER_NAME']
-        query_params = cookies.delete(:query_params, domain: domain, path: '/')
+        ## domain = request.env['SERVER_NAME']
+        query_params = cookies.delete(:query_params)
         if query_params
           @current_search_session = OpenStruct.new(query_params: JSON.parse(query_params).with_indifferent_access)
         end
       end
       @current_search_session
-    end
-
-    def find_search_session
-      if params[:search_context].present?
-        find_or_initialize_search_session_from_params JSON.load(params[:search_context])
-      elsif params[:search_id].present?
-        begin
-          # TODO: check the search id signature.
-          searches_from_history.find(params[:search_id])
-        rescue ActiveRecord::RecordNotFound
-          nil
-        end
-      elsif start_new_search_session?
-        find_or_initialize_search_session_from_params search_state.to_h
-      elsif search_session['id']
-        begin
-          searches_from_history.find(search_session['id'])
-        rescue ActiveRecord::RecordNotFound
-          nil
-        end
-      end
     end
 
     def find_or_initialize_search_session_from_params params
