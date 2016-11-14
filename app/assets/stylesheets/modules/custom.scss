@@ -118,6 +118,10 @@
 
 .hidden { display: none; }
 
+.link_underline {
+  text-decoration: underline;
+}
+
 /*flash*/
 
 #main-flashes {
@@ -1365,6 +1369,7 @@ body.blacklight-contacts-create {
 .mdi.mdi-20px:before {
   font-size: 20px;
 }
+
 
 
 // searching icon animation
