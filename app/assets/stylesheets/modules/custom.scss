@@ -313,81 +313,15 @@ body.blacklight-catalog-index {
     width: 0;
   }
 
-  .pagination > li {
-    a, > span {
-      color: $link-color;
-      border-radius: 3px;
-      background-color: rgb(242,242,242);
-      // border: solid 2px #0c5292;
-      border: solid 2px $link-color;
-      margin-left: 3px;
-      margin-right: 3px;
-
-      &:hover {
-        background-color: $link-color;
-        color: #fff;
-      }
-
-      &:active {
-        background-color: #0c5292;
-        color: #fff;
-      }
-
-      &:focus {
-        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.24);
-        background-color: $link-color;
-        color: #fff;
-      }
-
-    }
-
-    .gap-truncate {
-        width: 10px;
-        height: 10px;
-        border-radius: 3px;
-        background-color: #cccccc;
-        display: inline-block;
-        border: 0;
-        margin-top: 15px;
-        padding: 0;
-    }
-
-    &.active span, .next, .prev {
-      color: #126dc1;
-      border-radius: 3px;
-      border: solid 2px $link-color;
-      // background-color: rgb(242,242,242);
-      width: 56px;
-    }
-
-    // --- different padding needed for MD
-    .next, .prev {
-      padding: 8px 9px;
-
-    }
-
-    &.active span {
-      margin-left: 3px;
-      margin-right: 3px; 
-      background-color: #126dc1;
-      color: white;
-      width: auto;
-    }
-
-    &.disabled {
-      > span.next, > span.prev {
-        opacity: 0.75;
-        color: #666;
-        border: solid 2px #666;
-      }
-    }
-  }
-
   #sidebar {
     #appliedParams {
       background-color: #e5e5e5 !important;
       margin-top: 20px;
       margin-bottom: 15px;
+
+      .appliedFilter {
+        width: 100%;
+      }
 
       .constraints-label {
         display: block;
@@ -403,7 +337,7 @@ body.blacklight-catalog-index {
         font-family: $sys-font-family;
         font-size: 16px;
         padding: 6px 10px;
-        width: 141px;
+        width: 80%;
         text-align: left;
 
         .filterName:after {
@@ -507,6 +441,89 @@ body.blacklight-catalog-index {
     }
   }
 }
+
+.pagination {
+
+  li > a, li.active > span {
+
+    color: $link-color;
+    border-radius: 3px;
+    // background-color: rgb(242,242,242);
+    // border: solid 2px #0c5292;
+    border: solid 2px $link-color;
+    background-color: transparent;
+    margin-left: 3px;
+    margin-right: 3px;
+
+    &:hover {
+      background-color: $link-color;
+      color: #fff;
+    }
+
+    &:active {
+      background-color: #0c5292;
+      color: #fff;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.24);
+      background-color: $link-color;
+      color: #fff;
+    }
+
+  }
+
+  li.active > span {
+    color: #fff;
+    background-color: $link-color;
+  }
+
+  span.gap-truncate {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      background-color: #cccccc;
+      display: inline-block;
+      border: 0 !important;
+      margin: 15px 3px 0;
+      padding: 0;
+  }
+
+  // &.active span, .next, .prev {
+  //   color: #126dc1;
+  //   border-radius: 3px;
+  //   border: solid 2px $link-color;
+  //   // background-color: rgb(242,242,242);
+  //   width: 56px;
+  // }
+
+  // &.active span {
+  //   color: #fff;
+  // }
+
+  // // --- different padding needed for MD
+  // .next, .prev {
+  //   padding: 8px 9px;
+
+  // }
+
+  // &.active span {
+  //   margin-left: 3px;
+  //   margin-right: 3px; 
+  //   background-color: #126dc1;
+  //   color: white;
+  //   width: auto;
+  // }
+
+  // &.disabled {
+  //   > span.next, > span.prev {
+  //     opacity: 0.75;
+  //     color: #666;
+  //     border: solid 2px #666;
+  //   }
+  // }
+}
+
 
 // Catalog page search at top of page
 
@@ -989,8 +1006,8 @@ body.blacklight-catalog-home {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    margin-left: 10%;
-    margin-right: 10%;
+    display: inline-block;
+    width: 100%;
 
     .daily-logo {
       width: 294.2px;
@@ -1047,39 +1064,47 @@ body.blacklight-catalog-home {
     margin-top: 2em;
   }
 
+  .grid {
+    justify-content: center;
+  }
+
   figure {
-    margin: 0 60px 0 60px;
-  
-    .caption {
-      color: #0c5292;
-      display: block;
-      font-size: 20px;
-      margin-left: auto;
-      margin-right: auto;
-      margin-top: -6px;
+    margin: 0;
+
+    figcaption {
       text-align: center;
-      width: 273px;
-
-      figcaptions {
-        width: 273px;
-
-        a {
-          color: #126dc1;
-          font-size: 16px;
-          margin-left: auto;
-          margin-right: auto;
-          text-align: center;
-          width: 273px;
-        }
-      }
     }
+  
+    // figcaption {
+    //   color: #0c5292;
+    //   display: block;
+    //   font-size: 20px;
+    //   margin-left: auto;
+    //   margin-right: auto;
+    //   margin-top: 8px;
+    //   text-align: center;
+    //   // width: 273px;
+
+    //   // figcaptions {
+    //   //   width: 273px;
+
+    //   //   a {
+    //   //     color: #126dc1;
+    //   //     font-size: 16px;
+    //   //     margin-left: auto;
+    //   //     margin-right: auto;
+    //   //     text-align: center;
+    //   //     width: 273px;
+    //   //   }
+    //   // }
+    // }
   }
 
   .grid > div {
     border: none;
     }
 
-  .gird > figure img {
+  .grid > figure img {
     display: block;
     margin-left: auto;
     margin-right: auto 

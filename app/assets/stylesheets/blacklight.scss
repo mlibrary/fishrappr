@@ -79,10 +79,9 @@
 }
 
 span.subtitle {
-    font-size: 75%;
     margin-top: 4px;
     display: block;
-    color: #5c9bd2
+    color: #6e6e6e;
 }
 
 .caption span.subtitle {
@@ -203,15 +202,11 @@ span.subtitle {
     span.subtitle {
         color: #6e6e6e;
         display: block;
-        font-family: 'Open Sans';
         font-size: 16px;
         line-height: 1.2;
         margin-top: 3px;
     }
 
-    .caption span.subtitle {
-        font-size: 90%;
-    }
 }
 
 .panel-title button {

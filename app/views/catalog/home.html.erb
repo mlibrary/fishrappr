@@ -33,18 +33,17 @@
       <h2 class="featured-title"><%= t('views.static.home.today.title') %></h2>
       <p class="description"><%= @featured_list.first["date_issued_display"].first.split(",").first if @featured_list.first %></p>
       <div id="documents" class="row grid">
-        <% if false %><%= render collection: @featured_list, as: :document, partial: 'index_grid' %><% end %>
-
-        
         <% @featured_list.each do |document| %>
-          <figure data-identifier="<%= document.id %>">
-              <%= link_to document_thumbnail(document, size: '273,'), url_for_document(document), { class: 'thumbnail', style: document_thumbnail_style(document, size: '273,') } %>
-              <div class="caption">
-                <figcaptions>
-                  <%= link_to_document document, render_index_field_value(document, field: :date_issued_display) %>
-                </figcaptions>
-              </div>
-          </figure>
+          <a href="<%= url_for url_for_document(document) %>" style="display: block;">
+              <figure data-identifier="<%= document.id %>">
+                  <div class="thumbnail" style=" <%= document_thumbnail_style(document, size: '275,') %>">
+                    <%= document_thumbnail(document, size: '275,') %>
+                  </div>
+                  <figcaption>
+                    <%= document.fetch(:date_issued_display).first %>
+                  </figcaption>
+              </figure>
+          </a>
         <% end %>
       </div>
 
