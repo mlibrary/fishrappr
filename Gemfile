@@ -19,12 +19,13 @@ gem 'nestive'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-## gem 'turbolinks'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
+
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
+
 gem 'blacklight'
 gem "blacklight_advanced_search"
 gem 'mail_form'
@@ -35,21 +36,15 @@ gem "blacklight_range_limit"
 gem 'bootbox-rails', '~>0.4'
 
 gem 'config'
-# gem "font-awesome-sass"
-# gem 'material_design_icons'
 
 gem 'osullivan'
+
+gem 'google-analytics-rails', '1.1.0'
 
 gem 'rubyzip', '>= 1.0.0' # will load new rubyzip version
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 
 gem 'puma'
 
@@ -83,7 +78,6 @@ group :production do
   gem 'mysql2'
 end
 
-#gem 'jettywrapper', '>= 2.0'
 gem 'rsolr', '~> 1.0'
 gem 'blacklight-marc', '~> 6.0'
 

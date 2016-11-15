@@ -5,6 +5,8 @@ permissions_address: "bhl-student-pub-contact@umich.edu"
 DLXS_COLLECTION: "bhl_midaily"
 DLXS_SERVICE_URL: "https://path/to/service/host"
 
+GOOGLE_ANALYTICS_PROFILES: []
+
 icons:
   rotate_left: "rotate_left"
   rotate_right: "rotate_right"
