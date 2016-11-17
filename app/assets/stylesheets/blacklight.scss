@@ -16,8 +16,7 @@
 
 .activate-highlighting {
     .highlight {
-        background-color: #4C7ED1;
-        background-color: rgba(76, 126, 209, 0.4);
+        background-color: $highlight-color;
         font-weight: bold;
 
         &.de-highlighted {
@@ -29,7 +28,7 @@
 
 .grid .highlight, a.thumbnail .highlight {
     // background-color: blue;
-    background-color: #4C7ED1;
+    background-color: $highlight-color;
     position: absolute;
 
     // min-width: 15px;
@@ -80,10 +79,9 @@
 }
 
 span.subtitle {
-    font-size: 75%;
     margin-top: 4px;
     display: block;
-    color: #5c9bd2
+    color: #6e6e6e;
 }
 
 .caption span.subtitle {
@@ -101,7 +99,7 @@ span.subtitle {
     // }
 
     #documents h3 {
-        display: inline-block;
+        // display: inline-block;
         font-family: 'Open Sans';
         font-size: 27px;
         color: #333333;
@@ -120,20 +118,19 @@ span.subtitle {
         display: inline-block;
         width: calc(100% - 230px);
         padding-left: 20px;
-        font-family: Helvetica;
+        // font-family: Helvetica;
         font-size: 16px;
         line-height: 1.5;
         color: #333333;
 
-        h3 {
-            display: inline-block;
-        }
+        // h3 {
+        //     display: inline-block;
+        // }
     }
 
     .activate-highlighting {
         .highlight {
-            background-color: #4C7ED1;
-            background-color: rgba(76, 126, 209, 0.4);
+            background-color: $highlight-color;
             font-weight: bold;
 
             &.de-highlighted {
@@ -145,7 +142,7 @@ span.subtitle {
 
     .row-thumbnail .highlight, .row-thumbnail a.thumbnail .highlight {
         // background-color: blue;
-        background-color: #4C7ED1;
+        background-color: $highlight-color;
 
         // min-width: 15px;
         // min-height: 15px;
@@ -205,15 +202,11 @@ span.subtitle {
     span.subtitle {
         color: #6e6e6e;
         display: block;
-        font-family: 'Open Sans';
         font-size: 16px;
         line-height: 1.2;
         margin-top: 3px;
     }
 
-    .caption span.subtitle {
-        font-size: 90%;
-    }
 }
 
 .panel-title button {

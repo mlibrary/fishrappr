@@ -16,6 +16,12 @@
 //   }
 // }
 
+a:focus {
+  outline-width: 2px;
+  outline-style: solid;
+  outline-color: initial;
+}
+
 .btn {
   border: none;
   color: $btn-default-color;
@@ -23,4 +29,11 @@
 
 .btn.btn-link {
   color: $link-color;
+  &:active {
+    color: $link-active-color;
+    text-decoration: underline;
+  }
+  &:hover {
+    text-decoration: underline;
+  }
 }

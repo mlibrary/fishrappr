@@ -21,6 +21,7 @@
     <%= favicon_link_tag %>
     <%= stylesheet_link_tag "application", media: "all" %>
     <%= javascript_include_tag "application" %>
+
     <%= csrf_meta_tags %>
     <%= area :head %>
 
@@ -29,7 +30,13 @@
       <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+    <% Settings.GOOGLE_ANALYTICS_PROFILES.each do |profile_id| %>
+        <%= analytics_init tracker: profile_id  %>
+    <% end %>
+
+
   </head>
   <body class="<%= render_body_class %>">
     <%= area :header do %>

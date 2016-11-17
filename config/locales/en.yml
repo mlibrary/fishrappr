@@ -20,6 +20,10 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  facets:
+    front:
+      facet-title: Only Front Pages
+      facet-selection: Select only front pages
   hello: "Hello world"
   screen-reader:
     thumbnail-image: Thumbnail of Daily page
@@ -28,7 +32,7 @@ en:
     catalog:
       fishrappr_panel_title: Search Options
       fishrappr_graph_title: Results Frequency Graph
-      fishrappr_graph_instructions: Hover the cursor over a bar to see its page count and select (click or tap) a bar to zoom in on its data. Bar sizes are relative to the bar with the highest number of results.
+      fishrappr_graph_instructions: The graph is meant to give a relative scale of results. Hover over to see number of results.
     contacts:
       types:
         search: "Searching"
@@ -52,8 +56,8 @@ en:
         title: About The Michigan Daily
         header: About The Michigan Daily
       about-archives:
-        title: About The Digital Archives
-        header: About The Digital Archives
+        title: About The Digital Archives Project
+        header: About The Digital Archives Project
       rights:
         title: Rights Statement
         header: Rights Statement
@@ -80,7 +84,7 @@ en:
           link: About the Archives
         donors:
           title: Thank You to The Kemp Family Foundation!
-          description: The archive is made possible by The University of Michigan Library, The Bentley Historical Library, and The Michigan Daily, with generous support from The Kemp Family Foundation.
+          description: The archive is made possible by the University of Michigan Library, the Bentley Historical Library, and The Michigan Daily, with generous support from The Kemp Family Foundation.
           link: Read More About The Kemp Family Foundation
         partnerships:
           description: In Partnership With

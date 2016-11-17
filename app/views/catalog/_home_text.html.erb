@@ -5,13 +5,15 @@
 <div id="getting-started">
   <h2 class='page-heading'><i class="fa fa-search fa-10x"></i></h2>
   <div class="divider"></div>
-  <h3 class='section-heading'>Try a new search</h3>
+  <h3 class='section-heading'><i>You can try a new search above or select one of our examples below</i></h3>
   <div class="divider"></div>
   <p class="description">Some Examples to get started:</p>
-  <p><“Apple AND Computers”/p>
-  <p>“Wolverine NOT Football”</p>
-  <p>“DIAG + Squirrels”</p>
-  
+  <p><tt><%= link_to 'Apple AND Computers', '/search?utf8=✓&publication=midaily&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q=Apple+AND+Computers', class: 'link_underline' %> </tt></p>
+  <p><tt><%= link_to 'Wolverine NOT Football', '/search?utf8=✓&publication=midaily&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q=Wolverine+NOT+Football', class: 'link_underline' %></tt></p>
+  <p><tt><%= link_to 'DIAG + Squirrels', '/search?utf8=✓&publication=midaily&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q=DIAG+%2B+Squirrels', class: 'link_underline'  %></tt></p>
+  <p><tt><%= link_to '"Gymnasts sweep By BETSY MAHON"',
+  '/search?utf8=✓&publication=midaily&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q=%22Gymnasts+sweep+By+BETSY+MAHON%22', class: 'link_underline' %></tt></p>
+
 </div>
 <script>
   $(function() {

@@ -9,6 +9,11 @@
     margin-bottom: 20px;
     background: $image-viewer-bgcolor;
     position: relative;
+
+    canvas:focus {
+        border: 2px solid blue;
+    }
+
 }
 
 #image-viewer {
@@ -63,10 +68,93 @@
 
         min-width: 8em;
 
-        &:hover {
-            background: #3d3d3d;
+        &:hover, &:active {
+            background: #4e4e4e;
+            // background-color: var(--grey1);
+            box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.48);
+        }
+
+        &:focus {
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.48), inset 0 -2px 0 0 rgba(0, 0, 0, 0.36);
         }
     }
+
+    label.label-toggle-highlight {
+        padding-left: 25px;
+        cursor: pointer;
+        position: relative;
+
+        input {
+            position: absolute;
+            z-index: -1;
+            opacity: 0;
+        }
+
+        .control__indicator {
+            position: absolute;
+            top: 4px;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 2px;
+            border: solid 2px rgba(255, 255, 255, 0.6);
+            display: inline-block;
+
+            &:hover {
+              border: solid 2px #fff;
+            }
+
+            &:after {
+                position: absolute;
+                display: none;
+                content: '';
+            }
+        }
+
+        &:focus .control__indicator {
+        }
+
+        input:focus ~ .control__indicator {
+            background-color: #333;
+            border: solid 2px #fff;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.48);            
+        }
+
+        input:checked ~ .control__indicator {
+            background-color: #ffffff;
+
+            &:after {
+                display: block;
+                top: 0px;
+                left: 5px;
+                width: 8px;
+                height: 14px;
+                transform: rotate(45deg);
+                border: solid #000;
+                border-width: 0 2px 2px 0;
+            }
+        }
+    }
+
+    input.action-toggle-highlight {
+
+        & + span {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        & + span:before {
+            display: block;
+            content: "";
+            position: absolute;
+        }
+
+        &:checked ~ span:before {
+
+        }
+    }
+
 }
 
 .image-viewer-toolbar.option-2, .image-viewer-toolbar.option-3 {
@@ -247,10 +335,11 @@
 
     border-radius: 3px;
     background-color: #126dc1;
-    // box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.36);
+    box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.36);
 
-    &:hover {
-        background: #0e5393;
+    &:hover, &:active {
+        background: #0c5292;
+        box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.36);
     }
 }
 
@@ -258,10 +347,27 @@
     color: white;
 
     background-color: #0c5292;
-    // box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.48);
+    box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.48);
 
-    &:hover {
-        background: #083863;
+    &:hover, &:active {
+        background: #033664;
+        box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.48);
+    }
+}
+
+.panel-actions-share {
+    input[readonly] {
+        background: transparent;
+        border: solid 2px #cccccc;
+        border-radius: 3px;
+
+        &:hover {
+            border: solid 2px #126dc1;
+        }
+
+        &:active {
+            border: solid 2px #0c5292;
+        }
     }
 }
 

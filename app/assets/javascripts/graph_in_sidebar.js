@@ -48,7 +48,7 @@ $( document ).ready(function() {
 
     var chartLineBase = chartMAX / highest_col
     var chartLinePxLength = chartLineBase * lowest_col +"px"
-    chartLinePxLength = chartLineBase * lowest_col +"px"
+    // chartLinePxLength = chartLineBase * lowest_col +"px"
     // alert("chartLineBase: " + chartLineBase);
     // alert("i: " + i + " col_values[i] is: " + col_values[i] + " col_names[i] is: " + col_names[i]);
 
@@ -59,22 +59,25 @@ $( document ).ready(function() {
         
         // default to linked graph bar and solid color bar style
         var day_class = 'day';
-        var col_name = col_name = $('<a href="' + col_links[i] + '"><span class="col_names" tabindex="0">' + col_names[i] + '<span class="sr-only"> has ' + val + ' pages matching search</span></span></a>');
+        var col_name = col_name = $('<a href="' + col_links[i] + '"><span class="col_names" tabindex="0">' + col_names[i] + '<span class="sr-only"> has ' + val + ' pages matching search.</span></span></a>');
+
+        var d_value = col_names[i] +  ' has '  + val + ' pages matching search. Click to zoom into bar data';
 
         if (val == 0) {
           // light gray bar
           day_class = 'day0';
+          d_value = col_names[i] +  ' has '  + val + ' pages matching search.';
         } 
 
         if (col_links[i].includes("#")) {
           // no link on bar
-          col_name = $('<span class="col_names" tabindex="0">' + col_names[i] + '<span class="sr-only"> has ' + val + ' pages matching search</span></span>');
+          col_name = $('<span class="col_names" tabindex="0">' + col_names[i] + '<span class="sr-only"> has ' + val + ' pages matching search.</span></span>');
         } 
 
           var day = $('<div />', {
             'class': day_class,
             id     : i,
-            'data-value' : col_names[i] +  ' has '  + val + ' pages matching search',
+            'data-value' : d_value,
             css    : {width : chartLinePxLength},
             on     : {
               mouseenter: function(e) {
