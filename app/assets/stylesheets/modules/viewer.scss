@@ -449,6 +449,14 @@
     white-space: nowrap;
 }
 
+.visible {
+    visibility: visible !important;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
 @media (max-width: $screen-xs-max) {
 
     #image-viewer-wrap {
