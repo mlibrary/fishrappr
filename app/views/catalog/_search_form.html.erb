@@ -14,7 +14,8 @@
           <% # assumes that the search partial is only show on the home and catalog pages %>
           <% #if (! has_search_parameters? || ! active_date_facets?(params) ) # on home page || no facets %>
           <% if (! (!params[:q].blank? or !params[:f].blank? or !params[:search_field].blank?) || ! active_date_facets?(params) ) # on home page || no facets %>
-          <label class="sr-only">Search by date</label>
+          <%=  label_tag 'date_filter', 'Search by date options', class: 'sr-only' %>
+
            <%= select_tag('date_filter', options_for_select([['Any Date', 'any'], ['On this date...', 'on'], ['After this date...', 'after'], ['Before this date...', 'before'], ['Specific date range...', 'between']], params[:date_filter] || 'any'), class: 'form-control') %>
           <span class="date-option date-option-on date-option-after date-option-before date-option-between">
             <span class="date-input-control">
@@ -40,7 +41,7 @@
           </span>
           <% end %>
           <span class="q-block">
-          <label for="q1" class="control-label search-label for-label">For</label>
+          <label for="q" class="control-label search-label for-label">For</label>
           <%= text_field_tag(:q, params[:q], placeholder: 'Search Anything', class: 'form-control' ) %>
           <!-- <button class="btn btn-primary btn-lg">Search </button> -->
           <button type="submit" class="btn btn-action btn-primary" xid="search">
