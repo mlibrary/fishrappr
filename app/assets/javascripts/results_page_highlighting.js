@@ -30,6 +30,12 @@ $().ready(function() {
 
         var identifier = $div.data('identifier');
 
+        // var ___debug = function() {
+        //     if ( identifier == 'bhl_midaily:mdp.39015071754738-00000808:WORDS00000808' ) {
+        //         console.log.apply(console, arguments);
+        //     }
+        // }
+
         var debugging = false; // ( identifier == 'bhl_midaily:mdp.39015071754159-00000114:WORDS00000114' );
         var message = [];
 
@@ -39,8 +45,14 @@ $().ready(function() {
 
             var true_width = data.page.width;
             var true_height = data.page.height;
-            var hScale = img_width / true_width;
-            var vScale = hScale;
+
+            var scale;
+            if ( img_width > img_height ) {
+                scale = img_height / true_height;
+            } else {
+                scale = img_width / true_width;
+            }
+            var hScale = scale; var vScale = scale;
 
             $.each(words, function(idx, word) {
                 var coords = data.words[word]
@@ -73,14 +85,13 @@ $().ready(function() {
                         // console.log("AHOY REDUX", left, width, img_width );
                     }
 
+                    var original_top = top; var original_left = left;
+
                     left = ( left / ( img_width + ( padding_left * 2 ) ) ) * 100;
                     top = ( top / ( img_height ) ) * 100;
                     width = ( width / ( img_width + ( padding_left * 2 ) ) ) * 100;
                     height = ( height / img_height ) * 100;
                     unit = '%';
-
-                    var orig_width = width; var orig_height = height;
-
 
                     var $span = $('<div class="highlight"></div>').css({ top: top + unit, left: left + unit, width: width + unit, height: height + unit });
                     $span.appendTo($link);
