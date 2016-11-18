@@ -85,6 +85,7 @@
     }
 
     var viewer; var selection; var mode;
+    var queue = [];
 
     var i = 1;
     var manifest_url = $("link[rel='manifest']").attr("href");
@@ -152,6 +153,9 @@
           viewer.viewport.fitBounds(translated);
           reset_selection();
         },
+        onSelectionDrawn: function() {
+          $(".selection-toolbar .invisible").toggleClass("visible");
+        },
         onDownloadSelection: function(rect) {
           var params = [];
           params.push(rect.x + "," + rect.y + "," + rect.width + "," + rect.height);
@@ -169,9 +173,9 @@
           reset_selection();
         },
         onZoomSelection: function(rect) {
+          queue.push(function() { reset_selection(); })
           var translated = viewer.viewport.imageToViewportRectangle(rect)
           viewer.viewport.fitBounds(translated);
-          reset_selection();
         },
         onCancelSelection: function() {
           reset_selection();
@@ -179,7 +183,20 @@
       })
       F.selection = selection;
 
+
+      viewer.addHandler('animation-finish', function() {
+        while ( queue.length ) {
+          var fn = queue.pop();
+          fn();
+        }
+      })
+
     });
+
+    $(".action-reset-viewer").on('click', function(e) {
+      e.preventDefault();
+      viewer.viewport.goHome();
+    })
 
     $(".action-download-view").on('click', function(e) {
       e.preventDefault();
@@ -190,14 +207,33 @@
       // window.open(href, "download");
     })
 
-    $(".action-toggle-mode").on('change', function() {
-      var $input = $(this);
-      mode = $input.val();
-      if ( mode == 'pan' ) {
-        selection.disable();
-      } else {
-        selection.enable();
-      }
+    // $(".action-toggle-mode").on('change', function() {
+    //   var $input = $(this);
+    //   mode = $input.val();
+    //   if ( mode == 'pan' ) {
+    //     selection.disable();
+    //   } else {
+    //     selection.enable();
+    //   }
+    // })
+
+    $(".action-toggle-mode").on('click', function() {
+      // we are toggling modal
+      $(".default-toolbar").toggleClass('hidden');
+      $(".selection-toolbar").toggleClass('hidden');
+      selection.enable();
+    })
+
+    $("#action-selection-cancel").on('click', function() {
+      reset_selection();
+    })
+
+    $("#action-selection-zoom-in").on('click', function(e) {
+      selection.zoom();
+    })
+
+    $("#action-selection-download").on('click', function(e) {
+      selection.download();
     })
 
     var rotation_total_time = 1;
@@ -210,8 +246,13 @@
     }
 
     var reset_selection = function() {
-      var $parent = $(".action-toggle-mode[value=pan]").prop('checked', true).trigger('change').parents(".btn");
-      $parent.siblings().toggleClass("active").end().addClass("active");
+      // var $parent = $(".action-toggle-mode[value=pan]").prop('checked', true).trigger('change').parents(".btn");
+      // $parent.siblings().toggleClass("active").end().addClass("active");
+
+      selection.disable();
+      $(".selection-toolbar").toggleClass('hidden');
+      $(".default-toolbar").toggleClass('hidden');
+      $(".selection-toolbar .invisible.visible").toggleClass("visible");
     }
 
     $(".action-rotate-left").on('click', function() {
