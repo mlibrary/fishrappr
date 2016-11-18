@@ -100,6 +100,7 @@ GEM
     ffaker (2.2.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    google-analytics-rails (1.1.0)
     hashie (3.4.4)
     holder_rails (2.9.3)
       railties (>= 3.1.0)
@@ -306,6 +307,7 @@ DEPENDENCIES
   devise-guests (~> 0.3)
   fakemail
   ffaker
+  google-analytics-rails (= 1.1.0)
   holder_rails
   jbuilder (~> 2.0)
   jquery-rails

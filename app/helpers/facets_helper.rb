@@ -33,4 +33,25 @@ module FacetsHelper
     classes = (options[:classes] || []) << "facet-count"
     content_tag("span", t('blacklight.search.facets.count', :number => number_with_delimiter(num)), :title=> 'Number of records', :class => classes)
   end
+
+  # facet_field_label
+  # Render a label/value constraint on the screen. Can be called
+  # by plugins and such to get application-defined rendering.
+  #
+  # Can be over-ridden locally to render differently if desired,
+  # although in most cases you can just change CSS instead.
+  #
+  # Can pass in nil label if desired.
+  #
+  # @param [String] label to display
+  # @param [String] value to display
+  # @param [Hash] options
+  # @option options [String] :remove url to execute for a 'remove' action
+  # @option options [Array<String>] :classes an array of classes to add to container span for constraint.
+  # @return [String]
+  def render_constraint_element(label, value, options = {})
+    ### save this in case we need an abbreviated label
+    # label = 'On' if label == 'On Page'
+    render(:partial => "catalog/constraints_element", :locals => {:label => label, :value => value, :options => options})
+  end
 end
