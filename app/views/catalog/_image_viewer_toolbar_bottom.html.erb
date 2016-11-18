@@ -1,19 +1,22 @@
-<div class="image-viewer-toolbar option-3">
+<div class="image-viewer-toolbar image-viewer-toolbar-bottom option-3">
   <div class="container-fluid" xstyle="padding: 0">
-    <div class="row">
+    <div class="row default-toolbar">
 
       <div class="col-md-6 col-sm-6 col-xs-12" style="white-space: nowrap">
 
-        <div class="btn-group" role="group" aria-label="rotate controls">
+        <div class="btn-group" role="group" aria-label="image controls">
           <button class="btn btn-action action-rotate-left"><%= use_icon('rotate_left') %> <span class="hidden-xs hidden-sm">Rotate Left </span></button>
           <button class="btn btn-action action-rotate-right"><span class="hidden-xs hidden-sm">Rotate Right </span><%= use_icon('rotate_right') %> </i></button>
+          <button class="btn btn-action action-toggle-mode"><%= use_icon('select') %> <span class="sr-only">Toggle </span>Select</button>
         </div>
 
+        <% if false %>
         <div class="btn-group" data-toggle="buttons" role="radiogroup" aria-labelledby="action-toggle-options">
           <span class="sr-only" id="action-toggle-options">Toggle viewer mode: </span>
           <label class="btn btn-action active"><input type="radio" class="action-toggle-mode" name="toggle-mode" id="option-pan" autocomplete="off" value="pan" checked="checked"><%= use_icon('pan') %> <span class="hidden-xs"> Pan</span></label>
           <label class="btn btn-action"><input class="action-toggle-mode" type="radio" name="toggle-mode" id="option-select" autocomplete="off" value="select"><%= use_icon('select') %> <span class="hidden-xs"> Select</span></label>
         </div>
+        <% end %>
 
       </div>
 
@@ -25,6 +28,12 @@
       </div>
 
     </div>
-  </div>
 
+    <div class="row selection-toolbar hidden"
+      <div class="col-md-12 col-sm-12 col-xs-12" style="white-space: nowrap; text-align: center">
+        <span>Click <em>there</em> to draw a selection rectangle</span>
+      </div>
+    </div>
+
+  </div>
 </div>

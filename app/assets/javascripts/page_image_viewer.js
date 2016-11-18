@@ -190,14 +190,34 @@
       // window.open(href, "download");
     })
 
-    $(".action-toggle-mode").on('change', function() {
-      var $input = $(this);
-      mode = $input.val();
-      if ( mode == 'pan' ) {
-        selection.disable();
-      } else {
-        selection.enable();
-      }
+    // $(".action-toggle-mode").on('change', function() {
+    //   var $input = $(this);
+    //   mode = $input.val();
+    //   if ( mode == 'pan' ) {
+    //     selection.disable();
+    //   } else {
+    //     selection.enable();
+    //   }
+    // })
+
+    $(".action-toggle-mode").on('click', function() {
+      // we are toggling modal
+      $(".default-toolbar").toggleClass('hidden');
+      $(".selection-toolbar").toggleClass('hidden');
+      selection.enable();
+    })
+
+    $("#action-selection-cancel").on('click', function() {
+      reset_selection();
+    })
+
+    $("#action-selection-zoom-in").on('click', function(e) {
+      e.preventDefault();
+      selection.zoom();
+    })
+
+    $("#action-selection-download").on('click', function(e) {
+      selection.download();
     })
 
     var rotation_total_time = 1;
@@ -210,8 +230,12 @@
     }
 
     var reset_selection = function() {
-      var $parent = $(".action-toggle-mode[value=pan]").prop('checked', true).trigger('change').parents(".btn");
-      $parent.siblings().toggleClass("active").end().addClass("active");
+      // var $parent = $(".action-toggle-mode[value=pan]").prop('checked', true).trigger('change').parents(".btn");
+      // $parent.siblings().toggleClass("active").end().addClass("active");
+
+      selection.disable();
+      $(".selection-toolbar").toggleClass('hidden');
+      $(".default-toolbar").toggleClass('hidden');
     }
 
     $(".action-rotate-left").on('click', function() {
