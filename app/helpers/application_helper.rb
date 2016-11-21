@@ -170,7 +170,8 @@ module ApplicationHelper
   def document_thumbnail(document, **kw)
     namespace = document.fetch('volume_identifier').split('.').first
     return fake_image(document, kw.fetch(:size, ',250')) if namespace == 'fake'
-    %Q{<img src="#{document_thumbnail_src(document, **kw)}" tabindex="-1", aria-hidden="true", alt="Thumbnail of Daily page" />}.html_safe
+    alt_text = "image of #{document['date_issued_display'].first} - number #{document.fetch('issue_sequence')}"
+    %Q{<img src="#{document_thumbnail_src(document, **kw)}" tabindex="-1", aria-hidden="true", alt="#{alt_text}" />}.html_safe
   end
 
   # TO DO: Needs to be moved into a style using a data attribute
