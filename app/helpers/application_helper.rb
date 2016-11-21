@@ -219,7 +219,7 @@ module ApplicationHelper
     texts = nil
     search_params = current_search_session.try(:query_params) 
     search_field = search_params ? search_params["q"] : nil
-    if document.has_highlight_field?(field)
+    if document.has_highlight_field?(field) and not search_field.blank?
       texts = document.highlight_field(field)
       if search_field.blank?
         texts.collect!{|text| text.truncate(750) if truncate}
@@ -227,13 +227,15 @@ module ApplicationHelper
     elsif breaks and document.fetch('page_text', nil)
       texts = document.fetch(field)
     else
-      texts = document.fetch('page_abstract', 'WUT')
+      texts = document.fetch('page_abstract', document.fetch('page_text', ''))
+      # STDERR.puts "AHOY THREE : #{search_field} : #{field}"
     end
     prefix = breaks ? '' : '&#8230;'.html_safe
     retval = ActiveSupport::SafeBuffer.new
     counter = Hash.new(0)
     seen = Hash.new(0)
     Array(texts).each do |text|
+      next if text.nil?
       next if text.strip.blank?
       text = text.truncate(450) if truncate # less jiggering in results view
 
