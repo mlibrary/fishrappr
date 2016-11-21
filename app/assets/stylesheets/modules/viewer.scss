@@ -205,8 +205,8 @@
 
 .blacklight-catalog-show {
     .navigation-toolbar {
-        padding-top: 18px;
-        padding-bottom: 18px;
+        padding-top: 8px;
+        padding-bottom: 8px;
 
         .btn-issue-link {
             padding-right: 2px;
@@ -455,6 +455,34 @@
 
 .invisible {
     visibility: hidden;
+}
+
+h1.page {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    padding-left: 2px;
+    font-weight: normal;
+
+    a.btn {
+        font-size: 20px;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        font-weight: bold;
+    }
+
+    > span {
+        display: inline-block;
+        padding-top: 9px;
+        padding-bottom: 9px;
+        vertical-align: middle;
+        line-height: 1.42857143;
+
+        &.current-image-sequence {
+            font-weight: bold;
+        }
+    }
 }
 
 @media (max-width: $screen-xs-max) {

@@ -13,16 +13,33 @@
 <%= replace :search_navbar do %>
   <div class="navigation-toolbar">
     <div class="container-fluid">
+      <% if cookies[:embiggen] == 'true' %>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <h1 class="page">
+            <span><%= @publication.title %></span>
+            <span class=""><%= use_icon('divider') %></span>
+            <a class="btn btn-link btn-issue-link" href="<%= search_catalog_url document_to_date_params(@document) %>">
+              <span><%= issue_title(@document, true) %></span> 
+            </a>
+            <span class=""><%= use_icon('divider') %></span>
+            <span class="current-image-sequence">Image <%= current_image_sequence(@document) %></span>
+          </h1>          
+        </div>
+      </div>
+      <% end %>
       <div class="row">
         <div class="col-md-7 col-sm-7 col-xs-12 navigate-issue">
           <% if current_search_session %>
             <%= link_back_to_catalog class: 'btn btn-search-primary', label: back_to_results_label %>
           <% end %>
-          <a class="btn btn-link btn-issue-link" href="<%= search_catalog_url document_to_date_params(@document) %>">
-            <span><%= issue_title(@document, true) %></span> 
-          </a>
-          <span class=""><%= use_icon('divider') %></span>
-          <span class="">Image <%= current_image_sequence(@document) %></span>
+          <% if cookies[:embiggen] != 'true' %>
+            <a class="btn btn-link btn-issue-link" href="<%= search_catalog_url document_to_date_params(@document) %>">
+              <span><%= issue_title(@document, true) %></span> 
+            </a>
+            <span class=""><%= use_icon('divider') %></span>
+            <span class="current-image-sequence">Image <%= current_image_sequence(@document) %></span>
+          <% end %>
         </div>
         <div class="col-md-5 col-sm-5 col-xs-12 navigate-pages">
           <%= link_to_previous_issue_page @previous_page %>
@@ -34,17 +51,18 @@
   </div>
 <% end %>
 
-<h1 class="sr-only"><%= @document['date_issued_display'].first %> -  Issue <%= @document.fetch('issue_no_t', ['-']).first %> - Image <%= current_image_sequence(@document) %></h1>
+<% if cookies[:embiggen] != 'true' %><h1 class="sr-only"><%= @document['date_issued_display'].first %> -  Issue <%= @document.fetch('issue_no_t', ['-']).first %> - Image <%= current_image_sequence(@document) %></h1><% end %>
 
 <h2 class="sr-only">Page Image</h2>
 <div id="image-viewer-wrap">
+
   <%= render partial: "image_viewer_toolbar_top" %>
 
   <div id="image-viewer" data-words="<%= process_highlighted_words(@document) %>" data-identifier="<%= iiif_identifier(@document) %>" data-highlighting="<%= highlights_visible? ? 'true' : 'false' %>"></div>
 
   <%= render partial: "image_viewer_toolbar_bottom" rescue nil %>
 
-  <p class="sr-only">scanned image of the page</p>
+  <p class="sr-only">Scanned image of the page. Keyboard directions: use <tt>+</tt> to zoom in, <tt>-</tt> to zoom out, <em>arrow keys</em> to pan inside the viewer.</p>
 </div>
 
 
