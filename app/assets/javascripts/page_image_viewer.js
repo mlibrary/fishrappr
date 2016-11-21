@@ -238,6 +238,11 @@
 
     $("body").on('keydown', function(e) {
       var keyCode = e.which;
+
+      var remap_codes = {};
+      remap_codes['187'] = 43;
+      remap_codes['189'] = 45;
+
       var $canvas = $("canvas");
       if ( ! $canvas.get(0).hasAttribute('tabindex') ) {
         $canvas.attr("tabindex", -1);
@@ -246,11 +251,15 @@
         // escape
         if ( selection.isSelecting ) {
           reset_selection();
+        } else {
+          viewer.viewport.goHome();
         }
       } else if ( ! $canvas.is(":focus") ) {
-        if ( keyCode == 187 || keyCode == 189 ) {
-          $canvas.focus();
-          viewer.innerTracker.keyHandler({ keyCode: keyCode == 187 ? 43 : 45 });
+        $canvas.focus();
+        if ( remap_codes[keyCode] ) {
+          viewer.innerTracker.keyHandler({ keyCode: remap_codes[keyCode] ? remap_codes[keyCode] : keyCode });
+        } else {
+          viewer.innerTracker.keyDownHandler({ keyCode: keyCode });
         }
       }
     })
