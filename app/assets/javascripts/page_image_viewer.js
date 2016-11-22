@@ -237,7 +237,18 @@
 
     }
 
-    if ( Cookies.get('embiggen') == 'true' ) {
+    var resize_and_load_viewer = function() {
+        resize_viewer();
+        $map.empty();
+        $(".default-toolbar").show();
+        $(".action-reset-viewer").show();
+        load_tile_viewer();
+    };
+
+    if ( Cookies.get('embiggened') == 'true' ) {
+      resize_and_load_viewer();
+    }
+    else if ( Cookies.get('embiggen') == 'true' ) {
       // some other mechanism
       $(".default-toolbar").hide();
       $(".action-reset-viewer").hide();
@@ -250,11 +261,8 @@
       $div.append(img);
       $div.on('click', function() {
         // $map.parent().height($(window).height());
-        resize_viewer();
-        $map.empty();
-        $(".default-toolbar").show();
-        $(".action-reset-viewer").show();
-        load_tile_viewer();
+        Cookies.set('embiggened', 'true');
+        resize_and_load_viewer();
         $("html,body").animate({ scrollTop: $map.parent().offset().top });
       })
     } else {
