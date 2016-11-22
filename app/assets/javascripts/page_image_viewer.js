@@ -33,12 +33,17 @@
         };
       };
 
-      // var resize_viewer = debounce(function() {
-      //   $map.parent().height($(window).height() * margin);
-      // })
+      var resize_viewer = function() {
+        var width = $map.data('width'); var height = $map.data('height');
+        var r = $(window).width() / width;
+        console.log("AHOY RESIZE", width, height, height * r);
+        $map.parent().height(height * r);
+
+        // $map.parent().height($(window).height() * margin);
+      };
 
       // $map.parent().height($(window).height() * margin);
-      // $(window).resize(resize_viewer);
+      $(window).resize(debounce(resize_viewer));
 
       $map.parent().css({ height: '50%'})
     }
@@ -244,7 +249,8 @@
       $div.css('text-align', 'center');
       $div.append(img);
       $div.on('click', function() {
-        $map.parent().height($(window).height());
+        // $map.parent().height($(window).height());
+        resize_viewer();
         $map.empty();
         $(".default-toolbar").show();
         $(".action-reset-viewer").show();
