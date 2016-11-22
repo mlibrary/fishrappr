@@ -58,7 +58,7 @@
 
   <%= render partial: "image_viewer_toolbar_top" %>
 
-  <div id="image-viewer" data-words="<%= process_highlighted_words(@document) %>" data-identifier="<%= iiif_identifier(@document) %>" data-highlighting="<%= highlights_visible? ? 'true' : 'false' %>"></div>
+  <div id="image-viewer" data-words="<%= process_highlighted_words(@document) %>" data-identifier="<%= iiif_identifier(@document) %>" data-height="<%= @document.fetch('image_height_ti') %>" data-width="<%= @document.fetch('image_width_ti') %>" data-highlighting="<%= highlights_visible? ? 'true' : 'false' %>"></div>
 
   <%= render partial: "image_viewer_toolbar_bottom" rescue nil %>
 
