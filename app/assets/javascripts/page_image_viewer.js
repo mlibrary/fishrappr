@@ -16,6 +16,15 @@
       location.href = href;
     }
 
+    var resize_viewer = function() {
+      var width = $map.data('width'); var height = $map.data('height');
+      var r = $(window).width() / width;
+      console.log("AHOY RESIZE", width, height, height * r);
+      $map.parent().height(height * r);
+
+      // $map.parent().height($(window).height() * margin);
+    };
+
     if ( Cookies.get('embiggen') == 'true' ) {
 
       function debounce(func, wait, immediate) {
@@ -31,15 +40,6 @@
           timeout = setTimeout(later, wait);
           if (callNow) func.apply(context, args);
         };
-      };
-
-      var resize_viewer = function() {
-        var width = $map.data('width'); var height = $map.data('height');
-        var r = $(window).width() / width;
-        console.log("AHOY RESIZE", width, height, height * r);
-        $map.parent().height(height * r);
-
-        // $map.parent().height($(window).height() * margin);
       };
 
       // $map.parent().height($(window).height() * margin);
@@ -245,7 +245,7 @@
         load_tile_viewer();
     };
 
-    if ( Cookies.get('embiggened') == 'true' ) {
+    if ( Cookies.get('embiggen') == 'true' && Cookies.get('embiggened') == 'true' ) {
       resize_and_load_viewer();
     }
     else if ( Cookies.get('embiggen') == 'true' ) {
