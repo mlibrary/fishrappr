@@ -1,5 +1,6 @@
 <div id="searchGraph" class="clearfix">
     <% graph_data = get_graph_data(params) %>
+    <h2 class="sr-only">Explore by <%= graph_data['chart_title'] %></h2>
     <span 
     id="graph_data" 
     class="hidden" 
@@ -12,7 +13,7 @@
     data-col-links="<%= graph_data['js_links_str'] %>" 
     ></span>
     
-  <h5><span class="result-requency-by">Results Frequency by </span><span class="result-frequency-by-range"><%= graph_data['chart_title'] %></span></h5>
+  <h3><span class="result-requency-by">Results Frequency by </span><span class="result-frequency-by-range"><%= graph_data['chart_title'] %></span></h3>
   <div id="hit_chart_frame">
     <span id="y-axis-title">Date Range</span>
     <span id="x-axis-title">Pages with Results</span>

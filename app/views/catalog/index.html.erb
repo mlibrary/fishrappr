@@ -6,6 +6,18 @@
   <%= render 'index_skiplinks' %>
 <% end %>
 
+<%= replace :h1 do %>
+  <% if ! has_search_parameters? %>
+    New Search
+  <% elsif @response.empty? %>
+    No Results
+  <% elsif params[:q].start_with?('issue_identifier') %>
+    <%= issue_title @document_list.first, complete: true %>
+  <% else %>
+    Search Results
+  <% end %>
+<% end %>
+
 
 <div id="sidebar" class="<%= sidebar_classes %>">
   <%= render 'constraints' %>
