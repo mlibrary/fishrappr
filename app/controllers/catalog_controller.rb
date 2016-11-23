@@ -78,6 +78,7 @@ class CatalogController < ApplicationController
             'issue_no_t',
             'page_no_t',
             'issue_vol_iss_display',
+            'page_abstract',
           ].join(',')
     }
 
@@ -154,6 +155,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'date_issued_mm_ti', label: 'Month', sort: 'index', helper_method: :get_month_label
     config.add_facet_field 'date_issued_dd_ti', label: 'Day', sort: 'index', limit: 20
     config.add_facet_field 'date_issued_yyyymmdd_ti', label: 'Date', show: false
+    config.add_facet_field 'issue_identifier', label: 'Issue', show: false
 
     #config.add_facet_field 'example_pivot_field', label: 'Pivot Field', :pivot => ['format', 'language_facet']
 
@@ -212,6 +214,7 @@ class CatalogController < ApplicationController
     # since we aren't specifying it otherwise.
 
     config.add_search_field 'all_fields', label: 'All Fields'
+    config.add_search_field 'issue_identifier', label: 'Issue'
 
     config.add_search_field 'page_text' do |field|
       field.include_in_simple_select = false

@@ -13,7 +13,11 @@
       <span class="filterName"><%= label %></span>
     <% end %>
     <% unless value.blank? %>
-      <%= content_tag :span, value, class: 'filterValue', title: value %>
+      <% if value.start_with?('issue_identifier:') %>
+        <%= tmp = value.split('-')[1..3]; "#{tmp[1]}/#{tmp[2]}/#{tmp[0]}" %>
+      <% else %>
+        <%= content_tag :span, value, class: 'filterValue', title: value %>
+      <% end %>
     <% end %>
   </span>
   <% unless options[:remove].blank? %>
