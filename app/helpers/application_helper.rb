@@ -82,12 +82,15 @@ module ApplicationHelper
   def document_to_date_params(document)
     params = {}
 
-    params[:search_field] = 'all_fields'
-    params[:date_filter] = 'on'
-    params[:date_issued_begin_dd] = document.fetch(:date_issued_dd_ti)
-    params[:date_issued_begin_mm] = document.fetch(:date_issued_mm_ti)
-    params[:date_issued_begin_yyyy] = document.fetch(:date_issued_yyyy_ti)
-    params[:sort] = 'score desc, date_issued_dt desc, issue_no_t_sort asc, issue_sequence asc' # relevance
+    params[:search_field] = 'issue_identifier'
+    params[:q] = "issue_identifier:" + document.fetch('issue_identifier')
+    params[:sort] = 'issue_sequence asc'
+    # params[:search_field] = 'all_fields'
+    # params[:date_filter] = 'on'
+    # params[:date_issued_begin_dd] = document.fetch(:date_issued_dd_ti)
+    # params[:date_issued_begin_mm] = document.fetch(:date_issued_mm_ti)
+    # params[:date_issued_begin_yyyy] = document.fetch(:date_issued_yyyy_ti)
+    # params[:sort] = 'score desc, date_issued_dt desc, issue_no_t_sort asc, issue_sequence asc' # relevance
     params
   end
 
