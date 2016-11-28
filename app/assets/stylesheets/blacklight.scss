@@ -78,13 +78,17 @@
         background-color: #ffffff;
         box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 3px 0 rgba(0, 0, 0, 0.12);
     }
+
+
+
 }
 
-span.subtitle {
+h4 > .subtitle {
     margin-top: 4px;
     display: block;
     color: rgba(11, 69, 123,.65) !important;
 }
+
 
 .caption span.subtitle {
     font-size: 90%;
@@ -201,8 +205,8 @@ span.subtitle {
         }
     }
 
-    span.subtitle {
-        color: #6e6e6e;
+    span.row-article-text span.subtitle {
+        color: rgba(11, 69, 123,.65) !important;
         display: block;
         font-size: 16px;
         line-height: 1.2;
