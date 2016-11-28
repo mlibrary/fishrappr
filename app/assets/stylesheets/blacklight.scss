@@ -59,6 +59,8 @@
 
 #documents h3 {
     margin-top: 0;
+    text-decoration: underline;
+    color: #0b457b !important;
 }
 
 .caption h3 {
@@ -81,7 +83,7 @@
 span.subtitle {
     margin-top: 4px;
     display: block;
-    color: #6e6e6e;
+    color: rgba(11, 69, 123,.65) !important;
 }
 
 .caption span.subtitle {
