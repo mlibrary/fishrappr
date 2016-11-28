@@ -74,9 +74,15 @@
     figcaption {
       text-align: left;
       margin-top: 16px;
+      text-decoration: underline;
+      color: #0b457b !important;
 
       h4 {
         font-size: 16px;
+
+        .subtitle {
+          color: rgba(11, 69, 123,.65) !important;
+        }
       }
     }
 
