@@ -236,6 +236,25 @@
       selection.download();
     })
 
+    $("body").on('keydown', function(e) {
+      var keyCode = e.which;
+      var $canvas = $("canvas");
+      if ( ! $canvas.get(0).hasAttribute('tabindex') ) {
+        $canvas.attr("tabindex", -1);
+      }
+      if ( keyCode == 27 ) {
+        // escape
+        if ( selection.isSelecting ) {
+          reset_selection();
+        }
+      } else if ( ! $canvas.is(":focus") ) {
+        if ( keyCode == 187 || keyCode == 189 ) {
+          $canvas.focus();
+          viewer.innerTracker.keyHandler({ keyCode: keyCode == 187 ? 43 : 45 });
+        }
+      }
+    })
+
     var rotation_total_time = 1;
     var rotateViewer = function(delta) {
       var rotation_step_delta = 1; 

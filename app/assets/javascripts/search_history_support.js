@@ -1,7 +1,7 @@
 $().ready(function() {
 
   var action = location.pathname ? location.pathname.substr(1) : null;
-  if ( action == 'index' || action == 'browse' ) {
+  if ( action == 'index' || action == 'browse' || action == 'search' ) {
     var query = location.search.substr(1);
     var params = query ? $.deparam(query) : {};
     params.controller = 'catalog';
