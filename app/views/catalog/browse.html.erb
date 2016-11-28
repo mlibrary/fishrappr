@@ -16,13 +16,14 @@
     <%= form_tag(browse_path, role: 'search', method: :get, class: "form-inline browse-form") do %>
       <div class="browse-select-box" aria-live="polite">
         <div class="form-group">
-          <label class="sr-only" for="date_issued_yyyy10_ti">Filter by decade</label>
-          <%= select_tag(name="date_issued_yyyy10_ti", options_for_select(decade_browse_options, params[:date_issued_yyyy10_ti]), class: 'changeable form-control') %>
-          <label class="sr-only" for="date_issued_yyyy_ti">Filter by year</label>
+          <%=  label_tag 'date_issued_yyyy10_ti', 'Filter by decade', class: 'sr-only' %>
+          <%= select_tag(name="date_issued_yyyy10_ti", options_for_select(decade_browse_options, params[:date_issued_yyyy10_ti]), class: 'changeable form-control') %>          
+          <%#= date_select("browse_date", "published", start_year: 1890, prompt: { day: 'Any Date', month: 'Any Month', year: 'Any Year' }) %>
+          <%=  label_tag 'date_issued_yyyy_ti', 'Filter by year', class: 'sr-only' %>
           <%= select_tag(name="date_issued_yyyy_ti", options_for_select(year_browse_options, params[:date_issued_yyyy_ti]), class: 'changeable form-control') %>
-          <label class="sr-only" for="date_issued_mm_ti">Filter by month</label>
+          <%=  label_tag 'date_issued_mm_ti', 'Filter by month', class: 'sr-only' %>
           <%= select_tag(name="date_issued_mm_ti", options_for_select(month_browse_options, params[:date_issued_mm_ti]), class: 'changeable form-control') %>
-          <label class="sr-only" for="date_issued_dd_ti">Filter by day</label>
+          <%=  label_tag 'date_issued_dd_ti', 'Filter by day', class: 'sr-only' %>
           <%= select_tag(name="date_issued_dd_ti", options_for_select(date_browse_options, params[:date_issued_dd_ti]), class: 'changeable form-control') %>
           <button type="submit" class="btn btn-action btn-lg" xid="browse">
             <span class="<%= use_icon_class('search') %>"></span>
