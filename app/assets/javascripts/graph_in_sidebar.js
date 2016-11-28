@@ -60,27 +60,21 @@ $( document ).ready(function() {
         // default to linked graph bar and solid color bar style
         var day_class = '';
         var d_value = '';
+        var col_html = '';
 
         if (val == 0) {
           // light gray bar
           day_class = 'day0';
           d_value = col_names[i] +  ' has '  + val + ' pages matching search.';
+          col_html = '';
         } else {
           day_class = 'day';
           d_value = col_names[i] +  ' has '  + val + ' pages matching search. Click to zoom into bar data.';
+          col_href = 'col_links[i]';
         }
 
-        // var col_name = $('<a href="' + col_links[i] + '"><span class="col_names" tabindex="0">' + col_names[i] + '<span class="sr-only"> has ' + val + ' pages matching search.</span></span></a>');
-
-        // if (col_links[i].includes("#")) {
-        //   // no link on bar
-        //   col_name = $('<span class="col_names" tabindex="0">' + col_names[i] + '<span class="sr-only"> has ' + val + ' pages matching search.</span></span>');
-        // }         
-
-
-
         var col_name = $('<a />', {
-            href: 'col_links[i]',
+            href: col_href,
             html: '<span class="col_names" tabindex="0">' + col_names[i] + '<span class="sr-only"> has ' + val + ' pages matching search.</span></span>',
             'data-value' : d_value,
             on     : {
