@@ -82,8 +82,9 @@ module ApplicationHelper
   def document_to_date_params(document)
     params = {}
 
-    params[:search_field] = 'issue_identifier'
-    params[:q] = "issue_identifier:" + document.fetch('issue_identifier')
+    # params[:search_field] = 'issue_identifier'
+    # params[:q] = "issue_identifier:" + document.fetch('issue_identifier')
+    params[:'f[issue_identifier][]'] = document.fetch('issue_identifier')
     params[:sort] = 'issue_sequence asc'
     # params[:search_field] = 'all_fields'
     # params[:date_filter] = 'on'
@@ -608,6 +609,8 @@ module ApplicationHelper
 
     # show years in decade
     return true if (filters.key?('date_issued_yyyy10_ti'))
+
+    return true if filters.key?('issue_identifier')
 
     false
 

@@ -40,6 +40,9 @@
             </span>
           </span>
           <% end %>
+          <% if params[:f] and params[:f][:issue_identifier] %>
+            <span>this issue</span>
+          <% end %>
           <span class="q-block">
           <label for="q" class="control-label search-label for-label">For</label>
           <%= text_field_tag(:q, params[:q], placeholder: 'Search Anything', class: 'form-control' ) %>

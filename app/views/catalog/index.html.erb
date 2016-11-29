@@ -11,7 +11,7 @@
     New Search
   <% elsif @response.empty? %>
     No Results
-  <% elsif params[:q] and params[:q].start_with?('issue_identifier') %>
+  <% elsif params[:f] and params[:f][:issue_identifier] %>
     <%= issue_title @document_list.first, complete: true %>
   <% else %>
     Search Results
@@ -26,6 +26,7 @@
 </div>
 
 <div id="content" class="<%= main_content_classes %> activate-highlighting">
+  
   <% unless has_search_parameters? %>
     <%# if there are no input/search related params, display the "home" partial -%>
     <%= render 'home' %>
