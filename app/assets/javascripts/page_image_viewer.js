@@ -183,6 +183,35 @@
           $(".span-zoom-status").text(Math.floor(e.zoom * 100) + '%');
         })
 
+        viewer.addHandler('xx-canvas-scroll', function(e) {
+          console.log("AHOY CANVAS SCROLL", e);
+          var delta = - ( e.scroll * 5 );
+          viewer.viewport.panBy(viewer.viewport.deltaPointsFromPixels(new OpenSeadragon.Point(0, delta)));
+          return false;
+        })
+
+        var hackedCanvasScroll = function(e) {
+          console.log("AHOY CANVAS SCROLL OVERRIDDEN", e);
+          var delta = - ( e.scroll * 5 );
+          viewer.viewport.panBy(viewer.viewport.deltaPointsFromPixels(new OpenSeadragon.Point(0, delta)));
+          return false;
+        }
+
+        viewer.innerTracker.scrollHandler = function(event) {
+          return hackedCanvasScroll(event);
+        }
+
+        // var tracker = new OpenSeadragon.MouseTracker({
+        //   element: viewer.container,
+        //   moveHandler: function(event) {
+        //     console.log("MOVE", event)
+        //   },
+        //   scrollHandler: function(event) {
+        //     console.log("SCROLLING", event)
+        //   }
+        // })
+        // tracker.setTracking(true);
+
         // viewer.addTiledImage({ tileSource: info_url });
         viewer.open(info_url);
         F.viewer = viewer;
