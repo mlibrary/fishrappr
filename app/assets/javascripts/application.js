@@ -18,6 +18,7 @@
 // Required by Blacklight
 //= require blacklight/blacklight
 //= require bootstrap/button
+//= require bootstrap/tab
 //= require bootbox
 
 // --- TODO: work out a different way to load this in development

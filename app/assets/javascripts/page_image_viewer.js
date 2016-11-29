@@ -6,6 +6,8 @@
 
     window.F = window.F || {};
     var $map = $("#image-viewer");
+    var $wrap = $("#image-viewer-wrap");
+    var option = $("body").data('option');
 
     var margin_top = $("#header-navbar").height() + $(".navigation-toolbar").height();
     var margin = 0.9;
@@ -18,14 +20,18 @@
 
     var resize_viewer = function() {
       var width = $map.data('width'); var height = $map.data('height');
-      var r = $(window).width() / width;
-      console.log("AHOY RESIZE", width, height, height * r);
-      $map.parent().height(height * r);
-
-      // $map.parent().height($(window).height() * margin);
+      var r;
+      if ( option == 'tabs' ) {
+        r = $map.width() / width;
+        height *= r;
+      } else {
+        height = $(window).height() - 20;
+      }
+      $wrap.height(height);
     };
 
-    if ( Cookies.get('embiggen') == 'true' ) {
+    // if ( || Cookies.get('embiggen') == 'true' ) {
+    if ( option == 'tabs' ) {
 
       function debounce(func, wait, immediate) {
         var timeout;
@@ -45,11 +51,12 @@
       // $map.parent().height($(window).height() * margin);
       $(window).resize(debounce(resize_viewer));
 
-      $map.parent().css({ height: '50%'})
+      // $map.parent().css({ height: '50%'})
+    } else {
+      $wrap.css({ height: '50%' });
     }
 
     var words = $map.data('words');
-    // words = [ 'design', 'wrinkle', 'clever' ];
     var identifier = $map.data('identifier');
     var image_base;
 
@@ -172,47 +179,10 @@
           }
         })
 
-        viewer.addHandler('open', function() {
-          // viewer.world.addHandler('add-item', function(e, item, userData) {
-          //   console.log("AHOY ADD ITEM", e, item, userData);
-          //   addHighlightOverlay(viewer);
-          // });
-        })
-
         viewer.addHandler('zoom', function(e) {
           $(".span-zoom-status").text(Math.floor(e.zoom * 100) + '%');
         })
 
-        viewer.addHandler('xx-canvas-scroll', function(e) {
-          console.log("AHOY CANVAS SCROLL", e);
-          var delta = - ( e.scroll * 5 );
-          viewer.viewport.panBy(viewer.viewport.deltaPointsFromPixels(new OpenSeadragon.Point(0, delta)));
-          return false;
-        })
-
-        var hackedCanvasScroll = function(e) {
-          console.log("AHOY CANVAS SCROLL OVERRIDDEN", e);
-          var delta = - ( e.scroll * 5 );
-          viewer.viewport.panBy(viewer.viewport.deltaPointsFromPixels(new OpenSeadragon.Point(0, delta)));
-          return false;
-        }
-
-        viewer.innerTracker.scrollHandler = function(event) {
-          return hackedCanvasScroll(event);
-        }
-
-        // var tracker = new OpenSeadragon.MouseTracker({
-        //   element: viewer.container,
-        //   moveHandler: function(event) {
-        //     console.log("MOVE", event)
-        //   },
-        //   scrollHandler: function(event) {
-        //     console.log("SCROLLING", event)
-        //   }
-        // })
-        // tracker.setTracking(true);
-
-        // viewer.addTiledImage({ tileSource: info_url });
         viewer.open(info_url);
         F.viewer = viewer;
 
@@ -270,17 +240,41 @@
         resize_viewer();
         $map.empty();
         $(".default-toolbar").show();
-        $(".action-reset-viewer").show();
+        $(".action-reset-viewer").removeClass('hidden');
+        $(".action-deactivate-viewer").removeClass('hidden');
         load_tile_viewer();
     };
 
-    if ( Cookies.get('embiggen') == 'true' && Cookies.get('embiggened') == 'true' ) {
-      resize_and_load_viewer();
-    }
-    else if ( Cookies.get('embiggen') == 'true' ) {
-      // some other mechanism
+    // if ( 1 || Cookies.get('embiggen') == 'true' && Cookies.get('embiggened') == 'true' ) {
+    //   resize_and_load_viewer();
+    // }
+    // else if ( Cookies.get('embiggen') == 'true' ) {
+    //   // some other mechanism
+    //   $(".default-toolbar").hide();
+    //   $(".action-reset-viewer").hide();
+    //   var height = $map.height();
+    //   var img = new Image();
+    //   var href =$("link[rel=repository]").attr('href'); 
+    //   img.src = href + 'image/' + identifier + '/full/,' + height + '/0/default.jpg';
+    //   var $div = $('<div></div>').appendTo($map);
+    //   $div.css('text-align', 'center');
+    //   $div.append(img);
+    //   $div.on('click', function() {
+    //     // $map.parent().height($(window).height());
+    //     Cookies.set('embiggened', 'true');
+    //     resize_and_load_viewer();
+    //     $("html,body").animate({ scrollTop: $map.parent().offset().top });
+    //   })
+    // } else {
+    //   load_tile_viewer();
+    // }
+
+    var deactivate_viewer = function() {
       $(".default-toolbar").hide();
-      $(".action-reset-viewer").hide();
+      $(".action-reset-viewer").addClass('hidden');
+      $(".action-deactivate-viewer").addClass('hidden');
+      $(".action-activate-viewer").removeClass('hidden');
+      $wrap.css({ height: '50%' });
       var height = $map.height();
       var img = new Image();
       var href =$("link[rel=repository]").attr('href'); 
@@ -288,15 +282,28 @@
       var $div = $('<div></div>').appendTo($map);
       $div.css('text-align', 'center');
       $div.append(img);
-      $div.on('click', function() {
-        // $map.parent().height($(window).height());
-        Cookies.set('embiggened', 'true');
-        resize_and_load_viewer();
-        $("html,body").animate({ scrollTop: $map.parent().offset().top });
-      })
-    } else {
-      load_tile_viewer();
+    };
+
+    if ( option == 'tabs' ) {
+      resize_and_load_viewer();
     }
+    else {
+      deactivate_viewer();
+    }
+
+    $(".action-activate-viewer").on('click', function() {
+      // $map.parent().height($(window).height());
+      // Cookies.set('embiggened', 'true');
+      $(".action-activate-viewer").addClass('hidden');
+      $(".action-deactivate-viewer").removeClass('hidden');
+      resize_and_load_viewer();
+      $("html,body").animate({ scrollTop: $wrap.offset().top });
+    })
+
+    $(".action-deactivate-viewer").on('click', function() {
+      deactivate_viewer();
+    })
+
 
     $(".action-reset-viewer").on('click', function(e) {
       e.preventDefault();

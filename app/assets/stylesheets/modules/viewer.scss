@@ -366,6 +366,10 @@
     }
 }
 
+body[data-option=tabs] .panel-actions-page {
+    margin-top: 50px;
+}
+
 .panel-actions-page .btn {
     // background: #136DC1;
     color: white;

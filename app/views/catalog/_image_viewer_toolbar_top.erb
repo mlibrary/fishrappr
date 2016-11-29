@@ -1,6 +1,14 @@
 <div class="image-viewer-toolbar option-3">
+
+  <div class="btn-group" role="group" style="position: absolute; left: 15px; top: 15px; z-index: 5000">
+    <% if params[:option] != 'tabs' %>
+      <button class="btn btn-action action-activate-viewer"><i class="glyphicon glyphicon-resize-full"></i><span class="hidden-xs"> Open Viewer</span></button>
+      <button class="btn btn-action action-deactivate-viewer hidden"><i class="glyphicon glyphicon-resize-small"></i><span class="hidden-xs"> Close Viewer</span></button>
+    <% end %>
+    <button class="btn btn-action action-reset-viewer"><i class="glyphicon glyphicon-home"></i><span class="hidden-xs"> Home</span></button>
+  </div>
+
   <div class="container-fluid" style="padding: 0; padding-left: 4px; padding-right: 4px">
-    <button class="btn btn-action action-reset-viewer" style="position: absolute; left: 15px; top: 15px; z-index: 5000"><i class="glyphicon glyphicon-home"></i><span class="hidden-xs"> Home</span></button>
     <div class="row default-toolbar">
       <div class="col-md-12 col-sm-12 col-xs-12" style="white-space: nowrap; text-align: center">
         <div class="btn-group" role="group" aria-label="zoom controls" style="white-space: nowrap">
