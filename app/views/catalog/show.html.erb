@@ -67,8 +67,8 @@
 
 <script>
 $().ready(function() {
-  $(".image-viewer-toolbar").stick_in_parent();
-  $("#page-options").stick_in_parent();
+  $(".image-viewer-toolbar-top").stick_in_parent();
+  $(".page-options").stick_in_parent({ parent: '.container-viewer' });
   $(".action-copy-permalink").on('click', function(e) {
     e.preventDefault();
     $("#permalink").select();

@@ -237,12 +237,46 @@
 
     }
 
+    var waypoints;
+
     var resize_and_load_viewer = function() {
         resize_viewer();
         $map.empty();
         $(".default-toolbar").show();
         $(".action-reset-viewer").removeClass('hidden');
         $(".action-deactivate-viewer").removeClass('hidden');
+
+        if ( option == 'tabs' ) {
+          var $toolbar = $(".image-viewer-toolbar-bottom");
+
+          var $spacer = $('<div></div>').css({ height: $toolbar.height(), width: $toolbar.width() });
+          $toolbar.css({ position: 'fixed', bottom: 0, width: $toolbar.width() });
+          $toolbar.after($spacer);
+
+          waypoints = new Waypoint.Inview({
+            element: $spacer[0],
+            entered: function(direction) {
+              console.log("ENTERED", direction);
+              $toolbar.css({ position: 'static' });
+              $spacer.hide();
+            },
+            exit: function(direction) {
+              console.log("EXITED", direction);
+              $toolbar.css({ position: 'fixed' });
+              $spacer.show();
+            }
+          })
+
+
+          // waypoints = $spacer.waypoint({
+          //   handler: function() {
+          //     $spacer.hide();
+          //     $toolbar.css({ position: 'static' });
+          //   },
+          //   offset: 'bottom-in-view'
+          // })
+
+        }
         load_tile_viewer();
     };
 

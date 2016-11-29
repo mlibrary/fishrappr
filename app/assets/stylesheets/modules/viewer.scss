@@ -366,6 +366,32 @@
     }
 }
 
+#page-text.tab-pane {
+    display: block;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+
+    &.active {
+        position: static;
+        width: auto;
+        height: auto;
+        margin: 0;
+        padding: 0;
+        overflow: auto;
+    }
+}
+
+.stuck-toolbar-bottom {
+    position: fixed;
+    bottom: 0;
+}
+
 body[data-option=tabs] .panel-actions-page {
     margin-top: 50px;
 }
