@@ -267,42 +267,9 @@
             }
           })
 
-
-          // waypoints = $spacer.waypoint({
-          //   handler: function() {
-          //     $spacer.hide();
-          //     $toolbar.css({ position: 'static' });
-          //   },
-          //   offset: 'bottom-in-view'
-          // })
-
         }
         load_tile_viewer();
     };
-
-    // if ( 1 || Cookies.get('embiggen') == 'true' && Cookies.get('embiggened') == 'true' ) {
-    //   resize_and_load_viewer();
-    // }
-    // else if ( Cookies.get('embiggen') == 'true' ) {
-    //   // some other mechanism
-    //   $(".default-toolbar").hide();
-    //   $(".action-reset-viewer").hide();
-    //   var height = $map.height();
-    //   var img = new Image();
-    //   var href =$("link[rel=repository]").attr('href'); 
-    //   img.src = href + 'image/' + identifier + '/full/,' + height + '/0/default.jpg';
-    //   var $div = $('<div></div>').appendTo($map);
-    //   $div.css('text-align', 'center');
-    //   $div.append(img);
-    //   $div.on('click', function() {
-    //     // $map.parent().height($(window).height());
-    //     Cookies.set('embiggened', 'true');
-    //     resize_and_load_viewer();
-    //     $("html,body").animate({ scrollTop: $map.parent().offset().top });
-    //   })
-    // } else {
-    //   load_tile_viewer();
-    // }
 
     var deactivate_viewer = function() {
       $(".default-toolbar").hide();
@@ -349,19 +316,7 @@
       var params = resizePrint(viewer);
       var href = viewer.source['@id'] + "/" + params + "?attachment=1";
       window.location.href = href;
-      // var href = viewer.source['@id'] + "/" + params + "?attachment=0";
-      // window.open(href, "download");
     })
-
-    // $(".action-toggle-mode").on('change', function() {
-    //   var $input = $(this);
-    //   mode = $input.val();
-    //   if ( mode == 'pan' ) {
-    //     selection.disable();
-    //   } else {
-    //     selection.enable();
-    //   }
-    // })
 
     $(".action-toggle-mode").on('click', function() {
       // we are toggling modal
@@ -436,17 +391,6 @@
     $(".action-rotate-right").on('click', function() {
       rotateViewer(90);
     })
-
-    window.delta = 1; window.total_time = 1;
-    F.razzle = function() {
-      var deg = viewer.viewport.getRotation();
-      var next_deg = deg + 90;
-      var i = setInterval(function() {
-        deg += window.delta;;
-        viewer.viewport.setRotation(deg);
-        if ( deg >= next_deg ) { clearInterval(i); }
-      }, window.total_time);
-    };
 
     function resizePrint(viewer) {
         var image = viewer.source;
