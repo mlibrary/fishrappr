@@ -1,7 +1,7 @@
 <div class="image-viewer-toolbar image-viewer-toolbar-top option-3">
 
   <div class="btn-group" role="group" style="position: absolute; left: 15px; top: 15px; z-index: 5000">
-    <% if params[:option] != 'tabs' %>
+    <% if @option == 'stacked' %>
       <button class="btn btn-action action-activate-viewer"><i class="glyphicon glyphicon-resize-full"></i><span class="hidden-xs"> Open Viewer</span></button>
       <button class="btn btn-action action-deactivate-viewer hidden"><i class="glyphicon glyphicon-resize-small"></i><span class="hidden-xs"> Close Viewer</span></button>
     <% end %>

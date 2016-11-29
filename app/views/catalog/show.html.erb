@@ -10,7 +10,7 @@
   <%= render 'show_skiplinks' %>
 <% end %>
 
-<%= replace :data do %>data-option="<%= params[:option] || 'stacked' %>"<% end %>
+<%= replace :data do %>data-option="<%= @option %>"<% end %>
 
 <%= replace :search_navbar do %>
   <div class="navigation-toolbar">
@@ -59,7 +59,7 @@
   </div>
 <% end %>
 
-<% if params[:option] == 'tabs' %>
+<% if @option == 'tabs' %>
   <%= render 'show_viewer_tabs' %>
 <% else %>
   <%= render 'show_viewer_stacked' %>
