@@ -70,6 +70,8 @@ class DlxsIngest
       fetch_volume(member['@id'])
       STDERR.puts "-- #{Time.now - tdelta} : #{member_idx} / #{total} : #{member['@id']}"
       tdelta = Time.now
+      delay = rand() * 2
+      sleep(delay)
     end
     STDERR.puts "-- #{Time.now - t0} : EOT"
   end

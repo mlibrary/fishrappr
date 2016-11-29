@@ -11,6 +11,8 @@ namespace :fishrappr do
     identifiers.each_with_index do |volume_identifier, i|
       STDERR.puts "-- indexing: #{i}/#{total} : #{volume_identifier}"
       IssueIndexer.run volume_identifier
+      delay = rand() * 2
+      sleep(delay)
     end
   end
 
