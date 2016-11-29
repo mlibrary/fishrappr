@@ -11,12 +11,12 @@
 
     var margin_top = $("#header-navbar").height() + $(".navigation-toolbar").height();
     var margin = 0.9;
-    if ( location.href.indexOf('toggle=embiggen') > -1 ) {
-      var value = Cookies.get('embiggen') || 'false';
-      Cookies.set('embiggen', value == 'false');
-      var href = location.href.replace('toggle=embiggen', '');
-      location.href = href;
-    }
+    // if ( location.href.indexOf('toggle=embiggen') > -1 ) {
+    //   var value = Cookies.get('embiggen') || 'false';
+    //   Cookies.set('embiggen', value == 'false');
+    //   var href = location.href.replace('toggle=embiggen', '');
+    //   location.href = href;
+    // }
 
     var resize_viewer = function() {
       var width = $map.data('width'); var height = $map.data('height');
@@ -55,6 +55,8 @@
     } else {
       $wrap.css({ height: '50%' });
     }
+
+    var margin_top = $("#header-navbar").height() + $(".navigation-toolbar").height();
 
     var words = $map.data('words');
     var identifier = $map.data('identifier');
@@ -224,7 +226,6 @@
         })
         F.selection = selection;
 
-
         viewer.addHandler('animation-finish', function() {
           while ( queue.length ) {
             var fn = queue.pop();
@@ -303,7 +304,6 @@
     $(".action-deactivate-viewer").on('click', function() {
       deactivate_viewer();
     })
-
 
     $(".action-reset-viewer").on('click', function(e) {
       e.preventDefault();

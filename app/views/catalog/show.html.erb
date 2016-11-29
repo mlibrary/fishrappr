@@ -15,6 +15,21 @@
 <%= replace :search_navbar do %>
   <div class="navigation-toolbar">
     <div class="container-fluid">
+      <% if cookies[:embiggen] == 'true' %>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <h1 class="page">
+            <span><%= @publication.title %></span>
+            <span class=""><%= use_icon('divider') %></span>
+            <a class="btn btn-link btn-issue-link" href="<%= search_catalog_url document_to_date_params(@document) %>">
+              <span><%= issue_title(@document, true) %></span> 
+            </a>
+            <span class=""><%= use_icon('divider') %></span>
+            <span class="current-image-sequence">Image <%= current_image_sequence(@document) %></span>
+          </h1>          
+        </div>
+      </div>
+      <% end %>
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
           <h1 class="page">
