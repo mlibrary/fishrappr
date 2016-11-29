@@ -11,7 +11,7 @@
     New Search
   <% elsif @response.empty? %>
     No Results
-  <% elsif params[:q].start_with?('issue_identifier') %>
+  <% elsif params[:q] and params[:q].start_with?('issue_identifier') %>
     <%= issue_title @document_list.first, complete: true %>
   <% else %>
     Search Results

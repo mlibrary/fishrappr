@@ -18,7 +18,6 @@
         <div class="form-group">
           <%=  label_tag 'date_issued_yyyy10_ti', 'Filter by decade', class: 'sr-only' %>
           <%= select_tag(name="date_issued_yyyy10_ti", options_for_select(decade_browse_options, params[:date_issued_yyyy10_ti]), class: 'changeable form-control') %>          
-          <%#= date_select("browse_date", "published", start_year: 1890, prompt: { day: 'Any Date', month: 'Any Month', year: 'Any Year' }) %>
           <%=  label_tag 'date_issued_yyyy_ti', 'Filter by year', class: 'sr-only' %>
           <%= select_tag(name="date_issued_yyyy_ti", options_for_select(year_browse_options, params[:date_issued_yyyy_ti]), class: 'changeable form-control') %>
           <%=  label_tag 'date_issued_mm_ti', 'Filter by month', class: 'sr-only' %>
