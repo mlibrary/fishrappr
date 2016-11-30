@@ -616,6 +616,7 @@ h1.page {
   border: none;
   width: 100%;
   padding-right: 15px;
+  padding-left: 15px;
   @media (min-width: $screen-sm-min) {
     display: table-cell;
     width: 33%;

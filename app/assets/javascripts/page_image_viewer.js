@@ -29,6 +29,10 @@
       if ( using_tabs ) {
         r = $map.width() / width;
         height *= r;
+        if ( height < 300 ) {
+          height = $(window).height() - 20;
+        }
+        console.log("AHOY", $map.width(), width, height);
       } else {
         height = $(window).height() - 20;
       }
