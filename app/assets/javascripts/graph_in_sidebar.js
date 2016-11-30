@@ -61,12 +61,13 @@ $( document ).ready(function() {
         var day_class = '';
         var d_value = '';
         var col_html = '';
+        var col_ref = '';
 
         if (val == 0) {
           // light gray bar
           day_class = 'day0';
           d_value = col_names[i] +  ' has '  + val + ' pages matching search.';
-          col_html = "";
+          col_href = "";
         } else {
           day_class = 'day';
           d_value = col_names[i] +  ' has '  + val + ' pages matching search. Click to zoom into bar data.';
