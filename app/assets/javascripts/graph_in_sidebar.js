@@ -66,11 +66,11 @@ $( document ).ready(function() {
           // light gray bar
           day_class = 'day0';
           d_value = col_names[i] +  ' has '  + val + ' pages matching search.';
-          col_html = '';
+          col_html = "";
         } else {
           day_class = 'day';
           d_value = col_names[i] +  ' has '  + val + ' pages matching search. Click to zoom into bar data.';
-          col_href = 'col_links[i]';
+          col_href = col_links[i];
         }
 
         var col_name = $('<a />', {
