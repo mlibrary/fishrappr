@@ -61,6 +61,8 @@
 
 <% if @option == 'tabs' %>
   <%= render 'show_viewer_tabs' %>
+<% elsif @option == 'tabbish' %>
+  <%= render 'show_viewer_tabbish' %>
 <% else %>
   <%= render 'show_viewer_stacked' %>
 <% end %>

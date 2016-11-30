@@ -9,6 +9,8 @@
     var $wrap = $("#image-viewer-wrap");
     var option = $("body").data('option');
 
+    var using_tabs = ( option == 'tabs' ) || ( option == 'tabbish' );
+
     var margin_top = $("#header-navbar").height() + $(".navigation-toolbar").height();
     var margin = 0.9;
     // if ( location.href.indexOf('toggle=embiggen') > -1 ) {
@@ -21,7 +23,7 @@
     var resize_viewer = function() {
       var width = $map.data('width'); var height = $map.data('height');
       var r;
-      if ( option == 'tabs' ) {
+      if ( using_tabs ) {
         r = $map.width() / width;
         height *= r;
       } else {
@@ -31,7 +33,7 @@
     };
 
     // if ( || Cookies.get('embiggen') == 'true' ) {
-    if ( option == 'tabs' ) {
+    if ( using_tabs ) {
 
       function debounce(func, wait, immediate) {
         var timeout;
@@ -246,7 +248,7 @@
         $(".action-reset-viewer").removeClass('hidden');
         $(".action-deactivate-viewer").removeClass('hidden');
 
-        if ( option == 'tabs' ) {
+        if ( using_tabs ) {
           var $toolbar = $(".image-viewer-toolbar-bottom");
 
           var $spacer = $('<div></div>').css({ height: $toolbar.height(), width: $toolbar.width() });
@@ -257,13 +259,17 @@
             element: $spacer[0],
             entered: function(direction) {
               console.log("ENTERED", direction);
-              $toolbar.css({ position: 'static' });
-              $spacer.hide();
+              if ( direction == 'down' ) {
+                $toolbar.css({ position: 'static' });
+                $spacer.hide();
+              }
             },
             exit: function(direction) {
               console.log("EXITED", direction);
-              $toolbar.css({ position: 'fixed' });
-              $spacer.show();
+              if ( direction == 'up' ) {
+                $toolbar.css({ position: 'fixed' });
+                $spacer.show();
+              }
             }
           })
 
@@ -286,7 +292,7 @@
       $div.append(img);
     };
 
-    if ( option == 'tabs' ) {
+    if ( using_tabs ) {
       resize_and_load_viewer();
     }
     else {
@@ -391,6 +397,17 @@
     $(".action-rotate-right").on('click', function() {
       rotateViewer(90);
     })
+
+    if ( option == 'tabbish' ) {
+      $("a[role=tab]").on('click', function(e) {
+        e.preventDefault();
+        var $target = $($(this).attr("href"));
+        // window.scrollTo(0, $target.offset().top - 60);
+        $('body,html').animate({
+            scrollTop: $target.offset().top - 60
+        }, 'fast');
+      })
+    }
 
     function resizePrint(viewer) {
         var image = viewer.source;
