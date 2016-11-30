@@ -392,7 +392,7 @@
     bottom: 0;
 }
 
-body[data-option=tabs] .panel-actions-page {
+body[data-option=tabs] .panel-actions-page, body[data-option=tabbish] .panel-actions-page {
     margin-top: 50px;
 }
 
@@ -579,6 +579,70 @@ h1.page {
             }
         }        
     }
+
+}
+
+.table-wrapper {
+  position: relative;
+}
+.table-container-fluid {
+    display: block;
+    @media (min-width: $screen-sm-min) {
+      display: table;
+    }
+  width: 100%;
+}
+.table-row {
+  display: block;
+  @media (min-width: $screen-sm-min) {
+    display: table-row;
+  }
+}
+.table-col-md-9 {
+  // border: 1px solid red;
+  display: block;
+  padding-right: 15px;
+  padding-left: 15px;
+  width: 100%;
+  @media (min-width: $screen-sm-min) {
+    width: auto;
+    display: table-cell;
+  }
+}
+
+.table-col-md-3, .table-empty
+{
+  display: block;
+  border: none;
+  width: 100%;
+  padding-right: 15px;
+  @media (min-width: $screen-sm-min) {
+    display: table-cell;
+    width: 33%;
+  }
+  @media (min-width: $screen-md-min) {
+    display: table-cell;
+    width: 25%;
+  }
+  @media (min-width: $screen-lg-min) {
+    display: table-cell;
+    width: 25%;
+  }
+}
+
+.table-col-md-3 {
+  position: static;
+  top: 0;
+  bottom: 0;
+  @media (min-width: $screen-sm-min) {
+    position: absolute;
+  }
+  @media (min-width: $screen-md-min) {
+    position: absolute;
+  }
+  @media (min-width: $screen-lg-min) {
+    position: absolute;
+  }
 
 }
 

@@ -9,6 +9,9 @@
     var $wrap = $("#image-viewer-wrap");
     var option = $("body").data('option');
 
+    var waypoints;
+    var $toolbar; var $spacer;
+
     var using_tabs = ( option == 'tabs' ) || ( option == 'tabbish' );
 
     var margin_top = $("#header-navbar").height() + $(".navigation-toolbar").height();
@@ -30,6 +33,33 @@
         height = $(window).height() - 20;
       }
       $wrap.height(height);
+      var w = $(window).width();
+      $("body").trigger("sticky_kit:recalc");
+      setTimeout(function() {
+        if ( option == 'tabbish' ) {
+          if ( $(".page-options").parents(".table-row").css('display') == 'block' ) {
+            $(".page-options").trigger('sticky_kit:detach');
+          } else {
+            $(".page-options").stick_in_parent({ parent: '.container-viewer', offset_top: -50 });
+          }        
+        }
+      }, 100);
+      if ( $toolbar !== undefined ) {
+        if ( $toolbar.css('position') == 'fixed' ) {
+          $spacer.detach();
+          var w = $toolbar.width();
+          $toolbar.css({
+            position: "",
+            top: "",
+            width: "",
+            bottom: ""
+          });
+          setTimeout(function() {
+            waypoints.disable();
+            stick_bottom_toolbar();
+          }, 100);
+        }
+      }
     };
 
     // if ( || Cookies.get('embiggen') == 'true' ) {
@@ -239,22 +269,21 @@
 
     }
 
-    var waypoints;
+    var stick_bottom_toolbar = function() {
 
-    var resize_and_load_viewer = function() {
-        resize_viewer();
-        $map.empty();
-        $(".default-toolbar").show();
-        $(".action-reset-viewer").removeClass('hidden');
-        $(".action-deactivate-viewer").removeClass('hidden');
 
-        if ( using_tabs ) {
-          var $toolbar = $(".image-viewer-toolbar-bottom");
+      if ( $toolbar === undefined ) {
+        $toolbar = $(".image-viewer-toolbar-bottom");
+        $spacer = $('<div></div>').css({ height: $toolbar.height(), width: $toolbar.width(), display: 'none' });
+      }
 
-          var $spacer = $('<div></div>').css({ height: $toolbar.height(), width: $toolbar.width() });
-          $toolbar.css({ position: 'fixed', bottom: 0, width: $toolbar.width() });
-          $toolbar.after($spacer);
+      if ( $toolbar.offset().top + $toolbar.outerHeight() < $(window).scrollTop() + $(window).height() ) {
+        console.log("YEAH TOOLBAR IN VIEW");
+        return;
+      }
 
+      if ( waypoints === undefined ) {
+        setTimeout(function() {
           waypoints = new Waypoint.Inview({
             element: $spacer[0],
             entered: function(direction) {
@@ -271,8 +300,31 @@
                 $spacer.show();
               }
             }
-          })
+          })          
+        }, 1000);
 
+      } else {
+        setTimeout(function() {
+          waypoints.enable();
+        })
+      }
+
+      $toolbar.css({ position: 'fixed', bottom: 0, width: $toolbar.width() });
+      $spacer.css({ width: $toolbar.width() });
+      $toolbar.after($spacer);
+      $spacer.show();
+
+    };
+
+    var resize_and_load_viewer = function() {
+        resize_viewer();
+        $map.empty();
+        $(".default-toolbar").show();
+        $(".action-reset-viewer").removeClass('hidden');
+        $(".action-deactivate-viewer").removeClass('hidden');
+
+        if ( using_tabs ) {
+          stick_bottom_toolbar();
         }
         load_tile_viewer();
     };
@@ -361,7 +413,7 @@
         } else {
           viewer.viewport.goHome();
         }
-      } else if ( ! $canvas.is(":focus") ) {
+      } else if ( 0 && ! $canvas.is(":focus") ) {
         $canvas.focus();
         if ( remap_codes[keyCode] ) {
           viewer.innerTracker.keyHandler({ keyCode: remap_codes[keyCode] ? remap_codes[keyCode] : keyCode });
@@ -403,6 +455,7 @@
         e.preventDefault();
         var $target = $($(this).attr("href"));
         // window.scrollTo(0, $target.offset().top - 60);
+        console.log("AHOY MOVING TO TARGET", $(this).attr('href'));
         $('body,html').animate({
             scrollTop: $target.offset().top - 60
         }, 'fast');

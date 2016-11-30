@@ -70,7 +70,11 @@
 <script>
 $().ready(function() {
   $(".image-viewer-toolbar-top").stick_in_parent();
-  $(".page-options").stick_in_parent({ parent: '.container-viewer' });
+  if ( $("body").data('option') == 'tabbish' && $(".page-options").parents(".table-row").css('display') != 'block' ) {
+    $(".page-options").stick_in_parent({ parent: '.container-viewer', offset_top: -50 });
+  } else {
+    $(".page-options").stick_in_parent({ parent: '.container-viewer', offset_top: -50 });
+  }
   $(".action-copy-permalink").on('click', function(e) {
     e.preventDefault();
     $("#permalink").select();
