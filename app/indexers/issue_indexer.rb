@@ -28,9 +28,11 @@ class IssueIndexer
     @issue.pages.each_with_index do |page, i|
       # next unless page.id == 70934
       PageIndexer.new(page).index(solr_doc)
-      Blacklight.default_index.connection.commit if i % 50 == 0  
+      Blacklight.default_index.connection.commit if i % 50 == 0
     end
     Blacklight.default_index.connection.commit
+    delay = rand() * 1
+    sleep(delay)
   end
 
   def generate_solr_doc
