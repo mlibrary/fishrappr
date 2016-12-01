@@ -513,7 +513,7 @@ body[data-option=tabs] .panel-actions-page, body[data-option=tabbish] .panel-act
 }
 
 h1.page {
-    display: inline-block;
+    // display: inline-block;
     margin: 0;
     padding: 0;
     font-size: 24px;
@@ -528,7 +528,7 @@ h1.page {
     }
 
     > span {
-        display: inline-block;
+        // display: inline-block;
         padding-top: 9px;
         padding-bottom: 9px;
         vertical-align: middle;
@@ -545,6 +545,38 @@ h1.page {
 }
 
 @media (max-width: $screen-xs-max) {
+
+    h1.page {
+        font-size: 18px;
+
+        > span, a.btn {
+            line-height: 0.8;
+        }
+
+        span.pre-issue-mark {
+            &:after {
+                // display: table;
+                // content: "";
+                // clear: both;
+                content: '\A';
+                white-space: pre;
+            }
+        }
+
+        a.btn {
+            font-size: 18px;
+
+            &:before {
+                display: table;
+                content: "";
+                clear: both;
+            }
+        }
+
+        i.icon_16px {
+            font-size: 90%;
+        }
+    }
 
     #image-viewer-wrap {
         padding-bottom: 25px;
@@ -576,13 +608,13 @@ h1.page {
 
     .option-3 .center-block { text-align: center; }
 
-    .blacklight-catalog-show {
-        .navigation-toolbar {
-            .navigate-pages {
-                text-align: center;
-            }
-        }        
-    }
+    // .blacklight-catalog-show {
+    //     .navigation-toolbar {
+    //         .navigate-pages {
+    //             text-align: center;
+    //         }
+    //     }        
+    // }
 
 }
 
