@@ -336,6 +336,8 @@ module Fishrappr::Catalog
         query_params = cookies.delete(:query_params)
         if query_params
           @current_search_session = OpenStruct.new(query_params: JSON.parse(query_params).with_indifferent_access)
+        elsif action_name == 'index' or action_name == 'search'
+          @current_search_session = OpenStruct.new(query_params: params)
         end
       end
       @current_search_session

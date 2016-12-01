@@ -223,6 +223,9 @@ module ApplicationHelper
     texts = nil
     search_params = current_search_session.try(:query_params) 
     search_field = search_params ? search_params["q"] : nil
+
+    # STDERR.puts "AHOY PLAIN TEXT #{search_field} : #{document.has_highlight_field?(field)}"
+
     if document.has_highlight_field?(field) and not search_field.blank?
       texts = document.highlight_field(field)
       if search_field.blank?
