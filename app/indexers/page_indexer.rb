@@ -77,22 +77,33 @@ class PageIndexer
 
   def get_full_text(page_identifier, text_link)
     return "" unless text_link
-    resource_url = RepositoryService.dlxs_file_url(text_link)
-    resource_uri = URI.parse(resource_url)
 
-    http = Net::HTTP.new(resource_uri.host, resource_uri.port)
-    http.use_ssl = true
-    request = Net::HTTP::Get.new(resource_uri.request_uri)
-    response = http.request(request)
+    if ENV['USE_FILESYSTEM']
+      # this is the text_link - bhl_midaily:mdp.39015071730621-00000003:TXT00000003
+      resource_filename = RepositoryService.dlxs_filename(text_link)
+      response = Zlib::GzipReader.open(resource_filename) { |f| f.read }
 
-    # response = Net::HTTP.request_get(resource_uri)
-    PP.pp response, STDERR
-    unless response.is_a?(Net::HTTPSuccess)
-      STDERR.puts "#{resource_uri} : #{response.code}"
-      response = ""
     else
-      response = response.body
+      # HTTP request
+      resource_url = RepositoryService.dlxs_file_url(text_link)
+      resource_uri = URI.parse(resource_url)
+
+      http = Net::HTTP.new(resource_uri.host, resource_uri.port)
+      http.use_ssl = true
+      request = Net::HTTP::Get.new(resource_uri.request_uri)
+      response = http.request(request)
+
+      # response = Net::HTTP.request_get(resource_uri)
+      PP.pp response, STDERR
+      unless response.is_a?(Net::HTTPSuccess)
+        STDERR.puts "#{resource_uri} : #{response.code}"
+        response = ""
+      else
+        response = response.body
+      end
+
     end
+
     response
   end
 

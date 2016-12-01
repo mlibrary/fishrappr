@@ -6,7 +6,7 @@ module RepositoryService
 
   def self.dlxs_repository_url
     "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/api/"
-  end  
+  end
 
   def self.dlxs_image_url(document, **kw)
     page_identifier = document.fetch('page_identifier')
@@ -28,6 +28,24 @@ module RepositoryService
     path_info += "." + format if ( format )
 
     "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/api/image/#{path_info}"
+  end
+
+  def self.dlxs_filename(document)
+    identifier = dlxs_identifier(document)
+    # bhl_midaily:mdp.39015071730621-00000003:TXT00000003 
+    parts = identifier.split(":")
+    namespace, barcode, sequence = parts[1].split(/[\.-]/)
+
+    path = barcode.scan(/.{2}/)
+
+    filename = []
+    filename << "/quod/obj"
+    filename << namespace
+    filename << "pairtree_root"
+    filename << path
+    filename << barcode
+    filename << sequence + ".txt.gz"
+    filename.flatten.join("/")
   end
 
   def self.dlxs_file_url(document)
