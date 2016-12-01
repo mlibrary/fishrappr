@@ -5,7 +5,7 @@
 <div class="<%= container_class %> site-search" aria-live="polite">
   <div class="row">
     <%= form_tag(search_action_url, role: 'search', method: :get, class: "form-horizontal site-search-form") do %>
-      <%= render_hash_as_hidden_fields(search_state.params_for_search.except(:q, :search_field, :qt, :page, :utf8)) %>
+      <%= render_hash_as_hidden_fields(search_state.params_for_search.except(:q, :search_field, :qt, :page, :utf8, :date_filter, :date_issued_begin_mm, :date_issued_begin_dd, :date_issued_begin_yyyy, :date_issued_end_mm, :date_issued_end_dd, :date_issued_end_yyyy )) %>
       <%= hidden_field_tag :search_field, search_fields.first.last %>
       <div class="form-group">
         <div class="col-xs-12">
