@@ -275,6 +275,11 @@ module ApplicationHelper
     Digest::MD5.hexdigest args.join('')
   end
 
+  def text_disclaimer
+    text = t('blacklight.show.disclaimer')
+    text.gsub!('href="#', "href=\"#{static_path('using_image_viewer')}#").html_safe
+  end
+
   require 'ffaker'
   def fake_image(document, size=nil)
     namespace = document.fetch('volume_identifier').split('.').first
