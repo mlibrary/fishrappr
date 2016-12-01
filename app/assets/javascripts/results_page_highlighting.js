@@ -1,9 +1,17 @@
 $().ready(function() {
     var do_log = true;
 
-    $("#documents .thumbnail.loading img").on('load', function() {
-        load_highlights($(this));
+    $("#documents .thumbnail.loading img").each(function() {
+        var $img = $(this);
+        $img.on('load', function() {
+            load_highlights($img);
+        });
+        $img.attr('src', $img.data('src'));
     })
+
+    // $("#documents .thumbnail.loading img").on('load', function() {
+    //     load_highlights($(this));
+    // })
 
     var lpad = function(str, length) {
         var padString = '0';
