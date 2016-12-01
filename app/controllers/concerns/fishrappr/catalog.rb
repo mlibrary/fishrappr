@@ -333,11 +333,10 @@ module Fishrappr::Catalog
     def current_search_session
       unless @current_search_session
         ## domain = request.env['SERVER_NAME']
-        query_params = cookies.delete(:query_params)
-        if query_params
-          @current_search_session = OpenStruct.new(query_params: JSON.parse(query_params).with_indifferent_access)
-        elsif action_name == 'index' or action_name == 'search'
+        if start_new_search_session?
           @current_search_session = OpenStruct.new(query_params: params)
+        elsif query_params = cookies.delete(:query_params)
+          @current_search_session = OpenStruct.new(query_params: JSON.parse(query_params).with_indifferent_access)
         end
       end
       @current_search_session
