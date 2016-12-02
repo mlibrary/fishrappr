@@ -30,9 +30,10 @@ $( document ).ready(function() {
   $('ul.help-ul li.current a').addClass('currentlyActive');
 
   // Back to top window scroll for catalog index page
+  var back_to_top_margin = 250;
   if (true || ("body.blacklight-catalog-index, body.blacklight-catalog-show").length > 0) {
       $(window).scroll(function () {
-          if ($(this).scrollTop() > 150) {
+          if ($(this).scrollTop() > back_to_top_margin) {
               $('#back-to-top').fadeIn();
           } else {
               $('#back-to-top').fadeOut();

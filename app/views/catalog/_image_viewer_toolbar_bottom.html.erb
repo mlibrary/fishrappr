@@ -1,30 +1,31 @@
-<div class="image-viewer-toolbar option-3">
-  <div class="container-fluid" xstyle="padding: 0">
-    <div class="row">
+<div class="image-viewer-toolbar image-viewer-toolbar-bottom option-3">
+  <div class="container-fluid">
+    <div class="row default-toolbar">
 
       <div class="col-md-6 col-sm-6 col-xs-12" style="white-space: nowrap">
 
-        <div class="btn-group" role="group" aria-label="rotate controls">
+        <div class="btn-group" role="group" aria-label="image controls">
           <button class="btn btn-action action-rotate-left"><%= use_icon('rotate_left') %> <span class="hidden-xs hidden-sm">Rotate Left </span></button>
           <button class="btn btn-action action-rotate-right"><span class="hidden-xs hidden-sm">Rotate Right </span><%= use_icon('rotate_right') %> </i></button>
-        </div>
-
-        <div class="btn-group" data-toggle="buttons" role="radiogroup" aria-labelledby="action-toggle-options">
-          <span class="sr-only" id="action-toggle-options">Toggle viewer mode: </span>
-          <label class="btn btn-action active"><input type="radio" class="action-toggle-mode" name="toggle-mode" id="option-pan" autocomplete="off" value="pan" checked="checked"><%= use_icon('pan') %> <span class="hidden-xs"> Pan</span></label>
-          <label class="btn btn-action"><input class="action-toggle-mode" type="radio" name="toggle-mode" id="option-select" autocomplete="off" value="select"><%= use_icon('select') %> <span class="hidden-xs"> Select</span></label>
+          <button class="btn btn-action action-toggle-mode"><%= use_icon('select') %> <span class="sr-only">Toggle </span>Select</button>
         </div>
 
       </div>
 
       <div class="col-md-6 col-sm-6 col-xs-12" style="text-align: right">
-        <% if 1 || highlights_available? %>
+        <% if highlights_available? %>
           <label class="label-toggle-highlight" tabindex="-1"><input type="checkbox" class="action-toggle-highlight" <%= highlights_visible? ? 'checked="checked"' : '' %> /><div class="control__indicator"></div> <span><%= raw t('views.issue.search_highlights') %></span></label>
         <% end %>
         <a href="<%= contacts_path type: 'image' %>" class="btn btn-action action-report-problem" style="color: #fff"><%= use_icon('alert') %> Report Problem</a>
       </div>
 
     </div>
-  </div>
 
+    <div class="row selection-toolbar hidden">
+      <div class="col-md-12 col-sm-12 col-xs-12" style="white-space: nowrap; text-align: center">
+        <span>Click <em>there</em> to draw a selection rectangle</span>
+      </div>
+    </div>
+
+  </div>
 </div>

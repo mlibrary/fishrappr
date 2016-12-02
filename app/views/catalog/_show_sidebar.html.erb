@@ -1,10 +1,61 @@
+    <div class="page-options" id="page-options">
+      <h2 class="sr-only">Page Options</h2>
 
-<% unless @document.more_like_this.empty? %>
-  <div class="panel panel-default">
-    <div class="panel-heading">More Like This</div>
-    <div class="panel-body">
-      <%= render :collection => @document.more_like_this, :partial => 'show_more_like_this', :as => :document %>
+      <% if @option == 'tabbish' %>
+      <ul class="nav nav-pills hidden-lg hidden-md hidden-sm" role="tablist" style="margin-bottom: -40px">
+        <li role="presentation"><a href="#page-image" aria-controls="page-image" role="tab"><%= use_icon('file_image') %> Image</a></li>
+        <li role="presentation"><a href="#page-text" aria-controls="page-text" role="tab"><%= use_icon('file_text') %> Text</a></li>
+        <li role="presentation" class="active"><a href="#page-options" aria-controls="page-options" role="tab"><i class="glyphicon glyphicon-cog"></i> Page Options</a></li>
+      </ul>
+      <% end %>
 
+      <div class="panel panel-actions-page">
+        <div class="panel-heading">
+          <h3>Download this Page</h3>
+        </div>
+        <div class="panel-body">
+          <div class="btn-group-vertical action-group" role="group">
+            <a class="btn btn-default btn-action action-download-view" href="#"><%= use_icon('file_image') %> Download<span class="hidden-sm"> Current</span> View <span class="extension">JPG</span></a>
+            <a class="btn btn-default btn-action" href="<%= download_pdf_link @document, 'page_identifier' %>"><%= use_icon('file_pdf') %> Download PDF <span class="extension">PDF</span></a>
+            <a class="btn btn-default btn-action" download="<%= @document.id %>.jpg" href="<%= document_image_src @document, size: 'full' %>?attachment=1"><%= use_icon('file_image') %> Download Image <span class="extension">JPG</span></a></li>
+            <a class="btn btn-default btn-action" href="<%= download_text_solr_document_path @document %>"><%= use_icon('file_text') %> Download Text <span class="extension">TXT</span></a></li>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-actions-issue">
+        <div class="panel-heading">
+          <h3>Download this Issue</h3>
+        </div>
+        <div class="panel-body">
+          <div class="btn-group-vertical action-group" role="group">
+            <a class="btn btn-default btn-action action-download-pdf" href="<%= download_pdf_link @document, 'issue_identifier' %>"><%= use_icon('file_pdf') %> Download PDF <span class="extension"><%= @issue_data[:pages].size %> pages</span></a>
+            <a class="btn btn-default btn-action" href="<%= download_issue_text_solr_document_path @document %>"><%= use_icon('file_zip') %> Download Text <span class="extension">ZIP</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-actions-share">
+        <div class="panel-heading sr-only">
+          <h3>Share</h3>
+        </div>
+        <div class="panel-body">
+          <form>
+            <div class="form-group">
+              <label for="permalink">Permalink for this page</label>
+              <input type="text" class="form-control" id="permalink" value="<%= url_for url_for_document(@document).merge(only_path: false) %>" readonly="readonly" onclick="this.select()" />
+            </div>
+            <button class="btn btn-action action-copy-permalink">Copy Link</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="panel panel-actions-contact">
+        <div class="panel-heading sr-only">
+          <h3>Something wrong?</h3>
+        </div>
+        <div class="panel-body">
+          <p>Something wrong with this page? <a href="<%= contacts_path type: 'content' %>">Report problem.</a></p>
+        </div>
+      </div>
     </div>
-  </div>
-<% end %>

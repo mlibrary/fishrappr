@@ -233,9 +233,10 @@ body.blacklight-catalog-index #search-navbar , body.blacklight-catalog-home {
           width: auto;
         }
       }
-      .input-layout-group {
-        display: inline-block;
-      }
+
+      // .input-layout-group {
+      //   display: inline-block;
+      // }
       
       .form-control, .q-block {
       display: inline-block;
@@ -948,7 +949,7 @@ body.blacklight-catalog-home {
     margin-left:auto;
     margin-right:auto;
     margin-bottom: 30px;
-    min-width: 166px;
+    min-width: 240px;
   }  
 } /* .home .head */
 
@@ -1355,6 +1356,7 @@ body.blacklight-contacts-create {
   background: rgba(0,0,0, 0.25);
   color: white;
   font-weight: bold;
+  z-index: 10000;
 }
 
 .mdi {

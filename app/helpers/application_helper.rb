@@ -82,12 +82,16 @@ module ApplicationHelper
   def document_to_date_params(document)
     params = {}
 
-    params[:search_field] = 'all_fields'
-    params[:date_filter] = 'on'
-    params[:date_issued_begin_dd] = document.fetch(:date_issued_dd_ti)
-    params[:date_issued_begin_mm] = document.fetch(:date_issued_mm_ti)
-    params[:date_issued_begin_yyyy] = document.fetch(:date_issued_yyyy_ti)
-    params[:sort] = 'score desc, date_issued_dt desc, issue_no_t_sort asc, issue_sequence asc' # relevance
+    # params[:search_field] = 'issue_identifier'
+    # params[:q] = "issue_identifier:" + document.fetch('issue_identifier')
+    params[:'f[issue_identifier][]'] = document.fetch('issue_identifier')
+    params[:sort] = 'issue_sequence asc'
+    # params[:search_field] = 'all_fields'
+    # params[:date_filter] = 'on'
+    # params[:date_issued_begin_dd] = document.fetch(:date_issued_dd_ti)
+    # params[:date_issued_begin_mm] = document.fetch(:date_issued_mm_ti)
+    # params[:date_issued_begin_yyyy] = document.fetch(:date_issued_yyyy_ti)
+    # params[:sort] = 'score desc, date_issued_dt desc, issue_no_t_sort asc, issue_sequence asc' # relevance
     params
   end
 
@@ -170,7 +174,10 @@ module ApplicationHelper
   def document_thumbnail(document, **kw)
     namespace = document.fetch('volume_identifier').split('.').first
     return fake_image(document, kw.fetch(:size, ',250')) if namespace == 'fake'
-    %Q{<img src="#{document_thumbnail_src(document, **kw)}" tabindex="-1", aria-hidden="true", alt="Thumbnail of Daily page" />}.html_safe
+    alt_text = "image of #{document['date_issued_display'].first} - number #{document.fetch('issue_sequence')}"
+    async = kw.delete(:async)
+    src_attr = async ? 'data-src' : 'src'
+    %Q{<img #{src_attr}="#{document_thumbnail_src(document, **kw)}" tabindex="-1", aria-hidden="true", alt="#{alt_text}" />}.html_safe
   end
 
   # TO DO: Needs to be moved into a style using a data attribute
@@ -218,7 +225,10 @@ module ApplicationHelper
     texts = nil
     search_params = current_search_session.try(:query_params) 
     search_field = search_params ? search_params["q"] : nil
-    if document.has_highlight_field?(field)
+
+    # logger.debug "AHOY PLAIN TEXT #{search_field} : #{document.has_highlight_field?(field)}"
+
+    if document.has_highlight_field?(field) and not search_field.blank?
       texts = document.highlight_field(field)
       if search_field.blank?
         texts.collect!{|text| text.truncate(750) if truncate}
@@ -226,13 +236,15 @@ module ApplicationHelper
     elsif breaks and document.fetch('page_text', nil)
       texts = document.fetch(field)
     else
-      texts = document.fetch('page_abstract', 'WUT')
+      texts = document.fetch('page_abstract', document.fetch('page_text', ''))
+      # STDERR.puts "AHOY THREE : #{search_field} : #{field}"
     end
     prefix = breaks ? '' : '&#8230;'.html_safe
     retval = ActiveSupport::SafeBuffer.new
     counter = Hash.new(0)
     seen = Hash.new(0)
     Array(texts).each do |text|
+      next if text.nil?
       next if text.strip.blank?
       text = text.truncate(450) if truncate # less jiggering in results view
 
@@ -266,6 +278,11 @@ module ApplicationHelper
 
   def hash_words(*args)
     Digest::MD5.hexdigest args.join('')
+  end
+
+  def text_disclaimer
+    text = t('blacklight.show.disclaimer')
+    text.gsub!('href="#', "href=\"#{static_path('using_image_viewer')}#").html_safe
   end
 
   require 'ffaker'
@@ -602,6 +619,8 @@ module ApplicationHelper
 
     # show years in decade
     return true if (filters.key?('date_issued_yyyy10_ti'))
+
+    return true if filters.key?('issue_identifier')
 
     false
 

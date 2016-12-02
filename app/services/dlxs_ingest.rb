@@ -44,15 +44,21 @@ module IIIF
   end
 
   class Service
-    attr_accessor :data
+    attr_accessor :data, :response
     def self.parse(response)
+      @response = response
       ob = Nop.new(JSON.parse(response))
+    rescue Exception => e
+      STDERR.puts "JSON PARSE ERROR: #{e}"
+      STDERR.puts "[#{@response}]"
+      raise
     end
   end
 end
 
 class DlxsIngest
 
+  attr_accessor :clobber
 
   def initialize(publication_slug, collid)
     @publication = Publication.find_by_slug(publication_slug)
@@ -67,9 +73,13 @@ class DlxsIngest
     tdelta = t0
     total = collection.collections.size
     collection.collections.each_with_index do |member, member_idx|
-      fetch_volume(member['@id'])
+      check = fetch_volume(member['@id'])
       STDERR.puts "-- #{Time.now - tdelta} : #{member_idx} / #{total} : #{member['@id']}"
       tdelta = Time.now
+      # unless check == false
+      #   delay = rand() * 10
+      #   sleep(delay)
+      # end
     end
     STDERR.puts "-- #{Time.now - t0} : EOT"
   end
@@ -78,25 +88,45 @@ class DlxsIngest
     volume_url = service_collection_url(volume_identifier)
     volume_collection = IIIF::Service.parse(fetch_data(volume_url))
 
+    unless @clobber
+      check = Issue.where(volume_identifier: local_identifier(volume_identifier)).first
+      STDERR.puts "== SKIPPING #{volume_identifier}" unless check.nil?
+      return false unless check.nil?
+    end
 
     # delete all the issues because the issue manifests may have changed
     Issue.where(volume_identifier: local_identifier(volume_identifier)).destroy_all
 
-    volume_collection.manifests.each do |member|
-      fetch_issue(member['@id'])
+    total = volume_collection.manifests.length
+    volume_collection.manifests.each_with_index do |member, idx|
+      fetch_issue(member['@id'], idx, total)
+      # delay = rand() * 5
+      # sleep(delay)
     end
   end
 
-  def fetch_issue(issue_identifier)
+  def fetch_issue(issue_identifier, idx=0, total=0)
     issue_url = service_manifest_url(issue_identifier)
     issue_manifest = IIIF::Service.parse(fetch_data(issue_url))
 
-    build_issue(issue_manifest)
+    build_issue(issue_manifest, idx, total)
+  rescue
+    STDERR.puts "FAILED #{issue_url}"
+    raise
   end
 
   def fetch_data(url)
     uri = URI(url)
-    response = Net::HTTP.get(uri)
+    response = Net::HTTP.get_response(uri)
+    unless response.is_a?(Net::HTTPSuccess)
+      STDERR.puts "FAILED: #{response.code}"
+      PP.pp response, STDERR
+      if response.is_a?(Net::HTTPRedirection) or response.is_a?(Net::HTTPFound)
+        STDERR.puts "JUMPING TO #{response['location']}"
+      end
+      return ''
+    end
+    response.body
   end
 
   def service_collection_url(identifier)
@@ -114,19 +144,19 @@ class DlxsIngest
     identifier # + "?prep=1"
   end
 
-  ## 
+  ##
 
-  def build_issue(manifest)
+  def build_issue(manifest, idx=0, total=0)
     metadata = build_metadata(manifest)
     issue = Issue.create \
       volume_identifier: metadata[:volume_identifier],
       issue_identifier: metadata[:issue_identifier],
-      volume: metadata[:issue_volume], 
-      issue_number: metadata[:issue_number], 
-      edition: metadata[:issue_edition], 
+      volume: metadata[:issue_volume],
+      issue_number: metadata[:issue_number],
+      edition: metadata[:issue_edition],
       date_issued: metadata[:date_issued],
       publication_year: Time.new(metadata[:date_issued]).strftime("%Y"),
-      variant_sequence: metadata[:variant_sequence].to_i, 
+      variant_sequence: metadata[:variant_sequence].to_i,
       publication_title: metadata[:publication_title],
       publication: @publication
 
@@ -140,7 +170,7 @@ class DlxsIngest
       end
     end
 
-    STDERR.puts "== #{issue.issue_identifier} : #{num_processed} : #{Time.now - t0}"
+    STDERR.puts "== #{idx} / #{total} : #{issue.issue_identifier} : #{num_processed} : #{Time.now - t0}"
 
   end
 
@@ -159,9 +189,9 @@ class DlxsIngest
       coordinates_link = File.basename(coordinates_link['@id'])
     end
 
+
     # image_link = File.basename(canvas.images.first.resource['@id'])
     image_link = File.basename(canvas.images.first['resource']['@id'])
-
     page = Page.create \
       issue: issue,
       height: canvas.height,

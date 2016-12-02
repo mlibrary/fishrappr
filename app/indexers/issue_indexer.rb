@@ -14,6 +14,7 @@ class IssueIndexer
       STDERR.puts "-- committed: #{j} / #{total_issues} : #{t1 - t0}"
       t0 = t1
     end
+    Blacklight.default_index.connection.commit
     STDERR.puts "== ∆: #{Time.now - t00}"
   end
 
@@ -26,11 +27,9 @@ class IssueIndexer
 
     solr_doc = generate_solr_doc
     @issue.pages.each_with_index do |page, i|
-      # next unless page.id == 70934
       PageIndexer.new(page).index(solr_doc)
-      Blacklight.default_index.connection.commit if i % 50 == 0  
     end
-    Blacklight.default_index.connection.commit
+    # Blacklight.default_index.connection.commit
   end
 
   def generate_solr_doc

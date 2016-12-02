@@ -6,6 +6,18 @@
   <%= render 'index_skiplinks' %>
 <% end %>
 
+<%= replace :h1 do %>
+  <% if ! has_search_parameters? %>
+    New Search
+  <% elsif @response.empty? %>
+    No Results
+  <% elsif params[:f] and params[:f][:issue_identifier] %>
+    <%= issue_title @document_list.first, complete: true %>
+  <% else %>
+    Search Results
+  <% end %>
+<% end %>
+
 
 <div id="sidebar" class="<%= sidebar_classes %>">
   <%= render 'constraints' %>
@@ -14,6 +26,7 @@
 </div>
 
 <div id="content" class="<%= main_content_classes %> activate-highlighting">
+  
   <% unless has_search_parameters? %>
     <%# if there are no input/search related params, display the "home" partial -%>
     <%= render 'home' %>
