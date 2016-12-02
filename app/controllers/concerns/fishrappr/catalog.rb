@@ -54,8 +54,6 @@ module Fishrappr::Catalog
     search_field = search_params ? search_params["q"] : nil
     @raw_layout = true
 
-    @option = params[:option] || 'tabbish'
-
     document_id = id(params)
 
     if document_id and search_field

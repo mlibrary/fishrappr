@@ -12,41 +12,23 @@
     var waypoints;
     var $toolbar; var $spacer;
 
-    var using_tabs = ( option == 'tabs' ) || ( option == 'tabbish' );
-
-    var margin_top = $("#header-navbar").height() + $(".navigation-toolbar").height();
-    var margin = 0.9;
-    // if ( location.href.indexOf('toggle=embiggen') > -1 ) {
-    //   var value = Cookies.get('embiggen') || 'false';
-    //   Cookies.set('embiggen', value == 'false');
-    //   var href = location.href.replace('toggle=embiggen', '');
-    //   location.href = href;
-    // }
-
     var resize_viewer = function() {
       var width = $map.data('width'); var height = $map.data('height');
       var r;
-      if ( using_tabs ) {
-        r = $map.width() / width;
-        height *= r;
-        if ( height < 300 ) {
-          height = $(window).height() - 20;
-        }
-        console.log("AHOY", $map.width(), width, height);
-      } else {
+      r = $map.width() / width;
+      height *= r;
+      if ( height < 300 ) {
         height = $(window).height() - 20;
       }
       $wrap.height(height);
       var w = $(window).width();
       $("body").trigger("sticky_kit:recalc");
       setTimeout(function() {
-        if ( option == 'tabbish' ) {
-          if ( $(".page-options").parents(".table-row").css('display') == 'block' ) {
-            $(".page-options").trigger('sticky_kit:detach');
-          } else {
-            $(".page-options").stick_in_parent({ parent: '.container-viewer', offset_top: -50 });
-          }        
-        }
+        if ( $(".page-options").parents(".table-row").css('display') == 'block' ) {
+          $(".page-options").trigger('sticky_kit:detach');
+        } else {
+          $(".page-options").stick_in_parent({ parent: '.container-viewer', offset_top: -50 });
+        }        
       }, 100);
       if ( $toolbar !== undefined ) {
         if ( $toolbar.css('position') == 'fixed' ) {
@@ -66,33 +48,7 @@
       }
     };
 
-    // if ( || Cookies.get('embiggen') == 'true' ) {
-    if ( using_tabs ) {
-
-      function debounce(func, wait, immediate) {
-        var timeout;
-        return function() {
-          var context = this, args = arguments;
-          var later = function() {
-            timeout = null;
-            if (!immediate) func.apply(context, args);
-          };
-          var callNow = immediate && !timeout;
-          clearTimeout(timeout);
-          timeout = setTimeout(later, wait);
-          if (callNow) func.apply(context, args);
-        };
-      };
-
-      // $map.parent().height($(window).height() * margin);
-      $(window).resize(debounce(resize_viewer));
-
-      // $map.parent().css({ height: '50%'})
-    } else {
-      $wrap.css({ height: '50%' });
-    }
-
-    var margin_top = $("#header-navbar").height() + $(".navigation-toolbar").height();
+    $(window).resize(debounce(resize_viewer));
 
     var words = $map.data('words');
     var identifier = $map.data('identifier');
@@ -110,8 +66,6 @@
       }
 
       var dimensions = viewer.source.dimensions;
-      console.log(viewer.source);
-      console.log(dimensions);
       var scale = 1 / dimensions.x;
       var placement = OpenSeadragon.OverlayPlacement.BOTTOM;
 
@@ -134,8 +88,6 @@
             var tmp = content.split("-");
             possibles.push(tmp[0]);
           }
-
-          // if ( words.indexOf(content) < 0 ) { return ; }
 
           var did_match = false;
           for(var i = 0; i < possibles.length; i++) {
@@ -164,9 +116,6 @@
           viewer.addOverlay(div, rect);
 
         });
-        if ( $map.data('highlighting') ) {
-          // annoFeatures.addTo(map);
-        }
       })
     }
 
@@ -183,12 +132,6 @@
 
         imageHeight = data.sequences[0].canvases[0].height;
         imageWidth = data.sequences[0].canvases[0].width;
-
-
-        console.log(imageWidth, "x", imageHeight);
-        if ( true || words.length > 0 ) {
-          console.log("LOADING ANNOTATIONS");
-        }
 
         viewer = OpenSeadragon({
             id: "image-viewer",
@@ -225,7 +168,8 @@
         F.viewer = viewer;
 
         selection = viewer.selection({
-          prefixUrl: '/assets/selection/',
+          // prefixUrl: '/assets/selection/',
+          showSelectionControl: false,
           restrictToImage: false,
           onSelection: function(rect) {
             var translated = viewer.viewport.imageToViewportRectangle(rect)
@@ -243,10 +187,10 @@
             params.push("default.jpg");
             params = params.join("/");
             var href = viewer.source['@id'] + "/" + params;
-            // window.open(href, "_blank");
             href += "?attachment=1";
             window.location.href = href;
 
+            //// --- if we were scaling
             // var translated = viewer.viewport.imageToViewportRectangle(rect)
             // viewer.viewport.fitBounds(translated);
             reset_selection();
@@ -282,7 +226,6 @@
       }
 
       if ( $toolbar.offset().top + $toolbar.outerHeight() < $(window).scrollTop() + $(window).height() ) {
-        console.log("YEAH TOOLBAR IN VIEW");
         return;
       }
 
@@ -291,14 +234,14 @@
           waypoints = new Waypoint.Inview({
             element: $spacer[0],
             entered: function(direction) {
-              console.log("ENTERED", direction);
+              // console.log("ENTERED", direction);
               if ( direction == 'down' ) {
                 $toolbar.css({ position: 'static' });
                 $spacer.hide();
               }
             },
             exit: function(direction) {
-              console.log("EXITED", direction);
+              // console.log("EXITED", direction);
               if ( direction == 'up' ) {
                 $toolbar.css({ position: 'fixed' });
                 $spacer.show();
@@ -327,46 +270,11 @@
         $(".action-reset-viewer").removeClass('hidden');
         $(".action-deactivate-viewer").removeClass('hidden');
 
-        if ( using_tabs ) {
-          stick_bottom_toolbar();
-        }
+        stick_bottom_toolbar();
         load_tile_viewer();
     };
 
-    var deactivate_viewer = function() {
-      $(".default-toolbar").hide();
-      $(".action-reset-viewer").addClass('hidden');
-      $(".action-deactivate-viewer").addClass('hidden');
-      $(".action-activate-viewer").removeClass('hidden');
-      $wrap.css({ height: '50%' });
-      var height = $map.height();
-      var img = new Image();
-      var href =$("link[rel=repository]").attr('href'); 
-      img.src = href + 'image/' + identifier + '/full/,' + height + '/0/default.jpg';
-      var $div = $('<div></div>').appendTo($map);
-      $div.css('text-align', 'center');
-      $div.append(img);
-    };
-
-    if ( using_tabs ) {
-      resize_and_load_viewer();
-    }
-    else {
-      deactivate_viewer();
-    }
-
-    $(".action-activate-viewer").on('click', function() {
-      // $map.parent().height($(window).height());
-      // Cookies.set('embiggened', 'true');
-      $(".action-activate-viewer").addClass('hidden');
-      $(".action-deactivate-viewer").removeClass('hidden');
-      resize_and_load_viewer();
-      $("html,body").animate({ scrollTop: $wrap.offset().top });
-    })
-
-    $(".action-deactivate-viewer").on('click', function() {
-      deactivate_viewer();
-    })
+    resize_and_load_viewer();
 
     $(".action-reset-viewer").on('click', function(e) {
       e.preventDefault();
@@ -403,8 +311,13 @@
       var keyCode = e.which;
 
       var remap_codes = {};
+      var track_codes = {};
       remap_codes['187'] = 43;
       remap_codes['189'] = 45;
+      track_codes['38'] = true; // up arrow
+      track_codes['40'] = true; // down arrow
+      track_codes['37'] = true; // left arrow
+      track_codes['39'] = true; // right arrow
 
       var $canvas = $("canvas");
       if ( ! $canvas.get(0).hasAttribute('tabindex') ) {
@@ -417,7 +330,7 @@
         } else {
           viewer.viewport.goHome();
         }
-      } else if ( 0 && ! $canvas.is(":focus") ) {
+      } else if ( ( track_codes[keyCode] || remap_codes[keyCode] ) && ! $canvas.is(":focus") ) {
         $canvas.focus();
         if ( remap_codes[keyCode] ) {
           viewer.innerTracker.keyHandler({ keyCode: remap_codes[keyCode] ? remap_codes[keyCode] : keyCode });
@@ -454,17 +367,14 @@
       rotateViewer(90);
     })
 
-    if ( option == 'tabbish' ) {
-      $("a[role=tab]").on('click', function(e) {
-        e.preventDefault();
-        var $target = $($(this).attr("href"));
-        // window.scrollTo(0, $target.offset().top - 60);
-        console.log("AHOY MOVING TO TARGET", $(this).attr('href'));
-        $('body,html').animate({
-            scrollTop: $target.offset().top - 60
-        }, 'fast');
-      })
-    }
+    $("a[role=tab]").on('click', function(e) {
+      e.preventDefault();
+      var $target = $($(this).attr("href"));
+      // window.scrollTo(0, $target.offset().top - 60);
+      $('body,html').animate({
+          scrollTop: $target.offset().top - 60
+      }, 'fast');
+    })
 
     function resizePrint(viewer) {
         var image = viewer.source;
