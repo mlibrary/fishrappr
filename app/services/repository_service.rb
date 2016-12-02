@@ -39,8 +39,10 @@ module RepositoryService
     path = barcode.scan(/.{2}/)
 
     filename = []
-    filename << "/quod/obj"
-    filename << namespace
+    filename << ENV['USE_FILESYSTEM']
+    if ENV['USE_FILESYSTEM_INCLUDE_NAMESPACE']
+      filename << namespace
+    end
     filename << "pairtree_root"
     filename << path
     filename << barcode
