@@ -76,10 +76,10 @@ class DlxsIngest
       check = fetch_volume(member['@id'])
       STDERR.puts "-- #{Time.now - tdelta} : #{member_idx} / #{total} : #{member['@id']}"
       tdelta = Time.now
-      unless check == false
-        delay = rand() * 10
-        sleep(delay)
-      end
+      # unless check == false
+      #   delay = rand() * 10
+      #   sleep(delay)
+      # end
     end
     STDERR.puts "-- #{Time.now - t0} : EOT"
   end
@@ -100,8 +100,8 @@ class DlxsIngest
     total = volume_collection.manifests.length
     volume_collection.manifests.each_with_index do |member, idx|
       fetch_issue(member['@id'], idx, total)
-      delay = rand() * 5
-      sleep(delay)
+      # delay = rand() * 5
+      # sleep(delay)
     end
   end
 
