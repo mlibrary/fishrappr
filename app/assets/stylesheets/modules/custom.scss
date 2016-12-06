@@ -1455,13 +1455,22 @@ body.blacklight-contacts-create {
 
   .help-sbar {
     margin-top: 0 !important;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
   }
 
-  .blacklight-contacts, .blacklight-static {
+  body.blacklight-contacts-new, , body.blacklight-contacts-create, body.blacklight-static {
+
+    background: #fff;
+
     .help-middle-col {
       &:nth-of-type(1) {
         padding-top: 0;
       }
+
+      padding-left: 10px;
+      padding-right: 10px;
     }
   }
 }
