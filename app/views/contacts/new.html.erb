@@ -1,45 +1,58 @@
 <% @page_title = t('views.static.contact.title') %>
 
 <div class="container-fluid">
-    <%= render partial: 'static/help_sidebar' %>
 
-  <div class="<%= main_content_classes %> help-middle-col">
-    <h2 class="title"><%= t('views.static.contact.title') %></h2>
-    <p class="para">We are happy to answer any questions you have about using the Michigan Daily archive, to hear about any problem you are experiencing with the system and to hear your feeback on how we can improve our services.</p>
-    <div class="<%= main_content_classes %>">
+  <div class="container-fluid">
 
-      <%= simple_form_for @contact, :html => {:class => 'form-horizontal' } do |f| %>
-        <div class="container-fluid inner-form">
-          <div class="col-md-6 col-xs-12 padded">
-            <%= f.input :username, label: "Your Name", placeholder: 'Your name please', :required => true %>
+      <div class="row">
+
+          <div class="<%= main_content_classes(true) %> help-middle-col">
+              <h1 class="title"><%= t('views.static.contact.header') %></h1>
           </div>
-          <div class="col-md-6 col-xs-12">
-            <%= f.input :email, label: "Email", placeholder: 'you@example.com', :required => true %>
-          </div>
-        </div>
-        <%= f.input :type, label: "What do you need help with?", as: :select, collection: t('views.contacts.types').values, prompt: "Please select the type of problem" %>
-        <%= f.input :message, label: 'Write a Message', placeholder: 'Please describe your problem', as: :text, :required => true, input_html: { rows: 5 } %>
 
-        <div class="alert alert-warning alert-block">
-          <% prompts = t('views.contacts.prompts') %>
-          <% prompts.each do |key, value| %>
-              <p class="prompt prompt-<%= key %>"><%= value %></p>
+      </div>
+
+      <div class="row">
+      <%= render partial: 'static/help_sidebar' %>
+
+      <div class="<%= main_content_classes %> help-middle-col">
+        <p class="para">We are happy to answer any questions you have about using the Michigan Daily archive, to hear about any problem you are experiencing with the system and to hear your feeback on how we can improve our services.</p>
+        <div class="<%= main_content_classes %>">
+
+          <%= simple_form_for @contact, :html => {:class => 'form-horizontal' } do |f| %>
+            <div class="container-fluid inner-form">
+              <div class="col-md-6 col-xs-12 padded">
+                <%= f.input :username, label: "Your Name", placeholder: 'Your name please', :required => true %>
+              </div>
+              <div class="col-md-6 col-xs-12">
+                <%= f.input :email, label: "Email", placeholder: 'you@example.com', :required => true %>
+              </div>
+            </div>
+            <%= f.input :type, label: "What do you need help with?", as: :select, collection: t('views.contacts.types').values, prompt: "Please select the type of problem" %>
+            <%= f.input :message, label: 'Write a Message', placeholder: 'Please describe your problem', as: :text, :required => true, input_html: { rows: 5 } %>
+
+            <div class="alert alert-warning alert-block">
+              <% prompts = t('views.contacts.prompts') %>
+              <% prompts.each do |key, value| %>
+                  <p class="prompt prompt-<%= key %>"><%= value %></p>
+              <% end %>
+              <p>
+                We recorded your last page to help troubleshoot the issue. We'll let you focus on describing your issue.
+              </p>
+            </div>
+
+            <%= f.input :referer, as: :hidden %>
+            <span class="spacer"></span>
+            <div class="container-fluid inner-form">
+              <div class="col-md-4">
+                <%= f.button :submit, 'Send Message', :class=> "btn btn-primary" %>
+              </div>
+            </div>
           <% end %>
-          <p>
-            We recorded your last page to help troubleshoot the issue. We'll let you focus on describing your issue.
-          </p>
         </div>
-
-        <%= f.input :referer, as: :hidden %>
-        <span class="spacer"></span>
-        <div class="container-fluid inner-form">
-          <div class="col-md-4">
-            <%= f.button :submit, 'Send Message', :class=> "btn btn-primary" %>
-          </div>
-        </div>
-      <% end %>
+      </div> 
     </div>
-  </div> 
+  </div>
 </div>
 
 <script type="text/javascript">
