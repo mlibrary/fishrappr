@@ -1,4 +1,5 @@
 class StaticController < ApplicationController
+  layout 'static'
 
   def page
 

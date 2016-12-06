@@ -21,8 +21,16 @@ module Blacklight
     ##
     # Classes used for sizing the main content of a Blacklight page
     # @return [String]
-    def main_content_classes
-      'col-md-9 col-sm-8 col-xs-12'
+    def main_content_classes(offset=false)
+      retval = 'col-md-9 col-sm-8 col-xs-12'
+      if offset
+        retval += title_content_classes
+      end
+      retval
+    end
+
+    def title_content_classes
+      ' col-md-push-3 col-sm-push-4'
     end
 
     ##

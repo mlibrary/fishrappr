@@ -1,13 +1,26 @@
 <% @page_title = t('views.static.about-daily.title') %>
 
 <div class="container-fluid">
+
+  <div class="row">
+
+      <div class="<%= main_content_classes(true) %> help-middle-col">
+          <h1 class="title"><%= t('views.static.about-daily.header') %></h1>
+      </div>
+
+  </div>
+
+  <div class="row">
+
     <%= render partial: 'about_sidebar' %>
-  <div class="<%= main_content_classes %> help-middle-col">
-    <h2 class="title"><%= t('views.static.about-daily.header') %></h2> 
-    <p>The Michigan Daily was founded in 1890 as a student-run organization, both financially and editorially independent from the University of Michigan.</p>
-    <p>Originally aspiring to serve as the recorder of and voice for the lives of students, the Daily later expanded its coverage both through the campus and to the city, state and nation, becoming a competitor in the Michigan newspaper market and adopting the motto “Latest Deadline in the State.” The Daily joined the Associated Press (AP) in 1916 and installed a teletype, bringing the AP news of the nation and world to the Daily newsroom in 1936.  </p>
-    <p>During its history, Daily staff members have chronicled more than 100 years of developments in the University and higher education generally, championships won by the University’s teams and individual student athletes, concerts and exhibitions by artists both international and local.  But coverage has also included Ann Arbor affairs, state, local and national elections, research innovations and countless other historic moments nationwide including the trial of Alger Hiss, the Cuban revolution, the first day integration of Little Rock Central High School, the civil rights and anti-war movements, and Supreme Court cases on issues like affirmative action and same-sex marriage.</p>
-    <p>Three characteristics – editorial independence, daily publication, and broad ambition – have combined to make The Michigan Daily one of the most important university-based newspapers in American history. This archive, therefore, contains not only the record of day-to-day life and opinions of students, faculty, staff, and alumni for 125 years, but also an unparalleled window into the social and political history of 20th-century America.  The archive contains every extant issue of The Daily, from its founding to 2014 — more than 300 volumes and almost 200,000 pages in print. It will be updated annually.</p>
-    </div> 
+      <div class="<%= main_content_classes %> help-middle-col">
+        <p>The Michigan Daily was founded in 1890 as a student-run organization, both financially and editorially independent from the University of Michigan.</p>
+        <p>Originally aspiring to serve as the recorder of and voice for the lives of students, the Daily later expanded its coverage both through the campus and to the city, state and nation, becoming a competitor in the Michigan newspaper market and adopting the motto “Latest Deadline in the State.” The Daily joined the Associated Press (AP) in 1916 and installed a teletype, bringing the AP news of the nation and world to the Daily newsroom in 1936.  </p>
+        <p>During its history, Daily staff members have chronicled more than 100 years of developments in the University and higher education generally, championships won by the University’s teams and individual student athletes, concerts and exhibitions by artists both international and local.  But coverage has also included Ann Arbor affairs, state, local and national elections, research innovations and countless other historic moments nationwide including the trial of Alger Hiss, the Cuban revolution, the first day integration of Little Rock Central High School, the civil rights and anti-war movements, and Supreme Court cases on issues like affirmative action and same-sex marriage.</p>
+        <p>Three characteristics – editorial independence, daily publication, and broad ambition – have combined to make The Michigan Daily one of the most important university-based newspapers in American history. This archive, therefore, contains not only the record of day-to-day life and opinions of students, faculty, staff, and alumni for 125 years, but also an unparalleled window into the social and political history of 20th-century America.  The archive contains every extant issue of The Daily, from its founding to 2014 — more than 300 volumes and almost 200,000 pages in print. It will be updated annually.</p>
+        </div> 
+    </div>
+
 </div>
+
 

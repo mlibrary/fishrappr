@@ -1195,13 +1195,29 @@ body.blacklight-contacts-create {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   line-height: 1.6;
+
+  > .container {
+    margin-bottom: 30px;
+  }
 }
 
 /* HELP MIDDLE COL */
+
+
 .help-middle-col {
   background-color: white;
-  margin-bottom: 15px;
+  // margin-bottom: 15px;
+
+
   padding: 60px;
+
+  &:nth-of-type(1) {
+    padding-bottom: 10px;
+  }
+
+  &:nth-of-type(2) {
+    padding-top: 0;
+  }
 
   .title {
     color: #333333;
@@ -1284,6 +1300,10 @@ body.blacklight-contacts-create {
 .sidebars {
   margin-top: 10px;
   margin-bottom: 15px;
+}
+
+.help-sbar {
+  margin-top: -120px;
 }
 
 .help-sbar h2 {
@@ -1405,6 +1425,11 @@ body.blacklight-contacts-create {
       white-space: nowrap;
     }
 
+    .help-sbar {
+      margin-top: 0 !important;
+    }
+
+
     > .container {
       margin-right: auto;
       margin-left: auto;
@@ -1423,8 +1448,20 @@ body.blacklight-contacts-create {
   }
 }
 
-@media (min-width: $screen-xs-min) and (max-width: $screen-xs-max) {
+@media (max-width: $screen-xs-max) {
   .page_links {
     white-space: nowrap;
+  }
+
+  .help-sbar {
+    margin-top: 0 !important;
+  }
+
+  .blacklight-contacts, .blacklight-static {
+    .help-middle-col {
+      &:nth-of-type(1) {
+        padding-top: 0;
+      }
+    }
   }
 }

@@ -1,4 +1,7 @@
 class ContactsController < ApplicationController  
+
+  layout "static"
+
   def new
     @contact = Contact.new
     @contact.referer = request.referer if request.referer && request.referer.start_with?(request.base_url)
