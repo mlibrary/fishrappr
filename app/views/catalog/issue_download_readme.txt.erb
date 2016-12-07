@@ -4,7 +4,7 @@
 
 <%=  "#{data[:pages].size} pages" %>
 <% data[:pages].each do |page| %>
-<%=  "- #{page[:issue_sequence]}: #{page[:id]}.txt" %>
+<%=  "- #{page[:issue_sequence]}: #{Settings.DLXS_COLLECTION}_#{page[:id]}.txt" %>
 <% end %>
 
 <%=  publication_title %>

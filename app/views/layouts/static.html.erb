@@ -7,16 +7,13 @@
       <%= render :partial=>'/flash_msg', layout: 'shared/flash_messages' unless flash.empty? %>
 
       <div class="row">
-        <div class="col-md-9 col-md-offset-3 col-sm-8 col-sm-offset-4 col-xs-12">
-          <h1><%= area :h1 %></h1>
-        </div>
-      </div>
-
-      <div class="row">
         <%= yield %>
       </div>
 
     </div>
+
+    <%= render partial: '/catalog/back_to_top' %>
+
 
   <% end %>
 

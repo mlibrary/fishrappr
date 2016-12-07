@@ -85,7 +85,7 @@ module Fishrappr::Catalog
     @response, @document = fetch id(params)
     document = @document unless document
     ocr = document.fetch('page_text')
-    send_data ocr, filename: document.id+'.txt'
+    send_data ocr, filename: Settings.DLXS_COLLECTION + "_" + document.id + '.txt'
   end
 
    def download_issue_text(document=nil)      
@@ -362,19 +362,21 @@ module Fishrappr::Catalog
       require 'zip'
       require 'tempfile'
 
-      fname =  data[:issue_identifier]+".zip"
+      folder_name = Settings.DLXS_COLLECTION + "_" + data[:issue_identifier]
+      output_filename =  folder_name +".zip"
       tmpname = "tmp_zip.zip"
       tmp_file = Tempfile.new(tmpname)
       readme_txt = generate_zip_colophon(data)
       Zip::File.open(tmp_file.path, Zip::File::CREATE) {
         |zipfile|
-        zipfile.get_output_stream(data[:id] + '/' + 'README.txt') { |f| f.puts readme_txt }
+        zipfile.get_output_stream(folder_name + '/' + 'README.txt') { |f| f.puts readme_txt }
         data[:pages].each do |page|
-          zipfile.get_output_stream(data[:id] + '/' + page[:id] + ".txt") { |f| f.puts page[:page_text] }
+          page_filename = "#{Settings.DLXS_COLLECTION}_#{page[:id]}.txt"
+          zipfile.get_output_stream(folder_name + '/' + page_filename) { |f| f.puts page[:page_text] }
         end
       }
       
-      send_file tmp_file.path, filename:fname
+      send_file tmp_file.path, filename:output_filename
       tmp_file.close
     end
       

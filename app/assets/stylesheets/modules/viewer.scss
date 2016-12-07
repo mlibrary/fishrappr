@@ -691,7 +691,7 @@ h1.page {
 
 .table-col-md-3 {
   position: static;
-  top: 0;
+  top: 60px;
   bottom: 0;
   @media (min-width: $screen-sm-min) {
     position: absolute;
