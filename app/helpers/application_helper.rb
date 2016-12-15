@@ -378,7 +378,11 @@ module ApplicationHelper
 
   # Used by browse page as initial year options; see js for how this changes for different decades
   def get_year_browse_options
-    years_range = (1890..2016)
+    min_max_year = Issue.where('publication_year > 1000').pluck('MIN(publication_year),MAX(publication_year)')
+    min_year = min_max_year[0][0]
+    max_year = min_max_year[0][1]
+
+    years_range = (min_year..max_year)
     year_options = [];
 
     years_range.each do |m| 
