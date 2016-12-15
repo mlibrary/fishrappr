@@ -378,10 +378,9 @@ module ApplicationHelper
 
   # Used by browse page as initial year options; see js for how this changes for different decades
   def get_year_browse_options
-    query = 'SELECT MIN(publication_year) AS min_publication_year, MAX(publication_year) AS max_publication_year FROM issues WHERE publication_year > 1000;'
-    years_min_max = ActiveRecord::Base.connection.execute(query)
-    min_year = years_min_max[0]['min_publication_year']
-    max_year = years_min_max[0]['max_publication_year']
+    min_max_year = Issue.where('publication_year > 1000').pluck('MIN(publication_year),MAX(publication_year)')
+    min_year = min_max_year[0][0]
+    max_year = min_max_year[0][1]
 
     years_range = (min_year..max_year)
     year_options = [];
