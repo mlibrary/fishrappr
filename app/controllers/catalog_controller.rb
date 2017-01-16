@@ -51,7 +51,7 @@ class CatalogController < ApplicationController
     config.default_solr_params = {
       rows: 50,
       :qt => 'search',
-      :qf => 'page_text',
+      :qf => [ 'page_text', 'page_text_unstemmed^100000' ],
       :hl => true,
       :"hl.fragsize" => 200,
       :"hl.fl" => 'page_text',
@@ -79,6 +79,7 @@ class CatalogController < ApplicationController
             'page_no_t',
             'issue_vol_iss_display',
             'page_abstract',
+            'score',
           ].join(',')
     }
 

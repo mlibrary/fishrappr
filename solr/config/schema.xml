@@ -258,7 +258,6 @@
         -->
         <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="0" splitOnCaseChange="1"/>
         <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
         <filter class="solr.PorterStemFilterFactory"/>
       </analyzer>
       <analyzer type="query">
@@ -266,8 +265,23 @@
         <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
         <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="0" catenateNumbers="0" catenateAll="0" splitOnCaseChange="1"/>
         <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
         <filter class="solr.PorterStemFilterFactory"/>
+      </analyzer>
+    </fieldType>
+
+    <fieldType name="text_en_splitting_unstemmed" class="solr.TextField" positionIncrementGap="100" autoGeneratePhraseQueries="true">
+      <analyzer type="index">
+        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+        <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="0" splitOnCaseChange="1"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+
+        <filter class="solr.RemoveDuplicatesTokenFilterFactory" />
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+        <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+        <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="0" catenateNumbers="0" catenateAll="0" splitOnCaseChange="1"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
     </fieldType>
 
@@ -542,8 +556,10 @@
    <field name="sequence" type="int" indexed="true" stored="true" required="false" />
    <dynamicField name="*_sequence" type="int" stored="true" indexed="true" multiValued="false"/>
    <field name="page_text" type="text_en_splitting" indexed="true" stored="true" required="false" />
+   <field name="page_text_unstemmed" type="text_en_splitting_unstemmed" indexed="true" stored="false" required="false" />
    <field name="page_abstract" type="text" indexed="false" stored="true" required="false" />
    <copyField source="page_text" dest="page_abstract" maxChars="750" />
+   <copyField source="page_text" dest="page_text_unstemmed" />
 
    <!-- uncomment the following to ignore any fields that don't already match an existing 
         field name or dynamic field, rather than reporting them as an error. 
