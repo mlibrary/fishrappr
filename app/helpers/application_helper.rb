@@ -248,8 +248,14 @@ module ApplicationHelper
       next if text.strip.blank?
       text = text.truncate(450) if truncate # less jiggering in results view
 
-      text.scan(/\[\[\[([^\]]+)\]\]\]/).each do |match|
-        counter[match.first.downcase] += 1
+      counter_inner = Hash.new(0)
+
+      text.scan(/\[\[\[\[([^\]]+)\]\]\]\]/).each do |match|
+        counter_inner[match.first.downcase] += 1
+      end
+
+      counter_inner.keys.each do |key|
+        counter[key] += 1
       end
 
       do_skip = counter.each.collect { |match, value| value > 2 && seen[match] > 0 }.index(true)
