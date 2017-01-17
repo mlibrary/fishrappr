@@ -254,13 +254,16 @@ module ApplicationHelper
         counter_inner[match.first.downcase] += 1
       end
 
+      # allow more snippets to be presented by incrementing counter
+      # per text fragment
       counter_inner.keys.each do |key|
+        # STDERR.puts "AHOY COUNTING #{document.id} : #{key} : #{counter[key]} : #{seen[key]}"
         counter[key] += 1
       end
 
-      do_skip = counter.each.collect { |match, value| value > 2 && seen[match] > 0 }.index(true)
-      # do_skip = false if params[:noskip]
-      next if do_skip
+      # check that any keyword match needs to be presented
+      do_skip = counter.each.collect { |match, value| value > 2 && seen[match] > 0 }.index(false)
+      next unless do_skip
 
       counter.keys.each { |key| seen[key] += 1 }
 
