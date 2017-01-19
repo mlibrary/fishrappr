@@ -39,6 +39,8 @@ gem 'config'
 
 gem 'osullivan'
 
+gem 'turnout'
+
 gem 'google-analytics-rails', '1.1.0'
 
 gem 'rubyzip', '>= 1.0.0' # will load new rubyzip version
