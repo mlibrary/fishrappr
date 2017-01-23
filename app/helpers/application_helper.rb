@@ -228,7 +228,9 @@ module ApplicationHelper
 
     ## logger.debug "AHOY PLAIN TEXT #{search_field} : #{document.has_highlight_field?(field)}"
 
+    text_has_highlights = false
     if document.has_highlight_field?(field) and not search_field.blank?
+      text_has_highlights = true
       texts = document.highlight_field(field)
       if search_field.blank?
         texts.collect!{|text| text.truncate(750) if truncate}
@@ -244,14 +246,14 @@ module ApplicationHelper
     counter = Hash.new(0)
     seen = Hash.new(0)
 
-    ## logger.debug "AHOY PLAIN TEXT #{texts}"
+    # logger.debug "AHOY PLAIN TEXT #{text_has_highlights} : #{texts}"
 
     Array(texts).each do |text|
       next if text.nil?
       next if text.strip.blank?
+      text = text.truncate(450) if truncate # less jiggering in results view
 
-      if truncate
-        text = text.truncate(450) # less jiggering in results view
+      if truncate and text_has_highlights
 
         counter_inner = Hash.new(0)
 
