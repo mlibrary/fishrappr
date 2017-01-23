@@ -226,7 +226,7 @@ module ApplicationHelper
     search_params = current_search_session.try(:query_params) 
     search_field = search_params ? search_params["q"] : nil
 
-    # logger.debug "AHOY PLAIN TEXT #{search_field} : #{document.has_highlight_field?(field)}"
+    ## logger.debug "AHOY PLAIN TEXT #{search_field} : #{document.has_highlight_field?(field)}"
 
     if document.has_highlight_field?(field) and not search_field.blank?
       texts = document.highlight_field(field)
@@ -243,29 +243,35 @@ module ApplicationHelper
     retval = ActiveSupport::SafeBuffer.new
     counter = Hash.new(0)
     seen = Hash.new(0)
+
+    ## logger.debug "AHOY PLAIN TEXT #{texts}"
+
     Array(texts).each do |text|
       next if text.nil?
       next if text.strip.blank?
-      text = text.truncate(450) if truncate # less jiggering in results view
 
-      counter_inner = Hash.new(0)
+      if truncate
+        text = text.truncate(450) # less jiggering in results view
 
-      text.scan(/\[\[\[\[([^\]]+)\]\]\]\]/).each do |match|
-        counter_inner[match.first.downcase] += 1
+        counter_inner = Hash.new(0)
+
+        text.scan(/\[\[\[\[([^\]]+)\]\]\]\]/).each do |match|
+          counter_inner[match.first.downcase] += 1
+        end
+
+        # allow more snippets to be presented by incrementing counter
+        # per text fragment
+        counter_inner.keys.each do |key|
+          # STDERR.puts "AHOY COUNTING #{document.id} : #{key} : #{counter[key]} : #{seen[key]}"
+          counter[key] += 1
+        end
+
+        # check that any keyword match needs to be presented
+        do_skip = counter.each.collect { |match, value| value > 2 && seen[match] > 0 }.index(false)
+        next unless do_skip
+
+        counter.keys.each { |key| seen[key] += 1 }
       end
-
-      # allow more snippets to be presented by incrementing counter
-      # per text fragment
-      counter_inner.keys.each do |key|
-        # STDERR.puts "AHOY COUNTING #{document.id} : #{key} : #{counter[key]} : #{seen[key]}"
-        counter[key] += 1
-      end
-
-      # check that any keyword match needs to be presented
-      do_skip = counter.each.collect { |match, value| value > 2 && seen[match] > 0 }.index(false)
-      next unless do_skip
-
-      counter.keys.each { |key| seen[key] += 1 }
 
       retval << '<p>'.html_safe
       retval << prefix + text + prefix # .gsub("\n", " ")
