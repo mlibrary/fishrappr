@@ -38,7 +38,7 @@ en:
         search: "Searching"
         content: "Problem with content or metadata"
         technical: "Technical support"
-        permissions: "Permissions request or question"
+        # permissions: "Permissions request or question"
         image: "Problem with image"
         comment: "General comment or concern"
         other: "Other"

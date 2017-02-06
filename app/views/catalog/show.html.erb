@@ -55,6 +55,21 @@ $().ready(function() {
     $("#permalink").select();
     document.execCommand('copy');
   });
+  $("#action-rights-read-more").on('click', function(e) {
+    e.preventDefault();
+    var $div = $(this).parents("div");
+    $div.find(".see-more").addClass("reading");
+    $(this).hide();
+    $(document.body).trigger('sticky_kit:recalc');
+  });
+  $("#action-rights-read-less").on('click', function(e) {
+    e.preventDefault();
+    var $div = $(this).parents("div");
+    $div.find(".see-more").removeClass("reading");
+    $("#action-rights-read-more").show();
+    $(document.body).trigger('sticky_kit:recalc');
+  });
+
 });
 </script>
 <%= render partial: 'back_to_top' %>
