@@ -42,6 +42,9 @@ class IssueIndexer
     elsif @issue.date_issued.end_with?('-00')
       d = Time.new(@issue.date_issued)
       dt = d.strftime("%B %Y")
+    elsif @issue.date_issued.match(/-\d{4}/)
+      d = Date.strptime(@issue.date_issued, "%m-%d-%Y")
+      dt = d.strftime("%B %d, %Y")
     else
       begin
         d = @issue.date_issued.to_date
