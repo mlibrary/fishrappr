@@ -452,8 +452,33 @@ body[data-option=tabs] .panel-actions-page, body[data-option=tabbish] .panel-act
     }
 }
 
+.panel-actions-rights {
+    padding-top: 15px;
+
+    .panel-heading h3 {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .panel-body {
+        p { font-size: 14px; }
+    }
+
+    .see-more {
+        display: none;
+
+        &.reading {
+            display: block;
+        }
+    }
+
+    button {
+        padding: 0;
+    }
+}
+
 .blacklight-catalog-show {
-    .panel-actions-share, .panel-actions-issue {
+    .panel-actions-share, .panel-actions-issue, .panel-actions-contact {
         margin-bottom: 2px;
     }
 
@@ -709,6 +734,11 @@ h1.page {
     .page-options {
         padding-left: 0;
         padding-right: 0;
+        margin-bottom: 100px;
+
+        &.expanded {
+            margin-bottom: 250px;
+        }
     }    
 }
 
