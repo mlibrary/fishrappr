@@ -4,7 +4,9 @@
         <%= link_to document_thumbnail(document, size: '150,', async: true), url_for_document(document), { tabindex: '-1', class: 'thumbnail loading' , **(document_thumbnail_data(document, size: '150,')) } %>
     </span>
     <span class="row-article-text">
+        <% if Settings.debug_score %>
         <div style="float: right"><%= document.fetch('score') %></div>
+        <% end %>
         <%= render partial: '/catalog/index_default.html', locals: { document: document } %>
     </span>
 
