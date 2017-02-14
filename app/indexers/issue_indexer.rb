@@ -50,8 +50,9 @@ class IssueIndexer
         d = @issue.date_issued.to_date
         dt = d.strftime('%B %d, %Y')
       rescue
-        d = Date.new(2021, 1, 1)
-        dt = 'SPECIAL EDITION'
+        # d = Date.new(2021, 1, 1)
+        d = nil
+        dt = '(unknown date)'
         STDERR.puts "AHOY DATE : #{@issue.issue_identifier} : #{@issue.date_issued}"
       end
     end
@@ -66,15 +67,17 @@ class IssueIndexer
     solr_doc[:date_issued_display] = dt
     solr_doc[:issue_number_t] = @issue.issue_number
     solr_doc[:issue_vol_iss_display] = "(vol. #{@issue.volume}, iss. #{@issue.issue_number})" # , ed. #{@issue.edition}
-    solr_doc[:date_issued_dt] = d
-    solr_doc[:date_issued_yyyy_ti] = d.strftime('%Y').to_i
-    solr_doc[:date_issued_yyyymm_ti] = d.strftime('%Y%m').to_i
-    solr_doc[:date_issued_yyyymmdd_ti] = d.strftime('%Y%m%d').to_i
-    solr_doc[:date_issued_link] = @issue.slug(false)
+    if d
+      solr_doc[:date_issued_dt] = d
+      solr_doc[:date_issued_yyyy_ti] = d.strftime('%Y').to_i
+      solr_doc[:date_issued_yyyymm_ti] = d.strftime('%Y%m').to_i
+      solr_doc[:date_issued_yyyymmdd_ti] = d.strftime('%Y%m%d').to_i
+      solr_doc[:date_issued_yyyy10_ti] = ( solr_doc[:date_issued_yyyy_ti] / 10 * 10 )
+      solr_doc[:date_issued_mm_ti] = d.strftime("%m").to_i
+      solr_doc[:date_issued_dd_ti] = d.strftime("%d").to_i
+    end
 
-    solr_doc[:date_issued_yyyy10_ti] = ( solr_doc[:date_issued_yyyy_ti] / 10 * 10 )
-    solr_doc[:date_issued_mm_ti] = d.strftime("%m").to_i
-    solr_doc[:date_issued_dd_ti] = d.strftime("%d").to_i
+    solr_doc[:date_issued_link] = @issue.slug(false)
 
     solr_doc[:publication_link] = publication.slug
     solr_doc[:publication_label] = @issue.publication_title
