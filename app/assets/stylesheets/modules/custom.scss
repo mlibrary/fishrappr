@@ -1014,29 +1014,41 @@ body.blacklight-catalog-home {
     text-align: center;
     display: inline-block;
     width: 100%;
+    margin-bottom: 20px;
 
     .daily-logo {
       width: 294.2px;
-      height: 40px;
       background-color: #e6f3ff;
-      margin-bottom: 20px;
     }  
 
     .mlibrary-logo {
       width: 243px;
-      height: 39.6px;
       background-color: #e6f3ff;
       margin-left: 50px;
-      margin-bottom: 20px;
     }
 
     .bentley-logo {
       width: 538px;
-      height: 39.9px;
       background-color: #e6f3ff;
       margin-left: 50px;
-      margin-bottom: 20px;
-    }      
+    }
+
+    a {
+      padding: 4px;
+      display: inline-block;
+      border: 1px solid transparent;
+
+      img {
+        max-width: 100%;
+      }
+
+      &:hover {
+        outline-width: 2px;
+        outline-style: solid;
+        outline-color: initial;
+      }
+    }
+
   }
  
 }
