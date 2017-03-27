@@ -252,31 +252,32 @@ module Fishrappr::Catalog
   def fetch_with_highlights(id, search_query)
     fq = []
     fq_param = {}
-    # [ :id ].each do |key|
-    #   fq << %{#{key}:"#{params[key]}"}
-    #   fq_param[key.to_s] = params[key]
-    # end
     fq << %{id:"#{id}"}
     fq_param['id'] = id
 
     if search_query
-      builder = ::DocumentSearchBuilder.new(self).with({ 
-        :search_field => "advanced",
-        :op => 'OR',
-        :page_text => search_query,
-        # :ht_barcode => params[:ht_barcode] || params[:id].split('-').first,
-        :"controller" => "catalog",
-        :"action" => "index",
-        :"f" => fq_param,
-        :"rows" => 1
+
+      # have to set this because otherwise the query 
+      # will not be seen as an advanced search
+      params[:q] = search_query
+
+      # the operator doesn't need to be changed to OR
+      # because this either finds a match with highlights or gets the document
+      # by id
+      builder = ::DocumentSearchBuilder.new(self).with({
+        # op: 'OR',
+        q: search_query,
+        search_field: 'all_fields',
+        controller: 'catalog',
+        action: 'index',
+        page_identifier: id
       })
       builder.rows(1)
-      ## binding.pry
-
-
+      # builder.with(search_query)
       solr_response = repository.search(builder)
+
     else
-        solr_response = repository.search fq: fq, fl: '*'
+      solr_response = repository.search fq: fq, fl: '*'
     end
     [solr_response, solr_response.documents.first]      
   end
