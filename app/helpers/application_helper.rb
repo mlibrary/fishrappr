@@ -229,7 +229,7 @@ module ApplicationHelper
     ## logger.debug "AHOY PLAIN TEXT #{search_field} : #{document.has_highlight_field?(field)}"
 
     text_has_highlights = false
-    if document.has_highlight_field?(field) and not search_field.blank?
+    if document.has_highlight_field?(field) and not ( search_field.blank? or search_field == '*' )
       text_has_highlights = true
       texts = document.highlight_field(field)
       if search_field.blank?
