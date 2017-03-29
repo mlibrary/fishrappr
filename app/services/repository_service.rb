@@ -65,7 +65,7 @@ module RepositoryService
 
   def self.download_pdf_url(rgn1, q1)
     if rgn1 == 'ic_id'
-      "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/single-pdf-idx" + "?cc=#{Settings.DLXS_COLLECTION}&rgn1=#{rgn1}&q1=#{q1}&sort=sortable_page_identifier&attachment=1"
+      "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/pdf-idx" + "?cc=#{Settings.DLXS_COLLECTION}&rgn1=#{rgn1}&q1=#{q1}&sort=sortable_page_identifier&attachment=1"
     else
       "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/request-pdf-idx" + "?cc=#{Settings.DLXS_COLLECTION}&rgn1=#{rgn1}&q1=#{q1}&sort=sortable_page_identifier&attachment=1"
     end
