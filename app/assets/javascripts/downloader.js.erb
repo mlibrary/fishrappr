@@ -1,229 +1,3 @@
-var F = F || {};
-F.ht_host = '';
-F.Downloader = function(args) {
-    this.barcode = args.barcode;
-    this.pages = args.pages;
-    this.total = args.pages.length;
-    this.src = F.ht_host + '/cgi/imgsrv/download/pdf?id=' + this.barcode;
-    this.item_title = 'PDF';
-    this.status = {};
-};
-
-F.Downloader.prototype.startDownload = function() {
-    var self = this;
-
-    var html =
-        // '<p>Building your PDF...</p>' +
-        '<div class="initial"><p>Setting up download...</p></div>' +
-        '<div class="progress progress-striped active hide">' +
-            '<div class="progress-bar" role="progressbar" width="0%"><span class="sr-only">0% Complete</span></div>' +
-        '</div>' +
-        '<div class="done hide">' +
-            '<p>All done!</p>' +
-        '</div>';
-
-    var header = 'Building your ' + self.item_title;
-    var total = self.total;
-    if ( total > 0 ) {
-        var suffix = total == 1 ? 'page' : 'pages';
-        header += ' (' + total + ' ' + suffix + ')';
-    }
-
-    self.$dialog = bootbox.dialog({
-        message: html,
-        title: header,
-        buttons: {
-            cancel: {
-                label: 'Cancel',
-                className: 'btn-dismiss',
-                callback: function() {
-                    if ( self.$dialog.data('deactivated') ) {
-                        self.$dialog.modal('hide');
-                        return;
-                    }
-                    $.ajax({
-                        url: self.src + ';callback=F.downloader.cancelDownload;stop=1;marker=' + self.status.marker,
-                        dataType: 'script',
-                        cache: false,
-                        error: function(req, textStatus, errorThrown) {
-                            console.log("DOWNLOAD CANCELLED ERROR");
-                            self.$dialog.modal('hide');
-                            console.log(req, textStatus, errorThrown);
-                            if ( req.status == 503 ) {
-                                self.displayWarning(req);
-                            } else {
-                                self.displayError();
-                            }
-                        }
-                    })
-                }
-            }
-        }
-    });
-
-    self.requestDownload();
-};
-
-F.Downloader.prototype.requestDownload = function() {
-    var self = this;
-    var data = {};
-    if ( self.pages ) {
-        data['seq'] = [];
-        $.each(self.pages, function() {
-            data['seq'].push(this['seq']);
-        });
-    }
-    $.ajax({
-        url: self.src + '&callback=F.downloader.monitorDownload',
-        dataType: 'script',
-        cache: false,
-        data: data,
-        error: function(req, textStatus, errorThrown) {
-            console.log("DOWNLOAD STARTUP NOT DETECTED");
-            if ( self.$dialog ) { self.$dialog.modal('hide'); }
-            if ( req.status == 503 ) {
-                self.displayWarning(req);
-            } else {
-                self.displayError(req);
-            }
-        }
-    });
-};
-
-F.Downloader.prototype.cancelDownload = function(progress_url, download_url, total) {
-    var self = this;
-    self.clearTimer();
-    self.$dialog.modal('hide');
-};
-
-F.Downloader.prototype.monitorDownload = function(progress_url, download_url, total) {
-
-    var self = this;
-
-    if ( self.timer ) {
-        console.log("ALREADY POLLING");
-        return;
-    }
-
-    var rx = /marker=([^&;]+)/;
-    var arr = rx.exec(progress_url);
-    self.status.progress_url = F.ht_host + progress_url;
-    self.status.download_url = F.ht_host + download_url;
-    self.status.marker = arr[1];
-    self.status.total = total;
-
-    self.is_running = true;
-    self.num_processed = 0;
-    self.i = 0;
-
-    self.timer = setInterval(function() { self.checkStatus(); }, 2500);
-    // do it once the first time
-    self.checkStatus();
-
-};
-
-F.Downloader.prototype.displayError = function(req) {
-    console.log("ERROR", req);
-};
-
-F.Downloader.prototype.checkStatus = function() {
-    var self = this;
-    self.i += 1;
-    $.ajax({
-        url : self.status.progress_url,
-        data : { ts : (new Date).getTime() },
-        cache : false,
-        dataType: 'json',
-        success : function(data) {
-            var status = self.updateProgress(data);
-            self.num_processed += 1;
-            if ( status.done ) {
-                self.clearTimer();
-            } else if ( status.error && status.num_attempts > 100 ) {
-                self.$dialog.modal('hide');
-                self.displayProcessError();
-                self.clearTimer();
-                self.logError();
-            } else if ( status.error ) {
-                self.$dialog.modal('hide');
-                self.displayError();
-                self.clearTimer();
-            }
-        },
-        error : function(req, textStatus, errorThrown) {
-            console.log("FAILED: ", req, "/", textStatus, "/", errorThrown);
-            self.$dialog.modal('hide');
-            self.clearTimer();
-            if ( req.status == 404 && (self.i > 25 || self.num_processed > 0) ) {
-                self.displayError();
-            }
-        }
-    })  
-};
-
-F.Downloader.prototype.updateProgress = function(data) {
-    var self = this;
-    var status = { done : false, error : false };
-    var percent;
-
-    var current = data.status;
-    if ( current == 'EOT' || current == 'DONE' ) {
-        status.done = true;
-        percent = 100;
-    } else {
-        current = data.current_page;
-        percent = 100 * ( current / self.status.total );
-    }
-
-    if ( self.last_percent != percent ) {
-        self.last_percent = percent;
-        self.num_attempts = 0;
-    } else {
-        self.num_attempts += 1;
-    }
-
-    // try 100 times, which amounts to ~100 seconds
-    if ( self.num_attempts > 100 ) {
-        status.error = true;
-    }
-
-    if ( self.$dialog.find(".initial").is(":visible") ) {
-        self.$dialog.find(".initial").hide();
-        self.$dialog.find(".progress").removeClass("hide");
-    }
-
-    self.$dialog.find(".progress-bar").css({ width : percent + '%'});
-    self.$dialog.find(".progress-bar .sr-only").text(percent + '% Complete');
-
-    if ( percent == 100 ) {
-        self.$dialog.find(".progress").hide();
-        self.$dialog.find(".done").removeClass('hide');
-        var $download_btn = self.$dialog.find('.download-pdf');
-        if ( ! $download_btn.length ) {
-            $download_btn = $('<a class="download-pdf btn btn-primary">Download {ITEM_TITLE}</a>'.replace('{ITEM_TITLE}', self.item_title)).attr('href', self.status.download_url);
-            $download_btn.appendTo(self.$dialog.find(".modal-footer")).on('click', function(e) {
-                // self.$link.trigger("click.google");
-                setTimeout(function() {
-                    self.$dialog.modal('hide');
-                    $download_btn.remove();
-                }, 1500);
-                e.stopPropagation();
-            })
-        }
-        self.$dialog.data('deactivated', true);
-        // still could cancel
-    }
-
-    return status;
-};
-
-F.Downloader.prototype.clearTimer = function() {
-    var self = this;
-    if ( self.timer ) {
-        clearInterval(self.timer);
-        self.timer = null;
-    }
-};
 
 var setCookie = function(name, value, expiracy) {
   var exdate = new Date();
@@ -248,30 +22,80 @@ $().ready(function() {
 
     var pdf_download_href;
 
+    var $modal; var is_cancelled = false;
+    window.$modal = $modal;
     $(window).on('message', function(e) {
-        var evt = e.originalEvent;
-        console.log("AHOY MESSAGE", evt.data);
-        if ( typeof(evt.data) == 'object' ) { return ; }
-        var message = evt.data;
-        if ( message.indexOf("trackDownload") > -1 ) {
-            if ( message == "trackDownload:FIN" ) {
-                bootbox.hideAll();
-            } else {
-                // bootbox.dialog({ message: '<div class="text-center"><span class="spinner"></span> Downloading PDF...</div>' });
-                // bootbox.dialog({ message: '<div class="text-center"><p>Downloading PDF...</p><div class="load-bar"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div></div>' });
-                bootbox.dialog({ message: '<div class="text-center"><p>Downloading PDF...</p><div class="loader"></div></div>' });                
-                var track = (message.split(":"))[1];
-                $("body").append('<iframe src="' + pdf_download_href + '&track=' + track + '"></iframe>');        
-            }
+        var event = e.originalEvent;
+        var data = event.data;
+        if ( typeof(data) != 'object' ) { return ; }
+        if ( ! data.status ) { return ; }
+        if ( is_cancelled ) { return ; }
+
+        var body, progress;
+        body = '<div class="text-center"><p>' + data.message + '</p></div><div class="progress progress-striped active"><div class="progress-bar" role="progressbar" style="width:0%"><span class="sr-only">0% Complete</span></div></div>';
+        if ( $modal === undefined ) {
+            window.$modal = $modal = bootbox.dialog({
+                message: body,
+                buttons: {
+                    cancel: {
+                        label: "Cancel",
+                        className: 'btn-default',
+                        callback: function() {
+                            console.log("CANCELING", data.cancel_href);
+                            is_cancelled = true;
+                            $modal.modal('hide');
+                            setTimeout(function() {
+                                $modal.remove();
+                                $modal = undefined;
+                            }, 500);
+                            $("iframe.downloader").attr("src", data.cancel_href);
+                        }
+                    },
+                    download: {
+                        label: "Download PDF",
+                        className: 'btn-primary trigger-download hidden',
+                        callback: function() {
+                            // window.location.href = data.next_href;
+                            var href = $modal.data('download-href');
+                            // window.location = href;
+                            $("iframe.downloader").attr('src', href);
+                            setTimeout(function() {
+                                $modal.modal('hide');
+                                setTimeout(function() {
+                                    $modal.remove();
+                                    $modal = undefined;
+                                }, 500);
+                                is_cancelled = true;
+                            }, 100);
+                        }
+                    }
+                }
+            })
+        } else {
+            $modal.find(".text-center p").text('...');
+            $modal.find(".trigger-download").addClass('hidden');
+            $modal.find(".progress").show().find(".progress-bar").css({ width: '0%' }).find(".sr-only").text("0% Complete");
+            $modal.modal('show');
+        }
+        $modal.find(".text-center p").text(data.message);
+        if ( data.status.status == 'FIN' ) {
+            $modal.find(".trigger-download").removeClass("hidden");
+            $modal.data('download-href', data.next_href);
+            $modal.find(".progress").hide();
+        } else if ( data.status.index > 0 ) {
+            var p = Math.ceil(data.status.index / data.status.num_pages * 100);
+            $modal.find(".progress-bar").css({ width: p + '%'}).find(".sr-only").text(p + '% Complete');
+            $modal.find(".progress").show();
         }
     })
 
     $(".action-download-pdf").on('click', function(e) {
 
+        is_cancelled = false;
         e.preventDefault();
         pdf_download_href = $(this).attr("href");
-        $("iframe").remove();
-        $("body").append('<iframe src="' + pdf_download_href + '&monitor=1"></iframe>');
+        $("iframe.downloader").remove();
+        $("body").append('<iframe class="downloader" src="' + pdf_download_href + '"></iframe>');
 
         // setCookie('downloadStarted', 0, 100);
         // setTimeout(checkDownloadCookie, 1000);

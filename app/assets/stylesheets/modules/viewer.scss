@@ -551,6 +551,11 @@ body[data-option=tabs] .panel-actions-page, body[data-option=tabbish] .panel-act
     visibility: hidden;
 }
 
+iframe.downloader {
+    height: 0;
+    width: 0;
+}
+
 h1.page {
     // display: inline-block;
     margin: 0;
