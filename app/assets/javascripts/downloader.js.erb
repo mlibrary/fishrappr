@@ -77,12 +77,14 @@ $().ready(function() {
                             var href = $modal.data('download-href');
                             // window.location = href;
                             $("iframe.downloader").attr('src', href);
-                            $modal.modal('hide');
                             setTimeout(function() {
-                                $modal.remove();
-                                $modal = undefined;
-                            }, 500);
-                            is_cancelled = true;
+                                $modal.modal('hide');
+                                setTimeout(function() {
+                                    $modal.remove();
+                                    $modal = undefined;
+                                }, 500);
+                                is_cancelled = true;
+                            }, 100);
                         }
                     }
                 }
