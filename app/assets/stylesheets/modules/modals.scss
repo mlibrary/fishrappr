@@ -17,6 +17,14 @@
   display: inline-block;
   text-align: left;
   vertical-align: middle;
+
+  .btn {
+    border: 1px solid #333;
+  }
+
+  .btn-primary {
+    color: white;
+  }
 }
 
 .spinner {
