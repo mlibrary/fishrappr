@@ -22,24 +22,6 @@ $().ready(function() {
 
     var pdf_download_href;
 
-    $(window).on('xxxxmessage', function(e) {
-        var evt = e.originalEvent;
-        console.log("AHOY MESSAGE", evt.data);
-        if ( typeof(evt.data) == 'object' ) { return ; }
-        var message = evt.data;
-        if ( message.indexOf("trackDownload") > -1 ) {
-            if ( message == "trackDownload:FIN" ) {
-                bootbox.hideAll();
-            } else {
-                // bootbox.dialog({ message: '<div class="text-center"><span class="spinner"></span> Downloading PDF...</div>' });
-                // bootbox.dialog({ message: '<div class="text-center"><p>Downloading PDF...</p><div class="load-bar"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div></div>' });
-                bootbox.dialog({ message: '<div class="text-center"><p>Downloading PDF...</p><div class="loader"></div></div>' });                
-                var track = (message.split(":"))[1];
-                $("body").append('<iframe src="' + pdf_download_href + '&track=' + track + '"></iframe>');        
-            }
-        }
-    })
-
     var $modal; var is_cancelled = false;
     window.$modal = $modal;
     $(window).on('message', function(e) {
