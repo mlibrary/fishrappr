@@ -33,7 +33,7 @@ $().ready(function() {
         if ( is_cancelled ) { return ; }
 
         var body, progress;
-        body = '<div class="text-center"><p>' + data.message + '</p></div><div class="progress progress-striped active"><div class="progress-bar" role="progressbar" style="width:0%"><span class="sr-only">0% Complete</span></div></div><div class="pdf-reader-alert"><p><i class="icon_warning icon_16px" aria-hidden="true"></i> Downloaded PDFs can be large and are best viewed with a dedicated PDF reader.</p></div>';
+        body = '<div class="text-center"><p>' + data.message + '</p></div><div class="progress progress-striped active"><div class="progress-bar" role="progressbar" style="width:0%"><span class="sr-only">0% Complete</span></div></div><div class="pdf-reader-alert"><p><i class="icon_warning icon_16px" aria-hidden="true"></i> Once your PDF is built, keep in mind the downloaded file can be large and is best viewed with a dedicated PDF reader.</p></div>';
         if ( $modal === undefined ) {
             window.$modal = $modal = bootbox.dialog({
                 message: body,
