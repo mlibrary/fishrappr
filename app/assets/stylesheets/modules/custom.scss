@@ -342,7 +342,7 @@ body.blacklight-catalog-index {
         font-family: $sys-font-family;
         font-size: 16px;
         padding: 6px 10px;
-        width: 80%;
+        max-width: 75%;
         text-align: left;
 
         .filterName:after {

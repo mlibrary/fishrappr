@@ -205,6 +205,18 @@ h4 > .subtitle {
         }
     }
 
+    span.row-article-text {
+        a {
+            &:focus {
+                outline: none;
+
+                h3 {
+                    border: 2px solid $link-focus-color;
+                }
+            }
+        }
+    }
+
     span.row-article-text span.subtitle {
         color: rgba(11, 69, 123,.65) !important;
         display: block;

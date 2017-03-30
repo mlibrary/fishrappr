@@ -76,7 +76,7 @@ $( document ).ready(function() {
 
         var col_name = $('<a />', {
             href: col_href,
-            html: '<span class="col_names" tabindex="0">' + col_names[i] + '<span class="sr-only"> has ' + val + ' pages matching search.</span></span>',
+            html: '<span class="col_names">' + col_names[i] + '<span class="sr-only"> has ' + val + ' pages matching search.</span></span>',
             'data-value' : d_value,
             on     : {
               "focus": function(e) {

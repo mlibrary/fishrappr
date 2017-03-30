@@ -17,9 +17,9 @@
 // }
 
 a:focus {
-  outline-width: 2px;
-  outline-style: solid;
-  outline-color: initial;
+  outline-width: 2px !important;
+  outline-style: solid !important;
+  outline-color: $link-focus-color !important;
 }
 
 .btn {
