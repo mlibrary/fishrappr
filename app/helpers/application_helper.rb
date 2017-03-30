@@ -299,7 +299,7 @@ module ApplicationHelper
 
   def text_disclaimer
     text = t('blacklight.show.disclaimer')
-    text.gsub!('href="#', "href=\"#{static_path('using_image_viewer')}#").html_safe
+    text.gsub!('href="#', "href=\"#{static_path('using_page_viewer')}#").html_safe
   end
 
   require 'ffaker'
