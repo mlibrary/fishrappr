@@ -67,10 +67,12 @@ module ApplicationHelper
     document.fetch('issue_sequence')
   end
 
-  def issue_title(document, complete=false)
+  def issue_title(document, complete=false, html=true)
     title = document['date_issued_display'].first
     if complete
-      title += "<span class='hidden-xs'> " + issue_subtitle(document) + '</span>'
+      title += "<span class='hidden-xs'>" if html
+      title +=  " " + issue_subtitle(document)
+      title += '</span>' if html
     end
     title.html_safe
   end
