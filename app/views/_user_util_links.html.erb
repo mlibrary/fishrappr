@@ -5,6 +5,24 @@
     <% end %>
   </ul>
 
-<!-- Removed login/logout/registration links  -->
-
+<!-- Reinstated login/logout/registration links 13June2017 GML -->
+  <% if has_user_authentication_provider? %>
+    <ul class="nav navbar-nav">
+      <% if current_user %>
+      <li>
+        <%= link_to t('blacklight.header_links.logout'), destroy_user_session_path %>
+      </li>
+      <% unless current_user.to_s.blank? -%>
+      <li>
+        <%= link_to current_user, edit_user_registration_path %>
+      </li>
+      <% end %>
+      <% else %>
+      <li>
+        <%= link_to t('blacklight.header_links.login'), {:controller => "sessions", :action => "login_info"} %>
+      </li>
+      <% end %>
+      </ul>
+  <% end %>
+  
 </div>
