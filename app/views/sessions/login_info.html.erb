@@ -1,0 +1,22 @@
+<% @page_title =  'LOGIN TITLE'%>
+<!-- t('views.static.donors.title') -->
+
+<div class="container-fluid">
+
+  <div class="row">
+
+      <div class="<%= main_content_classes(true) %> help-middle-col">
+          <h1 class="title"><%= 'About logging into the Michigan Daily Archives' %></h1>
+          <p>Depending on your university of michigan affiliation, logging into the Michigan Daily Archives may allow you to download higher quality images.</p>
+          
+          <%= link_to t('blacklight.header_links.login'), {:controller => "sessions", :action => "new"} %>
+          <br />
+          <br />
+          <%= link_to 'Go back to prevous page without log in', {:controller => "sessions", :action => "go_back"} %>
+
+      </div> 
+      <!-- t('views.static.donors.header') -->
+
+  </div>
+
+</div>
