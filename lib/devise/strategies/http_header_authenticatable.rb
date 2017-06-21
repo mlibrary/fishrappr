@@ -14,12 +14,14 @@ module Devise
       def authenticate!
         user = remote_user(request.headers)
         if user.present?
-          u = User.find_by_user_key(user)
-          if u.nil?
-            u = User.create(email: user)
-            u.populate_attributes
-          end
+          # u = User.find_by_user_key(user)
+          u = User.new(email: user)
           success!(u)
+          #if u.nil?
+          #  u = User.create(email: user)
+          #  u.populate_attributes
+          #end
+          #success!(u)
         else
           fail!
         end
