@@ -1,14 +1,22 @@
-module RepositoryService
+class RepositoryService
 
-  def self.info_url(document, fld='image_link')
+  def initialize(current_user)
+    @current_user = current_user
+  end
+
+  def info_url(document, fld='image_link')
 
   end
 
-  def self.dlxs_repository_url
-    "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/api/"
+  def dlxs_repository_url
+    retval = "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/api"
+    if @current_user
+      retval += "/auth"
+    end
+    retval
   end
 
-  def self.dlxs_image_url(document, **kw)
+  def dlxs_image_url(document, **kw)
     page_identifier = document.fetch('page_identifier')
     image_link = document.fetch('image_link')
 
@@ -27,10 +35,10 @@ module RepositoryService
     path_info = path_info.join('/')
     path_info += "." + format if ( format )
 
-    "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/api/image/#{path_info}"
+    "#{dlxs_repository_url}/image/#{path_info}"
   end
 
-  def self.dlxs_filename(document)
+  def dlxs_filename(document)
     identifier = dlxs_identifier(document)
     # bhl_midaily:mdp.39015071730621-00000003:TXT00000003 
     parts = identifier.split(":")
@@ -50,20 +58,20 @@ module RepositoryService
     filename.flatten.join("/")
   end
 
-  def self.dlxs_file_url(document)
+  def dlxs_file_url(document)
     identifier = dlxs_identifier(document)
-    "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/api/file/#{identifier}"
+    "#{dlxs_repository_url}/file/#{identifier}"
   end
 
-  def self.dlxs_manifest_url(document)
-    "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/api/manifest/#{dlxs_identifier(document)}"
+  def dlxs_manifest_url(document)
+    "#{dlxs_repository_url}/manifest/#{dlxs_identifier(document)}"
   end
 
-  def self.dlxs_collection_url(document)
-    "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/api/collection/#{dlxs_identifier(document)}"
+  def dlxs_collection_url(document)
+    "#{dlxs_repository_url}/collection/#{dlxs_identifier(document)}"
   end
 
-  def self.download_pdf_url(rgn1, q1)
+  def download_pdf_url(rgn1, q1)
     if rgn1 == 'ic_id'
       "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/pdf-idx" + "?cc=#{Settings.DLXS_COLLECTION}&rgn1=#{rgn1}&q1=#{q1}&sort=sortable_page_identifier&attachment=1"
     else
@@ -71,7 +79,7 @@ module RepositoryService
     end
   end
 
-  def self.dlxs_identifier(document, fld='image_link')
+  def dlxs_identifier(document, fld='image_link')
     if document.is_a?(String)
       unless document.start_with?(Settings.DLXS_COLLECTION)
         document = [ Settings.DLXS_COLLECTION, document, '1' ].join(':')
