@@ -1,0 +1,14 @@
+.flash_messages {
+  background: #ddd;
+  width: 100%;
+
+  .alert {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .alert:last-child {
+    margin-bottom: 0;
+  }
+}
