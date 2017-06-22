@@ -10,15 +10,6 @@
       <% end %>
 
       <div class="panel panel-actions-page">
-        <% unless current_user %>
-          <div class="panel-login-options">
-            <p>
-                If you are affiliated with the University of Michigan, you have access 
-                to higher quality downloads.
-            </p>
-            <a class="btn btn-action btn-sm" href="<%= url_for controller: 'sessions', action: 'login_info' %>"><%= t('blacklight.header_links.login') %></a>
-          </div>
-        <% end %>
         <div class="panel-heading">
           <h3>Download this Page</h3>
         </div>
