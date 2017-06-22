@@ -477,6 +477,28 @@ body[data-option=tabs] .panel-actions-page, body[data-option=tabbish] .panel-act
     }
 }
 
+.panel-login-options {
+    padding: 15px;
+    padding-top: 8px; 
+    padding-bottom: 0px; 
+    border: 4px solid #ddd; 
+    width: 95%; 
+    margin: 8px auto;
+    margin-bottom: 16px;
+
+    .btn {
+        background-color: #6e6e6e; 
+        display: block; 
+        margin-bottom: 4px; 
+        width: 50%
+    }
+
+    p {
+        font-size: 12px; 
+        padding: 0px 4px;
+    }
+}
+
 .blacklight-catalog-show {
     .panel-actions-share, .panel-actions-issue, .panel-actions-contact {
         margin-bottom: 2px;
