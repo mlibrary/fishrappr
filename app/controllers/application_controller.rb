@@ -73,7 +73,7 @@ class ApplicationController < ActionController::Base
   def store_current_location
     Rails.logger.debug "[AUTHN] CALLED store_current_location"
     Rails.logger.debug "[AUTHN] REQUEST URL IS: #{request.url}"
-    store_location_for(:user, request.url) unless ( request.url == "http://localhost:3000/login" || request.url == "http://localhost:3000/login_info" || request.url == "http://localhost:3000/go_back" )
+    store_location_for(:user, request.url) unless ( request.fullpath == "/login" || request.fullpath == "/login_info" || request.fullpath == "/go_back" || request.fullpath == '/logout' )
   end
 
 end
