@@ -3,7 +3,7 @@ module ApplicationHelper
 
   def repository_service
     # current_user || ENV['REMOTE_USER']
-    @repository_service ||= RepositoryService.new(ENV['REMOTE_USER'])
+    @repository_service ||= RepositoryService.new(current_user)
   end
 
   def publication_root_url
