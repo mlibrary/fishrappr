@@ -169,8 +169,6 @@
             }
           })
 
-          alert(viewer.ajaxWithCredentials);
-
           viewer.addHandler('zoom', function(e) {
             $(".span-zoom-status").text(Math.floor(e.zoom * 100) + '%');
           })
