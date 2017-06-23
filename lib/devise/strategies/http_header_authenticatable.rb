@@ -14,10 +14,11 @@ module Devise
       def authenticate!
         user = remote_user(request.headers)
         if user.present?
+          STDERR.puts "AHOY AUTH #{user}"
           u = User.find_by_email(user)
           if u.nil?
            u = User.create(email: user)
-           u.populate_attributes
+           # u.populate_attributes
           end
           success!(u)
         else
