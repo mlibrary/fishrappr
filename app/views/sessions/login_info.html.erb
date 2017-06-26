@@ -1,4 +1,4 @@
-<% @page_title =  'LOGIN TITLE'%>
+<% @page_title = t('views.sessions.login.page_title') %>
 <!-- t('views.static.donors.title') -->
 
 <div class="container-fluid">
@@ -6,17 +6,17 @@
   <div class="row">
 
       <div class="<%= main_content_classes(true) %> help-middle-col">
-          <h1 class="title"><%= 'About logging into the Michigan Daily Archives' %></h1>
-          <p>Depending on your university of michigan affiliation, logging into the Michigan Daily Archives may allow you to download higher quality images.</p>
-          
-          <%= link_to t('blacklight.header_links.login'), {:controller => "sessions", :action => "new"} %>
+          <h1 class="title"><%= t('views.sessions.login.page_title') %></h1>
+          <p>The benefits of logging in depend on your affiliation with the University of Michigan.</p>
+          <ul>
+            <li>For <b>U-M Faculty, Bentley Historical Library Staff</b> and <b>Michigan Daily Staff</b>: Highest quality image downloads</li>
+            <li>For <b>U-M Students, Staff</b> and <b>Alumni</b>, as well as <b>Researchers registered with the Bentley</b>: Higher quality image downloads</li>
+            <li>For <b>U-M Sponsored Affiliates</b> and <b>Friend accounts</b>: No additional features</li>
+          </ul>
           <br />
-          <br />
-          <%= link_to 'Go back to prevous page without log in', {:controller => "sessions", :action => "go_back"} %>
+          <p style="margin-left: 23px; color: blue;"><%= link_to t('views.sessions.login.login_text'), {:controller => "sessions", :action => "new"} %></p>
+          <p style="margin-left: 23px; color: blue;"><%= link_to t('views.sessions.login.no_login_text'), {:controller => "sessions", :action => "go_back"} %></p>
 
       </div> 
-      <!-- t('views.static.donors.header') -->
-
   </div>
-
 </div>
