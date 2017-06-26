@@ -72,10 +72,11 @@ class RepositoryService
   end
 
   def download_pdf_url(rgn1, q1)
+    auth_param = @current_user ? '&auth=1' : ''
     if rgn1 == 'ic_id'
-      "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/pdf-idx" + "?cc=#{Settings.DLXS_COLLECTION}&rgn1=#{rgn1}&q1=#{q1}&sort=sortable_page_identifier&attachment=1"
+      "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/pdf-idx" + "?cc=#{Settings.DLXS_COLLECTION}&rgn1=#{rgn1}&q1=#{q1}&sort=sortable_page_identifier&attachment=1#{auth_param}"
     else
-      "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/request-pdf-idx" + "?cc=#{Settings.DLXS_COLLECTION}&rgn1=#{rgn1}&q1=#{q1}&sort=sortable_page_identifier&attachment=1"
+      "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/request-pdf-idx" + "?cc=#{Settings.DLXS_COLLECTION}&rgn1=#{rgn1}&q1=#{q1}&sort=sortable_page_identifier&attachment=1#{auth_param}"
     end
   end
 
