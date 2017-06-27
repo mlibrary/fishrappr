@@ -27,7 +27,8 @@ class SessionsController < ApplicationController
       # redirect to where user came from (see Devise::Controllers::StoreLocation#stored_location_for)
       # flash[:notice] = "You are now logged in."
       ### redirect_to stored_location_for(:user) || root_path
-      target = stored_location_for(:user) || root_url
+      target = stored_location_for(:user) || root_path
+      target = "https://#{request.host}#{target}"
 
       STDERR.puts "AHOY #{target}"
       redirect_to "#{Settings.DLXS_SERVICE_URL}/cgi/dlxslogin?target=#{CGI.escape(target)}"
