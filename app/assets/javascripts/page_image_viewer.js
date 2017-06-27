@@ -140,13 +140,16 @@
         },
         success: function(data) {
           console.log("AHOY", data);
-          $preview.fadeOut('fast');
           $map.data('loaded', true);
           page = data.sequences[0].canvases[0];
           var info_url = page.images[0].resource.service['@id'] + '/info.json';
 
           imageHeight = data.sequences[0].canvases[0].height;
           imageWidth = data.sequences[0].canvases[0].width;
+
+          // setTimeout(function() {
+          //   $preview.fadeOut('fast');
+          // }, 100);
 
           viewer = OpenSeadragon({
               id: "image-viewer",
@@ -174,6 +177,10 @@
                 viewer.viewport.fitHorizontally();
               }, 500)
             }
+          })
+
+          viewer.addHandler('tile-drawn', function() {
+            $preview.fadeOut('fast');
           })
 
           viewer.addHandler('zoom', function(e) {
