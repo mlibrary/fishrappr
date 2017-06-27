@@ -2,7 +2,9 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # See umrdr/lib/devise/fake_auth_header.rb
-  # config.middleware.use "FakeAuthHeader"
+  if ENV['FAKE_AUTH']
+    config.middleware.use Devise::FakeAuthHeader
+  end
   
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
