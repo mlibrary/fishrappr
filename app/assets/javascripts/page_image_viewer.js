@@ -6,6 +6,7 @@
 
     window.F = window.F || {};
     var $map = $("#image-viewer");
+    var $preview = $("#image-viewer-preview");
     var $wrap = $("#image-viewer-wrap");
     var option = $("body").data('option');
 
@@ -126,6 +127,10 @@
     var manifest_url = $("link[rel='manifest']").attr("href");
 
     var load_tile_viewer = function() {
+      if ( $preview.data('ack') != 'syn' ) {
+        setTimeout(load_tile_viewer, 100);
+        return;
+      }
       $.ajax({
         url: manifest_url,
         method: 'GET',
@@ -135,6 +140,8 @@
         },
         success: function(data) {
           console.log("AHOY", data);
+          $preview.fadeOut('fast');
+          $map.data('loaded', true);
           page = data.sequences[0].canvases[0];
           var info_url = page.images[0].resource.service['@id'] + '/info.json';
 
@@ -284,13 +291,13 @@
 
     var resize_and_load_viewer = function() {
         resize_viewer();
-        $map.empty();
         $(".default-toolbar").show();
         $(".action-reset-viewer").removeClass('hidden');
         $(".action-deactivate-viewer").removeClass('hidden');
 
         stick_bottom_toolbar();
-        load_tile_viewer();
+        setTimeout(load_tile_viewer, 100);
+        // load_tile_viewer();
     };
 
     resize_and_load_viewer();
