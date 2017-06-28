@@ -44,14 +44,15 @@
             <span>this issue</span>
           <% end %>
           <span class="q-block">
-          <label for="q" class="control-label search-label for-label">For</label>
-          <%= text_field_tag(:q, params[:q], placeholder: 'Search Anything', class: 'form-control' ) %>
-          <!-- <button class="btn btn-primary btn-lg">Search </button> -->
-          <button type="submit" class="btn btn-action btn-primary" xid="search">
-            <span class="<%= use_icon_class('search') %>"></span>
-            <span class="hidden <%= use_icon_class('rotate_right') %> glyphicon-refresh-animate"></span> 
-            <span class="submit-search-text"><%= t('blacklight.search.form.submit') %></span>
-          </button>
+            <label for="q" class="control-label search-label for-label">For</label>
+            <%= text_field_tag(:q, params[:q], placeholder: 'Search Anything', class: 'form-control' ) %>
+            <!-- <button class="btn btn-primary btn-lg">Search </button> -->
+            <button type="submit" class="btn btn-action btn-primary" xid="search">
+              <span class="<%= use_icon_class('search') %>"></span>
+              <span class="hidden <%= use_icon_class('rotate_right') %> glyphicon-refresh-animate"></span> 
+              <span class="submit-search-text"><%= t('blacklight.search.form.submit') %></span>
+            </button>
+          </span>
         </div>
       </div>
     <% end %>

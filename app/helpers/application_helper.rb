@@ -179,7 +179,7 @@ module ApplicationHelper
     alt_text = "image of #{document['date_issued_display'].first} - number #{document.fetch('issue_sequence')}"
     async = kw.delete(:async)
     src_attr = async ? 'data-src' : 'src'
-    %Q{<img #{src_attr}="#{document_thumbnail_src(document, **kw)}" tabindex="-1", aria-hidden="true", alt="#{alt_text}" />}.html_safe
+    %Q{<img #{src_attr}="#{document_thumbnail_src(document, **kw)}" tabindex="-1" aria-hidden="true" alt="#{alt_text}" />}.html_safe
   end
 
   # TO DO: Needs to be moved into a style using a data attribute
@@ -278,7 +278,7 @@ module ApplicationHelper
       end
 
       retval << '<p>'.html_safe
-      retval << prefix + text + prefix # .gsub("\n", " ")
+      retval << prefix + CGI::escapeHTML(text).html_safe + prefix # .gsub("\n", " ")
       retval << '</p>'.html_safe
     end
     retval.gsub!(/\n\n+/, "\n\n")
