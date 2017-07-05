@@ -270,10 +270,11 @@ module Fishrappr::Catalog
         search_field: 'all_fields',
         controller: 'catalog',
         action: 'index',
-        page_identifier: id
+        page_identifier: id,
+        "hl.alternateField": "page_text"
       })
       builder.rows(1)
-      # builder.with(search_query)
+      builder.use_page_text_for_alt_highlight = true
       solr_response = repository.search(builder)
 
     else
