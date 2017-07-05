@@ -8,21 +8,24 @@ $().ready(function() {
 
     var $results = $("#documents .document");
     var identifiers = [];
-    var coords_map = {};
+    var post_data = {};
     $results.each(function() {
         var $div = $(this);
         var words = $div.data('words');
         var $img = $div.find("img");
         // if ( words === undefined || words.length == 0 ) { $img.data('skip-highlighting', true); return ; }
+        if ( words === undefined || words.length == 0 ) { return ; }
+
         var identifier = $div.data('identifier');
         $img.data('identifier', identifier);
         identifiers.push(identifier);
+        post_data[identifier] = words;
     })
 
-    var batch_url = service_url + 'data';
+    var batch_url = service_url + 'coords';
     $.ajax({
         url: batch_url,
-        data: JSON.stringify(identifiers),
+        data: JSON.stringify(post_data),
         method: 'POST',
         contentType: 'text/plain',
         dataType: 'json',
@@ -34,8 +37,8 @@ $().ready(function() {
             $imgs.each(function() {
                 var $img = $(this);
                 $img.on('load', function() {
-                    var identifier = $img.data('identifier');
-                    load_highlights($img, data[identifier]);
+                    var identifier = $(this).data('identifier');
+                    load_highlights($(this), data[identifier]);
                 });
                 $img.attr('src', $img.data('src'));
             })
@@ -130,6 +133,7 @@ $().ready(function() {
                 unit = '%';
 
                 var $span = $('<div class="highlight"></div>').css({ top: top + unit, left: left + unit, width: width + unit, height: height + unit });
+                $span.data('identifier', identifier);
                 $span.appendTo($link);
                 if ( debugging && message.length > 0 ) { message.push($span); console.log.apply(console, message); message = []; }
             })
