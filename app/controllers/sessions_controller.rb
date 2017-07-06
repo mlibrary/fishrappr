@@ -30,7 +30,6 @@ class SessionsController < ApplicationController
       target = stored_location_for(:user) || root_path
       target = "https://#{request.host}#{target}"
 
-      STDERR.puts "AHOY #{target}"
       redirect_to "#{Settings.DLXS_SERVICE_URL}/cgi/dlxslogin?target=#{CGI.escape(target)}"
     else
       Rails.logger.debug "[AUTHN] sessions#new, failed because user_signed_in? was false"
