@@ -8,8 +8,15 @@ $( document ).ready(function() {
 
   // Browse box
   if ($("body.blacklight-catalog-browse").length > 0) {
+    
 
-     $("select#date_issued_mm_ti").on('change', function() {
+    $("select#date_issued_yyyy10_ti").on('change', function() {
+      var $this = $(this);
+      console.log("this val is: " + $this.val());
+      update_year_dates($this.val(), $("select#date_issued_yyyy10_ti"), $("select#date_issued_yyyy_ti"));
+    });
+   
+    $("select#date_issued_mm_ti").on('change', function() {
       var $this = $(this);
       update_month_dates($this, $("select#date_issued_dd_ti"), $("select#date_issued_yyyy_ti"));
     });
@@ -169,5 +176,61 @@ $( document ).ready(function() {
       }
     }
 
+    function set_year_options ($yyyy_el, max, min) {
+      console.log("Called set_year_options; max is: " + max + " min is: " + min);
+      // clear out old options
+      $yyyy_el.empty();
+      // add to the options
+      // add first option
+      var $option = $('<option>Any Year</option>');
+      $option.val("Any Year");
+      $yyyy_el.append($option);
+      
+      // add the rest of the options
+      for(var yy = max; yy >= min; yy--) {
+        var $option = $('<option>' + yy + '</option>');
+        $option.val(yy);
+        $yyyy_el.append($option);
+      }
+    }
+    
+    function update_year_dates(decade, $yy10_el, $yyyy_el) {
+      console.log("Called update_year_dates");
+      var yy10 = parseInt($yy10_el.val().trim(), 10);
+      var yyyy = parseInt($yyyy_el.val().trim(), 10);
+      var yyyy_decade = parseInt(decade, 10);
+      var yyyy_max = 2013;
+      var yyyy_min = 1891;
+      
+      var yyyy_start = 0;
+      var yyyy_end = 0;
+      var yyyy_decade_start = 0;
+
+      console.log ("yy10 is: " + yy10 + " yyyy is: " + yyyy);
+      
+      if ( decade == $("select#date_issued_yyyy_ti option").eq(1).val() ) {
+        console.log("In no changes branch");
+        // current decade matches current year options so do nothing
+      }
+      else if (decade == "Any Decade") {
+        console.log("In Any Decade branch");
+
+        yyyy_start = yyyy_max;
+        yyyy_end = yyyy_min;
+        set_year_options($yyyy_el, yyyy_start, yyyy_min);
+      }
+      else {
+        console.log("In else branch");
+        console.log("Else branch, yyyy_decade is: " + yyyy_decade)
+        yyyy_decade_start = yyyy_decade + 9;
+        yyyy_start = Math.min(yyyy_max, yyyy_decade_start);
+        yyyy_end = Math.max(yyyy_min, decade);
+        console.log("Else branch, yyyy_decade_start is: " + yyyy_decade_start)
+        console.log("Else branch, yyyy_start is: " + yyyy_start)
+        console.log("Else branch, yyyy_end is: " + yyyy_end)
+
+        set_year_options($yyyy_el, yyyy_start, yyyy_end);
+      }
+    }
 
 });
