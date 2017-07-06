@@ -24,6 +24,7 @@
 // --- TODO: work out a different way to load this in development
 //= require holder
 
+//= require polyfills
 //= require openseadragon
 //= require jquery.waypoints
 //= require_tree .

@@ -228,7 +228,7 @@ module ApplicationHelper
     search_params = current_search_session.try(:query_params) 
     search_field = search_params ? search_params["q"] : nil
 
-    ## logger.debug "AHOY PLAIN TEXT #{search_field} : #{document.has_highlight_field?(field)}"
+    # logger.debug "AHOY PLAIN TEXT #{search_field} : #{document.has_highlight_field?(field)} : #{field} : #{breaks} : #{truncate}"
 
     text_has_highlights = false
     if document.has_highlight_field?(field) and not ( search_field.blank? or search_field == '*' )
@@ -241,18 +241,30 @@ module ApplicationHelper
       texts = document.fetch(field)
     else
       texts = document.fetch('page_abstract', document.fetch('page_text', ''))
-      # STDERR.puts "AHOY THREE : #{search_field} : #{field}"
     end
     prefix = breaks ? '' : '&#8230;'.html_safe
     retval = ActiveSupport::SafeBuffer.new
     counter = Hash.new(0)
     seen = Hash.new(0)
 
-    # logger.debug "AHOY PLAIN TEXT #{text_has_highlights} : #{texts}"
+    # do we bother with highlights?
+    counter_outer = Hash.new(0)
+    Array(texts).each do |text|
+      next if text.nil?
+      next if text.strip.blank?
+      text.scan(/\[\[\[\[([^\]]+)\]\]\]\]/).each do |match|
+        counter_outer[match.first.downcase] += 1
+      end
+    end
+
+    if counter_outer.empty?
+      text_has_highlights = false
+    end
 
     Array(texts).each do |text|
       next if text.nil?
       next if text.strip.blank?
+
       text = text.truncate(450) if truncate # less jiggering in results view
 
       if truncate and text_has_highlights
@@ -278,9 +290,22 @@ module ApplicationHelper
       end
 
       retval << '<p>'.html_safe
-      retval << prefix + CGI::escapeHTML(text).html_safe + prefix # .gsub("\n", " ")
+      retval << prefix + text.gsub('<', '&lt;').html_safe + prefix # .gsub("\n", " ")
       retval << '</p>'.html_safe
     end
+
+    if false && text_has_highlights and retval.blank?
+      # this is daft
+      Array(texts).each do |text|
+        next if text.nil?
+        next if text.strip.blank?
+        text = text.truncate(450) if truncate
+        retval << '<p>'.html_safe
+        retval << prefix + text.gsub('<', '&lt;').html_safe + prefix # .gsub("\n", " ")
+        retval << '</p>'.html_safe
+      end
+    end
+
     retval.gsub!(/\n\n+/, "\n\n")
     retval.gsub!(/\n/, breaks ? "<br />\n".html_safe : " ")
     (retval.gsub('[[[[', '<span class="highlight">'.html_safe).gsub(']]]]', '</span>'.html_safe)).html_safe
