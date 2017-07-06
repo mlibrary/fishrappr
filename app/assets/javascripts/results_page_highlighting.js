@@ -3,7 +3,6 @@ $().ready(function() {
 
     var service_url = $("link[rel='repository']").attr("href");
     var $imgs = $("#documents .thumbnail.loading img");
-    console.log("AHOY THUMBNAIL IMAGES", $imgs.length);
 
     if ( $imgs.length == 0 ) { return ; }
 
