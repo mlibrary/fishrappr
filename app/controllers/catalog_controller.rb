@@ -32,6 +32,8 @@ class CatalogController < ApplicationController
     config.document_presenter_class = Fishrappr::DocumentPresenter
 
     # Add actions for splash, about, and donors pages
+    # 14June17 GML Note that login is added via
+    # app/views/_user_util_links partial
     config.add_nav_action(:search, partial: 'shared/nav/search')    
     config.add_nav_action(:browse, partial: 'shared/nav/browse')
     config.add_nav_action(:about, partial: 'shared/nav/about')
@@ -45,7 +47,6 @@ class CatalogController < ApplicationController
     config.navbar.partials.delete(:bookmark)
     config.navbar.partials.delete(:saved_searches)
     config.navbar.partials.delete(:search_history)
-    config.navbar.partials.delete(:login)
 
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = {
