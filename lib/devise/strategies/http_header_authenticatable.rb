@@ -21,6 +21,11 @@ module Devise
            # u.populate_attributes
           end
           success!(u)
+          #if u.nil?
+          #  u = User.create(email: user)
+          #  u.populate_attributes
+          #end
+          #success!(u)
         else
           fail!
         end
