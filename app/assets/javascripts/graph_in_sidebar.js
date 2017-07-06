@@ -56,7 +56,7 @@ $( document ).ready(function() {
     $.each( col_values, function( i, val ) {
         var chartLineBase = chartMAX / highest_col;
         var chartLinePxLength = parseInt(chartLineBase * val) +"px";
-        console.log("chartLinePxLength: " + chartLinePxLength);
+        // console.log("chartLinePxLength: " + chartLinePxLength);
         
         // default to linked graph bar and solid color bar style
         var day_class = '';
@@ -81,7 +81,7 @@ $( document ).ready(function() {
             'data-value' : d_value,
             on     : {
               "focus": function(e) {
-                console.log($(this).data('value'))
+                // console.log($(this).data('value'))
                 $('<div />', {
                     'class' : 'tip',
                     text : $(this).data('value'),
@@ -105,7 +105,7 @@ $( document ).ready(function() {
             css    : {width : chartLinePxLength},
             on     : {            
               "mouseenter": function(e) {
-                console.log($(this).data('value'))
+                // console.log($(this).data('value'))
                 $('<div />', {
                     'class' : 'tip',
                     text : $(this).data('value'),
