@@ -1,6 +1,11 @@
 require 'digest'
 module ApplicationHelper
 
+  def repository_service
+    # current_user || ENV['REMOTE_USER']
+    @repository_service ||= RepositoryService.new(current_user)
+  end
+
   def publication_root_url
     if @publication
       publication_home_url(@publication.slug)
@@ -100,7 +105,7 @@ module ApplicationHelper
   def download_pdf_link(document, fld, **kw)
     rgn1 = ( fld == 'page_identifier' ) ? 'ic_id' : fld
     value = document.fetch(fld)
-    RepositoryService.download_pdf_url(rgn1, value)
+    repository_service.download_pdf_url(rgn1, value)
   end
 
   def document_image_src(document, **kw)
@@ -111,7 +116,7 @@ module ApplicationHelper
       return '#'
     end
 
-    RepositoryService.dlxs_image_url(document, **kw)
+    repository_service.dlxs_image_url(document, **kw)
   end
 
   def document_thumbnail_src(document, **kw)
@@ -196,16 +201,16 @@ module ApplicationHelper
   end
 
   def iiif_identifier(document, fld='image_link')
-    RepositoryService.dlxs_identifier(document, fld)
+    repository_service.dlxs_identifier(document, fld)
   end
 
   def link_to_repository(document=nil)
-    html = %Q{<link rel="repository" href="#{RepositoryService.dlxs_repository_url}" />}
+    html = %Q{<link rel="repository" href="#{repository_service.dlxs_repository_url}/" />}
     html.html_safe
   end
 
   def link_to_manifest(document)
-    %Q{<link rel="manifest" href="#{RepositoryService.dlxs_manifest_url(document)}" />}.html_safe
+    %Q{<link rel="manifest" href="#{repository_service.dlxs_manifest_url(document)}" />}.html_safe
   end
 
   def render_date_format(args)
