@@ -3,9 +3,10 @@
     <% replace :header do %>
         <%= render partial: 'home_header_navbar' %>
     <% end %>
-
+      
     <% replace :main do %>
-        <%= yield %>
+      <%= render :partial=>'/flash_msg' unless flash.empty? %>
+      <%= yield %>
     <% end %>
 
 <% end %>
