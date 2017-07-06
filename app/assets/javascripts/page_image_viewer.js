@@ -147,10 +147,6 @@
           imageHeight = data.sequences[0].canvases[0].height;
           imageWidth = data.sequences[0].canvases[0].width;
 
-          // setTimeout(function() {
-          //   $preview.fadeOut('fast');
-          // }, 100);
-
           viewer = OpenSeadragon({
               id: "image-viewer",
               prefixUrl: "//openseadragon.github.io/openseadragon/images/",
