@@ -1,0 +1,22 @@
+<% @page_title = t('views.sessions.login.page_title') %>
+<!-- t('views.static.donors.title') -->
+
+<div class="container-fluid">
+
+  <div class="row">
+
+      <div class="<%= main_content_classes(true) %> help-middle-col">
+          <h1 class="title"><%= t('views.sessions.login.page_title') %></h1>
+          <p>The benefits of logging in depend on your affiliation with the University of Michigan.</p>
+          <ul>
+            <li>For <strong>U-M Faculty, Bentley Historical Library Staff</strong> and <strong>Michigan Daily Staff</strong>: Highest quality image downloads</li>
+            <li>For <strong>U-M Students, Staff</strong> and <strong>Alumni</strong>, as well as <strong>Researchers registered with the Bentley</strong>: Higher quality image downloads</li>
+            <li>For <strong>U-M Sponsored Affiliates</strong> and <strong>Friend accounts</strong>: No additional features</li>
+          </ul>
+          <br />
+          <p style="margin-left: 23px; color: blue;"><%= link_to t('views.sessions.login.login_text'), {:controller => "sessions", :action => "new"} %></p>
+          <p style="margin-left: 23px; color: blue;"><%= link_to t('views.sessions.login.no_login_text'), {:controller => "sessions", :action => "go_back"} %></p>
+
+      </div> 
+  </div>
+</div>

@@ -10,7 +10,12 @@ Rails.application.routes.draw do
 
   get '/browse' => 'catalog#browse', as: :browse
   get '/search' => 'catalog#search', as: :search
-
+  
+  devise_for :users, path: '', path_names: {sign_in: 'login', sign_out: 'logout'}, controllers: {sessions: 'sessions'}
+  get '/logout_now', to: 'sessions#logout_now'
+  get '/go_back', to: 'sessions#go_back'
+  get '/login_info', to: 'sessions#login_info'
+  
   if true
 
     constraints = { volume_identifier: /[^\/]+/, volume_sequence: /\d+/ }

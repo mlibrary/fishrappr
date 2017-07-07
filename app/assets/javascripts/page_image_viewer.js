@@ -6,6 +6,7 @@
 
     window.F = window.F || {};
     var $map = $("#image-viewer");
+    var $preview = $("#image-viewer-preview");
     var $wrap = $("#image-viewer-wrap");
     var option = $("body").data('option');
 
@@ -126,94 +127,126 @@
     var manifest_url = $("link[rel='manifest']").attr("href");
 
     var load_tile_viewer = function() {
-      $.getJSON(manifest_url, function(data) {
-        page = data.sequences[0].canvases[0];
-        var info_url = page.images[0].resource.service['@id'] + '/info.json';
+      if ( $preview.data('ack') != 'syn' ) {
+        setTimeout(load_tile_viewer, 100);
+        return;
+      }
+      $.ajax({
+        url: manifest_url,
+        method: 'GET',
+        dataType: 'json',
+        xhrFields: {
+          withCredentials: true
+        },
+        success: function(data) {
+          console.log("AHOY", data);
+          $map.data('loaded', true);
+          page = data.sequences[0].canvases[0];
+          var info_url = page.images[0].resource.service['@id'] + '/info.json';
 
-        imageHeight = data.sequences[0].canvases[0].height;
-        imageWidth = data.sequences[0].canvases[0].width;
+          imageHeight = data.sequences[0].canvases[0].height;
+          imageWidth = data.sequences[0].canvases[0].width;
 
-        viewer = OpenSeadragon({
-            id: "image-viewer",
-            prefixUrl: "//openseadragon.github.io/openseadragon/images/",
-            gestureSettingsMouse: {
-              scrollToZoom: false,
-              clickToZoom: false,
-              dblClickToZoom: true,
-              flickEnabled: true,
-              pinchRotate: true
+          // setTimeout(function() {
+          //   $preview.fadeOut('fast');
+          // }, 100);
+
+          viewer = OpenSeadragon({
+              id: "image-viewer",
+              prefixUrl: "//openseadragon.github.io/openseadragon/images/",
+              gestureSettingsMouse: {
+                scrollToZoom: false,
+                clickToZoom: false,
+                dblClickToZoom: true,
+                flickEnabled: true,
+                pinchRotate: true
+              },
+              gestureSettingsTouch: {
+                pinchRotate: true
+              },
+              showNavigationControl: true,
+              zoomInButton: 'action-zoom-in',
+              zoomOutButton: 'action-zoom-out',
+              ajaxWithCredentials: true
+          });
+
+          viewer.world.addHandler('add-item', function() {
+            addHighlightOverlay(viewer);
+            if ( sessionStorage.getItem('best-fit-width') == 'true' ) {
+              setTimeout(function() {
+                viewer.viewport.fitHorizontally();
+              }, 500)
+            }
+          })
+
+          viewer.addHandler('tile-drawn', function() {
+            $preview.fadeOut('fast');
+          })
+
+          viewer.addHandler('zoom', function(e) {
+            $(".span-zoom-status").text(Math.floor(e.zoom * 100) + '%');
+          })
+
+          viewer.open(info_url);
+          F.viewer = viewer;
+
+          selection = viewer.selection({
+            // prefixUrl: '/assets/selection/',
+            showSelectionControl: false,
+            restrictToImage: false,
+            onSelection: function(rect) {
+              var translated = viewer.viewport.imageToViewportRectangle(rect)
+              viewer.viewport.fitBounds(translated);
+              reset_selection();
             },
-            gestureSettingsTouch: {
-              pinchRotate: true
+            onSelectionDrawn: function() {
+              $(".selection-toolbar .invisible").toggleClass("visible");
             },
-            showNavigationControl: true,
-            zoomInButton: 'action-zoom-in',
-            zoomOutButton: 'action-zoom-out'
-        });
+            onDownloadSelection: function(rect) {
+              var params = [];
+              params.push(rect.x + "," + rect.y + "," + rect.width + "," + rect.height);
+              params.push("full");
+              params.push("0");
+              params.push("default.jpg");
+              params = params.join("/");
+              var href = viewer.source['@id'] + "/" + params;
+              href += "?attachment=1";
+              window.location.href = href;
 
-        viewer.world.addHandler('add-item', function() {
-          addHighlightOverlay(viewer);
-          if ( sessionStorage.getItem('best-fit-width') == 'true' ) {
-            setTimeout(function() {
-              viewer.viewport.fitHorizontally();
-            }, 500)
-          }
-        })
+              //// --- if we were scaling
+              // var translated = viewer.viewport.imageToViewportRectangle(rect)
+              // viewer.viewport.fitBounds(translated);
+              reset_selection();
+            },
+            onZoomSelection: function(rect) {
+              queue.push(function() { reset_selection(); })
+              var translated = viewer.viewport.imageToViewportRectangle(rect)
+              viewer.viewport.fitBounds(translated);
+            },
+            onCancelSelection: function() {
+              reset_selection();
+            }
+          })
+          F.selection = selection;
 
-        viewer.addHandler('zoom', function(e) {
-          $(".span-zoom-status").text(Math.floor(e.zoom * 100) + '%');
-        })
+          viewer.addHandler('animation-finish', function() {
+            while ( queue.length ) {
+              var fn = queue.pop();
+              fn();
+            }
+          })
 
-        viewer.open(info_url);
-        F.viewer = viewer;
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log("XHR", jqXHR);
+          console.log("STATUS:", textStatus);
+          console.log("ERROR:", errorThrown);
+        }
+      })
 
-        selection = viewer.selection({
-          // prefixUrl: '/assets/selection/',
-          showSelectionControl: false,
-          restrictToImage: false,
-          onSelection: function(rect) {
-            var translated = viewer.viewport.imageToViewportRectangle(rect)
-            viewer.viewport.fitBounds(translated);
-            reset_selection();
-          },
-          onSelectionDrawn: function() {
-            $(".selection-toolbar .invisible").toggleClass("visible");
-          },
-          onDownloadSelection: function(rect) {
-            var params = [];
-            params.push(rect.x + "," + rect.y + "," + rect.width + "," + rect.height);
-            params.push("full");
-            params.push("0");
-            params.push("default.jpg");
-            params = params.join("/");
-            var href = viewer.source['@id'] + "/" + params;
-            href += "?attachment=1";
-            window.location.href = href;
+      // $.getJSON(manifest_url, function(data) {
 
-            //// --- if we were scaling
-            // var translated = viewer.viewport.imageToViewportRectangle(rect)
-            // viewer.viewport.fitBounds(translated);
-            reset_selection();
-          },
-          onZoomSelection: function(rect) {
-            queue.push(function() { reset_selection(); })
-            var translated = viewer.viewport.imageToViewportRectangle(rect)
-            viewer.viewport.fitBounds(translated);
-          },
-          onCancelSelection: function() {
-            reset_selection();
-          }
-        })
-        F.selection = selection;
-
-        viewer.addHandler('animation-finish', function() {
-          while ( queue.length ) {
-            var fn = queue.pop();
-            fn();
-          }
-        })
-
-      });
+      // });
 
     }
 
@@ -265,13 +298,13 @@
 
     var resize_and_load_viewer = function() {
         resize_viewer();
-        $map.empty();
         $(".default-toolbar").show();
         $(".action-reset-viewer").removeClass('hidden');
         $(".action-deactivate-viewer").removeClass('hidden');
 
         stick_bottom_toolbar();
-        load_tile_viewer();
+        setTimeout(load_tile_viewer, 100);
+        // load_tile_viewer();
     };
 
     resize_and_load_viewer();
