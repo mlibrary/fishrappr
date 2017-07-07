@@ -35,8 +35,10 @@ class ApplicationController < ActionController::Base
     user_return_to = session[:user_return_to].dup if session[:user_return_to]
     mynotice = flash[:notice]
     
-    logger.debug "AHOY SESSION #{user_logged_in?}"
-    request.env['warden'].logout unless user_logged_in?
+    unless user_logged_in?
+      request.env['warden'].logout
+      expire_data_after_sign_out!
+    end
     
     session[:search] = search
     session[:publication] = publication
