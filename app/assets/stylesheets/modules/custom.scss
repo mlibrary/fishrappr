@@ -606,6 +606,12 @@ body.blacklight-catalog-index {
 
 }
 
+/* STYLES FOR LOGIN_INFO PAGE (in view sessions directory) */
+body.blacklight-sessions-login_info div.help-middle-col {
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+}
+
 //   form.range_date_issued_yyyymmdd_ti {
 
 //     input#range_date_issued_yyyymmdd_ti_begin,
@@ -711,6 +717,11 @@ body.blacklight-catalog-index {
 //     }
 //   }
 // } // end facet style
+
+// hide search from search-bar of login_info page
+body.blacklight-sessions-login_info div#search-navbar  {
+  display: none;
+}
 
 // hide search from search-bar of show page
 body.blacklight-catalog-show div.search {

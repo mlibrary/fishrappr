@@ -15,7 +15,9 @@
         </div>
         <div class="panel-body">
           <div class="btn-group-vertical action-group" role="group">
+            <% if false %>
             <a class="btn btn-default btn-action action-download-view" href="#"><%= use_icon('file_image') %> Download<span class="hidden-sm"> Current</span> View <span class="extension">JPG</span></a>
+            <% end %>
             <a class="btn btn-default btn-action" data-track="true" href="<%= download_pdf_link @document, 'page_identifier' %>"><%= use_icon('file_pdf') %> Download PDF <span class="extension">PDF</span></a>
             <a class="btn btn-default btn-action" data-track="true" download="<%= @document.id %>.jpg" href="<%= document_image_src @document, size: 'full' %>?attachment=1"><%= use_icon('file_image') %> Download Image <span class="extension">JPG</span></a></li>
             <a class="btn btn-default btn-action" data-track="true" href="<%= download_text_solr_document_path @document %>"><%= use_icon('file_text') %> Download Text <span class="extension">TXT</span></a></li>
@@ -32,6 +34,21 @@
             <a class="btn btn-default btn-action action-download-pdf" data-track="true" href="<%= download_pdf_link @document, 'issue_identifier' %>"><%= use_icon('file_pdf') %> Download PDF <span class="extension"><%= @issue_data[:pages].size %> pages</span></a>
             <a class="btn btn-default btn-action" data-track="true" href="<%= download_issue_text_solr_document_path @document %>"><%= use_icon('file_zip') %> Download Text <span class="extension">ZIP</span></a>
           </div>
+        </div>
+          <div class="panel-login-options">
+            <% unless user_signed_in? %>
+              <p>
+                  If you are affiliated with the University of Michigan, you have <a href="<%= url_for controller: 'sessions', action: 'login_info' %>">access 
+                  to higher quality downloads</a>.
+              </p>
+            <% else %>
+              <p>
+                You are logged in and accessing our higher quality downloads.
+              </p>
+              <p>
+                <%= link_to t('blacklight.header_links.logout'), destroy_user_session_path %>
+              </p>
+            <% end %>
         </div>
       </div>
 
