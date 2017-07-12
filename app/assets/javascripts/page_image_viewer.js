@@ -135,6 +135,9 @@
         url: manifest_url,
         method: 'GET',
         dataType: 'json',
+        headers: {
+          'X-DLXS-Limit': 'tile'
+        },
         xhrFields: {
           withCredentials: true
         },
@@ -143,6 +146,7 @@
           $map.data('loaded', true);
           page = data.sequences[0].canvases[0];
           var info_url = page.images[0].resource.service['@id'] + '/info.json';
+          // info_url = info_url.replace('/api/image/', '/api/tile/');
 
           imageHeight = data.sequences[0].canvases[0].height;
           imageWidth = data.sequences[0].canvases[0].width;
