@@ -35,7 +35,7 @@ class RepositoryService
     path_info = path_info.join('/')
     path_info += "." + format if ( format )
 
-    action_path = kw[:thumbnail] ? 'cap' : 'image'
+    action_path = kw[:thumbnail] ? 'tile' : 'image'
 
     "#{dlxs_repository_url}/#{action_path}/#{path_info}"
   end
