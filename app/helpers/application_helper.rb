@@ -121,7 +121,7 @@ module ApplicationHelper
 
   def document_thumbnail_src(document, **kw)
     size = kw.fetch(:size, ',250')
-    document_image_src(document, size: size)
+    document_image_src(document, size: size, thumbnail: true)
   end
 
   def document_thumbnail_style(document, **kw)
