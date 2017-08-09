@@ -93,8 +93,8 @@ en:
           link: Browse Other Issues
     sessions:
       login:
-        page_title: Why Login to the Michigan Daily Digital Archives?
+        page_title: Why Log In to the Michigan Daily Digital Archives?
         login_text: Continue to Login
-        no_login_text: Return to previous page
+        no_login_text: <i aria-ignore="true" class="glyphicon glyphicon-arrow-left"></i> Return to Previous Page
   rights_statement: 
     midaily: 'This collection, digitized in collaboration with the Michigan Daily and the Board of Student Publications, contains materials that are protected by copyright law. The Bentley Library provides access to digital collections where materials are in the public domain or the Bentley Library is permitted to provide access to the materials, either by the rightsholder or by copyright law. If you use an item from this collection, it is your responsibility to consider the work’s copyright status and obtain any required permission. If you have concerns about the inclusion of an item in this collection, please contact the Bentley Historical Library at bentley.ref@umich.edu.'

@@ -1,0 +1,104 @@
+/* STYLES FOR LOGIN_INFO PAGE (in view sessions directory) */
+body.blacklight-sessions-login_info .main {
+  & > div {
+    background: #fff; 
+    padding: 1em 2em; 
+    margin: 2em 0em;
+  }
+
+  .not-table {
+    empty-cells: show;
+    border: 0px solid #cbcbcb;
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1em;
+  }
+
+  .not-table > thead {
+    background-color: #fff;
+    color: #000;
+    text-align: left;
+    vertical-align: bottom;
+    font-style: italic;
+  }
+
+  .not-table th:first-child {
+    border-left-width: 0;
+  }
+
+/*            .not-table th, .not-table td {
+    border-width: 0 0 1px;
+    border-bottom: 1px solid transparent;
+  }*/
+
+  .not-table th, .not-table td {
+    border-width: 0;
+    padding: 1.0em;
+    vertical-align: top;
+  }
+
+  .not-table th {
+    padding-bottom: 0.25em;
+  }
+
+  .not-table tr > td:first-child {
+    border-left: 1px solid #ccc;
+  }
+
+  .not-table tr:first-child > td {
+    border-top: 1px solid #ccc;
+  }
+
+  .not-table tr:last-child > td {
+    border-bottom: 1px solid #ccc;
+  }
+
+  .not-table tr > td:last-child {
+    border-right: 1px solid #ccc;
+  }
+
+  .not-table > tbody {
+    /*border: 1px solid #f9f9f9;*/
+
+  }
+
+  .not-table > tbody > tr:nth-of-type(even) {
+    background-color: #f9f9f9;
+  }
+
+  .not-table ul {
+    font-weight: bold;
+  }
+
+  .not-table ul li {
+    padding-bottom: 0.75em;
+  }
+
+  .not-table ul li:last-child {
+    padding-bottom: 0;
+  }
+
+  .login-actions {
+    margin-bottom: 2em; 
+    border-top: 2px solid #ccc; 
+    padding-top: 1em;
+  }
+
+  .action-go-back {
+     text-align: right;
+  }
+}
+
+@media (max-width: $screen-sm-min) {
+  body.blacklight-sessions-login_info .main {
+
+    > div {
+      // margin: 1em;
+      padding: 0.5em;
+    }
+
+    .action-wrap {
+      text-align: center !important;
+    }
+  }
+}
