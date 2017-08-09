@@ -1,7 +1,6 @@
 <%= extends :application do %>
 
     <% replace :main do %>
-      <%= render :partial=>'/flash_msg' unless flash.empty? %>
       <%= yield %>
     <% end %>
 
