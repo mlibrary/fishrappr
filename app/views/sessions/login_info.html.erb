@@ -5,17 +5,71 @@
 
   <div class="row">
 
-      <div class="<%= main_content_classes(true) %> help-middle-col">
+      <div class="col-md-12 col-md-12 col-xs-12 main">
           <h1 class="title"><%= t('views.sessions.login.page_title') %></h1>
-          <p>The benefits of logging in depend on your affiliation with the University of Michigan.</p>
-          <ul>
-            <li>For <strong>U-M Faculty, Bentley Historical Library Staff</strong> and <strong>Michigan Daily Staff</strong>: Highest quality image downloads</li>
-            <li>For <strong>U-M Students, Staff</strong> and <strong>Alumni</strong>, as well as <strong>Researchers registered with the Bentley</strong>: Higher quality image downloads</li>
-            <li>For <strong>U-M Sponsored Affiliates</strong> and <strong>Friend accounts</strong>: No additional features</li>
-          </ul>
-          <br />
-          <p style="margin-left: 23px; color: blue;"><%= link_to t('views.sessions.login.login_text'), {:controller => "sessions", :action => "new"} %></p>
-          <p style="margin-left: 23px; color: blue;"><%= link_to t('views.sessions.login.no_login_text'), {:controller => "sessions", :action => "go_back"} %></p>
+          <div>
+            <p>The benefits of logging in depend on your affiliation with the University of Michigan.</p>
+
+            <table class="not-table">
+              <thead>
+                <th>Affiliation</th>
+                <th>Benefit</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <ul class="list-unstyled">
+                      <li>U-M Faculty</li>
+                      <li>Bentley Historical Library Staff</li>
+                      <li>Michigan Daily Staff</li>
+                    </ul>
+                  </td>
+                  <td>
+                    Highest quality image downloads.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <ul class="list-unstyled">
+                      <li>U-M Students</li>
+                      <li>U-M Staff</li>
+                      <li>U-M Alumni</li>
+                      <li>Researchers registered with the Bentley</li>
+                    </ul>
+                  </td>
+                  <td>
+                    Higher quality image downloads.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <ul class="list-unstyled">
+                      <li>U-M Sponsored Affiliates</li>
+                      <li>Friend accounts</li>
+                    </ul>
+                  </td>
+                  <td>
+                    No additional features.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p>
+              To purchase an image with the highest resolution, please order 
+              directly from the <a target="_blank" href="https://www.michigandaily.com/archive-print">Michigan Daily Archive Print service</a>.
+            </p>
+
+            <div class="row login-actions">
+              <div class="col-md-6 col-md-push-6 col-sm-6 col-sm-push-6 col-xs-12 action-wrap">
+                <%= link_to t('views.sessions.login.login_text'), {controller: "sessions", action: "new"}, class: 'btn btn-action', style: 'background-color: #126dc1' %>
+              </div>
+              <div class="col-md-6 col-md-pull-6 col-sm-6 col-sm-pull-6 col-xs-12 action-wrap action-go-back">
+                <%= link_to t('views.sessions.login.no_login_text').html_safe, {:controller => "sessions", :action => "go_back"}, class: 'btn btn-link', style: 'xxcolor: black' %>
+              </div>
+            </div>
+
+          </div>
 
       </div> 
   </div>

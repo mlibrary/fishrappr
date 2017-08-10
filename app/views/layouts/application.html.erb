@@ -38,11 +38,10 @@
 
   </head>
   <body class="<%= render_body_class %>" <%= area :data %>>
+
     <%= area :header do %>
         <%= render :partial => 'shared/header_navbar' %>
     <% end %>
-
-    <%= render :partial=>'/flash_msg' unless flash.empty? %>
 
     <%= area :main do %>
       <p>Main content goes here.</p>
