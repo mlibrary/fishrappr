@@ -9,12 +9,22 @@ $().ready(function() {
     var $map = $("#image-viewer");
     var $action = $(".action-toggle-highlight");
 
+    var token = $( 'meta[name="csrf-token"]' ).attr( 'content' );
+
     $action.on('click', function(e) {
         e.preventDefault();
-        $.post(window.location.pathname + "/toggle_highlight", function(data) {
+        $.ajax({
+          type: "POST",
+          url: window.location.pathname + "/toggle_highlight",
+          success: function(data) {
             toggle_highlighting(data.highlighting);
             toggle_label(data.highlighting);
-        })
+          },
+          beforeSend: function(xhr) { 
+              xhr.setRequestHeader('X-CSRF-Token', 
+              $('meta[name="csrf-token"]').attr('content')) 
+          },
+        });
     })
     
     var toggle_highlighting = function(status) {

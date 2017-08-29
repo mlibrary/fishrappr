@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
     mynotice = flash[:notice]
     
     unless user_logged_in?
-      request.env['warden'].logout
+      request.env['warden'].logout(:default)
       expire_data_after_sign_out!
     end
     
