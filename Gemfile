@@ -18,7 +18,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'nestive', '~> 0.6'
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails', '~> 4.1'
+gem 'jquery-rails', '~> 4.3.1'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
@@ -26,16 +26,16 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'blacklight', '~> 6.3'
-gem "blacklight_advanced_search"
-gem 'mail_form'
-gem 'simple_form'
+gem 'blacklight', '~> 6.12.0'
+gem "blacklight_advanced_search", '~> 6.3.1'
+gem 'mail_form', '~> 1.7.0'
+gem 'simple_form', '~> 3.5.0'
 
-gem "blacklight_range_limit", '~> 6.0'
+gem "blacklight_range_limit", '~> 6.2.1'
 
 gem 'bootbox-rails', '~>0.4'
 
-gem 'config', '~> 1.3'
+gem 'config', '~> 1.6.1'
 
 # gem 'osullivan', '~> XX'
 
@@ -50,7 +50,7 @@ gem 'rubyzip', '~> 1.2.1' # will load new rubyzip version
 
 gem 'puma', '~> 3.5'
 
-gem 'sitemap_generator', '~> 5.3'
+gem 'sitemap_generator', '~> 5.3.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -83,10 +83,10 @@ group :production do
 end
 
 gem 'rsolr', '~> 1.0'
-gem 'blacklight-marc', '~> 6.0'
+gem 'blacklight-marc', '~> 6.2.0'
 
 gem 'devise', '~> 4.2.0'
-gem 'devise-guests', '~> 0.3'
+gem 'devise-guests', '~> 0.6.0'
 
 group :development, :test do
   gem 'solr_wrapper', '>= 0.15'
