@@ -6,6 +6,7 @@ class PageIndexer
 
   def initialize(page)
     @page = page
+    @repository_service = RepositoryService.new(nil)
   end
 
   def generate_solr_doc(issue_doc)
@@ -80,12 +81,12 @@ class PageIndexer
 
     if ENV['USE_FILESYSTEM']
       # this is the text_link - bhl_midaily:mdp.39015071730621-00000003:TXT00000003
-      resource_filename = RepositoryService.dlxs_filename(text_link)
+      resource_filename = @repository_service.dlxs_filename(text_link)
       response = Zlib::GzipReader.open(resource_filename) { |f| f.read }
 
     else
       # HTTP request
-      resource_url = RepositoryService.dlxs_file_url(text_link)
+      resource_url = @repository_service.dlxs_file_url(text_link)
       resource_uri = URI.parse(resource_url)
 
       http = Net::HTTP.new(resource_uri.host, resource_uri.port)

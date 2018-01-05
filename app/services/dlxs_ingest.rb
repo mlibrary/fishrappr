@@ -63,10 +63,11 @@ class DlxsIngest
   def initialize(publication_slug, collid)
     @publication = Publication.find_by_slug(publication_slug)
     @collid = collid
+    @repository_service = RepositoryService.new(nil)
   end
 
   def fetch_volumes()
-    collection_url = RepositoryService.dlxs_collection_url(@collid)
+    collection_url = @repository_service.dlxs_collection_url(@collid)
     response = fetch_data(collection_url)
     collection = IIIF::Service.parse(response)
     t0 = Time.now
@@ -139,7 +140,7 @@ class DlxsIngest
 
   def service_url(identifier, method)
     unless identifier.start_with?('https://')
-      identifier = RepositoryService.send(method, identifier)
+      identifier = @repository_service.send(method, identifier)
     end
     identifier # + "?prep=1"
   end
