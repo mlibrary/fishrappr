@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.2.7'
+gem 'rails-html-sanitizer', '~> 1.0', '>= 1.0.4'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.3.11'
 # Use SCSS for stylesheets
