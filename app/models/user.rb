@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   
   before_validation :generate_password, :on => :create
 

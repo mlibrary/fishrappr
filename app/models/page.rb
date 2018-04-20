@@ -1,4 +1,4 @@
-class Page < ActiveRecord::Base
+class Page < ApplicationRecord
   self.table_name = "pages"
 
   before_destroy :remove_from_index
