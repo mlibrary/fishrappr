@@ -28,4 +28,3 @@
 //= require openseadragon
 //= require jquery.waypoints
 //= require_tree .
-

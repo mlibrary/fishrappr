@@ -29,4 +29,9 @@ class StaticController < ApplicationController
     redirect_to root_url
   end
 
+  def show
+    prepend_view_path "app/views/publications/#{params['publication']}"
+    render "static/#{params['page']}"
+  end
+
 end

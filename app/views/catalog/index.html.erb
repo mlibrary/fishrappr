@@ -29,7 +29,10 @@
   
   <% unless has_search_parameters? %>
     <%# if there are no input/search related params, display the "home" partial -%>
-    <%= render 'home' %>
+    <%#= render 'home' %>
+    <%= render 'daily' if publication_title == 'midaily' %>
+    <%= render 'bentley' if publication_title == 'bentley' %>
+    <%= render 'djn' if publication_title == 'djn' %>
     <%= render 'shared/sitelinks_search_box' %>
   <% else %>
     <%= render 'search_results' %>

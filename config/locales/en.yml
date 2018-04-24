@@ -16,6 +16,17 @@
 #
 # This would use the information in config/locales/es.yml.
 #
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
+#
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
@@ -51,7 +62,47 @@ en:
         zoom_in: '<span class="hidden-xs hidden-sm"> Zoom In </span>'
         zoom_out: '<span class="hidden-xs hidden-sm">Zoom Out </span>'
         search_highlights: '<span class="hidden-xs">Search <span class="hidden-sm">Keyword </span></span>Highlights'
-    static:
+    bentley-static:
+      about-daily:
+        title: Bentley
+        header: About The Bentley
+      about-archives:
+        title: About The Digital Archives Project
+        header: About The Digital Archives Project
+      rights:
+        title: Rights Statement
+        header: Rights Statement
+      donors: 
+        title: About The Bentley Donors
+        header: About The Bentley Donors
+      using-page-viewer: 
+        title: Page Viewer, Plain Text & Download Help
+        header: Page Viewer, Plain Text & Download Help
+      contact:
+        title: Contact Us
+        header: Contact Us
+      how-to-search:
+        title: How to Search  
+        header: How to Search  
+      home:
+        title: Home Page
+        header: Home Page
+        head:
+          page_title: The Bentley Newspaper Digital Archives
+          subtitle: For Nineteenth, Twentieth, and Twentyfirst Centuries
+          description1: Multiple Papers
+          description2: ""
+          link: About The Bentley
+        donors:
+          title: Thank You to The Bentley Donors
+          description: The archive is made possible by the University of Michigan Library, the Bentley Historical Library, and The Michigan Daily, with erous support from The Kemp Family Foundation.
+          link: Read More About The Kemp Family Foundation
+        partnerships:
+          description: In Partnership With
+        today:
+          title: This date in The Michigan Daily
+          link: Browse Other Issues
+    daily-static:
       about-daily:
         title: About The Michigan Daily
         header: About The Michigan Daily

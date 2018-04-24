@@ -1,0 +1,17 @@
+<h1 class="sr-only">Help Pages</h1>
+<div id="about_sidebar" class="<%= sidebar_classes %> help-sbar">
+  <div class="sidebars">
+    <h2>About & Help</h2>
+    <ul class="help-ul">
+      <%= render partial: 'static/help_sidebar_link', locals: { path: 'daily_donors', label: "About the Donors" } %>  
+      <%= render partial: 'static/help_sidebar_link', locals: { path: 'daily_about', label: "About The Michigan Daily" } %>
+      <%= render partial: 'static/help_sidebar_link', locals: { path: 'about_project', label: "About the Digital Archives" } %>          
+      <%= render partial: 'static/help_sidebar_link', locals: { path: 'daily_rights', label: "Daily Rights Statement" } %>          
+      <%= render partial: 'static/help_sidebar_link', locals: { path: 'how_to_search', label: "How to Search" } %>
+      <%= render partial: 'static/help_sidebar_link', locals: { path: 'using_image_viewer', label: "Using the Image Viewer" } %>
+      <%= render partial: 'static/help_sidebar_link', locals: { path: '/contacts', label: "Contact Us" } %>
+
+
+    </ul>   
+  </div>
+</div>

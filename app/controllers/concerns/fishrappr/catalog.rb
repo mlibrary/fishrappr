@@ -160,7 +160,31 @@ module Fishrappr::Catalog
   #   @document_list = @response.documents
   # end
 
-  def home
+  def midaily
+
+    @now = Time.now
+    @featured_list = fetch_random(@now)
+    if @featured_list.blank?
+      @featured_list = fetch_random
+    end
+    @featured_list.sort_by!{ |document| document.fetch(:date_issued_dt) }
+
+    render :layout => 'home'
+  end
+
+  def bentley
+
+    # @now = Time.now
+    # @featured_list = fetch_random(@now)
+    # if @featured_list.blank?
+    #   @featured_list = fetch_random
+    # end
+    # @featured_list.sort_by!{ |document| document.fetch(:date_issued_dt) }
+
+    render :layout => 'home'
+  end
+
+  def djn
 
     @now = Time.now
     @featured_list = fetch_random(@now)

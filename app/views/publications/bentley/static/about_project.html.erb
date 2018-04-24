@@ -1,0 +1,43 @@
+<% @page_title = t('views.static.about-archives.title') %>
+
+<div class="container-fluid">
+
+  <div class="row">
+
+      <div class="<%= main_content_classes(true) %> help-middle-col">
+          <h1 class="title"><%= t('views.static.about-archives.header') %></h1>
+      </div>
+
+  </div>
+
+  <div class="row">
+
+    <%= render partial: 'about_sidebar' %>
+
+      <div class="<%= main_content_classes %> help-middle-col">
+            
+        <p>Welcome to The DJN.</p>
+
+        <h2 class="subtitle">Project Team</h2>
+
+        <p>The project arose from the discussions between the University of Michigan Library, the Bentley Historical Archives and The DJN. The development team included a project manager, a data librarian, an archivist, two developers, a usability specialist, and a graphic artist. Additional staff worked on preparing, scanning and transforming the page images.</p>
+           
+        <h2 class="subtitle">Technologies</h2>
+
+        <p>The team selected Ruby on Rails as a technical framework that met the project needs and was a good fit with current Library technology directions. The <%= link_to 'Blacklight Ruby “gem”', 'http://projectblacklight.org' %>  was chosen as the starting point for the project due to its support for searching and displaying data, its configurability and its production requirements.</p>
+
+        <p>The project selected the <%= link_to 'Open Seadragon Image viewer', 'https://openseadragon.github.io/' %> due to its powerful features (such as zooming) and its IIIF (International Image Interoperability Framework) compatibility.</p>
+
+        <p>Behind the pages you view is the Library’s <%= link_to 'Digital Library eXtension Service (DLXS)', 'http://www.dlxs.org' %> image storage system, which enabled us to quickly create a repository of page images for this project.</p>
+
+
+        <h2 class="subtitle">Accessibility</h2>
+
+        <p>We strive to use universal design principles in the creation of The Michigan Daily Digital Archive, as well as the <%= link_to 'Web Content Accessibility Guidelines (WCAG)', 'https://www.w3.org/WAI/intro/wcag.php' %> 2.0 AA standards for accessible websites. At each stage of development we have conducted usability research with students, faculty and alumni of all abilities. Their feedback has helped us improve the usability and accessibility of the website for everyone.</p>
+
+
+        <p>We are committed to making the DJN Digital Archive perceivable, operable, understandable and robust for all users. If you have comments or suggestions about how we can make The Michigan Daily Digital Archive more accessible please email us through the <%= link_to 'Contact Us', '/contacts' %> page.</p>
+        </div> 
+    </div>
+
+</div>

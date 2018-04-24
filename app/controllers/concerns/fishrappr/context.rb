@@ -11,5 +11,4 @@ module Fishrappr::Context
     @publication = Publication.where(slug: session[:publication]).first
   end
 
-
 end
