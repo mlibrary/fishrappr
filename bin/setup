@@ -17,6 +17,9 @@ chdir APP_ROOT do  # This script is a starting point to setup your application.
   system! 'gem install bundler --conservative'
   system('bundle check') || system!('bundle install')
 
+  # Install JavaScript dependencies if using Yarn
+  # system('bin/yarn')
+
   puts "\n== Copying sample files =="
   files = ['secrets', 'database']
   files.each do |f|

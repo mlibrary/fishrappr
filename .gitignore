@@ -54,7 +54,8 @@ bower.json
 !/log/.keep
 /tmp
 
-# Ignore byebug history
+/node_modules
+/yarn-error.log
 .byebug_history
 
 # Ignore MacOSX
