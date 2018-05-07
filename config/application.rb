@@ -6,10 +6,6 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-# Since we've replaced the railsconfig gem with ettin, we can't rely on its
-# Kernel override magic. We duplicate its behavior by loading our config manually
-# here. Note that just like in railsconfig, this will break if another gem tries to
-# assign to the Settings global. With Ettin, at least, the warning is not suppressed.
 Settings = Ettin.for(Ettin.settings_files('config', Rails.env))
 
 module Fishrappr

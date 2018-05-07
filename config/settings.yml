@@ -1,4 +1,3 @@
-# We add additional settings for the values we now delegate to the config.
 db:
   url: "unused setting"
 blacklight:

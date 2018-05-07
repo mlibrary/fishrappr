@@ -36,7 +36,6 @@ gem "blacklight_range_limit", '~> 6.2.1'
 
 gem 'bootbox-rails', '~>0.4'
 
-# More functionality, less magic, less dependencies
 gem 'ettin'
 
 # gem 'osullivan', '~> XX'
