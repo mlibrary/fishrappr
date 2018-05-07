@@ -12,11 +12,12 @@ capybara-*.html
 rerun.txt
 pickle-email-*.html
 
-# TODO Comment out these rules if you are OK with secrets being uploaded to the repo
-config/initializers/secret_token.rb
-config/secrets.yml
-config/database.yml
-config/blacklight.yml
+# These files are part of the application, and should not be gitignored.
+# Instead, hide the secrets in true config files i.e. ettin
+# config/initializers/secret_token.rb
+# config/secrets.yml
+# config/database.yml
+# config/blacklight.yml
 
 ## Environment normalization:
 /.bundle
@@ -59,7 +60,7 @@ bower.json
 
 # Ignore MacOSX
 .DS_Store
-	
+
 
 config/settings.local.yml
 config/settings/*.local.yml

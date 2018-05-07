@@ -1,0 +1,24 @@
+default: &default
+  adapter: sqlite3
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: db/development.sqlite3
+
+test:
+  <<: *default
+  database: db/test.sqlite3
+
+# We read the production config from ettin. We use a url for convenience.
+# We use a guard clause (you could also use the lonely operator &.) to
+# avoid calling chained methods on nil. This isn't necessary in production,
+# but it is necessary in other environments because the production config
+# won't be available. However, ERB parses the entire file anyway, and it
+# will try to resolve those references regardless of whether or not they're
+# being thrown away.
+production:
+  url: <%= Rails.env.production? ? Settings.db.url : "" %>
+  # Note that we still have to make sure Settings.db.url
+  # is defined in production.

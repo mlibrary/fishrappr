@@ -6,6 +6,12 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# Since we've replaced the railsconfig gem with ettin, we can't rely on its
+# Kernel override magic. We duplicate its behavior by loading our config manually
+# here. Note that just like in railsconfig, this will break if another gem tries to
+# assign to the Settings global. With Ettin, at least, the warning is not suppressed.
+Settings = Ettin.for(Ettin.settings_files('config', Rails.env))
+
 module Fishrappr
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -22,7 +28,7 @@ module Fishrappr
 
     # URL for logging the user out of Cosign
     config.logout_prefix = "https://weblogin.umich.edu/cgi-bin/logout?"
-        
+
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 

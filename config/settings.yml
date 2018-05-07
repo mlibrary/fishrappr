@@ -1,3 +1,11 @@
+# We add additional settings for the values we now delegate to the config.
+db:
+  url: "unused setting"
+blacklight:
+  adapter: solr
+  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:8983/solr/blacklight-core" %>
+secret_key_base: <%= ENV["SECRET_KEY_BASE"] || "somesecretkey" %>
+
 default_publication: "midaily"
 contact_address: "bhl-digital-support@umich.edu"
 permissions_address: "bhl-student-pub-contact@umich.edu"
