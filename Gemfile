@@ -49,7 +49,6 @@ gem 'rubyzip', '~> 1.2.1' # will load new rubyzip version
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-gem 'puma', '~> 3.5'
 
 gem 'sitemap_generator', '~> 5.3.1'
 
@@ -62,6 +61,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'rubocop', '~> 0.49.0', require: false
   gem 'rubocop-rspec', require: false
+  gem 'puma', '~> 3.5'
 end
 
 # eventually these should be just in development/testing
