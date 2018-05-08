@@ -6,6 +6,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+Settings = Ettin.for(Ettin.settings_files('config', Rails.env))
+
 module Fishrappr
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -22,7 +24,7 @@ module Fishrappr
 
     # URL for logging the user out of Cosign
     config.logout_prefix = "https://weblogin.umich.edu/cgi-bin/logout?"
-        
+
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
