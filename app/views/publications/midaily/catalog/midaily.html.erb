@@ -5,7 +5,7 @@
      <p class="description1"><%= t('views.daily-static.home.head.subtitle') %></p>
      <p class="description1"><%= t('views.daily-static.home.head.description1') %></p>
      <p class="description2"><%= t('views.daily-static.home.head.description2') %></p>
-     <%= link_to t('views.daily-static.home.head.link'), static_path("daily_about") %>
+     <%= link_to t('views.daily-static.home.head.link'), fishrappr_render("about") %>
      <% if true %><%= render partial: "search_form", locals: { container_class: 'container' } %><% end %>
    </div>
 </div>
@@ -13,7 +13,7 @@
    <div class="donors col-md-12">
      <h2 class="donor-title"><%= t('views.daily-static.home.donors.title') %></h2>
      <p class="description"><%= t('views.daily-static.home.donors.description') %></p>
-     <%= link_to t('views.daily-static.home.donors.link'), static_path("daily_donors") %>
+     <%= link_to t('views.daily-static.home.donors.link'), fishrappr_render("donors") %>
  </div>
 </div>
 <div class="home container-fluid">

@@ -3,6 +3,7 @@
 	<% when "Back to Search", "Contact Us", label.first == "#" %>
 		<%= link_to label, path, :id => path %>
 	<% else %>
-		<%= link_to label, static_path(path) %>
+		<% ">>>>>>>>>> PATH IS: #{path}" %>
+		<%= link_to label,  path %>
 	<% end %>
 </li>

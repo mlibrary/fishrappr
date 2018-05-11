@@ -169,7 +169,8 @@ module Fishrappr::Catalog
     end
     @featured_list.sort_by!{ |document| document.fetch(:date_issued_dt) }
 
-    render :layout => 'home'
+    prepend_view_path "app/views/publications/#{params['publication']}"
+    render :layout => 'layouts/home'
   end
 
   def bentley

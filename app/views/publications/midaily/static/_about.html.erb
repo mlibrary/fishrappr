@@ -1,4 +1,4 @@
-<% @page_title = "ABOUT DJN" #t('views.static.about-daily.title') %>
+<% @page_title = "ABOUT DAILY" #t('views.static.about-daily.title') %>
 
 <div class="container-fluid">
 
@@ -9,7 +9,8 @@
   </div>
 
   <div class="row">
-    <%= render partial: 'about_sidebar' %>
+    <%#= render partial: 'about_sidebar' %>
+    <%= fishrappr_render('about_sidebar') %>
       <div class="<%= main_content_classes %> help-middle-col">
         <p>The DJN ...</p>
       </div> 

@@ -1,0 +1,27 @@
+<% @page_title = t('views.static.rights.title') %>
+
+<div class="container-fluid">
+
+  <div class="row">
+
+      <div class="<%= main_content_classes(true) %> help-middle-col">
+          <h1 class="title"><%= t('views.static.rights.header') %></h1>
+      </div>
+
+  </div>
+
+  <div class="row">
+
+    <%= render partial: 'about_sidebar' %>
+
+    <div class="<%= main_content_classes %> help-middle-col">
+
+          <p>This collection, digitized in collaboration with the Michigan Daily and the Board for Student Publications, contains materials that are protected by copyright law. Access to these materials is provided for non-profit educational and research purposes. If you use an item from this collection, it is your responsibility to consider the work's copyright status and obtain any required permission. To obtain permission to use the Michigan Daily's copyrighted material, please contact <a target="_blank" href="https://www.michigandaily.com/archive-print">the Michigan Daily (https://www.michigandaily.com/archive-print)</a>.
+          </p>
+          <p>
+            If you have non-permissions questions about the collection, please use the <a href="<%= contacts_path type: 'content' %>">contact form</a>. If you have concerns about the inclusion of an item in this collection, please contact <a href="mailto:LibraryIT-info@umich.edu">LibraryIT-info@umich.edu</a>.
+          </p>
+    </div>
+  </div>
+
+</div>
