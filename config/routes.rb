@@ -8,9 +8,19 @@ Rails.application.routes.draw do
     concerns :searchable
   end
 
-  get '/browse' => 'catalog#browse', as: :browse
-  get '/search' => 'catalog#search', as: :search
+  # scope ":publication" do
+  #   resource :search, only: [:index], controller: 'catalog', as: 'catalog' do
+  #     concerns :searchable
+  #   end
+  # end
   
+  # get '/browse' => 'catalog#browse', as: :browse
+  # get '/search' => 'catalog#search', as: :
+  get '/:publication/browse' => 'catalog#browse', as: :browse
+  get '/:publication/search' => 'catalog#index', as: :search
+  
+
+
   devise_for :users, path: '', path_names: {sign_in: 'login', sign_out: 'logout'}, controllers: {sessions: 'sessions'}
   get '/logout_now', to: 'sessions#logout_now'
   get '/go_back', to: 'sessions#go_back'
@@ -59,13 +69,13 @@ Rails.application.routes.draw do
   post 'static/search' => 'static#search'
 
   get '/:publication/:page', to: 'static#show'
+
   #get 'static/:action' => 'static', as: :static
 
   get 'services/manifests/:id'  => 'services_api#manifests', as: :services_manifests, format: false, defaults: { format: :json }
   get 'services/annotations/:id' => 'services_api#annotations', as: :services_annotations, format: false, defaults: { format: :json }
   get 'services/coords/:id' => 'services_api#coords', as: :services_coords, format: false, defaults: { format: :json }
 
-  #get '/:publication', to: 'catalog#home', as: 'publication_home'
-  get '/:publication', to: 'catalog#midaily', as: 'publication_home'
+  get '/:publication', to: 'catalog#home', as: 'publication_home'
 
 end

@@ -22,6 +22,7 @@
     <%= javascript_include_tag "application" %>
 
     <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
     <%= area :head %>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -48,6 +49,9 @@
     <% end %>
 
     <%= render :partial => 'shared/footer' %>
+
+    <%= puts "At end of app layout @publication: #{@publication['slug']}" %>
+
 
     <% if ENV['DEBUG_CSS'] %>
     <div class="debug-breakpoints visible-xs-block">XS</div>

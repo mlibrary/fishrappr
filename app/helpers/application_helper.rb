@@ -331,7 +331,7 @@ module ApplicationHelper
 
   def text_disclaimer
     text = t('blacklight.show.disclaimer')
-    text.gsub!('href="#', "href=\"#{static_path('using_page_viewer')}#").html_safe
+    text.gsub!('href="#', "href=\"#{"app/views/publications/#{params['publication']}/views/static/using_page_viewer"}#").html_safe
   end
 
   require 'ffaker'
@@ -369,6 +369,71 @@ module ApplicationHelper
     else
       use_icon("previous") + " " + t('blacklight.back_to_search_html')
     end
+  end
+
+  # Create a link back to the index screen, keeping the user's facet, query and paging choices intact by using session.
+  def back_to_results_link(opts={:label=>nil})
+    # ActionView::Template::Error (No route matches {:action=>"search", :controller=>"catalog", :date_filter=>"any", :date_issued_begin_dd=>"-", :date_issued_begin_mm=>"-", :date_issued_begin_yyyy=>"", :date_issued_end_dd=>"-", :date_issued_end_mm=>"-", :date_issued_end_yyyy=>"", :publication=>"midaily", :q=>"Apple AND Computers", :search_field=>"all_fields", :utf8=>"✓", :volume_identifier=>"mdp.39015071754720", :volume_sequence=>"224"}):
+
+    # No route matches {:action=>"search", :controller=>"catalog", :date_filter=>"any", :date_issued_begin_dd=>"-", :date_issued_begin_mm=>"-", :date_issued_begin_yyyy=>"", :date_issued_end_dd=>"-", :date_issued_end_mm=>"-", :date_issued_end_yyyy=>"", :publication=>"midaily", :q=>"Apple AND Computers", :search_field=>"all_fields", :utf8=>"✓", :volume_identifier=>"mdp.39015071754845", :volume_sequence=>"207"}
+
+    # http://localhost:3000/midaily/search?date_filter=any&date_issued_begin_dd=-&date_issued_begin_mm=-&date_issued_begin_yyyy=&date_issued_end_dd=-&date_issued_end_mm=-&date_issued_end_yyyy=&page=2&q=war&search_field=all_fields
+
+  # Create a link back to the index screen, keeping the user's facet, query and paging choices intact by using session.
+  # @example
+  #   link_back_to_catalog(label: 'Back to Search')
+  #   link_back_to_catalog(label: 'Back to Search', route_set: my_engine)
+  #def link_back_to_catalog(opts={:label=>nil})
+    # search_params = current_search_session.try(:query_params) || {}
+
+    puts ">>> Ops in back_to_results_link are #{opts}"
+    scope = opts.delete(:route_set) || self
+
+    query_params = search_state.reset(current_search_session.try(:query_params)).to_hash
+    puts ">>> query_params in back_to_results_link are #{query_params}"
+
+    query_params.tap { |hs| hs.delete(:controller) }
+    puts ">>> query_params after delete in back_to_results_link are #{query_params}"
+
+    if current_search_session['counter']
+      per_page = (current_search_session['per_page'] || default_per_page).to_i
+      counter = current_search_session['counter'].to_i
+
+      query_params[:per_page] = per_page unless current_search_session['per_page'].to_i == default_per_page
+      query_params[:page] = ((counter - 1)/ per_page) + 1
+    end
+
+    if query_params.empty?
+      link_url = "/#{@publication['slug']}/search"
+    else
+      # scope.url_for(query_params)
+      link_url = "/#{query_params[:publication]}/search?"
+      # add dates
+      link_url += "&date_filter=#{query_params['date_filter']}" if query_params['date_filter']
+      link_url += "&date_issued_begin_dd=#{query_params['date_issued_begin_dd']}" if query_params['date_issued_begin_dd']
+      link_url += "&date_issued_begin_mm=#{query_params['date_issued_begin_mm']}" if query_params['date_issued_begin_mm']
+      link_url += "&date_issued_begin_yyyy=#{query_params['date_issued_begin_yyyy']}" if query_params['date_issued_begin_yyyy']
+      link_url += "&date_issued_end_dd=#{query_params['date_issued_end_dd']}" if query_params['date_issued_end_dd']
+      link_url += "&date_issued_end_mm=#{query_params['date_issued_end_mm']}" if query_params['date_issued_end_mm']
+      link_url += "&date_issued_end_yyyy=#{query_params['date_issued_end_yyyy']}" if query_params['date_issued_end_yyyy']
+
+      # add per_page and page
+      link_url += "&per_page=#{query_params['per_page']}" if query_params['per_page']
+      link_url += "&page=#{query_params['page']}" if query_params['page']
+
+      # add q
+      link_url += "&q=#{query_params['q']}" if query_params['q']
+    end
+
+    label = opts.delete(:label)
+
+    if link_url =~ /bookmarks/
+      label ||= t('blacklight.back_to_bookmarks')
+    end
+
+    label ||= t('blacklight.back_to_search')
+
+    link_to label, link_url, opts
   end
 
   # SEARCH SELECT OPTIONS  

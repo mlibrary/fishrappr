@@ -22,6 +22,15 @@ class ApplicationController < ActionController::Base
   
 
   before_action :setup_publication
+  before_action :prepend_publication_path
+
+  def prepend_publication_path
+    puts "In prepend_publication_path params are: #{params}"
+    if params[:publication]
+      puts "In prepend_publication_path adding prepend!"
+      prepend_view_path "app/views/publications/#{params['publication']}/views/"
+    end
+  end
 
   # From PSU's ScholarSphere
   # Clears any user session and authorization information by:
@@ -30,6 +39,13 @@ class ApplicationController < ActionController::Base
   def clear_session_user
     return nil_request if request.nil?
     
+    puts "In before request: #{request}"
+    puts "In before clear_session_user params are: #{params}"
+    puts "In before clear_session_user session[:search]: #{session[:search]}" if session[:search]
+    puts "In before clear_session_user session[:publication]: #{session[:publication]}"  if session[:publication]
+    puts "In before clear_session_user session[:user_return_to]: #{session[:user_return_to]}"  if session[:user_return_to]
+    puts "In before clear_session_user flash[:notice]: #{flash[:notice]}"
+
     search = session[:search].dup if session[:search]
     publication = session[:publication].dup if session[:publication]
     user_return_to = session[:user_return_to].dup if session[:user_return_to]
@@ -44,6 +60,12 @@ class ApplicationController < ActionController::Base
     session[:publication] = publication
     session[:user_return_to] = user_return_to
     flash[:notice] = mynotice
+
+    puts "In after clear_session_user params are: #{params}"
+    puts "In after clear_session_user session[:search]: #{session[:search]}" if session[:search]
+    puts "In after clear_session_user session[:publication]: #{session[:publication]}"  if session[:publication]
+    puts "In after clear_session_user session[:user_return_to]: #{session[:user_return_to]}"  if session[:user_return_to]
+    puts "In after clear_session_user flash[:notice]: #{flash[:notice]}"
   end
 
   def user_logged_in?
@@ -76,6 +98,7 @@ class ApplicationController < ActionController::Base
   def store_current_location
     Rails.logger.debug "[AUTHN] CALLED store_current_location"
     Rails.logger.debug "[AUTHN] REQUEST URL IS: #{request.url}"
+    puts "In store_current_location params are: #{params}"
     store_location_for(:user, request.url) unless ( request.fullpath == "/login" || request.fullpath == "/login_info" || request.fullpath == "/go_back" || request.fullpath == '/logout' || request.fullpath.end_with?('/toggle_highlight') )
   end
 

@@ -30,9 +30,8 @@ class StaticController < ApplicationController
   end
 
   def show
-    puts "params are: #{params}"
-    prepend_view_path "app/views/publications/#{params['publication']}/static/"
-    render "#{params['page']}"
+    puts "Static show called with params: #{params}"
+    render  "#{params['page']}"
   end
 
 end

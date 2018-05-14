@@ -1,6 +1,6 @@
 en:
   blacklight:
-    application_name: 'Michigan Daily Digital Archives'
+    application_name: ""
     back_to_search_html: '<span class="hidden-xs"> <span class="hidden-sm">Back to</span> Search</span>'
     back_to_browse_html: '<span class="hidden-xs"> <span class="hidden-sm">Back to</span> Browse</span>'
     start_over_search: 'Start Search Over'

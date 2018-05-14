@@ -54,9 +54,16 @@ bower.json
 !/log/.keep
 /tmp
 
+# Ignore uploaded files in development
+/storage/*
+
 /node_modules
 /yarn-error.log
+/public/assets
 .byebug_history
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
 
 # Ignore MacOSX
 .DS_Store

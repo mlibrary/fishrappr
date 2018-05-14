@@ -45,6 +45,8 @@ en:
       fishrappr_graph_title: Results Frequency Graph
       fishrappr_graph_instructions: The graph is meant to give a relative scale of results. Hover over to see number of results.
     contacts:
+      title: Contact Us
+      header: Contact Us
       types:
         search: "Searching"
         content: "Problem with content or metadata"
@@ -62,47 +64,7 @@ en:
         zoom_in: '<span class="hidden-xs hidden-sm"> Zoom In </span>'
         zoom_out: '<span class="hidden-xs hidden-sm">Zoom Out </span>'
         search_highlights: '<span class="hidden-xs">Search <span class="hidden-sm">Keyword </span></span>Highlights'
-    bentley-static:
-      about-daily:
-        title: Bentley
-        header: About The Bentley
-      about-archives:
-        title: About The Digital Archives Project
-        header: About The Digital Archives Project
-      rights:
-        title: Rights Statement
-        header: Rights Statement
-      donors: 
-        title: About The Bentley Donors
-        header: About The Bentley Donors
-      using-page-viewer: 
-        title: Page Viewer, Plain Text & Download Help
-        header: Page Viewer, Plain Text & Download Help
-      contact:
-        title: Contact Us
-        header: Contact Us
-      how-to-search:
-        title: How to Search  
-        header: How to Search  
-      home:
-        title: Home Page
-        header: Home Page
-        head:
-          page_title: The Bentley Newspaper Digital Archives
-          subtitle: For Nineteenth, Twentieth, and Twentyfirst Centuries
-          description1: Multiple Papers
-          description2: ""
-          link: About The Bentley
-        donors:
-          title: Thank You to The Bentley Donors
-          description: The archive is made possible by the University of Michigan Library, the Bentley Historical Library, and The Michigan Daily, with erous support from The Kemp Family Foundation.
-          link: Read More About The Kemp Family Foundation
-        partnerships:
-          description: In Partnership With
-        today:
-          title: This date in The Michigan Daily
-          link: Browse Other Issues
-    daily-static:
+    midaily-static:
       about-daily:
         title: About The Michigan Daily
         header: About The Michigan Daily
@@ -142,10 +104,51 @@ en:
         today:
           title: This date in The Michigan Daily
           link: Browse Other Issues
+    djnews-static:
+      about-djnews:
+        title: About The Detroit Jewish News
+        header: About The Detroit Jewish News
+      about-archives:
+        title: About The Digital Archives Project
+        header: About The Digital Archives Project
+      rights:
+        title: Rights Statement
+        header: Rights Statement
+      donors: 
+        title: About The Detroit Jewish News Foundation 
+        header: About The Detroit Jewish News Foundation 
+      using-page-viewer: 
+        title: Page Viewer, Plain Text & Download Help
+        header: Page Viewer, Plain Text & Download Help
+      contact:
+        title: Contact Us
+        header: Contact Us
+      how-to-search:
+        title: How to Search  
+        header: How to Search  
+      home:
+        title: Home Page
+        header: Home Page
+        head:
+          page_title: Digital Archives
+          subtitle1: Detroit Jewish News 1942 - 2014
+          subtitle2: Detroit Jewish Chronicle 1916  - 1951
+          description1: The Detroit Jewish News is a pro-Zionist newspaper that has been serving Metro Detroit’s Jewish community since 1942 with news and opinion that’s engaging, educational, enjoyable and unique.
+          description2: We strive to reflect a full range of diverse viewpoints while also advocating positions that strengthen Jewish unity and continuity.
+          link: About The Detroit Jewish News
+        donors:
+          title: Thank You to The Detroit Jewish News Foundation!
+          description: The archive is made possible by the University of Michigan Library, the Bentley Historical Library, and The Detroit Jewish News, with generous support from The Detroit Jewish News Foundation.
+          link: Read More About The Detroit Jewish News Foundation
+        partnerships:
+          description: In Partnership With
+        today:
+          title: This date in The Detroit Jewish News
+          link: Browse Other Issues
     sessions:
       login:
         page_title: Why Log In to the Michigan Daily Digital Archives?
         login_text: Continue to Login
         no_login_text: <i aria-ignore="true" class="glyphicon glyphicon-arrow-left"></i> Return to Previous Page
   rights_statement: 
-    midaily: 'This collection, digitized in collaboration with the Michigan Daily and the Board of Student Publications, contains materials that are protected by copyright law. The Bentley Library provides access to digital collections where materials are in the public domain or the Bentley Library is permitted to provide access to the materials, either by the rightsholder or by copyright law. If you use an item from this collection, it is your responsibility to consider the work’s copyright status and obtain any required permission. If you have concerns about the inclusion of an item in this collection, please contact the Bentley Historical Library at bentley.ref@umich.edu.'
+    midaily: 'DRAFT: This collection, digitized in collaboration with the Detroit Jewish News Foundation, contains materials that are protected by copyright law. The Bentley Library provides access to digital collections where materials are in the public domain or the Bentley Library is permitted to provide access to the materials, either by the rightsholder or by copyright law. If you use an item from this collection, it is your responsibility to consider the work’s copyright status and obtain any required permission. If you have concerns about the inclusion of an item in this collection, please contact the Bentley Historical Library at bentley.ref@umich.edu.'
