@@ -1,0 +1,27 @@
+<div class="page-header row">
+  <div class="col-md-8"></div>
+</div>
+
+<div id="getting-started">
+  <h2 class='page-heading'><i class="fa fa-search fa-10x"></i></h2>
+  <div class="divider"></div>
+  <h3 class='section-heading'><i>You can try a new search above or select one of our examples below</i></h3>
+  <div class="divider"></div>
+  <p class="description">Some Examples to get started:</p>
+  <p><tt><%= link_to 'Jewish AND Detroit', '/djnews/search?utf8=✓&publication=djnews&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q=jewish+AND+detroit', class: 'link_underline' %> </tt></p>
+
+</div>
+<script>
+  $(function() {
+    $('#about a').on('click', function(e) {
+      e.preventDefault();
+      if ($('#about-content').html() == "") {
+        $('#about-content').load($(this).attr("href"), function() {
+          $('#about-content').show();
+        });
+      } else {
+        $('#about-content').toggle();
+      }
+    });
+  });
+</script>
