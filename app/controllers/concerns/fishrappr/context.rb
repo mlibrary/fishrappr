@@ -10,13 +10,8 @@ module Fishrappr::Context
       params[:publication] = session[:publication]
     end
     @publication = Publication.where(slug: session[:publication]).first
-    if session[:publication] == "djnews"
-      @page_title = @publication_name = "Detroit Jewish News"
-    elsif session[:publication] == "midaily"
-      @page_title = @publication_name = "Michigan Daily"
-    else
-      @page_title = @publication_name = "Bentley Archive"
-    end
-  end
 
+    @page_title = @publication_name = @publication.title
+
+  end
 end
