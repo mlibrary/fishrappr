@@ -34,6 +34,24 @@ namespace :fishrappr do
     end
   end
 
+  desc "Reindex issue"
+  # task :reindex_issues, [:volume_identifier] => :environment do |t, args|
+  task :reindex_issue => :environment do |t, args|
+    identifiers = args.extras
+    # if identifiers.empty?
+    #   identifiers = Issue.select(:volume_identifier).distinct.collect { |x| x.volume_identifier }.sort
+    # end
+    total = identifiers.size
+    identifiers.each_with_index do |issue_identifier, i|
+      STDERR.puts "-- indexing: #{i}/#{total} : #{issue_identifier}"
+      is = Issue.where(issue_identifier: issue_identifier).first
+      ix = IssueIndexer.new(is)
+      ix.index(true)
+      # delay = rand() * 1
+      # sleep(delay)
+    end
+  end
+
   desc "New Publication"
   task :new_publication, [ :publication_slug, :publication_title, :publication_href ] => :environment do |t, args|
     publication = Publication.find_or_create_by(slug: args[:publication_slug]) do |publication|
@@ -53,15 +71,18 @@ namespace :fishrappr do
   task :import_volume, [ :publication_slug, :collid ] => :environment do |t, args|
     ingest = DlxsIngest.new(args[:publication_slug], args[:collid])
     ingest.clobber = true
-    PP.pp args.extras, STDERR
     args.extras.each do |volume_identifier|
       ingest.fetch_volume volume_identifier
     end
   end
 
-  desc "Import volume (old)"
-  task :import_volume_old, [ :publication_slug, :input_filename, :testing ] => :environment do |t, args|
-    DailyXmlToDb_v2.new(args[:publication_slug], args[:input_filename], args[:testing])
+  desc "Import issue"
+  task :import_issue, [ :publication_slug, :collid ] => :environment do |t, args|
+    ingest = DlxsIngest.new(args[:publication_slug], args[:collid])
+    ingest.clobber = true
+    args.extras.each do |issue_identifier|
+      ingest.fetch_issue issue_identifier
+    end
   end
 
 end

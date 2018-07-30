@@ -72,6 +72,16 @@ module ApplicationHelper
     document.fetch('issue_sequence')
   end
 
+  def publication_title(document, publication)
+    title = document.fetch('publication_label', '')
+    if title.blank?
+      title = publication.title
+    else
+      title = title.split(',')[0..-2].join(',').chomp
+    end
+    title
+  end
+
   def issue_title(document, complete=false, html=true)
     title = document['date_issued_display'].first
     if complete

@@ -18,7 +18,7 @@
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
           <h1 class="page">
-            <span><%= @publication.title %></span>
+            <span><%= publication_title(@document, @publication) %></span>
             <span class="pre-issue-mark"><%= use_icon('divider') %></span>
             <a class="btn btn-link btn-issue-link" href="<%= search_catalog_url document_to_date_params(@document) %>">
               <span><%= issue_title(@document, true) %></span> 

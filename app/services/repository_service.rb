@@ -84,7 +84,7 @@ class RepositoryService
 
   def dlxs_identifier(document, fld='image_link')
     if document.is_a?(String)
-      unless document.start_with?(Settings.DLXS_COLLECTION)
+      unless document.start_with?(Settings.DLXS_COLLECTION) or document.split(':').length == 3
         document = [ Settings.DLXS_COLLECTION, document, '1' ].join(':')
       end
       return document

@@ -22,14 +22,14 @@ class IssueIndexer
     @issue = issue
   end
 
-  def index
+  def index(commit=false)
     Rails.configuration.batch_commit = true
 
     solr_doc = generate_solr_doc
     @issue.pages.each_with_index do |page, i|
       PageIndexer.new(page).index(solr_doc)
     end
-    # Blacklight.default_index.connection.commit
+    Blacklight.default_index.connection.commit if commit
   end
 
   def generate_solr_doc
@@ -61,12 +61,15 @@ class IssueIndexer
 
     publication = @issue.publication
 
-    solr_doc[:volume_identifier] = @issue.volume_identifier
+    solr_doc[:volume_identifier] = @issue.volume_identifier || @issue.issue_identifier
     # solr_doc[:issue_identifier] = "#{d.strftime('%Y-%m-%d')}-#{@issue.variant}-#{@issue.volume_identifier}"
     solr_doc[:issue_identifier] = @issue.issue_identifier
     solr_doc[:date_issued_display] = dt
     solr_doc[:issue_number_t] = @issue.issue_number
-    solr_doc[:issue_vol_iss_display] = "(vol. #{@issue.volume}, iss. #{@issue.issue_number})" # , ed. #{@issue.edition}
+    solr_doc[:issue_vol_iss_display] = ''
+    unless @issue.volume.blank? and @issue.issue_number.blank?
+      solr_doc[:issue_vol_iss_display] = "(vol. #{@issue.volume}, iss. #{@issue.issue_number})" # , ed. #{@issue.edition}
+    end
     if d
       solr_doc[:date_issued_dt] = d
       solr_doc[:date_issued_yyyy_ti] = d.strftime('%Y').to_i
