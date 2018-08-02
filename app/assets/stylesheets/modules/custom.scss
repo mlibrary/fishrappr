@@ -933,8 +933,6 @@ body.blacklight-catalog-home {
       background: #bbb;
       color: black;
     }
-
-
   }
 }
 
@@ -977,6 +975,7 @@ body.blacklight-catalog-home {
     margin-right:auto;
     text-align: center;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.36);
+    max-width: 85rem;
   }
 
   .description1 {
