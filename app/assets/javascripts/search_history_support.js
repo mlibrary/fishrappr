@@ -1,6 +1,8 @@
 $().ready(function() {
 
   var action = location.pathname ? location.pathname.substr(1) : null;
+  if ( action == null ) { return ; }
+  action = action.split('/').pop();
   if ( action == 'index' || action == 'browse' || action == 'search' ) {
     var query = location.search.substr(1);
     var params = query ? $.deparam(query) : {};
