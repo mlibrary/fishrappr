@@ -488,7 +488,16 @@ module ApplicationHelper
 
   # Used by browse page
   def get_decade_browse_options
-    decades = [1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010]
+    decade_first = @publication.first_print_year/10.truncate * 10
+    decade_last = @publication.last_print_year/10.truncate * 10
+
+    decades = []
+    current_decade = decade_first
+    while current_decade <= decade_last do
+      decades.push current_decade
+      current_decade += 10
+    end
+
     decade_options = [];
 
     item = ["Any Decade", "Any Decade"]
@@ -502,11 +511,7 @@ module ApplicationHelper
 
   # Used by browse page as initial year options; see js for how this changes for different decades
   def get_year_browse_options
-    min_max_year = Issue.where('publication_year > 1000').pluck('MIN(publication_year),MAX(publication_year)')
-    min_year = min_max_year[0][0]
-    max_year = min_max_year[0][1]
-
-    years_range = (min_year..max_year)
+    years_range = (@publication.first_print_year..@publication.last_print_year)
     year_options = [];
 
     years_range.each do |m| 
