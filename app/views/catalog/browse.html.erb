@@ -5,15 +5,17 @@
 <% purge :h1_wrap %>
 
 <div class="col-sm-12" id="browse-form">
-  <h1>Browse Issues</h1>
-  <h2 class="browse-subtitle">Browse The Michigan Daily Issues back to 1890</h2>
-
-  <p class="browse-instructions">Select a decade, year, month or day to browse issues</p>
 
   <% decade_browse_options = get_decade_browse_options %>
   <% year_browse_options = get_year_browse_options %>
   <% month_browse_options = get_month_options; month_browse_options.unshift(['Any Month', 'Any Month']) %>
   <% date_browse_options = get_date_options; date_browse_options.unshift(['Any Day', 'Any Day']) %>
+  <% first_year_to_browse = year_browse_options.last.first %>
+
+  <h1>Browse Issues</h1>
+  <h2 class="browse-subtitle">Browse The Michigan Daily Issues back to <%= first_year_to_browse %></h2>
+
+  <p class="browse-instructions">Select a decade, year, month or day to browse issues</p>
 
     <%= form_tag(browse_path, role: 'search', method: :get, class: "form-inline browse-form") do %>
       <div class="browse-select-box" aria-live="polite">
