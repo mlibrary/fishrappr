@@ -568,7 +568,10 @@ module ApplicationHelper
     when nil # display all decades
       items = data['date_issued_yyyy10_ti']["items"]
       bl_items = data['date_issued_yyyy10_ti']["bl_items"]
-      this_range = (189..201).map { |d| d * 10}
+      decade_first_div_10 = @publication.first_print_year/10.truncate
+      decade_last_div_10 = @publication.last_print_year/10.truncate
+      this_range = (decade_first_div_10..decade_last_div_10).map { |d| d * 10}
+
       rtn['chart_title'] = "Decades"
       rtn['facet_key'] = 'date_issued_yyyy10_ti'
 

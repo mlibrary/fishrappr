@@ -57,6 +57,8 @@ $( document ).ready(function() {
         var chartLineBase = chartMAX / highest_col;
         var chartLinePxLength = parseInt(chartLineBase * val) +"px";
         // console.log("chartLinePxLength: " + chartLinePxLength);
+        // console.log("chartLineBase: " + chartLineBase);
+        // console.log("val: " + val);
         
         // default to linked graph bar and solid color bar style
         var day_class = '';
