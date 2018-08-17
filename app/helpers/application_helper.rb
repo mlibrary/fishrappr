@@ -383,27 +383,17 @@ module ApplicationHelper
 
   # Create a link back to the index screen, keeping the user's facet, query and paging choices intact by using session.
   def back_to_results_link(opts={:label=>nil})
-    # ActionView::Template::Error (No route matches {:action=>"search", :controller=>"catalog", :date_filter=>"any", :date_issued_begin_dd=>"-", :date_issued_begin_mm=>"-", :date_issued_begin_yyyy=>"", :date_issued_end_dd=>"-", :date_issued_end_mm=>"-", :date_issued_end_yyyy=>"", :publication=>"midaily", :q=>"Apple AND Computers", :search_field=>"all_fields", :utf8=>"✓", :volume_identifier=>"mdp.39015071754720", :volume_sequence=>"224"}):
 
-    # No route matches {:action=>"search", :controller=>"catalog", :date_filter=>"any", :date_issued_begin_dd=>"-", :date_issued_begin_mm=>"-", :date_issued_begin_yyyy=>"", :date_issued_end_dd=>"-", :date_issued_end_mm=>"-", :date_issued_end_yyyy=>"", :publication=>"midaily", :q=>"Apple AND Computers", :search_field=>"all_fields", :utf8=>"✓", :volume_identifier=>"mdp.39015071754845", :volume_sequence=>"207"}
+    search_params = current_search_session.try(:query_params) || {}
 
-    # http://localhost:3000/midaily/search?date_filter=any&date_issued_begin_dd=-&date_issued_begin_mm=-&date_issued_begin_yyyy=&date_issued_end_dd=-&date_issued_end_mm=-&date_issued_end_yyyy=&page=2&q=war&search_field=all_fields
-
-  # Create a link back to the index screen, keeping the user's facet, query and paging choices intact by using session.
-  # @example
-  #   link_back_to_catalog(label: 'Back to Search')
-  #   link_back_to_catalog(label: 'Back to Search', route_set: my_engine)
-  #def link_back_to_catalog(opts={:label=>nil})
-    # search_params = current_search_session.try(:query_params) || {}
-
-    puts ">>> Ops in back_to_results_link are #{opts}"
+    # puts ">>> Ops in back_to_results_link are #{opts}"
     scope = opts.delete(:route_set) || self
 
     query_params = search_state.reset(current_search_session.try(:query_params)).to_hash
-    puts ">>> query_params in back_to_results_link are #{query_params}"
+    # puts "1111 query_params in back_to_results_link are #{query_params}"
 
     query_params.tap { |hs| hs.delete(:controller) }
-    puts ">>> query_params after delete in back_to_results_link are #{query_params}"
+    # puts "1111 query_params after delete in back_to_results_link are #{query_params}"
 
     if current_search_session['counter']
       per_page = (current_search_session['per_page'] || default_per_page).to_i
@@ -413,26 +403,13 @@ module ApplicationHelper
       query_params[:page] = ((counter - 1)/ per_page) + 1
     end
 
-    if query_params.empty?
-      link_url = "/#{@publication['slug']}/search"
+    # puts "1111search_params: #{search_params.to_s}"
+    # puts "1111query_params: #{query_params.to_s}"
+
+    if search_params[:action] == 'browse'
+      link_url = browse_url(search_params.except(:controller, :action).merge(publication: @publication.slug))
     else
-      # scope.url_for(query_params)
-      link_url = "/#{query_params[:publication]}/search?"
-      # add dates
-      link_url += "&date_filter=#{query_params['date_filter']}" if query_params['date_filter']
-      link_url += "&date_issued_begin_dd=#{query_params['date_issued_begin_dd']}" if query_params['date_issued_begin_dd']
-      link_url += "&date_issued_begin_mm=#{query_params['date_issued_begin_mm']}" if query_params['date_issued_begin_mm']
-      link_url += "&date_issued_begin_yyyy=#{query_params['date_issued_begin_yyyy']}" if query_params['date_issued_begin_yyyy']
-      link_url += "&date_issued_end_dd=#{query_params['date_issued_end_dd']}" if query_params['date_issued_end_dd']
-      link_url += "&date_issued_end_mm=#{query_params['date_issued_end_mm']}" if query_params['date_issued_end_mm']
-      link_url += "&date_issued_end_yyyy=#{query_params['date_issued_end_yyyy']}" if query_params['date_issued_end_yyyy']
-
-      # add per_page and page
-      link_url += "&per_page=#{query_params['per_page']}" if query_params['per_page']
-      link_url += "&page=#{query_params['page']}" if query_params['page']
-
-      # add q
-      link_url += "&q=#{query_params['q']}" if query_params['q']
+      link_url = search_url(query_params.except(:controller, :action).merge(publication: @publication.slug))
     end
 
     label = opts.delete(:label)
@@ -442,6 +419,11 @@ module ApplicationHelper
     end
 
     label ||= t('blacklight.back_to_search')
+
+    # puts "1111 label: #{label.to_s}"
+    # puts "1111 link_url: #{link_url.to_s}"
+    # puts "1111 opts: #{opts.to_s}"
+
 
     link_to label, link_url, opts
   end
