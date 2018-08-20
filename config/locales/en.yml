@@ -31,6 +31,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  application_name:
+    midaily: Michigan Daily Digital Archives
+    djnews: The Detroit Jewish News Digital Archives
   facets:
     front:
       facet-title: Only Front Pages

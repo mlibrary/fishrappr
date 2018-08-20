@@ -14,4 +14,8 @@ module BlacklightHelper
     end
   end
 
+  def application_name
+    t("application_name.#{@publication.slug}")
+  end
+
 end

@@ -11,7 +11,7 @@ module Fishrappr::Context
     end
     @publication = Publication.where(slug: session[:publication]).first
 
-    @page_title = @publication_name = @publication.title
+    @publication_name = @publication.title
 
   end
 end
