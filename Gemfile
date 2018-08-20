@@ -62,6 +62,9 @@ gem 'puma', '~> 3.11'
 
 gem 'sitemap_generator', '~> 5.3.1'
 
+# security update to sprockets
+gem 'sprockets', '~> 3.7.2'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   # gem 'xray-rails'
