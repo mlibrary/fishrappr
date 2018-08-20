@@ -1,0 +1,15 @@
+        <div class="panel-login-options">
+          <% unless user_signed_in? %>
+            <p>
+                If you are affiliated with the University of Michigan, you have <a href="<%= url_for controller: 'sessions', action: 'login_info' %>">access 
+                to higher quality downloads</a>.
+            </p>
+          <% else %>
+            <p>
+              You are logged in and accessing our higher quality downloads.
+            </p>
+            <p>
+              <%= link_to t('blacklight.header_links.logout'), destroy_user_session_path %>
+            </p>
+          <% end %>
+        </div>

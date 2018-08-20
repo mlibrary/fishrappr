@@ -35,21 +35,7 @@
             <a class="btn btn-default btn-action" data-track="true" href="<%= download_issue_text_solr_document_path @document %>"><%= use_icon('file_zip') %> Download Text <span class="extension">ZIP</span></a>
           </div>
         </div>
-          <div class="panel-login-options">
-            <% unless user_signed_in? %>
-              <p>
-                  If you are affiliated with the University of Michigan, you have <a href="<%= url_for controller: 'sessions', action: 'login_info' %>">access 
-                  to higher quality downloads</a>.
-              </p>
-            <% else %>
-              <p>
-                You are logged in and accessing our higher quality downloads.
-              </p>
-              <p>
-                <%= link_to t('blacklight.header_links.logout'), destroy_user_session_path %>
-              </p>
-            <% end %>
-        </div>
+        <%= render 'panel_login_options' %>
       </div>
 
       <div class="panel panel-actions-share">
