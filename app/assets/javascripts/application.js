@@ -27,5 +27,5 @@
 
 //= require polyfills
 //= require openseadragon
-//= require jquery.waypoints
+//= require stickybits
 //= require_tree .
