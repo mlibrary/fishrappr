@@ -73,12 +73,18 @@ class RepositoryService
     "#{dlxs_repository_url}/collection/#{dlxs_identifier(document)}"
   end
 
-  def download_pdf_url(rgn1, q1)
+  # def download_pdf_url(rgn1, q1)
+  def download_pdf_url(document, fld, **kw)
     auth_param = @current_user ? '&auth=1' : ''
+
+    collid = dlxs_collid(document)
+    rgn1 = ( fld == 'page_identifier' ) ? 'ic_id' : fld
+    q1 = document.fetch(fld)
+
     if rgn1 == 'ic_id'
-      "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/pdf-idx" + "?cc=#{Settings.DLXS_COLLECTION}&rgn1=#{rgn1}&q1=#{q1}&sort=sortable_page_identifier&attachment=1#{auth_param}"
+      "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/pdf-idx" + "?cc=#{collid}&rgn1=#{rgn1}&q1=#{q1}&sort=sortable_page_identifier&attachment=1#{auth_param}"
     else
-      "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/request-pdf-idx" + "?cc=#{Settings.DLXS_COLLECTION}&rgn1=#{rgn1}&q1=#{q1}&sort=sortable_page_identifier&attachment=1#{auth_param}"
+      "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/request-pdf-idx" + "?cc=#{collid}&rgn1=#{rgn1}&q1=#{q1}&sort=sortable_page_identifier&attachment=1#{auth_param}"
     end
   end
 
@@ -96,6 +102,10 @@ class RepositoryService
     tmp.join(':')
   end
 
+  def dlxs_collid(document)
+    identifier = dlxs_identifier(document)
+    identifier.split(":").first
+  end
 
 
 end

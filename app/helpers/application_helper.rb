@@ -113,9 +113,7 @@ module ApplicationHelper
   end
 
   def download_pdf_link(document, fld, **kw)
-    rgn1 = ( fld == 'page_identifier' ) ? 'ic_id' : fld
-    value = document.fetch(fld)
-    repository_service.download_pdf_url(rgn1, value)
+    repository_service.download_pdf_url(document, fld, **kw)
   end
 
   def document_image_src(document, **kw)
