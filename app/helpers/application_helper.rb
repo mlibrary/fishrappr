@@ -390,21 +390,6 @@ module ApplicationHelper
     scope = opts.delete(:route_set) || self
 
     query_params = search_state.reset(current_search_session.try(:query_params)).to_hash
-    # puts "1111 query_params in back_to_results_link are #{query_params}"
-
-    query_params.tap { |hs| hs.delete(:controller) }
-    # puts "1111 query_params after delete in back_to_results_link are #{query_params}"
-
-    if current_search_session['counter']
-      per_page = (current_search_session['per_page'] || default_per_page).to_i
-      counter = current_search_session['counter'].to_i
-
-      query_params[:per_page] = per_page unless current_search_session['per_page'].to_i == default_per_page
-      query_params[:page] = ((counter - 1)/ per_page) + 1
-    end
-
-    # puts "1111search_params: #{search_params.to_s}"
-    # puts "1111query_params: #{query_params.to_s}"
 
     if search_params[:action] == 'browse'
       link_url = browse_url(search_params.except(:controller, :action).merge(publication: @publication.slug))
