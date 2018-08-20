@@ -37,7 +37,11 @@ namespace :fishrappr do
   desc "Reindex issue"
   # task :reindex_issues, [:volume_identifier] => :environment do |t, args|
   task :reindex_issue => :environment do |t, args|
-    identifiers = args.extras
+    if args.extras.first[0] == '/'
+      identifiers = File.readlines(args.extras.first).map{|line| line.chomp}
+    else
+      identifiers = args.extras
+    end
     # if identifiers.empty?
     #   identifiers = Issue.select(:volume_identifier).distinct.collect { |x| x.volume_identifier }.sort
     # end
@@ -80,8 +84,16 @@ namespace :fishrappr do
   task :import_issue, [ :publication_slug, :collid ] => :environment do |t, args|
     ingest = DlxsIngest.new(args[:publication_slug], args[:collid])
     ingest.clobber = true
-    args.extras.each do |issue_identifier|
+    STDERR.puts args.extras.first
+    if args.extras.first[0] == '/'
+      issue_identifiers = File.readlines(args.extras.first).map{|line| line.chomp}
+    else
+      issue_identifiers = args.extras
+    end
+    t = issue_identifiers.length
+    issue_identifiers.each_with_index do |issue_identifier, i|
       ingest.fetch_issue issue_identifier
+      STDERR.puts "-- #{i} / #{t} : #{issue_identifier}"
     end
   end
 
