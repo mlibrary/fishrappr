@@ -1,8 +1,7 @@
-<div class="table-wrapper">
-  <div class="table-container-fluid container-viewer">
+<div class="grid-wrapper">
+  <div class="grid-container">
 
-    <div class="table-row">
-      <div class="table-col-md-9 table-col-sm-8">
+      <div class="grid-image">
 
         <ul class="nav nav-pills" role="tablist" style="margin-bottom: 10px">
           <li role="presentation" class="active"><a href="#page-image" aria-controls="page-image" role="tab"><%= use_icon('file_image') %> Image</a></li>
@@ -26,30 +25,29 @@
         </div>
       </div>
 
-      <div class="table-col-md-3 table-col-sm-4">
+      <div class="grid-sidebar">
         <%= render 'show_sidebar' %>
       </div>
 
-    </div>
+      <div class="grid-plaintext">
+        <div>
 
-    <div class="table-row">
-      <div class="table-col-md-9 table-col-sm-8">
+          <ul class="nav nav-pills" role="tablist" style="margin-bottom: 10px">
+            <li role="presentation"><a href="#page-image" aria-controls="page-image" role="tab"><%= use_icon('file_image') %> Image</a></li>
+            <li role="presentation" class="active"><a href="#page-text" aria-controls="page-text" role="tab"><%= use_icon('file_text') %> Text</a></li>
+            <li role="presentation" class="hidden-lg hidden-md hidden-sm"><a href="#page-options" aria-controls="page-options" role="tab"><i class="glyphicon glyphicon-cog"></i> Page Options</a></li>
+          </ul>
 
-        <ul class="nav nav-pills" role="tablist" style="margin-bottom: 10px">
-          <li role="presentation"><a href="#page-image" aria-controls="page-image" role="tab"><%= use_icon('file_image') %> Image</a></li>
-          <li role="presentation" class="active"><a href="#page-text" aria-controls="page-text" role="tab"><%= use_icon('file_text') %> Text</a></li>
-          <li role="presentation" class="hidden-lg hidden-md hidden-sm"><a href="#page-options" aria-controls="page-options" role="tab"><i class="glyphicon glyphicon-cog"></i> Page Options</a></li>
-        </ul>
-
-        <div role="tabpanel" id="page-text">
-          <div id="document" class="document <%= render_document_class %>" itemscope  itemtype="<%= @document.itemtype %>" style="background: white; padding: 20px">
-            <div id="doc_<%= @document.id.to_s.parameterize %>">
-              <%= render_document_partials @document, blacklight_config.view_config(:show).partials %>
+          <div role="tabpanel" id="page-text">
+            <div id="document" class="document <%= render_document_class %>" itemscope  itemtype="<%= @document.itemtype %>" style="background: white; padding: 20px">
+              <div id="doc_<%= @document.id.to_s.parameterize %>">
+                <%= render_document_partials @document, blacklight_config.view_config(:show).partials %>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="table-empty"></div>
+
     </div>
 
   </div>
