@@ -60,7 +60,7 @@ gem 'rubyzip', '~> 1.2.1' # will load new rubyzip version
 
 gem 'puma', '~> 3.11'
 
-gem 'sitemap_generator', '~> 5.3.1'
+gem 'sitemap_generator', '~> 6.0.1'
 
 # security update to sprockets
 gem 'sprockets', '~> 3.7.2'
