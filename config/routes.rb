@@ -66,6 +66,15 @@ Rails.application.routes.draw do
   match '/contacts', to: 'contacts#new', via: 'get'
   resources "contacts", only: [:new, :create]
 
+  # redirect old static links for daily to new daily locations
+  get '/static/donors', to: redirect('/midaily/donors')
+  get '/static/about_project', to: redirect('/midaily/project')
+  get '/static/daily_about', to: redirect('/midaily/about')
+  get '/static/rights', to: redirect('/midaily/rights')
+
+  get '/static/how_to_search', to: redirect('/midaily/how_to_search')
+  get '/static/using_page_viewer', to: redirect('/midaily/using_page_viewer')
+
   post 'static/search' => 'static#search'
 
   get '/:publication/:page', to: 'static#show'
