@@ -18,8 +18,6 @@ class SessionsController < ApplicationController
   def go_back
     Rails.logger.debug "[AUTHN] sessions#go_back, redirecting"
 
-    puts ">>> stored_location_for(:user) is #{stored_location_for(:user)}"
-
     redirect_to stored_location_for(:user) #|| root_path
   end
 

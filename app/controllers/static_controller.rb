@@ -30,7 +30,6 @@ class StaticController < ApplicationController
   end
 
   def show
-    puts "Static show called with params: #{params}"
     render  "#{params['page']}"
   end
 
