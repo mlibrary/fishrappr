@@ -2,7 +2,6 @@ module Fishrappr::Context
   extend ActiveSupport::Concern
 
   def setup_publication
-    puts "In setup_publication params are: #{params}"
     if params[:publication]
       session[:publication] = params[:publication]
     else
@@ -12,6 +11,5 @@ module Fishrappr::Context
     @publication = Publication.where(slug: session[:publication]).first
 
     @publication_name = @publication.title
-
   end
 end

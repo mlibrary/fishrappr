@@ -384,7 +384,6 @@ module ApplicationHelper
 
     search_params = current_search_session.try(:query_params) || {}
 
-    # puts ">>> Ops in back_to_results_link are #{opts}"
     scope = opts.delete(:route_set) || self
 
     query_params = search_state.reset(current_search_session.try(:query_params)).to_hash
@@ -402,11 +401,6 @@ module ApplicationHelper
     end
 
     label ||= t('blacklight.back_to_search')
-
-    # puts "1111 label: #{label.to_s}"
-    # puts "1111 link_url: #{link_url.to_s}"
-    # puts "1111 opts: #{opts.to_s}"
-
 
     link_to label, link_url, opts
   end

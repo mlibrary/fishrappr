@@ -11,7 +11,6 @@ module Fishrappr
     end
 
     def query_has_constraints?(my_params = params)
-      puts "]]]] In query_has_constraints my_params: #{my_params}"
       super || has_date_filter_parameters?(my_params)
     end
 
