@@ -1048,82 +1048,150 @@ body.blacklight-catalog-home {
   }
 }
 
+// .home .partnerships {
+//   min-height: 152px;
+//   background-color: #e6f3ff;
+//   width: 100%;
+
+//   .description {
+//     color: #00274c;
+//     font-family: 'Open Sans', sans-serif;
+//     font-size: 20px;
+//     line-height: 1.6;
+//     margin-bottom: 1em;
+//     margin-left: auto;
+//     margin-right: auto;
+//     margin-top: 1em;
+//     text-align: center;
+//   }
+
+//   .logos {
+//     margin-left: auto;
+//     margin-right: auto;
+//     text-align: center;
+//     display: inline-block;
+//     width: 100%;
+//     margin-bottom: 20px;
+
+//     .daily-logo {
+//       width: 294.2px;
+//       background-color: #e6f3ff;
+//     }
+
+//     .djnews-logo {
+//       width: 400px;
+//       background-color: #e6f3ff;
+//     }  
+
+//     .djnews-foundation-logo {
+//       width: 325px;
+//       background-color: #e6f3ff;
+//     } 
+
+//     .mlibrary-logo {
+//       width: 243px;
+//       background-color: #e6f3ff;
+//     }
+
+//     .midaily-mlibrary-logo {
+//       width: 243px;
+//       background-color: #e6f3ff;
+//       margin-left: 50px;
+//     }
+
+//     .bentley-logo {
+//       width: 538px;
+//       background-color: #e6f3ff;
+//       margin-left: 55px;
+//     }
+
+//     a {
+//       padding: 4px;
+//       display: inline-block;
+//       border: 1px solid transparent;
+
+//       img {
+//         max-width: 100%;
+//       }
+
+//       &:hover {
+//         outline-width: 2px;
+//         outline-style: solid;
+//         outline-color: initial;
+//       }
+//     }
+
+//   }
+ 
+// }
+
+/* Revised home partnership scss 7-24-18 */
+
+* {
+  box-sizing: border-box;
+}
+
+.home {
+  font-size: 16px;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+  // margin-top: 10rem;
+  // margin-bottom: 10rem;
+}
+
 .home .partnerships {
   min-height: 152px;
   background-color: #e6f3ff;
   width: 100%;
+  text-align: center;
+  padding: 2rem 2rem;
 
-  .description {
-    color: #00274c;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 20px;
-    line-height: 1.6;
-    margin-bottom: 1em;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 1em;
-    text-align: center;
+  p {
+    font-size: 32px;
   }
-
-  .logos {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    display: inline-block;
-    width: 100%;
-    margin-bottom: 20px;
-
-    .daily-logo {
-      width: 294.2px;
-      background-color: #e6f3ff;
-    }
-
-    .djnews-logo {
-      width: 400px;
-      background-color: #e6f3ff;
-    }  
-
-    .djnews-foundation-logo {
-      width: 325px;
-      background-color: #e6f3ff;
-    } 
-
-    .mlibrary-logo {
-      width: 243px;
-      background-color: #e6f3ff;
-    }
-
-    .midaily-mlibrary-logo {
-      width: 243px;
-      background-color: #e6f3ff;
-      margin-left: 50px;
-    }
-
-    .bentley-logo {
-      width: 538px;
-      background-color: #e6f3ff;
-      margin-left: 55px;
-    }
-
-    a {
-      padding: 4px;
-      display: inline-block;
-      border: 1px solid transparent;
-
-      img {
-        max-width: 100%;
-      }
-
-      &:hover {
-        outline-width: 2px;
-        outline-style: solid;
-        outline-color: initial;
-      }
-    }
-
-  }
- 
 }
+
+.partnerships-list {
+  margin: 0 auto;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  // background: red;
+    
+  li {
+    line-height: 5rem;
+    text-align: left;
+    // background: yellow;
+    // -- this sets a mininum of 250px for each cell
+    // flex: 0 0 250px;
+  }
+}
+
+.home .partnerships .partnerships-list a {
+  display: inline-block;
+  margin: 2px;
+  padding: 2px 8px;
+  // background: green;
+    
+  &:hover {
+    outline-width: 2px;
+    outline-style: solid;
+    outline-color: blue;
+  }
+  
+  // padding: 0.5rem;
+  
+  img {
+    max-width: 250px;
+  }
+}
+
+/* END OF Revised home partnership scss 7-24-18 */
 
 .home .featured {
   background-color: #ffffff;
