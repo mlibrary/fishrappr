@@ -947,13 +947,15 @@ body.blacklight-catalog-home {
     .masthead-midaily {
       filter:invert(100%);
       width: 706.1px;
-      height: 96px;
+      height: auto;
+      max-width: 100%;
     }
 
     .masthead-djnews {
       // filter:invert(100%);
       width: 706.1px;
-      height: 96px;
+      height: auto;
+      max-width: 100%;
     }
 
     .subtitle {
