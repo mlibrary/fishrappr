@@ -67,6 +67,9 @@ en:
         zoom_in: '<span class="hidden-xs hidden-sm"> Zoom In </span>'
         zoom_out: '<span class="hidden-xs hidden-sm">Zoom Out </span>'
         search_highlights: '<span class="hidden-xs">Search <span class="hidden-sm">Keyword </span></span>Highlights'
+    static:
+      contact:
+        title: Contact Us    
     midaily-static:
       about-daily:
         title: About The Michigan Daily

@@ -1454,13 +1454,17 @@ body.blacklight-contacts-create {
 }
 
 .help-sbar {
-  margin-top: -120px;
+  margin-top: -100px;
+}
+
+.contacts-success .help-sbar {
+  margin-top: auto;
 }
 
 .help-sbar h2 {
   font-size: 24px;
   color: #6e6e6e;
-  margin-top: 20px;
+  // margin-top: 20px;
   padding-left: 5px;
 }
 
