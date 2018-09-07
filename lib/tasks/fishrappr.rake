@@ -92,6 +92,9 @@ namespace :fishrappr do
     end
     t = issue_identifiers.length
     issue_identifiers.each_with_index do |issue_identifier, i|
+      if ENV['IIIF_MANIFEST']
+        issue_identifier = "#{ENV['IIIF_MANIFEST']}/#{issue_identifier}"
+      end
       ingest.fetch_issue issue_identifier
       STDERR.puts "-- #{i} / #{t} : #{issue_identifier}"
     end
