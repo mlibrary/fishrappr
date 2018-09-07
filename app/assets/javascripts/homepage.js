@@ -10,7 +10,12 @@ $().ready(function() {
       // Find all of the CssRule objects inside the inline stylesheet 
       var stylesheets = document.styleSheets;
       for(var j = 0; j < stylesheets.length; j++) {
-        var styles = stylesheets[j].rules;        
+        var styles = null;
+        try {
+          styles = stylesheets[j].rules;
+        } catch(e) {
+          // NOP
+        }
         if ( styles === null ) {
           continue;
         }
