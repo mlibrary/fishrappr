@@ -20,14 +20,13 @@
 <div class="home container-fluid">
   <div class="partnerships col-md-12">
     <p>In Partnership With</p>
-    <ol class="partnerships-list column-3">
-      <li><a class="daily-logo" href="https://www.michigandaily.com/"><img alt="The Michigan Daily" src="/assets/The-Michigan-Daily-Digital-Archive.png"></a></li>      
-      <li><a class="mlibrary-logo" href="https://lib.umich.edu"><img alt="University of Michigan Library" src="/assets/u-m_library_logo.png"></a></li>
-      <li><a class="bentley-logo" href="http://bentley.umich.edu/"><img alt="Bentley Historical Library" src="/assets/bentley_historical_library_logo.png"></a></li>
+    <ol class="partnerships-list">
+      <li><%= link_to(image_tag("The-Michigan-Daily-Digital-Archive.png", :alt => "The Detroit Jewish News"), 'https://www.michigandaily.com/', class: 'daily-logo') %></li>
+      <li><%= link_to(image_tag("u-m_library_logo.png", :alt => "University of Michigan Library"), 'https://lib.umich.edu', class: 'mlibrary-logo') %></li>
+      <li><%= link_to(image_tag("bentley_historical_library_logo.png", :alt => "Bentley Historical Library"), 'http://bentley.umich.edu/', class: 'bentley-logo') %></li>
     </ol>
   </div>
 </div>
-
 </div>
 <div class="home container-fluid">
    <div class="featured col-md-12">
