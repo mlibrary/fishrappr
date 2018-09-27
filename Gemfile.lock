@@ -420,6 +420,7 @@ DEPENDENCIES
   rails (= 5.2.0)
   rsolr (~> 2.2.1)
   rspec-rails (~> 3.5)
+  rails-html-sanitizer (~> 1.0, >= 1.0.4)
   rubocop (~> 0.49.0)
   rubocop-rspec
   rubyzip (~> 1.2.1)
