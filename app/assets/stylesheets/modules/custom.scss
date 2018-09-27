@@ -1,4 +1,3 @@
-
 @mixin pagination-toolbar {
   background-color: transparent; // #f5f5f5;
   border-radius: 4px;
@@ -846,7 +845,7 @@ body.blacklight-catalog-home {
     text-align: center;
   }
 
-  .head {
+  .head-midaily, .head-djnews {
     padding: 0;
     min-height: 500px;
     background-image: url(data:image/png;base64,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);
@@ -857,26 +856,58 @@ body.blacklight-catalog-home {
     padding-bottom: 20px;
   }
 
-  .head-enhanced {
-    background-image: image-url("home_page_banner.png");
+  .head-midaily-enhanced, .head-djnews-enhanced {
+    background-image: image-url("daily_home_page_banner.png");
   }
 
   @supports (background-image: filter(url('i.jpg'), blur(1px))) {
-    .head {
+    .head-midaily {
       transform: translateZ(0);
     }
-    .head-enhanced {
+    .head-midaily-enhanced {
       animation: sharpen .5s both;
     }
     @keyframes sharpen {
       from {
-        background-image: filter(image-url("home_page_banner.png"), blur(20px));
+        background-image: filter(image-url("daily_home_page_banner.png"), blur(20px));
       }
       to {
-        background-image: filter(image-url("home_page_banner.png"), blur(0px));
+        background-image: filter(image-url("daily_home_page_banner.png"), blur(0px));
       }
     }
   }
+
+  // .head-djnews {
+  //   padding: 0;
+  //   min-height: 500px;
+  //   background-image: image-url("djnews_home_page_banner.png");
+  //   background-position: 0 0;
+  //   background-repeat: repeat-x;
+  //   background-size: cover;
+  //   color: white;
+  //   padding-bottom: 20px;
+  // }
+
+  // .head-djnews-enhanced {
+  //   background-image: image-url("djnews_home_page_banner.png");
+  // }
+
+  // @supports (background-image: filter(url('i.jpg'), blur(1px))) {
+  //   .head-djnews {
+  //     transform: translateZ(0);
+  //   }
+  //   .head-djnews-enhanced {
+  //     animation: sharpen .5s both;
+  //   }
+  //   @keyframes sharpen {
+  //     from {
+  //       background-image: filter(image-url("djnews_home_page_banner.png"), blur(20px));
+  //     }
+  //     to {
+  //       background-image: filter(image-url("djnews_home_page_banner.png"), blur(0px));
+  //     }
+  //   }
+  // }
 
   form {
     text-align: left;
@@ -902,161 +933,265 @@ body.blacklight-catalog-home {
       background: #bbb;
       color: black;
     }
-
-
   }
 }
 
 
-.home .head {
+.home { 
+  .head {
 
-  h1 {
-    font-size: 60px;
+    h1 {
+      font-size: 60px;
+    }
+
+    .masthead-midaily {
+      filter:invert(100%);
+      width: 706.1px;
+      height: auto;
+      max-width: 100%;
+    }
+
+    .masthead-djnews {
+      // filter:invert(100%);
+      width: 706.1px;
+      height: auto;
+      max-width: 100%;
+    }
+
+    .subtitle {
+      color: #ffffff;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 40px;
+      font-weight: bold;
+      line-height: 1.2;
+      text-align: center;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.36);
+    }
+
+    p.description1, p.description2 {
+      color: #ffffff;
+      display: block;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 24px;
+      line-height: 1.3;
+      margin-left:auto;
+      margin-right:auto;
+      text-align: center;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.36);
+      max-width: 85rem;
+    }
+
+    .description1 {
+      margin-top: 0;
+    }
+
+    a {
+      border: solid 2px #ffffff;
+      color: #ffffff;
+      font-family: $sys-font-family;
+      font-size: 16px;
+      margin-left:auto;
+      margin-right:auto;
+      margin-bottom: 30px;
+      min-width: 270px;
+    }  
   }
 
-  .masthead {
-    filter:invert(100%);
-    width: 706.1px;
-    height: 96px;
+  .head-djnews {
+    p.description1, p.description2 {
+      max-width: 84rem;
+    }
   }
+} /* .home */
 
-  .subtitle {
-    color: #ffffff;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 40px;
-    font-weight: bold;
-    line-height: 1.2;
-    text-align: center;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.36);
-  }
-
-  p.description1, p.description2 {
+.home {
+  .donors {
+    background-color: #00274c;
     color: #ffffff;
     display: block;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 24px;
-    line-height: 1.3;
-    margin-left:auto;
-    margin-right:auto;
-    text-align: center;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.36);
+    font-weight: normal important;
+    height: auto;
+
+    .donor-title {
+      color: #ffffff;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 32px;
+      margin-bottom: .5em;
+      text-align: center;
+    }
+
+    p.description {
+      color: #ffffff;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 20px;
+      line-height: 1.6;
+      margin-bottom: 1em;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      max-width: 950px;
+    }
+
+    a {
+      border: solid 2px #ffffff;
+      color: #ffffff;
+      font-family: $sys-font-family;
+      font-size: 16px;
+      margin-left:auto;
+      margin-right:auto;
+      width: 400px;
+    }
   }
 
-  .description1 {
-    margin-top: 0;
+  .donors-djnews a {
+      width: 435px;
   }
+}
 
-  a {
-    border: solid 2px #ffffff;
-    color: #ffffff;
-    font-family: $sys-font-family;
-    font-size: 16px;
-    margin-left:auto;
-    margin-right:auto;
-    margin-bottom: 30px;
-    min-width: 240px;
-  }  
-} /* .home .head */
+// .home .partnerships {
+//   min-height: 152px;
+//   background-color: #e6f3ff;
+//   width: 100%;
 
-.home .donors {
-  background-color: #00274c;
-  color: #ffffff;
-  display: block;
-  font-weight: normal important;
-  height: auto;
+//   .description {
+//     color: #00274c;
+//     font-family: 'Open Sans', sans-serif;
+//     font-size: 20px;
+//     line-height: 1.6;
+//     margin-bottom: 1em;
+//     margin-left: auto;
+//     margin-right: auto;
+//     margin-top: 1em;
+//     text-align: center;
+//   }
 
-  .donor-title {
-    color: #ffffff;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 32px;
-    margin-bottom: .5em;
-    text-align: center;
-  }
+//   .logos {
+//     margin-left: auto;
+//     margin-right: auto;
+//     text-align: center;
+//     display: inline-block;
+//     width: 100%;
+//     margin-bottom: 20px;
 
-  p.description {
-    color: #ffffff;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 20px;
-    line-height: 1.6;
-    margin-bottom: 1em;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    max-width: 950px;
-  }
+//     .daily-logo {
+//       width: 294.2px;
+//       background-color: #e6f3ff;
+//     }
 
-  a {
-    border: solid 2px #ffffff;
-    color: #ffffff;
-    font-family: $sys-font-family;
-    font-size: 16px;
-    margin-left:auto;
-    margin-right:auto;
-    width: 400px;
-  }
+//     .djnews-logo {
+//       width: 400px;
+//       background-color: #e6f3ff;
+//     }  
+
+//     .djnews-foundation-logo {
+//       width: 325px;
+//       background-color: #e6f3ff;
+//     } 
+
+//     .mlibrary-logo {
+//       width: 243px;
+//       background-color: #e6f3ff;
+//     }
+
+//     .midaily-mlibrary-logo {
+//       width: 243px;
+//       background-color: #e6f3ff;
+//       margin-left: 50px;
+//     }
+
+//     .bentley-logo {
+//       width: 538px;
+//       background-color: #e6f3ff;
+//       margin-left: 55px;
+//     }
+
+//     a {
+//       padding: 4px;
+//       display: inline-block;
+//       border: 1px solid transparent;
+
+//       img {
+//         max-width: 100%;
+//       }
+
+//       &:hover {
+//         outline-width: 2px;
+//         outline-style: solid;
+//         outline-color: initial;
+//       }
+//     }
+
+//   }
+ 
+// }
+
+/* Revised home partnership scss 7-24-18 */
+
+* {
+  box-sizing: border-box;
+}
+
+.home {
+  font-size: 16px;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+  // margin-top: 10rem;
+  // margin-bottom: 10rem;
 }
 
 .home .partnerships {
   min-height: 152px;
   background-color: #e6f3ff;
   width: 100%;
+  text-align: center;
+  padding: 2rem 2rem;
 
-  .description {
-    color: #00274c;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 20px;
-    line-height: 1.6;
-    margin-bottom: 1em;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 1em;
-    text-align: center;
+  p {
+    font-size: 32px;
   }
-
-  .logos {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    display: inline-block;
-    width: 100%;
-    margin-bottom: 20px;
-
-    .daily-logo {
-      width: 294.2px;
-      background-color: #e6f3ff;
-    }  
-
-    .mlibrary-logo {
-      width: 243px;
-      background-color: #e6f3ff;
-      margin-left: 50px;
-    }
-
-    .bentley-logo {
-      width: 538px;
-      background-color: #e6f3ff;
-      margin-left: 50px;
-    }
-
-    a {
-      padding: 4px;
-      display: inline-block;
-      border: 1px solid transparent;
-
-      img {
-        max-width: 100%;
-      }
-
-      &:hover {
-        outline-width: 2px;
-        outline-style: solid;
-        outline-color: initial;
-      }
-    }
-
-  }
- 
 }
+
+.partnerships-list {
+  margin: 0 auto;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  // background: red;
+    
+  li {
+    line-height: 5rem;
+    text-align: left;
+    // background: yellow;
+    // -- this sets a mininum of 250px for each cell
+    // flex: 0 0 250px;
+  }
+}
+
+.home .partnerships .partnerships-list a {
+  display: inline-block;
+  margin: 2px;
+  padding: 2px 8px;
+  // background: green;
+    
+  &:hover {
+    outline-width: 2px;
+    outline-style: solid;
+    outline-color: blue;
+  }
+  
+  // padding: 0.5rem;
+  
+  img {
+    max-width: 250px;
+  }
+}
+
+/* END OF Revised home partnership scss 7-24-18 */
 
 .home .featured {
   background-color: #ffffff;
@@ -1319,13 +1454,17 @@ body.blacklight-contacts-create {
 }
 
 .help-sbar {
-  margin-top: -120px;
+  margin-top: -100px;
+}
+
+.contacts-success .help-sbar {
+  margin-top: auto;
 }
 
 .help-sbar h2 {
   font-size: 24px;
   color: #6e6e6e;
-  margin-top: 20px;
+  // margin-top: 20px;
   padding-left: 5px;
 }
 

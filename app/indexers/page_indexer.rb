@@ -95,12 +95,13 @@ class PageIndexer
       response = http.request(request)
 
       # response = Net::HTTP.request_get(resource_uri)
-      PP.pp response, STDERR
       unless response.is_a?(Net::HTTPSuccess)
-        STDERR.puts "#{resource_uri} : #{response.code}"
+        # STDERR.puts "#{resource_uri} : #{response.code}"
         response = ""
       else
-        response = response.body
+        # STDERR.puts ":: #{response.body.encoding} :: #{response.type_params}"
+        response = response.body.force_encoding('UTF-8') # .encode('UTF-8', invalid: :replace, undef: :replace)
+        # STDERR.puts ":: >> #{response.encoding}"
       end
 
     end

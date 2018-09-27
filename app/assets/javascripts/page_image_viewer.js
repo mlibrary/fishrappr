@@ -4,6 +4,11 @@
       return;
     }
 
+    var stickies = {}; window.stickies = stickies;
+    stickies.sidebar = stickybits('#page-options', {useStickyClasses: true});
+    stickies.toolbar_top = stickybits('.image-viewer-toolbar-top', {xxuseFixed: true, useStickyClasses: true});
+    stickies.toolbar_bottom = stickybits('.image-viewer-toolbar-bottom', {verticalPosition: 'bottom', xxuseFixed: true, useStickyClasses: true});
+
     window.F = window.F || {};
     var $map = $("#image-viewer");
     var $preview = $("#image-viewer-preview");
@@ -23,30 +28,10 @@
       }
       $wrap.height(height);
       var w = $(window).width();
-      $("body").trigger("sticky_kit:recalc");
-      setTimeout(function() {
-        if ( $(".page-options").parents(".table-row").css('display') == 'block' ) {
-          $(".page-options").trigger('sticky_kit:detach');
-        } else {
-          $(".page-options").stick_in_parent({ parent: '.container-viewer', offset_top: -50 });
-        }        
-      }, 100);
-      if ( $toolbar !== undefined ) {
-        if ( $toolbar.css('position') == 'fixed' ) {
-          $spacer.detach();
-          var w = $toolbar.width();
-          $toolbar.css({
-            position: "",
-            top: "",
-            width: "",
-            bottom: ""
-          });
-          setTimeout(function() {
-            waypoints.disable();
-            stick_bottom_toolbar();
-          }, 100);
-        }
-      }
+
+      stickies.toolbar_top.update();
+      stickies.toolbar_bottom.update();
+      stickies.sidebar.update();
     };
 
     $(window).resize(debounce(resize_viewer));
@@ -256,49 +241,7 @@
 
     var stick_bottom_toolbar = function() {
 
-
-      if ( $toolbar === undefined ) {
-        $toolbar = $(".image-viewer-toolbar-bottom");
-        $spacer = $('<div></div>').css({ height: $toolbar.height(), width: $toolbar.width(), display: 'none' });
-      }
-
-      if ( $toolbar.offset().top + $toolbar.outerHeight() < $(window).scrollTop() + $(window).height() ) {
-        return;
-      }
-
-      if ( waypoints === undefined ) {
-        setTimeout(function() {
-          waypoints = new Waypoint.Inview({
-            element: $spacer[0],
-            entered: function(direction) {
-              // console.log("ENTERED", direction);
-              if ( direction == 'down' ) {
-                $toolbar.css({ position: 'static' });
-                $spacer.hide();
-              }
-            },
-            exit: function(direction) {
-              // console.log("EXITED", direction);
-              if ( direction == 'up' ) {
-                $toolbar.css({ position: 'fixed' });
-                $spacer.show();
-              }
-            }
-          })          
-        }, 1000);
-
-      } else {
-        setTimeout(function() {
-          waypoints.enable();
-        })
-      }
-
-      $toolbar.css({ position: 'fixed', bottom: 0, width: $toolbar.width() });
-      $spacer.css({ width: $toolbar.width() });
-      $toolbar.after($spacer);
-      $spacer.show();
-
-    };
+    }
 
     var resize_and_load_viewer = function() {
         resize_viewer();
@@ -446,6 +389,12 @@
             return new OpenSeadragon.Point(parseInt(d.width * max.y/d.height),max.y);
         }
     }
-  
+
+    var event = new Event('scroll', { bubbles: false });
+    if ( event.bubbles !== false ) {
+      event = document.createEvent('Event');
+      event.initEvent("scroll", false, true);
+    }
+    window.dispatchEvent(event);
 
   })

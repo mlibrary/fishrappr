@@ -27,24 +27,21 @@ SitemapGenerator::Sitemap.create do
   #     add article_path(article), :lastmod => article.updated_at
   #   end
 
-  add '/static/donors', changefreq: 'monthly'
-  add '/static/about_daily', changefreq: 'monthly'
-  add '/static/about_project', changefreq: 'monthly'
-  add '/static/rights', changefreq: 'monthly'
 
-  issue_cache = {}
-  publication_cache = {}
-  Page.find_each do |page|
-    unless issue_cache[page.issue_id]
-      issue_cache[page.issue_id] = page.issue
+  Publication.all.each do |publication|
+    add "/#{publication.slug}/donors", changefreq: 'monthly'
+    add "/#{publication.slug}/about", changefreq: 'monthly'
+    add "/#{publication.slug}/project", changefreq: 'monthly'
+    add "/#{publication.slug}/rights", changefreq: 'monthly'
+
+    Issue.where(publication_id: publication.id).find_each do |issue|
+      Page.where(issue_id: issue.id).find_each do |page|
+        priority = page.issue_sequence == 1 ? 1.0 : 0.5
+        add "/#{publication.slug}/#{issue.volume_identifier || issue.issue_identifier}/#{page.volume_sequence}", lastmod: page[:updated_at], priority: priority, changefreq: 'monthly'
+      end
+      STDERR.puts "-- processed: #{issue.issue_identifier}"
     end
-    issue = issue_cache[page.issue_id]
-    unless publication_cache[issue.publication_id]
-      publication_cache[issue.publication_id] = issue.publication
-    end
-    publication = publication_cache[issue.publication_id]
-    priority = page.issue_sequence == 1 ? 1.0 : 0.5
-    add "/#{publication.slug}/#{issue_cache[page.issue_id].volume_identifier}/#{page.volume_sequence}", lastmod: page[:updated_at], priority: priority, changefreq: 'monthly'
+    STDERR.puts "=== processed: #{publication.slug}"
   end
 
 end

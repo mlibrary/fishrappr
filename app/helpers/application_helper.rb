@@ -72,6 +72,16 @@ module ApplicationHelper
     document.fetch('issue_sequence')
   end
 
+  def publication_title(document, publication)
+    title = document.fetch('publication_label', '')
+    if title.blank?
+      title = publication.title
+    else
+      title = title.split(',')[0..-2].join(',').chomp
+    end
+    title
+  end
+
   def issue_title(document, complete=false, html=true)
     title = document['date_issued_display'].first
     if complete
@@ -103,9 +113,7 @@ module ApplicationHelper
   end
 
   def download_pdf_link(document, fld, **kw)
-    rgn1 = ( fld == 'page_identifier' ) ? 'ic_id' : fld
-    value = document.fetch(fld)
-    repository_service.download_pdf_url(rgn1, value)
+    repository_service.download_pdf_url(document, fld, **kw)
   end
 
   def document_image_src(document, **kw)
@@ -331,7 +339,7 @@ module ApplicationHelper
 
   def text_disclaimer
     text = t('blacklight.show.disclaimer')
-    text.gsub!('href="#', "href=\"#{static_path('using_page_viewer')}#").html_safe
+    text.gsub!('href="#', "href=\"#{"app/views/publications/#{params['publication']}/views/static/using_page_viewer"}#").html_safe
   end
 
   require 'ffaker'
@@ -369,6 +377,32 @@ module ApplicationHelper
     else
       use_icon("previous") + " " + t('blacklight.back_to_search_html')
     end
+  end
+
+  # Create a link back to the index screen, keeping the user's facet, query and paging choices intact by using session.
+  def back_to_results_link(opts={:label=>nil})
+
+    search_params = current_search_session.try(:query_params) || {}
+
+    scope = opts.delete(:route_set) || self
+
+    query_params = search_state.reset(current_search_session.try(:query_params)).to_hash
+
+    if search_params[:action] == 'browse'
+      link_url = browse_url(search_params.except(:controller, :action).merge(publication: @publication.slug))
+    else
+      link_url = search_url(query_params.except(:controller, :action).merge(publication: @publication.slug))
+    end
+
+    label = opts.delete(:label)
+
+    if link_url =~ /bookmarks/
+      label ||= t('blacklight.back_to_bookmarks')
+    end
+
+    label ||= t('blacklight.back_to_search')
+
+    link_to label, link_url, opts
   end
 
   # SEARCH SELECT OPTIONS  
@@ -413,7 +447,16 @@ module ApplicationHelper
 
   # Used by browse page
   def get_decade_browse_options
-    decades = [1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010]
+    decade_first = @publication.first_print_year/10.truncate * 10
+    decade_last = @publication.last_print_year/10.truncate * 10
+
+    decades = []
+    current_decade = decade_first
+    while current_decade <= decade_last do
+      decades.push current_decade
+      current_decade += 10
+    end
+
     decade_options = [];
 
     item = ["Any Decade", "Any Decade"]
@@ -427,11 +470,7 @@ module ApplicationHelper
 
   # Used by browse page as initial year options; see js for how this changes for different decades
   def get_year_browse_options
-    min_max_year = Issue.where('publication_year > 1000').pluck('MIN(publication_year),MAX(publication_year)')
-    min_year = min_max_year[0][0]
-    max_year = min_max_year[0][1]
-
-    years_range = (min_year..max_year)
+    years_range = (@publication.first_print_year..@publication.last_print_year)
     year_options = [];
 
     years_range.each do |m| 
@@ -488,7 +527,10 @@ module ApplicationHelper
     when nil # display all decades
       items = data['date_issued_yyyy10_ti']["items"]
       bl_items = data['date_issued_yyyy10_ti']["bl_items"]
-      this_range = (189..201).map { |d| d * 10}
+      decade_first_div_10 = @publication.first_print_year/10.truncate
+      decade_last_div_10 = @publication.last_print_year/10.truncate
+      this_range = (decade_first_div_10..decade_last_div_10).map { |d| d * 10}
+
       rtn['chart_title'] = "Decades"
       rtn['facet_key'] = 'date_issued_yyyy10_ti'
 

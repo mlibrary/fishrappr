@@ -29,4 +29,8 @@ class StaticController < ApplicationController
     redirect_to root_url
   end
 
+  def show
+    render  "#{params['page']}"
+  end
+
 end

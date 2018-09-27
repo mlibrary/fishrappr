@@ -29,6 +29,7 @@
   
   <% unless has_search_parameters? %>
     <%# if there are no input/search related params, display the "home" partial -%>
+    <%#= render 'home' %>
     <%= render 'home' %>
     <%= render 'shared/sitelinks_search_box' %>
   <% else %>
@@ -43,5 +44,3 @@
   <% end %>
 </div>
 <%= render partial: 'back_to_top' %>
-
-

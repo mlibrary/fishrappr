@@ -169,7 +169,7 @@ module Fishrappr::Catalog
     end
     @featured_list.sort_by!{ |document| document.fetch(:date_issued_dt) }
 
-    render :layout => 'home'
+    render :layout => 'layouts/home'
   end
 
   # UTILITY
@@ -324,6 +324,11 @@ module Fishrappr::Catalog
       end
     end
     words.keys.sort.to_json
+  end
+
+  def publication_partial (page)
+    prepend_view_path "app/views/publications/#{params['publication']}/"
+    render partial "#{page}"
   end
 
   # this is crazy stuff
@@ -501,5 +506,5 @@ module Fishrappr::Catalog
         params['date_issued_yyyy10_ti'] = 'Any Decade'
       end
     end
-     
+       
 end

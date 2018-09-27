@@ -1,0 +1,18 @@
+<% @page_title = t('views.djnews-static.about-djnews.title') %>
+
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="<%= main_content_classes(true) %> help-middle-col">
+        <h1 class="title"><%= t('views.djnews-static.about-djnews.header') %></h1>  
+    </div>
+  </div>
+
+  <div class="row">
+    <%= render partial: 'about_sidebar' %>
+      <div class="<%= main_content_classes %> help-middle-col">
+        <p>Established in 1942 by noted journalist Philip Slomovitz, the independent Detroit Jewish News is one of America’s leading Anglo—Jewish media outlets and the primary information source for the Detroit metropolitan area’s Jewish community. It strives to reflect the diverse views within the community while advocating positions of Jewish unity and continuity. The Jewish News also includes a robust digital and social media presence.</p>
+      </div> 
+   </div>
+
+</div>

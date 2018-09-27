@@ -1,6 +1,7 @@
 # require 'iiif/presentation'
 # require 'iiif/service'
 require 'pp'
+require 'net/http'
 
 module IIIF
 

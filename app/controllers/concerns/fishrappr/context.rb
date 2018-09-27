@@ -9,7 +9,7 @@ module Fishrappr::Context
       params[:publication] = session[:publication]
     end
     @publication = Publication.where(slug: session[:publication]).first
+
+    @publication_name = @publication.title
   end
-
-
 end

@@ -1,0 +1,24 @@
+<% @page_title = t('views.djnews-static.rights.title') %>
+
+<div class="container-fluid">
+
+  <div class="row">
+
+      <div class="<%= main_content_classes(true) %> help-middle-col">
+          <h1 class="title"><%= t('views.djnews-static.rights.header') %></h1>
+      </div>
+
+  </div>
+
+  <div class="row">
+
+    <%= render partial: 'about_sidebar' %>
+
+    <div class="<%= main_content_classes %> help-middle-col">     
+      <p>The University of Michigan Library provides access to these materials for educational and research purposes. These materials may be under copyright. If you decide to use any of these materials, you are responsible for making your own legal assessment and securing any necessary permission. If you have questions about the collection, please contact the Bentley Historical Library at <a href="bentley.ref@umich.edu">bentley.ref@umich.edu</a>.</p>
+
+      <p>If you have non-permissions questions about the collection, please use the <a href="<%= contacts_path type: 'content' %>">contact form</a>. If you have concerns about the inclusion of an item in this collection, please contact <a href="mailto:LibraryIT-info@umich.edu">LibraryIT-info@umich.edu</a>.</p>
+    </div>
+  </div>
+
+</div>

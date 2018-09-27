@@ -5,6 +5,9 @@
     #   :remove => url for a remove constraint link
     #   :classes => array of classes to add to container span
     options ||= {}
+    if options[:remove].respond_to?(:permit!)
+      options[:remove].permit!
+    end
 %>
 
 <span class="btn-group appliedFilter constraint <%= options[:classes].join(" ") if options[:classes] %>">
@@ -31,7 +34,8 @@
     %>
 
     <%= link_to(content_tag(:span, '', class: use_icon_class('close')) + accessible_remove_label,
-      options[:remove], class: 'btn btn-default btn-sm remove dropdown-toggle'
+      options[:remove],
+      class: 'btn btn-default btn-sm remove dropdown-toggle'
     ) %>
   <%- end -%>
 </span>

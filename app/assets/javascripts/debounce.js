@@ -12,3 +12,4 @@
         if (callNow) func.apply(context, args);
       };
     };
+    

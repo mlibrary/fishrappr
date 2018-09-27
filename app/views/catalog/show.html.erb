@@ -18,7 +18,7 @@
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
           <h1 class="page">
-            <span><%= @publication.title %></span>
+            <span><%= publication_title(@document, @publication) %></span>
             <span class="pre-issue-mark"><%= use_icon('divider') %></span>
             <a class="btn btn-link btn-issue-link" href="<%= search_catalog_url document_to_date_params(@document) %>">
               <span><%= issue_title(@document, true) %></span> 
@@ -31,7 +31,7 @@
       <div class="row">
         <div class="col-md-7 col-sm-7 col-xs-4 navigate-issue">
           <% if current_search_session %>
-            <%= link_back_to_catalog class: 'btn btn-search-primary', label: back_to_results_label %>
+            <%= back_to_results_link class: 'btn btn-search-primary', label: back_to_results_label %>
           <% end %>
         </div>
         <div class="col-md-5 col-sm-5 col-xs-8 navigate-pages">
@@ -48,21 +48,17 @@
 
 <script>
 $().ready(function() {
-  $(".image-viewer-toolbar-top").stick_in_parent();
   $(".action-copy-permalink").on('click', function(e) {
     e.preventDefault();
     $("#permalink").select();
     document.execCommand('copy');
   });
-  var $page_options = $("#page-options");
-  $page_options.stick_in_parent({ parent: '.container-viewer', offset_top: 0 });
   $("#action-rights-read-more").on('click', function(e) {
     e.preventDefault();
     var $div = $(this).parents("div");
     $div.data('top', $page_options.css('top'));
     $div.find(".see-more").addClass("reading");
     $(this).hide();
-    $(document.body).trigger('sticky_kit:recalc');
   });
   $("#action-rights-read-less").on('click', function(e) {
     e.preventDefault();
@@ -71,7 +67,6 @@ $().ready(function() {
     $("#action-rights-read-more").show();
     if ( ! $page_options.is(".is_stuck") ) { return ; }
     if ( isNaN(top) ) { return ; }
-    $(document.body).trigger('sticky_kit:recalc');
     $page_options.css('top', $page_options.data('top'));
   });
 

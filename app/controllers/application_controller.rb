@@ -22,6 +22,13 @@ class ApplicationController < ActionController::Base
   
 
   before_action :setup_publication
+  before_action :prepend_publication_path
+
+  def prepend_publication_path
+    if params[:publication]
+      prepend_view_path "app/views/publications/#{params['publication']}/views/"
+    end
+  end
 
   # From PSU's ScholarSphere
   # Clears any user session and authorization information by:

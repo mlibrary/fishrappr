@@ -1,0 +1,46 @@
+<div class="page-header row">
+  <div class="col-md-8"></div>
+</div>
+
+<div id="getting-started">
+  <h2 class='page-heading'><i class="fa fa-search fa-10x"></i></h2>
+  <div class="divider"></div>
+  <h3 class='section-heading'><i>You can try a new search above or select one of our examples below</i></h3>
+  <div class="divider"></div>
+  <p class="description">Some Examples to get started:</p>
+  <p><tt><%= link_to 'Detroit AND Jews', '/djnews/search?utf8=✓&publication=djnews&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q=Detroit+AND+Jews', class: 'link_underline' %> </tt></p>
+
+  <p><tt><%= link_to 'Michigan AND Jews', '/djnews/search?utf8=✓&publication=djnews&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q=Michigan+AND+Jews', class: 'link_underline' %> </tt></p>
+
+  <p><tt><%= link_to '"University of Michigan"', '/djnews/search?utf8=✓&publication=djnews&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q="University+of+Michigan"', class: 'link_underline' %> </tt></p>
+
+  <p><tt><%= link_to 'University of Michigan AND Hillel', '/djnews/search?utf8=✓&publication=djnews&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q=University+of+Michigan+AND+hillel', class: 'link_underline' %> </tt></p>
+
+  <p><tt><%= link_to 'Detroit AND Hillel', '/djnews/search?utf8=✓&publication=djnews&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q=Detroit+AND+Hillel', class: 'link_underline' %> </tt></p>
+
+  <p><tt><%= link_to 'Detroit AND Synagogues', '/djnews/search?utf8=✓&publication=djnews&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q=Detroit+AND+synagogues', class: 'link_underline' %> </tt></p>
+
+  <p><tt><%= link_to 'Jewish Community Center', '/djnews/search?utf8=✓&publication=djnews&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q="Jewish Community Center"', class: 'link_underline' %> </tt></p>
+
+  <p><tt><%= link_to 'Bill Berman', '/djnews/search?utf8=✓&publication=djnews&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q=Bill+Berman', class: 'link_underline' %> </tt></p>
+
+  <p><tt><%= link_to 'Max Fisher', '/djnews/search?utf8=✓&publication=djnews&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q=Max+Fisher', class: 'link_underline' %> </tt></p>
+
+  <p><tt><%= link_to 'Albert Kahn', '/djnews/search?utf8=✓&publication=djnews&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q=Albert+Kahn', class: 'link_underline' %> </tt></p>
+
+  <p><tt><%= link_to 'Al Taubman', '/djnews/search?utf8=✓&publication=djnews&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q=Al+Taubman', class: 'link_underline' %> </tt></p>
+</div>
+<script>
+  $(function() {
+    $('#about a').on('click', function(e) {
+      e.preventDefault();
+      if ($('#about-content').html() == "") {
+        $('#about-content').load($(this).attr("href"), function() {
+          $('#about-content').show();
+        });
+      } else {
+        $('#about-content').toggle();
+      }
+    });
+  });
+</script>

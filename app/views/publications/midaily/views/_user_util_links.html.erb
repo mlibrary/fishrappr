@@ -1,0 +1,52 @@
+<div class="navbar-right">
+  <ul class="nav navbar-nav">
+    <%#= render_nav_actions do |config, action|%>
+      <!-- <li><%#= action %></li> -->
+    <%# end %>
+    <li><%= link_to "Search", { :publication => "midaily", :controller => "catalog", :action => "index" } %></li>
+
+    <li><%= link_to "Browse", { :publication => "midaily", :controller => "catalog", :action => "browse" } %></li>
+   <li><a href="/<%= "#{@publication['slug']}" %>/donors">About</a></li>
+    <li><a href="/<%= "#{@publication['slug']}" %>/how_to_search">Help</a></li>
+    <li><%= link_to "Contact Us", { :controller => "contacts", :action => "new" } %></li>
+  
+
+    <% if has_user_authentication_provider? %>
+      <% if current_user %>
+        <li>
+          <% link_text = t('blacklight.header_links.logout') + " (#{current_user})" %>
+          <%= link_to link_text, destroy_user_session_path %>
+        </li>
+      <% else %>
+        <li>
+          <%= link_to t('blacklight.header_links.login'), {:controller => "sessions", :action => "login_info"} %>
+        </li>
+      <% end %>
+    <% end %>
+
+  </ul>
+
+<!-- Reinstated login/logout/registration links 13June2017 GML -->
+<!--   <%# if false && has_user_authentication_provider? %>  -->
+<!--     <ul class="nav navbar-nav">
+ -->      <%# if current_user %>
+<!--       <li>
+ -->        <%#= link_to t('blacklight.header_links.logout'), destroy_user_session_path %>
+<!--         <span><%= current_user %></span>
+ -->      <!-- </li> -->
+      <%# if false %>
+      <%# unless current_user.to_s.blank? -%>
+      <!-- <li> -->
+        <%#= link_to current_user, edit_user_registration_path %>
+      <!-- </li> -->
+      <%# end %>
+      <%# end %>
+      <%# else %>
+      <!-- <li> -->
+        <%#= link_to t('blacklight.header_links.login'), {:controller => "sessions", :action => "login_info"} %>
+      <!-- </li> -->
+      <%# end %>
+      <!-- </ul> -->
+  <%# end %>
+  
+</div>

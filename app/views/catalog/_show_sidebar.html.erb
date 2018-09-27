@@ -1,8 +1,8 @@
     <div class="page-options" id="page-options">
       <h2 class="sr-only">Page Options</h2>
 
-      <% if @option == 'tabbish' %>
-      <ul class="nav nav-pills hidden-lg hidden-md hidden-sm" role="tablist" style="margin-bottom: -40px">
+      <% if true or @option == 'tabbish' %>
+      <ul class="nav nav-pills hidden-lg hidden-md hidden-sm" role="tablist" style="margin-bottom: 20px">
         <li role="presentation"><a href="#page-image" aria-controls="page-image" role="tab"><%= use_icon('file_image') %> Image</a></li>
         <li role="presentation"><a href="#page-text" aria-controls="page-text" role="tab"><%= use_icon('file_text') %> Text</a></li>
         <li role="presentation" class="active"><a href="#page-options" aria-controls="page-options" role="tab"><i class="glyphicon glyphicon-cog"></i> Page Options</a></li>
@@ -35,21 +35,7 @@
             <a class="btn btn-default btn-action" data-track="true" href="<%= download_issue_text_solr_document_path @document %>"><%= use_icon('file_zip') %> Download Text <span class="extension">ZIP</span></a>
           </div>
         </div>
-          <div class="panel-login-options">
-            <% unless user_signed_in? %>
-              <p>
-                  If you are affiliated with the University of Michigan, you have <a href="<%= url_for controller: 'sessions', action: 'login_info' %>">access 
-                  to higher quality downloads</a>.
-              </p>
-            <% else %>
-              <p>
-                You are logged in and accessing our higher quality downloads.
-              </p>
-              <p>
-                <%= link_to t('blacklight.header_links.logout'), destroy_user_session_path %>
-              </p>
-            <% end %>
-        </div>
+        <%= render 'panel_login_options' %>
       </div>
 
       <div class="panel panel-actions-share">
@@ -76,23 +62,6 @@
         </div>
       </div>
 
-      <div class="panel panel-actions-rights">
-        <div class="panel-heading">
-          <h3>Rights / Permissions</h3>
-        </div>
-        <div class="panel-body">
-          <p>This collection, digitized in collaboration with the Michigan Daily and the Board for Student Publications, contains materials that are protected by copyright law. Access to these materials is provided for non-profit educational and research purposes. If you use an item from this collection, it is your responsibility to consider the work's copyright status and obtain any required permission.
-            <button class="btn btn-link btn-sm" id="action-rights-read-more">(More details...)</button>
-          </p>
-          <p class="see-more" role="alert">To obtain permission to use the Michigan Daily's copyrighted material, please contact <a target="_blank" href="https://www.michigandaily.com/archive-print">the Michigan Daily (https://www.michigandaily.com/archive-print)</a>.
-          </p>
-          <p class="see-more" role="alert">
-            If you have non-permissions questions about the collection, please use the <a href="<%= contacts_path type: 'content' %>">contact form</a>. If you have concerns about the inclusion of an item in this collection, please contact <a href="mailto:LibraryIT-info@umich.edu">LibraryIT-info@umich.edu</a>.
-          </p>
-          <p class="see-more">
-            <button class="btn btn-link btn-sm" id="action-rights-read-less">(Fewer details)</button>
-          </p>
-        </div>
-      </div>
+      <%= render 'panel_action_rights' %>
 
     </div>
