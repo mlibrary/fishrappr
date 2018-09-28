@@ -147,7 +147,7 @@ GEM
     faraday (0.15.1)
       multipart-post (>= 1.2, < 3)
     ffaker (2.9.0)
-    ffi (1.9.23)
+    ffi (1.9.25)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     google-analytics-rails (1.1.0)
@@ -302,7 +302,7 @@ GEM
       rubocop (>= 0.49.0)
     ruby-progressbar (1.9.0)
     ruby_dep (1.5.0)
-    rubyzip (1.2.1)
+    rubyzip (1.2.2)
     sass (3.5.6)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -405,6 +405,7 @@ DEPENDENCIES
   devise-guests (~> 0.6.0)
   fakemail
   ffaker
+  ffi (~> 1.9.24)
   google-analytics-rails (= 1.1.0)
   holder_rails
   jbuilder (~> 2.5)
@@ -418,12 +419,12 @@ DEPENDENCIES
   pry-rails
   puma (~> 3.11)
   rails (= 5.2.0)
+  rails-html-sanitizer (~> 1.0, >= 1.0.4)
   rsolr (~> 2.2.1)
   rspec-rails (~> 3.5)
-  rails-html-sanitizer (~> 1.0, >= 1.0.4)
   rubocop (~> 0.49.0)
   rubocop-rspec
-  rubyzip (~> 1.2.1)
+  rubyzip (~> 1.2.2)
   sass-rails (~> 5.0.5)
   sdoc (~> 0.4.0)
   selenium-webdriver
