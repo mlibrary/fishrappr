@@ -292,7 +292,8 @@ body.blacklight-catalog-index {
       font-size: 16px;
       text-align: center;
       color: #6e6e6e;
-      margin-top: 16px
+      margin-top: 16px;
+      max-width: 55rem;
     }
 
     .page-heading, .section-heading, p {
@@ -981,6 +982,40 @@ body.blacklight-catalog-home {
       max-width: 85rem;
     }
 
+      p.description1 {
+      margin-top: 2rem;
+    }
+
+    p.description3 {
+      color: #ffffff;
+      display: block;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 12px;
+      line-height: 1;
+      margin-left:auto;
+      margin-right:auto;
+      text-align: center;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.36);
+      max-width: 85rem;
+    }
+
+    p.description4 {
+      color: #ffffff;
+      display: block;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px;
+      font-style: italic;
+      line-height: 1;
+      margin-left: 5%;
+      margin-right: 5%;
+      margin-top: -15px;
+      background-color: #333;
+      padding: 20px;
+      padding-top: 0;
+      padding-left: 10%;
+      padding-right: 10%;
+    }
+
     .description1 {
       margin-top: 0;
     }
@@ -1585,7 +1620,6 @@ body.blacklight-contacts-create {
     .help-sbar {
       margin-top: 0 !important;
     }
-
 
     > .container {
       margin-right: auto;

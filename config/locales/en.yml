@@ -139,12 +139,13 @@ en:
           page_title: Digital Archives
           subtitle1: Detroit Jewish News 1942 - Present
           subtitle2: Detroit Jewish Chronicle 1916  - 1951
-          description1: The Detroit Jewish News has been serving Metro Detroit’s Jewish community since 1942
+          description1:
           description2:
+          description3: To search for exact phrases like proper nouns, use quotation marks (e.g., "Max Fisher" or "University of Michigan")
           link: About The Detroit Jewish News
         donors:
           title: Thank You to The Detroit Jewish News Foundation!
-          description: The archive is made possible by the University of Michigan Library, the Bentley Historical Library, and The Detroit Jewish News, with generous support from The Detroit Jewish News Foundation. The Library would also like to recognize the William Davidson Foundation's William Davidson Digital Archive of Jewish Detroit History for its ongoing support of the donor.
+          description: The archive is made possible by the University of Michigan Library, the Bentley Historical Library, and The Detroit Jewish News, with generous support from The Detroit Jewish News Foundation. The Library would also like to recognize the William Davidson Foundation's William Davidson Digital Archive of Jewish Detroit History Fund for its ongoing support of the donor.
           link: Read More About The Detroit Jewish News Foundation
         partnerships:
           description: In Partnership With
@@ -159,3 +160,4 @@ en:
   rights_statement: 
     midaily: "This collection, digitized in collaboration with the Michigan Daily and the Board for Student Publications, contains materials that are protected by copyright law. Access to these materials is provided for non-profit educational and research purposes. If you use an item from this collection, it is your responsibility to consider the work's copyright status and obtain any required permission. To obtain permission to use the Michigan Daily's copyrighted material, please contact the Michigan Daily (https://www.michigandaily.com/archive-print).\n\nIf you have non-permissions questions about the collection, please use the contact form. If you have concerns about the inclusion of an item in this collection, please contact LibraryIT-info@umich.edu."
     djnews: "The University of Michigan Library provides access to these materials for educational and research purposes. These materials may be under copyright. If you decide to use any of these materials, you are responsible for making your own legal assessment and securing any necessary permission. If you have questions about the collection, please contact the Bentley Historical Library at bentley.ref@umich.edu.\n\nIf you have non-permissions questions about the collection, please use the contact form. If you have concerns about the inclusion of an item in this collection, please contact LibraryIT-info@umich.edu."
+
