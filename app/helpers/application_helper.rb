@@ -342,6 +342,13 @@ module ApplicationHelper
     text.gsub!('href="#', "href=\"#{"/#{params['publication']}/using_page_viewer"}#").html_safe
   end
 
+  def analytics_profiles
+    unless Settings.GOOGLE_ANALYTICS_PROFILES[@publication.slug].nil?
+      return Settings.GOOGLE_ANALYTICS_PROFILES[@publication.slug]
+    end
+    return []
+  end
+
   require 'ffaker'
   def fake_image(document, size=nil)
     namespace = document.fetch('volume_identifier').split('.').first
