@@ -3,10 +3,11 @@
       <h1><%= image_tag("DJNews-Archive-H1.png", :width => 800, :alt => "Detroit Jewish News Masthead", :class => 'masthead-djnews') %></h1>
       <span class="subtitle"><%= t('views.djnews-static.home.head.page_title') %></span>
       <p class="description1"><%= t('views.djnews-static.home.head.subtitle1') %></p>
-      <p class="description1"><%= t('views.djnews-static.home.head.subtitle2') %></p>
-      <p class="description1"><%= t('views.djnews-static.home.head.description1') %></p>
+      <p class="description2"><%= t('views.djnews-static.home.head.subtitle2') %></p>
+      <p class="description3">&nbsp;</p>
       <a href="/<%= "#{@publication['slug']}" %>/about"><%= t('views.djnews-static.home.head.link') %></a>
       <% if true %><%= render partial: "search_form", locals: { container_class: 'container' } %><% end %>
+      <p class="description4"><%= t('views.djnews-static.home.head.description3') %></p>
     </div>
 </div>
 <div class="home container-fluid">

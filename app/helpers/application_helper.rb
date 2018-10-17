@@ -339,7 +339,14 @@ module ApplicationHelper
 
   def text_disclaimer
     text = t('blacklight.show.disclaimer')
-    text.gsub!('href="#', "href=\"#{"app/views/publications/#{params['publication']}/views/static/using_page_viewer"}#").html_safe
+    text.gsub!('href="#', "href=\"#{"/#{params['publication']}/using_page_viewer"}#").html_safe
+  end
+
+  def analytics_profiles
+    unless Settings.GOOGLE_ANALYTICS_PROFILES[@publication.slug].nil?
+      return Settings.GOOGLE_ANALYTICS_PROFILES[@publication.slug]
+    end
+    return []
   end
 
   require 'ffaker'
