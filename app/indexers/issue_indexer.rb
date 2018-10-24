@@ -5,13 +5,26 @@ class IssueIndexer
 
   def self.run(volume_identifier)
     t00 = t0 = Time.now
+
+    ## delete the old entry
+    # Blacklight.default_index.connection.delete_by_query "volume_identifier:#{volume_identifier}"
+
+    conn = Blacklight.default_index.connection
+    results = conn.get 'select', params: { fq: "volume_identifier:#{volume_identifier}", fl: 'id,volume_identifier', rows: 10000 }
+    results['response']['docs'].each do |page_doc|
+      conn.delete_by_id page_doc["id"]
+      STDERR.puts "-- DELETED #{page_doc['id']}"
+    end
+    conn.commit
+
     query = Issue.where(volume_identifier: volume_identifier)
+
     total_issues = query.count
     query.each_with_index do |issue, j|
       indexer = self.new(issue)
       indexer.index
       t1 = Time.now
-      STDERR.puts "-- committed: #{j} / #{total_issues} : #{t1 - t0}"
+      STDERR.puts "-- committed: #{j} / #{total_issues} : #{t1 - t0} : #{issue.issue_identifier}"
       t0 = t1
     end
     Blacklight.default_index.connection.commit
