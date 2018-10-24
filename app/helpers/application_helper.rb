@@ -93,7 +93,7 @@ module ApplicationHelper
   end
 
   def issue_subtitle(document)
-    retval = document.fetch(:issue_vol_iss_display, []).first.gsub(/, ed\. \d+/, '')
+    retval = document.fetch(:issue_vol_iss_display, ['']).first.gsub(/, ed\. \d+/, '')
     retval = '' if retval == "(vol. 0, iss. 0)"
     retval
   end
