@@ -18,6 +18,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'mini_racer', platforms: :ruby
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+gem "loofah", ">= 2.2.3"
+
 gem 'nestive-rails'   # was gem 'nestive', '~> 0.6'
 
 # Use jquery as the JavaScript library
