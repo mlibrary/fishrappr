@@ -8,6 +8,7 @@ class Contact < MailForm::Base
   attribute :type
   attribute :message, validate: true
   attribute :referer, validate: false
+  attribute :site_name, validate: false
   # - can't use this without ActiveRecord::Base validates_inclusion_of :issue_type, in: ISSUE_TYPES
 
   # Declare the e-mail headers. It accepts anything the mail method
@@ -16,7 +17,7 @@ class Contact < MailForm::Base
 
   def normal_header
     nh = { 
-        subject: "BHL Daily Contact Form from #{username} about #{type}",
+        subject: "BHL #{site_name} Contact Form from #{username} about #{type}",
         to: "#{Settings.contact_address}",
         from: "#{email}"
       }
@@ -25,7 +26,7 @@ class Contact < MailForm::Base
 
   def permissions_header
     ph = { 
-        subject: "DHL Daily Contact Form from #{username} about Permissions",
+        subject: "BHL #{site_name} Contact Form from #{username} about Permissions",
         to: "#{Settings.permissions_address}",
         from: "#{email}"
       }

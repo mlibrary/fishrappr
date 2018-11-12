@@ -1,4 +1,6 @@
 class ContactsController < ApplicationController  
+  before_action :setup_publication
+  before_action :prepend_publication_path
 
   layout "static"
 
@@ -6,6 +8,7 @@ class ContactsController < ApplicationController
     @contact = Contact.new
     @contact.referer = request.referer if request.referer && request.referer.start_with?(request.base_url)
     @contact.type = t('views.contacts.types')[params[:type].to_sym] if params[:type]
+    @contact.site_name = t("application_name.#{@publication.slug}")
   end
 
   def create
@@ -24,12 +27,29 @@ class ContactsController < ApplicationController
       flash.now[:error] << @contact.errors.full_messages.map(&:to_s).join(",")
       render :new
     end
-  rescue
+  rescue StandardError => e  
     flash.now[:error] = 'Sorry, this message was not delivered.'
+    STDERR.puts e
     render :new
   end
 
   def after_deliver
     return # unless Sufia::Engine.config.enable_contact_form_delivery
+  end
+
+  def setup_publication
+    if session[:publication]
+      @publication = Publication.where(slug: session[:publication]).first
+    else
+      @publication = Publication.where(slug: 'midaily').first
+    end
+    params[:publication] = @publication.slug
+    @publication_name = @publication.title
+  end
+
+  def prepend_publication_path
+    if @publication
+      prepend_view_path "app/views/publications/#{@publication.slug}/views/"
+    end
   end
 end
