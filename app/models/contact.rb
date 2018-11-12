@@ -16,7 +16,7 @@ class Contact < MailForm::Base
 
   def normal_header
     nh = { 
-        subject: "BHL Daily Contact Form from #{username} about #{type}",
+        subject: "BHL #{@publication.title} Contact Form from #{username} about #{type}",
         to: "#{Settings.contact_address}",
         from: "#{email}"
       }
@@ -25,7 +25,7 @@ class Contact < MailForm::Base
 
   def permissions_header
     ph = { 
-        subject: "DHL Daily Contact Form from #{username} about Permissions",
+        subject: "BHL #{@publication.title} Contact Form from #{username} about Permissions",
         to: "#{Settings.permissions_address}",
         from: "#{email}"
       }

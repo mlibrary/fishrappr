@@ -1,6 +1,6 @@
-<%= tag(:meta, property: 'og:site_name', content: t('blacklight.application_name')) %>
+<%= tag(:meta, property: 'og:site_name', content: application_name) %>
 <%= tag(:meta, property: 'og:title', content: "#{issue_title(@document, true, false)} - Image #{current_image_sequence(@document)}") %>
-<%= tag(:meta, property: 'og:description', content: "Image #{current_image_sequence(@document)} of #{@issue_data[:pages].size} from the #{issue_title(@document, true, false)} publication of the Michigan Daily.") %>
+<%= tag(:meta, property: 'og:description', content: "Image #{current_image_sequence(@document)} of #{@issue_data[:pages].size} from the #{issue_title(@document, true, false)} publication of #{publication_title(@document, @publication)}.") %>
 <%= tag(:meta, property: 'og:image', content: document_image_src(@document, size: '400,')) %>
 <%= tag(:meta, property: 'og:url', content: solr_document_url(@document)) %>
 <%= tag(:meta, name: 'twitter:card', content: 'summary_large_image') %>
