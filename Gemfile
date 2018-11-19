@@ -19,6 +19,7 @@ gem 'mini_racer', platforms: :ruby
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "loofah", ">= 2.2.3"
+gem "rack", ">= 2.0.6"
 
 gem 'nestive-rails'   # was gem 'nestive', '~> 0.6'
 

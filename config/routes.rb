@@ -16,10 +16,12 @@ Rails.application.routes.draw do
   
   # get '/browse' => 'catalog#browse', as: :browse
   # get '/search' => 'catalog#search', as: :
+
   get '/:publication/browse' => 'catalog#browse', as: :browse
   get '/:publication/search' => 'catalog#index', as: :search
   
-
+  get '/browse', to: redirect { |params, request| "/midaily/browse?#{request.params.to_query}" }
+  get '/search', to: redirect { |params, request| "/midaily/search?#{request.params.to_query}" }
 
   devise_for :users, path: '', path_names: {sign_in: 'login', sign_out: 'logout'}, controllers: {sessions: 'sessions'}
   get '/logout_now', to: 'sessions#logout_now'
@@ -71,6 +73,7 @@ Rails.application.routes.draw do
   get '/static/about_project', to: redirect('/midaily/project')
   get '/static/daily_about', to: redirect('/midaily/about')
   get '/static/rights', to: redirect('/midaily/rights')
+  get '/static/about_daily', to: redirect('/midaily/project')
 
   get '/static/how_to_search', to: redirect('/midaily/how_to_search')
   get '/static/using_page_viewer', to: redirect('/midaily/using_page_viewer')

@@ -231,7 +231,7 @@ GEM
       pry (>= 0.10.4)
     public_suffix (3.0.2)
     puma (3.11.4)
-    rack (2.0.5)
+    rack (2.0.6)
     rack-accept (0.4.5)
       rack (>= 0.4)
     rack-test (1.0.0)
@@ -419,6 +419,7 @@ DEPENDENCIES
   pry-byebug
   pry-rails
   puma (~> 3.11)
+  rack (>= 2.0.6)
   rails (= 5.2.0)
   rails-html-sanitizer (~> 1.0, >= 1.0.4)
   rsolr (~> 2.2.1)
