@@ -51,6 +51,17 @@
          <dd class="dd_indent">Requires one term be present and the other not be<p><b>Example: </b>rotc NOT military -- will return pages that include the term rotc but not the term military. </p></dd>
       </dl>
 
+         <h2 class="subtitle">Proximity Search</h2>
+
+    <p> A proximity search looks for terms that are within a specific distance from one another.</p>
+
+    <dl>
+        <dt>~</dt>
+        <dd class="dd_indent">The tilde in combination with a number matches <strong>two words
+                within that number of one another</strong>.<p><b>Example: </b>The search term
+                "woodson football" ~10 will search for "woodson" and "football" within 10 words of
+                one another.</p></dd>
+    </dl>
       <p>These operators may be used in conjunction with each other. They can also be used with phrases in quotes (example: “small buttons” NOT “large buttons”).</p>
 
       <h2 class="subtitle">Strange Search Results</h2>
