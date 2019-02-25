@@ -1,10 +1,15 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.1'
+## ruby '2.5'
+
+### gem "bootstrap-sass", ">= 3.4.1"
+# gem "activestorage", ">= 5.2.1.1"
+# gem "activejob", ">= 5.2.1.1"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.2.0'
+# gem 'rails', '5.2.1'
+gem 'rails', '~> 5.2', '>= 5.2.2'
 gem 'rails-html-sanitizer', '~> 1.0', '>= 1.0.4'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.3.11'

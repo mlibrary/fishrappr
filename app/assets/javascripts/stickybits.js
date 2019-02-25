@@ -261,11 +261,11 @@
       it.stickyStart = isBottom ? stickyStart - it.offset : 0;
       it.stickyChange = it.stickyStart + stickyChangeOffset;
       it.stickyStop = isBottom ? stickyStart + parent.offsetHeight - (it.el.offsetHeight + it.offset) : stickyStart + parent.offsetHeight;
-      console.log("computeScrollOffsets", {
-        isCustom: isCustom,
-        stickyStart: stickyStart,
-        it: it
-      });
+      // console.log("computeScrollOffsets", {
+      //   isCustom: isCustom,
+      //   stickyStart: stickyStart,
+      //   it: it
+      // });
       return it;
     };
     /*
@@ -349,16 +349,16 @@
       */
 
       var cls = it.el.className;
-      console.log("AHOY", {
-        cls: cls,
-        scroll: scroll,
-        scrollExtra: scrollExtra,
-        start: start,
-        stop: stop,
-        notSticky: notSticky,
-        isSticky: isSticky,
-        isStuck: isStuck
-      });
+      // console.log("AHOY", {
+      //   cls: cls,
+      //   scroll: scroll,
+      //   scrollExtra: scrollExtra,
+      //   start: start,
+      //   stop: stop,
+      //   notSticky: notSticky,
+      //   isSticky: isSticky,
+      //   isStuck: isStuck
+      // });
 
       if (notSticky) {
         it.state = 'sticky';

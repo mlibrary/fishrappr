@@ -127,7 +127,6 @@
           withCredentials: true
         },
         success: function(data) {
-          console.log("AHOY", data);
           $map.data('loaded', true);
           page = data.sequences[0].canvases[0];
           var info_url = page.images[0].resource.service['@id'] + '/info.json';

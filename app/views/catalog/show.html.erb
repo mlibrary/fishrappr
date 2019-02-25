@@ -56,18 +56,17 @@ $().ready(function() {
   $("#action-rights-read-more").on('click', function(e) {
     e.preventDefault();
     var $div = $(this).parents("div");
-    $div.data('top', $page_options.css('top'));
     $div.find(".see-more").addClass("reading");
     $(this).hide();
+    var y = window.scrollY;
+    $("#action-rights-read-less").get(0).scrollIntoView();
+    window.scrollTo(window.scrollX, y);
   });
   $("#action-rights-read-less").on('click', function(e) {
     e.preventDefault();
     var $div = $(this).parents("div");
     $div.find(".see-more").removeClass("reading");
     $("#action-rights-read-more").show();
-    if ( ! $page_options.is(".is_stuck") ) { return ; }
-    if ( isNaN(top) ) { return ; }
-    $page_options.css('top', $page_options.data('top'));
   });
 
 });
