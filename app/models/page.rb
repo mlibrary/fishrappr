@@ -7,7 +7,7 @@ class Page < ApplicationRecord
 
   def remove_from_index
     conn = Blacklight.default_index.connection 
-    conn.delete_by_id(self.id)
+    conn.delete_by_id(self.page_identifier)
     conn.commit unless Rails.configuration.batch_commit
   end
 
