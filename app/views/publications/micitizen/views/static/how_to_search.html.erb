@@ -1,0 +1,96 @@
+<% @page_title = t('views.djnews-static.how-to-search.title') %>
+
+<div class="container-fluid">
+
+  <div class="row">
+
+      <div class="<%= main_content_classes(true) %> help-middle-col">
+          <h1 class="title"><%= t('views.djnews-static.how-to-search.header') %></h1>
+      </div>
+
+  </div>
+
+  <div class="row">
+
+    <%= fishrappr_render 'help_sidebar' %>
+
+    <div class="<%= main_content_classes %> help-middle-col">
+      <p>You can search The Detroit Jewish News by date and by keyword.</p>
+
+      <h2 class="subtitle">Search by Date</h2>
+      <p>Any Date is used by default. You have the option to include a date or date range when searching. For all date options, you can enter a year and get results for that year only, or a month and year combination to get results for that month and year.</p>
+      <dl class="help-list">
+        <p><span class="example">On this date - </span>Choose a specific date to search on</p>
+        <p><span class="example">After this date - </span>Choose a date and retrieve results after that date</p>
+        <p><span class="example">Before this date - </span>Choose a date and retrieve results before that date</p>
+        <p><span class="example">Date range - </span>Choose a date range</p>
+      </dl>
+
+      <h2 class="subtitle">Search by Keyword</h2>
+      
+      <p>Keyword searches work great on their own, but there are additional options to help expand or refine your search results.</p>
+
+      <h4 class="subtitle">Search with Quotes</h4>
+      
+      <p>Use quotes around a phrase to search for that exact phrase, for example, use "Max Fisher".</p>
+
+      <h4 class="subtitle">Wildcard Search</h4>
+      
+      <p>Use wildcards in your search to help retrieve a greater range of results. There are two options for wildcard searching:</p>
+      <dl>
+        <dt>*</dt>
+        <dd class="dd_indent">The asterisk matches <strong>zero or more </strong>non-whitespace characters.<p><b>Example: </b>The search term watch* may return pages containing the terms watch, watches, or watchtower.</p></dd>
+        <dt>?</dt>
+        <dd class="dd_indent">The question mark wildcard character matches <strong>one</strong> non-whitespace character.<p><b>Example: </b>The search term w?tch may return pages containing the terms witch or watch.</p></dd>
+      </dl>
+
+      <h4 class="subtitle">Boolean Search</h4>
+      <p>You have the option to use boolean operators in your search. Boolean operators must be capitalized to work correctly</p>
+      <dl>
+        <dt>AND</dt>
+        <dd class="dd_indent">Requires both terms be present.<p><b>Example: </b>rotc AND military - will return pages that include the terms rotc and military. If a page contains one but not the other, it will not appear in your results.</p></dd>
+        <dt>OR</dt>
+         <dd class="dd_indent">Requires one or both terms be present.<p><b>Example: </b>rotc OR military - will return pages that include the terms rotc or military. If a page contains one but not the other, it will still appear in your results.</p></dd>
+        <dt>NOT</dt>
+         <dd class="dd_indent">Requires one term be present and the other not be<p><b>Example: </b>rotc NOT military -- will return pages that include the term rotc but not the term military. </p></dd>
+      </dl>
+
+      <p>These operators may be used in conjunction with each other. They can also be used with phrases in quotes (example: “small buttons” NOT “large buttons”).</p>
+
+          <h2 class="subtitle">Too Many Search Results</h2>
+
+    <p>Sometimes a search will retrieve thousands of results, many that are not relevant. If you are
+        looking for an exact name or phrase, use quotation marks around it. That way, you can
+        distinguish between "George Cohan" and "George M. Cohan".</p>
+
+    <p>If you are not certain about how a name will be presented -- with or without a middle name,
+        or perhaps in conjunction with a spouse -- you may wish to use the proximity operator.</p>
+    <dl>
+        <dt>~</dt>
+        <dd class="dd_indent">The tilde in combination with a number matches <strong>two words
+                within that number of one another</strong>.<p><b>Example: </b>The search term
+                "George Cohan" ~5 may return pages containing George Cohan, George M. Cohan, George
+                Roger Cohan, and George &amp; Pearl Cohan.</p></dd>
+    </dl>
+      <h2 class="subtitle">Strange Search Results</h2>
+
+      <p>Sometimes you may notice a page containing terms you know you searched for but were not highlighted, or even false matches.</p>
+
+      <p>Search looks at text created using Optical Character Recognition (OCR). OCR software "reads" the page images and makes a best guess at identifying the letters and words on a page. Even the best quality OCR usually contains an error or two per page. While this does not usually cause significant problems with searching, newspapers can sometimes have stray marks or blurred characters that result in suboptimal OCR and strange search results. This is especially common near headers, in classified ads where text is small and close together, and in advertisements.</p>
+
+      <div class="btn btn-primary action-report-problem" style="color: #fff"><%= use_icon('alert') %> Report Problem</div>
+      
+      <p>If you notice OCR errors that are negatively affecting your search experience, you can notify us by using the Report Problem link on the page viewer.</p>
+
+      <h2 class="subtitle">I can't find an issue for this date…</h2>
+
+      <p>Unfortunately, the issues for August 25, 1916 to March 2, 1917 and July 30, 2015 are not available in the DJN print archive or on microfilm and so could not be digitized.</p>
+
+      <h2 class="subtitle">This date doesn’t seem to match the paper…</h2>
+
+      <p>The issue date <strong>should</strong> match the date stated on the front page. If you see examples where this is not the case, please let us know!</p>
+
+      <p>You may come across a newspaper whose date metadata doesn’t appear to match the date on one or more pages in the newspaper. There may be other examples of errors such as this that we will not be able to correct.</p>
+    </div> 
+  </div>
+</div>

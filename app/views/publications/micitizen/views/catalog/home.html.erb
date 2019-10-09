@@ -1,29 +1,25 @@
 <div class="home container-fluid">
-    <div class="head head-djnews col-md-12">
-      <h1><%= image_tag("The-Detroit-Jewish-News-Digital-Archive-Graphic.png", :height => 300, :alt => "", :class => 'masthead-djnews') %><span class="sr-only">The Detroit Jewish News </span>
-        <span class="subtitle"><%= t('views.djnews-static.home.head.page_title') %></span>
+    <div class="head head-micitizen col-md-12">
+      <!-- <h1>The Michigan Citizen</h1> -->
+      <h1><%= image_tag("The-Michigan-Citizen-Digital-Archive-Header.png", :width => 800, :alt => "", :class => 'masthead-micitizen') %><span class="sr-only">The Michigan Citien </span>
+        <span class="subtitle"><%= t('views.micitizen-static.home.head.page_title') %></span>
       </h1>
-      <p class="description1"><%= t('views.djnews-static.home.head.subtitle1') %></p>
-      <p class="description2"><%= t('views.djnews-static.home.head.subtitle2') %></p>
+      <p class="description1"><%= t('views.micitizen-static.home.head.subtitle1') %></p>
+      <p class="description2"></p>
       <p class="description3">&nbsp;</p>
-      <a href="/<%= "#{@publication['slug']}" %>/about"><%= t('views.djnews-static.home.head.link') %></a>
+      <a href="/<%= "#{@publication['slug']}" %>/about"><%= t('views.micitizen-static.home.head.link') %></a>
       <% if true %><%= render partial: "search_form", locals: { container_class: 'container' } %><% end %>
-      <p class="description4"><%= t('views.djnews-static.home.head.description3') %></p>
+      <!-- <p class="description4"><%= t('views.micitizen-static.home.head.description3') %></p> -->
     </div>
-</div>
-<div class="home container-fluid">
-    <div class="donors donors-djnews col-md-12">
-      <h2 class="donor-title"><%= t('views.djnews-static.home.donors.title') %></h2>
-      <p class="description"><%= t('views.djnews-static.home.donors.description') %></p>
-      <a href="/<%= "#{@publication['slug']}" %>/donors"><%= t('views.djnews-static.home.donors.link') %></a>
-  </div>
 </div>
 <div class="home container-fluid">
   <div class="partnerships col-md-12">
     <p>In Partnership With</p>
     <ol class="partnerships-list">
+      <% if false %>
       <li><%= link_to(image_tag("DJNews-Archive-Logo.png", :alt => "The Detroit Jewish News"), 'https://thejewishnews.com/', class: 'djnews-logo') %></li>
       <li><%= link_to(image_tag("DJNfoundation-logo.png", :alt => "Detroit Jewish News Foundation"), 'https://djnfoundation.org', class: 'djnews-foundation-logo') %></li>
+      <% end %>
       <li><%= link_to(image_tag("u-m_library_logo.png", :alt => "University of Michigan Library"), 'https://lib.umich.edu', class: 'mlibrary-logo') %></li>
       <li><%= link_to(image_tag("bentley_historical_library_logo.png", :alt => "Bentley Historical Library"), 'http://bentley.umich.edu/', class: 'bentley-logo') %></li>
     </ol>
@@ -31,7 +27,7 @@
 </div>
 <div class="home container-fluid">
     <div class="featured col-md-12">
-      <h2 class="featured-title"><%= t('views.djnews-static.home.today.title') %></h2>
+      <h2 class="featured-title"><%= t('views.micitizen-static.home.today.title') %></h2>
       <p class="description"><%= @featured_list.first["date_issued_display"].first.split(",").first if @featured_list.first %></p>
       <div id="documents" class="row grid">
         <% @featured_list.each do |document| %>
@@ -47,7 +43,7 @@
           </a>
         <% end %>
       </div>
-      <%= link_to t('views.djnews-static.home.today.link'), browse_path(date_issued_mm_ti: @now.strftime("%-m"), date_issued_dd_ti: @now.strftime("%-d")), class: 'btn btn-default btn-squared' %>
+      <%= link_to t('views.micitizen-static.home.today.link'), browse_path(date_issued_mm_ti: @now.strftime("%-m"), date_issued_dd_ti: @now.strftime("%-d")), class: 'btn btn-default btn-squared' %>
     </div>
 </div>
 

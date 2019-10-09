@@ -1,0 +1,69 @@
+<% @page_title = t('views.djnews-static.using-page-viewer.title') %>
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="<%= main_content_classes(true) %> help-middle-col col-md-push-3">
+            <h1 class="title"><%= t('views.djnews-static.using-page-viewer.header') %></h1>
+        </div>  
+
+    </div>
+
+    <div class="row">
+
+        <%= render partial: 'help_sidebar' %>
+
+        <div class="<%= main_content_classes %> help-middle-col">
+            
+            <p>The page viewer and plain text page provides powerful tools for researchers to view, read and download pages and issues from the Detroit Jewish News Digital Archive. The page viewer displays an <b>image of a page within an issue</b> of the Detroit Jewish News.</p>
+
+            <h2 class="subtitle">Page viewer tools</h2>
+            
+            <p>To help you interact with the images in the Detroit Jewish News Digital Archive we created a number of tools for you to use.</p>
+
+            <p><span class="help-example">Zoom In / Zoom Out - </span>Increase or decrease the size of the page image within the viewer.</p>
+            <p><span class="help-example">Reset Viewer - </span>Return image to default size.</p>
+            <p><span class="help-example">Rotate the Image - </span>Rotate the image 90 degrees. This is helpful when you encounter a page that is upside down or on its side due to a digitization error.</p>
+            <p><span class="help-example">Select - </span>Select to click-and-drag a box around a section of the image. You can then download only the selected section, zoom in further on that section or cancel and return to the full page viewer.</p>
+            <p><span class="help-example">Search Keyword Highlights - </span>Toggle the check box to see your search term(s) highlighted within the image. Hit highlighting also appears within the plain text below the image.</p>
+            <p><span class="help-example">Report a Problem - </span>Indicates the page you’re on along with your comment -- this helps us troubleshoot!
+
+            <h2 class="subtitle" id="tabloid-pages">Tabloid Pages</h2>
+            
+            <p>You may come across an image of a page that isn’t in the typical vertical format of other newspaper pages: these belong to tabloids. Tabloids are small scale magazine style inserts that periodically appear in weekend or other special issues. Due to their unique format, some images have been digitized but not rotated correctly and appear upside-down or on their side. In turn, the plain text generated from these images may not be correct.</p>
+
+            <div class="btn btn-primary action-report-problem" style="color: #fff"><%= use_icon('alert') %> Report Problem</div>
+
+            <p>If you encounter tabloid or other pages that you suspect to have errors please contact us with the <span class="help-example">Report Problem</span> link found at the bottom right of the page viewer window.</p>
+               
+            <h2 class="subtitle" id="ocr-and-plain-text">OCR and Plain Text</h2>
+            
+            <p>The plain text we provide is created using Optical Character Recognition (OCR). OCR software "reads" the page images and makes a <span class="help-example">best guess</span> at identifying the letters and words on a page. This is an automated process and subject to error -- particularly if the original printing or the scan is of poor quality, the fonts are difficult to read, or the text is lightly printed.</p>
+
+             <p>Even the best quality OCR usually contains an error or two per page. While this does not usually cause significant problems with searching, it does mean the plain text is not a fully faithful reproduction of the printed (or scanned) original.</p>
+
+             <p>We want to make plain text as accessible and usable as possible, please contact us with questions or concerns you have and we’ll do all we can to help with your research.</p>
+
+            <h2 class="subtitle">Download Options</h2>
+
+            <h3 class="subtitle">Pages</h3>
+
+            <% if false %>
+            <p><span class="help-example">Download Current View - </span>Download a high-resolution image of the current newspaper selection that appears in the page viewer.</p>
+            <% end %>
+
+            <p><span class="help-example">Download PDF - </span>Includes searchable text</p>
+            
+            <p><span class="help-example">Download Image - </span>JPG file. Does not include searchable text</p>
+            
+            <p><span class="help-example">Download Text File - </span>TXT File</p>
+            
+            <h3 class="subtitle">Issues</h3>
+            
+            <p><span class="help-example">Download PDF - </span>Includes a cover page with pertinent issue metadata and is text-searchable</p>
+            
+            <p><span class="help-example">Download Text - </span>Zip archive of TXT files for the issue that includes a README with pertinent issue metadata</p>
+        </div> 
+    </div>
+</div>
