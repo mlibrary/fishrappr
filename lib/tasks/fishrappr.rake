@@ -37,8 +37,11 @@ namespace :fishrappr do
   desc "Reindex issue"
   # task :reindex_issues, [:volume_identifier] => :environment do |t, args|
   task :reindex_issue => :environment do |t, args|
-    if args.extras.first[0] == '/'
-      identifiers = File.readlines(args.extras.first).map{|line| line.chomp}
+    if File.exists?(args.extras.first)
+      # identifiers = File.readlines(args.extras.first).map{|line| line.chomp}
+      identifiers = File.readlines(args.extras.first).each do |line|
+        line.chomp!
+      end
     else
       identifiers = args.extras
     end
@@ -65,6 +68,16 @@ namespace :fishrappr do
     STDERR.puts "-- #{publication.slug}"
   end
 
+  desc "Update publication range"
+  task :update_publication_range, [ :publication_slug ] => :environment do |t, args|
+    publication = Publication.find_by_slug(args[:publication_slug])
+    issue = Issue.where(publication_id: publication.id).order(publication_year: :desc).take(1).first
+    publication.last_print_year = issue.date_issued.split('-')[0].to_i
+    issue = Issue.where(publication_id: publication.id).order(publication_year: :asc).take(1).first
+    publication.first_print_year = issue.date_issued.split('-')[0].to_i
+    publication.save
+  end
+
   desc "Import volumes"
   task :import_volumes, [ :publication_slug, :collid ] => :environment do |t, args|
     ingest = DlxsIngest.new(args[:publication_slug], args[:collid])
@@ -85,16 +98,21 @@ namespace :fishrappr do
     ingest = DlxsIngest.new(args[:publication_slug], args[:collid])
     ingest.clobber = true
     STDERR.puts args.extras.first
-    if args.extras.first[0] == '/'
-      issue_identifiers = File.readlines(args.extras.first).map{|line| line.chomp}
+    if File.exists?(args.extras.first)
+      issue_identifiers = File.readlines(args.extras.first).map do |line|
+        line.chomp!
+        "#{Settings.DLXS_SERVICE_URL}/#{args[:collid]}:#{line}:1"
+      end
     else
-      issue_identifiers = args.extras
+      issue_identifiers = args.extras.map do |line|
+        "#{Settings.DLXS_SERVICE_URL}/#{args[:collid]}:#{line}:1"
+      end
     end
     t = issue_identifiers.length
     issue_identifiers.each_with_index do |issue_identifier, i|
-      if ENV['IIIF_MANIFEST']
-        issue_identifier = "#{ENV['IIIF_MANIFEST']}/#{issue_identifier}"
-      end
+      # if ENV['IIIF_MANIFEST']
+      #   issue_identifier = "#{ENV['IIIF_MANIFEST']}/#{issue_identifier}"
+      # end
       ingest.fetch_issue issue_identifier
       STDERR.puts "-- #{i} / #{t} : #{issue_identifier}"
     end
