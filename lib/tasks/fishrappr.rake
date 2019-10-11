@@ -101,11 +101,11 @@ namespace :fishrappr do
     if File.exists?(args.extras.first)
       issue_identifiers = File.readlines(args.extras.first).map do |line|
         line.chomp!
-        "#{Settings.DLXS_SERVICE_URL}/#{args[:collid]}:#{line}:1"
+        "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/api/manifest/#{args[:collid]}:#{line}:1"
       end
     else
       issue_identifiers = args.extras.map do |line|
-        "#{Settings.DLXS_SERVICE_URL}/#{args[:collid]}:#{line}:1"
+        "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/api/manifest/#{args[:collid]}:#{line}:1"
       end
     end
     t = issue_identifiers.length
