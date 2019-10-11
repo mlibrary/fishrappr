@@ -98,9 +98,9 @@ en:
         header: Home Page
         head:
           page_title: Digital Archives
-          subtitle: 1890 - 2014
+          subtitle: 1890 - ${PUBLICATION_END}
           description1: The student newspaper at the University of Michigan
-          description2: 125 years of editorial freedom
+          description2: Over 125 years of editorial freedom
           link: About The Michigan Daily
         donors:
           title: Thank You to The Kemp Family Foundation!
@@ -138,7 +138,7 @@ en:
         header: Home Page
         head:
           page_title: Digital Archives
-          subtitle1: Detroit Jewish News 1942 - Present
+          subtitle1: Detroit Jewish News 1942 - ${PUBLICATION_END}
           subtitle2: Detroit Jewish Chronicle 1916  - 1951
           description1:
           description2:
@@ -177,7 +177,7 @@ en:
         header: Home Page
         head:
           page_title: Digital Archives
-          subtitle1: The Michigan Citizen 1978 - 1994
+          subtitle1: 1978 - ${PUBLICATION_END}
           subtitle2:
           description1:
           description2:
