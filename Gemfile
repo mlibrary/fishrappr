@@ -55,7 +55,7 @@ gem 'turnout', '~> 2.4.0'
 
 gem 'google-analytics-rails', '1.1.0'
 
-gem 'rubyzip', '~> 1.2.2' # will load new rubyzip version
+gem 'rubyzip', '~> 1.3.0' # will load new rubyzip version
 gem 'ffi', '~> 1.9.24'
 
 # Use ActiveModel has_secure_password
