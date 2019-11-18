@@ -34,7 +34,7 @@ en:
   application_name:
     midaily: Michigan Daily Digital Archives
     djnews: The Detroit Jewish News Digital Archives
-    micitizen: The Michigan Citizen Digital Archives
+    micitizen: Michigan Citizen Digital Archives
   facets:
     front:
       facet-title: Only Front Pages
@@ -155,8 +155,8 @@ en:
           link: Browse Other Issues
     micitizen-static:
       about-micitizen:
-        title: About The Michigan Citizen
-        header: About The Michigan Citizen
+        title: About the Michigan Citizen
+        header: About the Michigan Citizen
       about-archives:
         title: About The Digital Archives Project
         header: About The Digital Archives Project
@@ -182,11 +182,11 @@ en:
           description1:
           description2:
           description3: To search for exact phrases like proper nouns, use quotation marks (e.g., "Max Fisher" or "University of Michigan")
-          link: About The Michigan Citizen
+          link: About the Michigan Citizen
         partnerships:
           description: In Partnership With
         today:
-          title: This date in The Michigan Citizen
+          title: This date in the Michigan Citizen
           link: Browse Other Issues
     sessions:
       login:

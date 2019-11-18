@@ -23,8 +23,10 @@ gem 'uglifier', '>= 1.3.0'
 gem 'mini_racer', platforms: :ruby
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem "loofah", ">= 2.2.3"
+gem "loofah", ">= 2.3.1"
 gem "rack", ">= 2.0.6"
+
+gem "nokogiri", ">= 1.10.4"
 
 gem 'nestive-rails'   # was gem 'nestive', '~> 0.6'
 
@@ -55,7 +57,7 @@ gem 'turnout', '~> 2.4.0'
 
 gem 'google-analytics-rails', '1.1.0'
 
-gem 'rubyzip', '~> 1.2.2' # will load new rubyzip version
+gem 'rubyzip', '~> 1.3.0' # will load new rubyzip version
 gem 'ffi', '~> 1.9.24'
 
 # Use ActiveModel has_secure_password
@@ -122,7 +124,7 @@ end
 gem 'rsolr', '~> 2.2.1' # was '~> 4.3.0'
 gem 'blacklight-marc', '~> 6.2.0'
 
-gem 'devise', '~> 4.4.3' # was '~> 4.3.0'
+gem 'devise', '~> 4.7.1' # was '~> 4.4.3'
 gem 'devise-guests', '~> 0.6.0'
 
 group :development, :test do
