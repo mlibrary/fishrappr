@@ -15,5 +15,10 @@
     <li>These archives only have issues up to <%= last_year %></li>
     <%- end %>
 
+    <%- first_year = @publication.first_print_year %>
+    <%- if params[:date_issued_begin_yyyy] and params[:date_issued_begin_yyyy].to_i < first_year %>
+    <li>These archives only have issues since <%= first_year %></li>
+    <%- end %>
+
   </ul>
 </div>
