@@ -450,7 +450,16 @@ module ApplicationHelper
       date_options.push item
     end
     date_options
-  end  
+  end
+
+  # PUBLICATION LABEL HELPERS
+  def fill_publication_details(string)
+    first_print_year = @publication.first_print_year.nil? ? '?' : @publication.first_print_year.to_s
+    last_print_year = @publication.last_print_year.nil? ? '?' : @publication.last_print_year.to_s
+    string
+      .gsub('${PUBLICATION_START}', first_print_year)
+      .gsub('${PUBLICATION_END}', last_print_year)
+  end
   
   # BROWSE OPTIONS  
 

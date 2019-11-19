@@ -34,14 +34,15 @@ en:
   application_name:
     midaily: Michigan Daily Digital Archives
     djnews: The Detroit Jewish News Digital Archives
+    micitizen: Michigan Citizen Digital Archives
   facets:
     front:
       facet-title: Only Front Pages
       facet-selection: Select only front pages
   hello: "Hello world"
   screen-reader:
-    thumbnail-image: Thumbnail of Daily page
-    large-image: Full image of Daily page
+    thumbnail-image: Thumbnail of scanned page
+    large-image: Full image of scanned page
   views:
     catalog:
       fishrappr_panel_title: Search Options
@@ -97,9 +98,9 @@ en:
         header: Home Page
         head:
           page_title: Digital Archives
-          subtitle: 1890 - 2014
+          subtitle: 1890 - ${PUBLICATION_END}
           description1: The student newspaper at the University of Michigan
-          description2: 125 years of editorial freedom
+          description2: Over 125 years of editorial freedom
           link: About The Michigan Daily
         donors:
           title: Thank You to The Kemp Family Foundation!
@@ -137,7 +138,7 @@ en:
         header: Home Page
         head:
           page_title: Digital Archives
-          subtitle1: Detroit Jewish News 1942 - Present
+          subtitle1: Detroit Jewish News 1942 - ${PUBLICATION_END}
           subtitle2: Detroit Jewish Chronicle 1916  - 1951
           description1:
           description2:
@@ -152,6 +153,41 @@ en:
         today:
           title: This date in The Detroit Jewish News
           link: Browse Other Issues
+    micitizen-static:
+      about-micitizen:
+        title: About the Michigan Citizen
+        header: About the Michigan Citizen
+      about-archives:
+        title: About The Digital Archives Project
+        header: About The Digital Archives Project
+      rights:
+        title: Rights Statement
+        header: Rights Statement
+      using-page-viewer: 
+        title: Page Viewer, Plain Text & Download Help
+        header: Page Viewer, Plain Text & Download Help
+      contact:
+        title: Contact Us
+        header: Contact Us
+      how-to-search:
+        title: How to Search  
+        header: How to Search  
+      home:
+        title: Home Page
+        header: Home Page
+        head:
+          page_title: Digital Archives
+          subtitle1: 1978 - ${PUBLICATION_END}
+          subtitle2:
+          description1:
+          description2:
+          description3: To search for exact phrases like proper nouns, use quotation marks (e.g., "Max Fisher" or "University of Michigan")
+          link: About the Michigan Citizen
+        partnerships:
+          description: In Partnership With
+        today:
+          title: This date in the Michigan Citizen
+          link: Browse Other Issues
     sessions:
       login:
         page_title: Why Log In to the Michigan Daily Digital Archives?
@@ -160,4 +196,4 @@ en:
   rights_statement: 
     midaily: "This collection, digitized in collaboration with the Michigan Daily and the Board for Student Publications, contains materials that are protected by copyright law. Access to these materials is provided for non-profit educational and research purposes. If you use an item from this collection, it is your responsibility to consider the work's copyright status and obtain any required permission. To obtain permission to use the Michigan Daily's copyrighted material, please contact the Michigan Daily (https://www.michigandaily.com/archive-print).\n\nIf you have non-permissions questions about the collection, please use the contact form. If you have concerns about the inclusion of an item in this collection, please contact LibraryIT-info@umich.edu."
     djnews: "The University of Michigan Library provides access to these materials for educational and research purposes. These materials may be under copyright. If you decide to use any of these materials, you are responsible for making your own legal assessment and securing any necessary permission. If you have questions about the collection, please contact the Bentley Historical Library at bentley.ref@umich.edu.\n\nIf you have non-permissions questions about the collection, please use the contact form. If you have concerns about the inclusion of an item in this collection, please contact LibraryIT-info@umich.edu."
-
+    micitizen: "The University of Michigan Library provides access to these materials for educational and research purposes. These materials may be under copyright. If you decide to use any of these materials, you are responsible for making your own legal assessment and securing any necessary permission. If you have questions about the collection, please contact the Bentley Historical Library at bentley.ref@umich.edu.\n\nIf you have non-permissions questions about the collection, please use the contact form. If you have concerns about the inclusion of an item in this collection, please contact LibraryIT-info@umich.edu."

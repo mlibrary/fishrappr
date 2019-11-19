@@ -2,7 +2,14 @@ $().ready(function() {
 
   if ($("body.blacklight-catalog-home").length > 0) {
     var $head = $(".head");
+    var classes = $head.attr('class').split(' ');
     var enhancedClass = 'head-enhanced';
+    for(var i = 0; i < classes.length; i++) {
+      if ( classes[i].indexOf('head-') > -1 ) {
+        enhancedClass = classes[i] + '-enhanced';
+        break;
+      }
+    }
 
     // Rather convoluted, but parses out the first mention of a background
     // image url for the enhanced header, even if the style is not applied.

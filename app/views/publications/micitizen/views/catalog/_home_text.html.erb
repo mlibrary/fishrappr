@@ -1,0 +1,53 @@
+<div class="page-header row">
+  <div class="col-md-8"></div>
+</div>
+
+<div id="getting-started">
+  <h2 class='page-heading'><i class="fa fa-search fa-10x"></i></h2>
+  <div class="divider"></div>
+  <h3 class='section-heading'><i>You can try a new search above or select one of our examples below</i></h3>
+
+
+
+  <div class="divider"></div>
+  <p class="description"><em>You can use quotation marks to search for phrases, and you can use AND and OR (in all-caps) to ensure that both terms must be in the results, or that one or the other term may be in the results.</em></p>
+  <p class="description">Some Examples to get started:</p>
+
+  <p><tt><%= link_to '"black leader*" AND NAACP', '/micitizen/search?utf8=✓&publication=micitizen&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q=%22black+leader*%22++AND+NAACP', class: 'link_underline' %> </tt></p>
+
+  <p><tt><%= link_to '"Nation of Islam"', '/micitizen/search?utf8=✓&publication=micitizen&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q="Nation of Islam"', class: 'link_underline' %> </tt></p>
+
+  <p><tt><%= link_to 'Motown', '/micitizen/search?utf8=✓&publication=micitizen&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q=Motown', class: 'link_underline' %> </tt></p>
+
+  <p><tt><%= link_to 'Christmas', '/micitizen/search?utf8=✓&publication=micitizen&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q="Christmas"', class: 'link_underline' %> </tt></p>
+
+  <p><tt><%= link_to '"Coleman Young"', '/micitizen/search?utf8=✓&publication=micitizen&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q="Coleman Young"', class: 'link_underline' %> </tt></p>
+
+  <p><tt><%= link_to 'UAW', '/micitizen/search?utf8=✓&publication=micitizen&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q=UAW', class: 'link_underline' %> </tt></p>
+
+  <p><tt><%= link_to '"Benton Harbor"', '/micitizen/search?utf8=✓&publication=micitizen&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q="Benton Harbor"', class: 'link_underline' %> </tt></p>
+
+  <p><tt><%= link_to 'Detroit', '/micitizen/search?utf8=✓&publication=micitizen&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q=Detroit', class: 'link_underline' %> </tt></p>
+
+  <p><tt><%= link_to '"Shrine of the Black Madonna"', '/micitizen/search?utf8=✓&publication=micitizen&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q="Shrine of the Black Madonna"', class: 'link_underline' %> </tt></p>
+
+  <p><tt><%= link_to '"Urban League" AND Muskegon', '/micitizen/search?utf8=✓&publication=micitizen&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q="urban league" AND muskegon', class: 'link_underline' %> </tt></p>
+
+  <p><tt><%= link_to 'HIV AND AIDS', '/micitizen/search?utf8=✓&publication=micitizen&search_field=all_fields&date_filter=any&date_issued_begin_mm=-&date_issued_begin_dd=-&date_issued_begin_yyyy=&date_issued_end_mm=-&date_issued_end_dd=-&date_issued_end_yyyy=&q=HIV+AND+AIDS', class: 'link_underline' %> </tt></p>
+
+  
+</div>
+<script>
+  $(function() {
+    $('#about a').on('click', function(e) {
+      e.preventDefault();
+      if ($('#about-content').html() == "") {
+        $('#about-content').load($(this).attr("href"), function() {
+          $('#about-content').show();
+        });
+      } else {
+        $('#about-content').toggle();
+      }
+    });
+  });
+</script>
