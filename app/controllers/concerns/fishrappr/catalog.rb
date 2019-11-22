@@ -31,6 +31,14 @@ module Fishrappr::Catalog
   # get search results from the solr index
   def index
 
+    issue_identifier = params[:issue_identifier]
+    unless issue_identifier.nil?
+      params[:f] = {
+        issue_identifier: [issue_identifier],
+      }
+      params[:sort] ='issue_sequence asc'
+    end
+
     (@response, @document_list) = search_results(params)
     respond_to do |format|
       format.html { } # no longer store_preferred_view

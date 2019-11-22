@@ -36,6 +36,9 @@ Rails.application.routes.draw do
     # get '/:publication/:volume_identifier' => 'catalog#volume',
     #   constraints: constraints
 
+    get '/:publication/:issue_identifier' => 'catalog#index',
+      constraints: { issue_identifier: /[^\/]+/ }
+
     get '/:publication/:volume_identifier/:volume_sequence' => 'catalog#show',
       constraints: constraints
 
