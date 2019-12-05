@@ -70,7 +70,7 @@ gem 'ffi', '~> 1.9.24'
 # gem 'bootsnap', '>= 1.1.0', require: false # bootsnap disabled due to issues with fishrappr gml 5-14-18
 
 
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 3.12'
 
 gem 'sitemap_generator', '~> 6.0.1'
 
