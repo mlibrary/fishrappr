@@ -333,7 +333,7 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
-    simple_form (4.0.1)
+    simple_form (5.0.0)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
     sitemap_generator (6.0.2)
@@ -442,7 +442,7 @@ DEPENDENCIES
   sass-rails (~> 5.0.5)
   sdoc (~> 0.4.0)
   selenium-webdriver
-  simple_form (~> 4.0.0)
+  simple_form (~> 5.0.0)
   sitemap_generator (~> 6.0.1)
   solr_wrapper (>= 0.15)
   spring

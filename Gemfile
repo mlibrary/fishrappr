@@ -43,7 +43,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'blacklight', '~> 6.12.0'
 gem "blacklight_advanced_search", '~> 6.3.1'
 gem 'mail_form', '~> 1.7.1'
-gem 'simple_form', '~> 4.0.0'
+gem 'simple_form', '~> 5.0.0'
 
 gem "blacklight_range_limit", '~> 6.2.1'
 
