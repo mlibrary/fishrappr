@@ -9,7 +9,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 # gem 'rails', '5.2.1'
-gem 'rails', '~> 5.2', '>= 5.2.2'
+gem 'rails', '~> 5.2', '>= 5.2.5'
 gem 'rails-html-sanitizer', '~> 1.0', '>= 1.0.4'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.3.11'
@@ -24,9 +24,9 @@ gem 'mini_racer', ">= 0.2", platforms: :ruby
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "loofah", ">= 2.3.1"
-gem "rack", ">= 2.0.8"
+gem "rack", ">= 2.2.3"
 
-gem "nokogiri", ">= 1.10.8"
+gem "nokogiri", ">= 1.11.4"
 
 gem 'nestive-rails'   # was gem 'nestive', '~> 0.6'
 
@@ -40,16 +40,17 @@ gem 'jbuilder', '~> 2.5'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'blacklight', '~> 6.12.0'
-gem "blacklight_advanced_search", '~> 6.3.1'
+gem 'blacklight', '~> 6.24'
+gem 'blacklight_advanced_search', '~> 6.4', '>= 6.4.1'
 gem 'mail_form', '~> 1.7.1'
-gem 'simple_form', '~> 4.0.0'
+gem 'simple_form', '~> 5.0', '>= 5.0.3'
 
 gem "blacklight_range_limit", '~> 6.2.1'
 
 gem 'bootbox-rails', '~>0.4'
 
-gem 'config', '~> 1.6.1'
+# gem 'config', '~> 1.6.1'
+gem 'config', '~> 2.2', '>= 2.2.3'
 
 # gem 'osullivan', '~> XX'
 
@@ -70,7 +71,7 @@ gem 'ffi', '~> 1.9.24'
 # gem 'bootsnap', '>= 1.1.0', require: false # bootsnap disabled due to issues with fishrappr gml 5-14-18
 
 
-gem 'puma', '~> 3.11'
+gem 'puma', '>= 4.3.8'
 
 gem 'sitemap_generator', '~> 6.0.1'
 
