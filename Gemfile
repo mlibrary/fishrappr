@@ -38,7 +38,9 @@ gem 'jbuilder', '~> 2.5'
 ## gem 'redis', '~> 4.0'
 
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
+# gem 'sdoc', '~> 0.4.0', group: :doc
+
+gem "json", ">= 2.3.0"
 
 gem 'blacklight', '~> 6.24'
 gem 'blacklight_advanced_search', '~> 6.4', '>= 6.4.1'
