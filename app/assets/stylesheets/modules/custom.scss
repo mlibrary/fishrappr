@@ -1694,8 +1694,14 @@ body.blacklight-contacts-create {
 body[data-publication="spokesman"] {
   background: #fff;
   font-family: $base-fonts; // restore the bootstrap conventions
+  opacity: 0;
 
   --material: "Material Icons";
+
+  &.ready {
+    opacity: 1;
+    transition: 0.0625s opacity;
+  }
 
   h1 {
     font-family: $base-fonts;
