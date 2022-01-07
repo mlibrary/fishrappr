@@ -1,0 +1,37 @@
+<%= extends :application do %>
+
+  <%= replace :main do %>
+
+    <div class="<%= container_classes %>">
+
+      <%= area :h1_wrap do %>
+        <div class="row">
+          <div class="col-md-9 col-md-offset-3 col-sm-8 col-sm-offset-4 col-xs-12">
+            
+          <div class="[ uplift-breadcrumb ]">
+            <nav aria-label="Breadcrumb" style="padding: 0">
+              <ol>
+                <li>
+                  <a class="btn btn-link" href="<%= publication_root_url %>">The Flint Spokesman</a>
+                </li>
+                <li class="active">
+                  <span aria-current="page" class="current-image-sequence"><%= area :breadcrumb_leaf do %><% end %></span>
+                </li>
+              </ol>
+            </nav>
+          </div>
+
+            <h1><%= area :h1 %></h1>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="row">
+        <%= yield %>
+      </div>
+
+    </div>
+
+  <% end %>
+
+<% end %>

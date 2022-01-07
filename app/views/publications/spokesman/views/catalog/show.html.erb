@@ -1,0 +1,94 @@
+<% @page_title = t('blacklight.show.page_title.title', date_issued: @document['date_issued_display'].first, issue_vol_iss: @document.fetch('issue_vol_iss_display', []).first, issue_sequence: @document['issue_sequence'], application_name: application_name) %>
+
+<%= replace :head do %>
+  <%= link_to_repository(@document) %>
+  <%= link_to_manifest(@document) %>
+  <%= render partial: 'document_share_metadata' %>
+<% end %>
+
+<%= replace :skiplinks do %>
+  <%= render 'show_skiplinks' %>
+<% end %>
+
+<%= replace :data do %>data-option="<%= @option %>"<% end %>
+
+<%= replace :search_navbar do %>
+  <div class="[ uplift-breadcrumb ]">
+    <nav aria-label="Breadcrumb" style="padding: 0">
+      <ol>
+        <li>
+          <a class="btn btn-link" href="<%= publication_root_url %>">The Flint Spokesman</a>
+        </li>
+        <li>
+          <a class="btn btn-link btn-issue-link" href="<%= search_catalog_url document_to_date_params(@document) %>">
+            <span><%= issue_title(@document, true) %></span>
+          </a>
+        </li>
+        <li class="active">
+          <span aria-current="page" class="current-image-sequence">Page Image <%= current_image_sequence(@document) %></span>
+        </li>
+      </ol>
+    </nav>
+  </div>
+
+  <div class="navigation-toolbar">
+    <div class="container-fluid">
+    <% if false %>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <h1 class="page">
+            <span><%= publication_title(@document, @publication) %></span>
+            <span class="pre-issue-mark"><%= use_icon('divider') %></span>
+            <a class="btn btn-link btn-issue-link" href="<%= search_catalog_url document_to_date_params(@document) %>">
+              <span><%= issue_title(@document, true) %></span> 
+            </a>
+            <span class="pre-page-mark"><%= use_icon('divider') %></span>
+            <span class="current-image-sequence">Page Image <%= current_image_sequence(@document) %></span>
+          </h1>
+        </div>
+      </div>
+      <% end %>
+      <div class="row">
+        <div class="col-md-7 col-sm-7 col-xs-4 navigate-issue">
+          <% if current_search_session %>
+            <%= back_to_results_link class: 'btn btn-search-primary', label: back_to_results_label %>
+          <% end %>
+        </div>
+        <div class="col-md-5 col-sm-5 col-xs-8 navigate-pages">
+          <%= link_to_previous_issue_page @previous_page %>
+          <span class="current-page-number"><span class="sr-only">Image </span><%= current_image_sequence(@document) %> of <%= @issue_data[:pages].size %></span>
+          <%= link_to_next_issue_page @next_page %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%= render 'show_viewer_stacked_tabs' %>
+
+<script>
+$().ready(function() {
+  $(".action-copy-permalink").on('click', function(e) {
+    e.preventDefault();
+    $("#permalink").select();
+    document.execCommand('copy');
+  });
+  $("#action-rights-read-more").on('click', function(e) {
+    e.preventDefault();
+    var $div = $(this).parents("div");
+    $div.find(".see-more").addClass("reading");
+    $(this).hide();
+    var y = window.scrollY;
+    $("#action-rights-read-less").get(0).scrollIntoView();
+    window.scrollTo(window.scrollX, y);
+  });
+  $("#action-rights-read-less").on('click', function(e) {
+    e.preventDefault();
+    var $div = $(this).parents("div");
+    $div.find(".see-more").removeClass("reading");
+    $("#action-rights-read-more").show();
+  });
+
+});
+</script>
+<%= render partial: 'back_to_top' %>

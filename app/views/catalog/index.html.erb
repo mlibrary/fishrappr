@@ -18,6 +18,18 @@
   <% end %>
 <% end %>
 
+<%= replace :breadcrumb_leaf do %>
+  <% if ! has_search_parameters? %>
+    New Search
+  <% elsif @response.empty? %>
+    No Results
+  <% elsif params[:f] and params[:f][:issue_identifier] %>
+    <%= issue_title @document_list.first, complete: true %>
+  <% else %>
+    Search Results
+  <% end %>
+<% end %>
+
 
 <div id="sidebar" class="<%= sidebar_classes %>">
   <%= render 'constraints' %>

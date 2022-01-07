@@ -1690,3 +1690,88 @@ body.blacklight-contacts-create {
     }
   }
 }
+
+body[data-publication="spokesman"] {
+  background: #fff;
+
+  --material: "Material Icons";
+
+  h1.viewer-header {
+    font-size: 1.25rem;
+    font-family: var(--font-base-family);
+    font-weight: bold;
+  }
+
+  nav[aria-label="Breadcrumb"] {
+    margin-top: 1rem;
+    ol {
+      background: transparent;
+    }
+  }
+
+  .border-bottom {
+    border-bottom: 1px solid #ddd;
+  }
+
+  #sidebar {
+    padding-right: 1rem;
+  }
+
+  .current-image-sequence {
+        padding-top: 9px;
+        padding-bottom: 9px;
+        vertical-align: middle;
+        line-height: 1.42857143;
+
+  }
+
+  #sidebar > #searchGraph {
+    // background: rgb(250, 250, 250) none repeat scroll 0% 0% !important;
+    background: #fff !important;
+    border: 1px solid transparent;
+    border-color: #ddd;
+  }
+
+  #search-navbar {
+    .site-search {
+      padding: 0 10%;
+      form {
+        .form-group {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  .uplift-breadcrumb {
+    display: flex;
+    justify-content: space-between;
+
+    ol {
+      margin-bottom: 0;
+      padding-left: 0;
+    }
+
+    li {
+      display: inline;
+      padding: var(--space-xx-small);
+
+      a {
+        padding: 0;
+      }
+
+      &:first-child {
+        padding-left: 0;
+      }
+
+      &:not(:last-child):after {
+        font-family: var(--material);
+        content: "\e315";
+        vertical-align: bottom;
+        padding-left: 0.25em;
+        color: var(--color-teal-500);
+      }
+    }
+  }
+
+}

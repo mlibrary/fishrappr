@@ -1,0 +1,100 @@
+<%= replace :skiplinks do %>
+  <%= render 'browse_skiplinks' %>
+<% end %>
+
+<% purge :h1_wrap %>
+
+<div class="col-sm-12" id="browse-form">
+
+  <% decade_browse_options = get_decade_browse_options %>
+  <% year_browse_options = get_year_browse_options %>
+  <% month_browse_options = get_month_options; month_browse_options.unshift(['Any Month', 'Any Month']) %>
+  <% date_browse_options = get_date_options; date_browse_options.unshift(['Any Day', 'Any Day']) %>
+  <% first_year_to_browse = year_browse_options.last.first %>
+
+  <div class="[ uplift-breadcrumb ]">
+    <nav aria-label="Breadcrumb" style="padding: 0">
+      <ol>
+        <li>
+          <a class="btn btn-link" href="<%= publication_root_url %>">The Flint Spokesman</a>
+        </li>
+        <li class="active">
+          <span aria-current="page" class="current-image-sequence">Browse Issues</span>
+        </li>
+      </ol>
+    </nav>
+  </div>
+
+  <h1>Browse Issues</h1>
+  <h2 class="browse-subtitle">Browse <%= @publication.title %> Issues back to <%= first_year_to_browse %></h2>
+
+  <p class="browse-instructions">Select a decade, year, month or day to browse issues</p>
+
+    <%= form_tag(browse_path, role: 'search', method: :get, class: "form-inline browse-form") do %>
+      <div class="browse-select-box" aria-live="polite">
+        <div class="form-group">
+          <%=  label_tag 'date_issued_yyyy10_ti', 'Filter by decade', class: 'sr-only' %>
+          <%= select_tag(name="date_issued_yyyy10_ti", options_for_select(decade_browse_options, params[:date_issued_yyyy10_ti]), class: 'changeable form-control') %>          
+          <%=  label_tag 'date_issued_yyyy_ti', 'Filter by year', class: 'sr-only' %>
+          <%= select_tag(name="date_issued_yyyy_ti", options_for_select(year_browse_options, params[:date_issued_yyyy_ti]), class: 'changeable form-control') %>
+          <%=  label_tag 'date_issued_mm_ti', 'Filter by month', class: 'sr-only' %>
+          <%= select_tag(name="date_issued_mm_ti", options_for_select(month_browse_options, params[:date_issued_mm_ti]), class: 'changeable form-control') %>
+          <%=  label_tag 'date_issued_dd_ti', 'Filter by day', class: 'sr-only' %>
+          <%= select_tag(name="date_issued_dd_ti", options_for_select(date_browse_options, params[:date_issued_dd_ti]), class: 'changeable form-control') %>
+          <button type="submit" class="btn btn-action btn-lg" xid="browse">
+            <span class="<%= use_icon_class('search') %>"></span>
+            <span class="hidden <%= use_icon_class('rotate_left') %> glyphicon-refresh-animate"></span> 
+            <span class="submit-browse-text">Browse</span>
+          </button>
+        </div>
+      </div>
+    <% end %>
+</div>
+<h2 class="sr-only">Browse Results</h2>
+<div class="col-sm-12">
+  <div class="issues-display">
+
+    <!-- alternative: render search_results %>
+    <!-- alternative: render results_pagination -->
+
+    <% if @response.total_pages == 0 %>
+      <p><em>No issues were found.</em>
+    <% else %>
+
+      <div class="row record-padding">
+        <div class="col-md-12">
+          <div class="pagination">
+            <%= render :partial => "paginate_compact", :object => @response if show_pagination? %>
+          </div>
+        </div>
+      </div>
+
+      <div id="groups">
+        <%- @response.groups.each do |g| %>
+          <h3 class="group-key browse-month-group"><%= Date.strptime(g.key.to_s, "%Y%m").strftime("%B %Y") %> (<%= pluralize(g.total, 'issue') %>)</h3>
+          <div class="grouped-documents">
+            <%= render_document_index g.docs %>
+          </div>
+          <%- if g.total > @response.group_limit %>
+            <%= link_to t('blacklight.search.group.more'), add_group_facet_params_and_redirect(g), :class => 'more-in-group' %>
+          <%- end %>
+        <%- end %>
+      </div>
+
+      <% if false %>
+      <div class="row record-padding">
+        <div class="col-md-12">
+          <div class="pagination">
+            <%= render :partial => "paginate_compact", :object => @response if show_pagination? %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+      <%= render partial: 'results_pagination' %>
+
+    <% end %>
+
+  </div>
+</div>
+
+<%= render partial: 'back_to_top' %>

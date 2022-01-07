@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <!-- Mobile viewport optimization h5bp.com/ad -->
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    
+    <!-- Internet Explorer use the highest version available -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile IE allows us to activate ClearType technology for smoothing fonts for easy reading -->
+    <!--[if IEMobile]>
+      <meta http-equiv="cleartype" content="on">
+    <![endif]-->
+
+    <title><%= render_page_title %></title>
+    <%= favicon_link_tag %>
+    <%= stylesheet_link_tag "application", media: "all" %>
+    <%= javascript_include_tag "application" %>
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= area :head %>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link href="https://unpkg.com/@umich-lib/web@1/umich-lib.css" rel="stylesheet" />
+
+    <script type="module" src="https://unpkg.com/@umich-lib/web@1/dist/umich-lib/umich-lib.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/@umich-lib/web@1/dist/umich-lib/umich-lib.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+
+    <% analytics_profiles.each do |profile_id| %>
+        <%= analytics_init tracker: profile_id  %>
+    <% end %>
+
+
+  </head>
+  <body class="<%= render_body_class %>" <%= area :data %> data-publication="<%= @publication.slug %>">
+
+    <%= area :header do %>
+        <%= render :partial => 'shared/header_navbar' %>
+    <% end %>
+
+    <%= render partial: 'shared/ajax_modal' %>
+    <%= area :main do %>
+      <p>Main content goes here.</p>
+    <% end %>
+
+    <%= render :partial => 'shared/footer' %>
+
+    <% if ENV['DEBUG_CSS'] %>
+    <div class="debug-breakpoints visible-xs-block">XS</div>
+    <div class="debug-breakpoints visible-sm-block">SM</div>
+    <div class="debug-breakpoints visible-md-block">MD</div>
+    <div class="debug-breakpoints visible-lg-block">LG</div>
+    <% end %>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+<div id="help_sidebar" class="<%= sidebar_classes %> help-sbar">
+  <div class="sidebars">
+    <h2>Help</h2>
+    <ul class="help-ul">
+      <%= render partial: "static/help_sidebar_link", locals: { path: "/#{@publication['slug']}/how_to_search", label: "How to Search" } %>
+      <%= render partial: "static/help_sidebar_link", locals: { path: "/#{@publication['slug']}/using_page_viewer", label: "Using the Page Viewer" } %>
+     	<%= render partial: "static/help_sidebar_link", locals: { path: '/contacts', label: "Contact Us" } %>
+    </ul>
+  </div>
+</div>
