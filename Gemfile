@@ -9,7 +9,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 # gem 'rails', '5.2.1'
-gem 'rails', '~> 5.2', '>= 5.2.5'
+gem 'rails', '~> 5.2', '>= 5.2.6.1'
 gem 'rails-html-sanitizer', '~> 1.0', '>= 1.0.4'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.3.11'
@@ -73,7 +73,7 @@ gem 'ffi', '~> 1.9.24'
 # gem 'bootsnap', '>= 1.1.0', require: false # bootsnap disabled due to issues with fishrappr gml 5-14-18
 
 
-gem 'puma', '>= 4.3.8'
+gem 'puma', '>= 4.3.11'
 
 gem 'sitemap_generator', '~> 6.0.1'
 
