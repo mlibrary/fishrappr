@@ -39,7 +39,7 @@ module Fishrappr::Catalog
       params[:sort] ='issue_sequence asc'
     end
 
-    (@response, @document_list) = search_results(params)
+    (@response, @document_list) = search_service.search_results() # params
     respond_to do |format|
       format.html { } # no longer store_preferred_view
       format.rss  { render :layout => false }
@@ -310,7 +310,7 @@ module Fishrappr::Catalog
   end
 
   def repository
-    @repository ||= repository_class.new(blacklight_config)
+    @repository ||= blacklight_config.repository_class.new(blacklight_config)
   end
 
   def search_state

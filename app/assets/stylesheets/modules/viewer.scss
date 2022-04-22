@@ -16,15 +16,15 @@ $grid-gap: 25px;
         border: 2px solid blue;
     }
 
-    @media (min-width: $screen-sm-min) {
+    @include media-breakpoint-only('sm') {
       width: $viewer-width;
       height: 75vh;
     }
-    @media (min-width: $screen-md-min) {
+    @include media-breakpoint-only('md') {
       width: $viewer-width;
       height: 75vh;
     }
-    @media (min-width: $screen-lg-min) {
+    @include media-breakpoint-only('lg') {
       width: $viewer-width;
       height: 75vh;
     }
@@ -58,10 +58,10 @@ $grid-gap: 25px;
 
 .image-viewer-toolbar-bottom, .image-viewer-toolbar-top {
     width: 100%;
-    @media (min-width: $screen-sm-min) {
+    @include media-breakpoint-only('sm') {
       width: $viewer-width;
     }
-    // @media (min-width: $screen-lg-min) {
+    // @include media-breakpoint-only('lg') {
     //   width: $viewer-width;
     // }
 }
@@ -86,7 +86,7 @@ $grid-gap: 25px;
     vertical-align: middle;
     background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
     white-space: nowrap;
-    @include button-size($padding-base-vertical, $padding-base-horizontal, $font-size-base, $line-height-base, $btn-border-radius-base);
+    @include button-size($padding-base-vertical, $padding-base-horizontal, $font-size-base, $line-height-base, $btn-border-radius);
     float: left;
 
 }
@@ -346,7 +346,7 @@ $grid-gap: 25px;
 
         &:nth-of-type(1) {
             h3 {
-                margin-top: $line-height-computed;
+                margin-top: $line-height-lg;
             }
         }
 
@@ -570,8 +570,8 @@ body[data-option=tabs] .panel-actions-page, body[data-option=tabbish] .panel-act
     background-color: #f2f2f2;
     border: solid 2px #6e6e6e;
     color: #4e4e4e;
-    padding: $alert-padding;
-    margin-bottom: $line-height-computed;
+    padding: $alert-padding-y $alert-padding-x;
+    margin-bottom: $line-height-lg;
 
     a {
         color: #4e4e4e;
@@ -638,7 +638,8 @@ h1.page {
     }
 }
 
-@media (max-width: $screen-xs-max) {
+// @media (max-width: $screen-xs-max) {
+@include media-breakpoint-only('xs', $grid-breakpoints) {
 
     h1.page {
         font-size: 18px;
@@ -707,14 +708,16 @@ h1.page {
 }
 .table-container-fluid {
     display: block;
-    @media (min-width: $screen-sm-min) {
+    // @include media-breakpoint-only('sm') {
+    @include media-breakpoint-up('sm', $grid-breakpoints) {
       display: table;
     }
   width: 100%;
 }
 .table-row {
   display: block;
-  @media (min-width: $screen-sm-min) {
+  // @include media-breakpoint-only('sm') {
+  @include media-breakpoint-up('sm', $grid-breakpoints) {
     display: table-row;
   }
 }
@@ -724,7 +727,8 @@ h1.page {
   padding-right: 15px;
   padding-left: 15px;
   width: 100%;
-  @media (min-width: $screen-sm-min) {
+  // @include media-breakpoint-only('sm') {
+  @include media-breakpoint-up('sm', $grid-breakpoints) {
     width: auto;
     display: table-cell;
   }
@@ -737,15 +741,15 @@ h1.page {
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
-  @media (min-width: $screen-sm-min) {
+  @include media-breakpoint-up('sm', $grid-breakpoints) {
     display: table-cell;
     width: 33%;
   }
-  @media (min-width: $screen-md-min) {
+  @include media-breakpoint-up('md', $grid-breakpoints) {
     display: table-cell;
     width: 25%;
   }
-  @media (min-width: $screen-lg-min) {
+  @include media-breakpoint-up('lg', $grid-breakpoints) {
     display: table-cell;
     width: 25%;
   }
@@ -755,13 +759,13 @@ h1.page {
   position: static;
   top: 60px;
   bottom: 0;
-  @media (min-width: $screen-sm-min) {
+@include media-breakpoint-up('sm', $grid-breakpoints) {
     position: absolute;
   }
-  @media (min-width: $screen-md-min) {
+  @include media-breakpoint-up('md', $grid-breakpoints) {
     position: absolute;
   }
-  @media (min-width: $screen-lg-min) {
+  @include media-breakpoint-up('lg', $grid-breakpoints) {
     position: absolute;
   }
 
@@ -772,7 +776,7 @@ h1.page {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  @media (min-width: $screen-sm-min) {
+@include media-breakpoint-up('sm', $grid-breakpoints) {
     width: calc(100vw - 50px);
   }
 }
@@ -786,7 +790,7 @@ h1.page {
     "sidebar"
     "plaintext";
 
-  @media (min-width: $screen-sm-min) {
+@include media-breakpoint-up('sm', $grid-breakpoints) {
     grid-template-columns: $viewer-width 1fr;
     -ms-grid-columns: $viewer-width $grid-gap 1fr;
     grid-gap: $grid-gap;
@@ -809,7 +813,7 @@ h1.page {
 
   }
 
-  @media (max-width: $screen-xs-max) {
+  @include media-breakpoint-down('xs', $grid-breakpoints) {
     &.js-stickybit-parent {
       .page-options {
         position: static !important;
@@ -817,10 +821,10 @@ h1.page {
     }
   }
 
-  @media (min-width: $screen-sm-min) {
+  @include media-breakpoint-up('sm', $grid-breakpoints) {
     margin-top: 60px;
   }
-  // @media (min-width: $screen-lg-min) {
+  // @include media-breakpoint-only('lg') {
   //   margin-top: 60px;
   // }
 
@@ -846,7 +850,7 @@ h1.page {
     vertical-align: baseline;
 }
 
-@media (min-width: $screen-xs-max) {
+@include media-breakpoint-up('xs', $grid-breakpoints) {
     .page-options {
         padding-left: 0;
         padding-right: 0;
@@ -861,7 +865,8 @@ h1.page {
     }
 }
 
-@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+@include media-breakpoint-only('sm', $grid-breakpoints) {
+
     .image-viewer-toolbar {
         // border-bottom: 1px dotted blue;
 
@@ -880,14 +885,14 @@ h1.page {
     }
 
     .container-morph {
-        @include container-fixed;
+        // @include container-fixed;
         width: 100%;
     }
 
 }
 
 // @media (max-width: $screen-md-max ) {
-@media (min-width: $screen-sm-max) and (max-width: $screen-md-max) {    
+@include media-breakpoint-between('sm', 'md', $grid-breakpoints) {
 
     .image-viewer-toolbar {
         // border-bottom: 1px dotted green;

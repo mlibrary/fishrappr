@@ -18,8 +18,9 @@
 }
 
 #skip a:focus, #skip a:active{
-    @include alert-variant($alert-success-bg, $alert-success-border, $alert-success-text);
-    padding: $alert-padding;
+    // @include alert-variant($alert-success-bg, $alert-success-border, $alert-success-text);
+    @include alert-variant(theme-color-level('success', $alert-bg-level), theme-color-level('success', $alert-border-level), theme-color-level('success', $alert-color-level));
+    padding: $alert-padding-y $alert-padding-x;
     border: 1px solid transparent;
     border-radius: $alert-border-radius;
 

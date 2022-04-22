@@ -20,10 +20,10 @@
 //= require blacklight/blacklight
 //= require bootstrap/button
 //= require bootstrap/tab
-//= require bootbox
+// --- require bootbox
 
 // --- TODO: work out a different way to load this in development
-//= require holder
+// ---- = require holder
 
 //= require polyfills
 //= require openseadragon

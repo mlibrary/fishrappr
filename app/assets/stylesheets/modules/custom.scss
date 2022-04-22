@@ -553,7 +553,7 @@ div.top-panel-heading {
   display:none;
   border: 3px solid #337ab7;
   z-index: 100;
-  color: $gray-lighter;
+  color: $gray-100;
 }
 
 .back-to-top-text {
@@ -1367,7 +1367,7 @@ footer {
   border-radius: 0 !important;
   padding: 10px;
 
-  &.navbar-inverse {
+  &.bg-dark {
     background-color: $footer-bgcolor;
   }
 
@@ -1634,7 +1634,8 @@ body.blacklight-contacts-create {
     to { transform: scale(1) rotate(360deg);}
 }
 
-@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+// @media (min-width: map-get($grid-breakpoints, 'sm')) and (max-width: map-get($grid-breakpoints('screen-sm-max) {
+@include media-breakpoint-only('sm', $grid-breakpoints) {
 
   body.blacklight-catalog-index {
 
@@ -1664,7 +1665,9 @@ body.blacklight-contacts-create {
   }
 }
 
-@media (max-width: $screen-xs-max) {
+// @media (max-width: $screen-xs-max) {
+@include media-breakpoint-up('xs', $grid-breakpoints) {
+
   .page_links {
     white-space: nowrap;
   }
