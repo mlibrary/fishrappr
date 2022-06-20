@@ -112,8 +112,11 @@ class DlxsIngest
     issue_manifest = IIIF::Service.parse(fetch_data(issue_url))
 
     build_issue(issue_manifest, idx, total)
-  rescue
+  rescue => e
     STDERR.puts "FAILED #{issue_url}"
+    STDERR.puts e.class.name
+    STDERR.puts e.message
+    STDERR.puts e.backgrace
     raise
   end
 
@@ -150,11 +153,23 @@ class DlxsIngest
 
   def build_issue(manifest, idx=0, total=0)
     metadata = build_metadata(manifest)
+    PP.pp metadata, STDERR
+
+    # sigh, delete any previous issues
+    # this should be destroy assuming solr wasn't botched up
+    Issue.where(issue_identifier: metadata[:issue_identifier]).each do |issue|
+      Page.where(issue_id: issue.id).each do |page|
+        page.delete
+      end
+      issue.delete
+      STDERR.puts "-- deleted #{issue.id}"
+    end
+
     issue = Issue.create \
       volume_identifier: metadata[:volume_identifier],
       issue_identifier: metadata[:issue_identifier],
       volume: metadata[:issue_volume],
-      issue_number: metadata[:issue_number],
+      issue_number: metadata[:issue_number] || 1,
       edition: metadata[:issue_edition],
       date_issued: metadata[:date_issued],
       publication_year: Time.new(metadata[:date_issued]).strftime("%Y"),
@@ -215,7 +230,7 @@ class DlxsIngest
   def build_metadata(data)
     metadata = {}
     data.metadata.each do |fld|
-      metadata[fld['label'].to_sym] = fld['value']
+      metadata[fld['field'].to_sym] = fld['value']
     end
     metadata
   end

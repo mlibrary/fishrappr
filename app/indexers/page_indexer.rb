@@ -72,6 +72,7 @@ class PageIndexer
 
   def index(issue_doc)
     solr_doc = generate_solr_doc(issue_doc)
+    # PP.pp solr_doc, STDERR
     conn = Blacklight.default_index.connection
     conn.add solr_doc
   end
