@@ -1,0 +1,39 @@
+// // Links
+
+// // --- in another world, an accessibility expert is telling us to underline all links
+// // a:not(.btn) {
+// //   color: $link-color;
+// //   text-decoration: underline;
+
+// //   &:hover,
+// //   &:focus {
+// //     color: $link-hover-color;
+// //     text-decoration: $link-hover-decoration;
+// //   }
+
+// //   &:focus {
+// //     @include tab-focus;
+// //   }
+// // }
+
+// a:focus {
+//   outline-width: 2px !important;
+//   outline-style: solid !important;
+//   outline-color: $link-focus-color !important;
+// }
+
+// .btn {
+//   border: none;
+//   color: $btn-default-color;
+// }
+
+// .btn.btn-link {
+//   color: $link-color;
+//   &:active {
+//     color: $link-active-color;
+//     text-decoration: underline;
+//   }
+//   &:hover {
+//     text-decoration: underline;
+//   }
+// }
