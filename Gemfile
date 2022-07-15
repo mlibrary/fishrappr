@@ -9,10 +9,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 # gem 'rails', '5.2.1'
-gem 'rails', '~> 5.2', '>= 5.2.6.1'
+gem 'rails', '~> 5.2', '>= 5.2.7'
 gem 'rails-html-sanitizer', '~> 1.4'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 1.3.11'
+gem 'sqlite3', '~> 1.4', '>= 1.4.4'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.5'
 # Use Uglifier as compressor for JavaScript assets
@@ -60,8 +60,8 @@ gem 'turnout', '~> 2.4.0'
 
 gem 'google-analytics-rails', '1.1.0'
 
-gem 'rubyzip', '~> 1.3.0' # will load new rubyzip version
-gem 'ffi', '~> 1.9.24'
+gem 'rubyzip', '~> 2.3', '>= 2.3.2'
+gem 'ffi', '~> 1.15', '>= 1.15.5'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -73,7 +73,8 @@ gem 'ffi', '~> 1.9.24'
 # gem 'bootsnap', '>= 1.1.0', require: false # bootsnap disabled due to issues with fishrappr gml 5-14-18
 
 
-gem 'puma', '>= 4.3.11'
+# gem 'puma', '>= 4.3.11'
+gem 'puma', '~> 5.6', '>= 5.6.4'
 
 gem 'sitemap_generator', '~> 6.0.1'
 
