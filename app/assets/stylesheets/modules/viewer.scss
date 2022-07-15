@@ -327,6 +327,12 @@ $grid-gap: 25px;
     }
 
     .panel {
+
+        background-color: #fff;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        box-shadow: 0 1px 1px RGB(0 0 0 / 5%);
+
         h3 {
             font-size: 14px;
             font-weight: normal;
@@ -334,11 +340,16 @@ $grid-gap: 25px;
         }
 
         .panel-heading {
+            padding: 10px 15px;
             padding-top: 0;
             padding-bottom: 8px;
+            border-bottom: 1px solid transparent;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
         }
 
         .panel-body {
+            padding: 15px;
             padding-top: 8px;
         }
 
@@ -346,7 +357,8 @@ $grid-gap: 25px;
 
         &:nth-of-type(1) {
             h3 {
-                margin-top: $line-height-lg;
+                // margin-top: $line-height-lg;
+                margin-top: 1.5rem;
             }
         }
 

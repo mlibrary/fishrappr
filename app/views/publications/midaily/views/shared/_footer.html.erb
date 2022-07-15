@@ -1,8 +1,8 @@
 <footer class="navbar navbar-inverse">
     <div class="container-fluid">
-        <ul class="nav navbar-nav">
-            <li class="footer-link-help"><a href="/<%= "#{@publication['slug']}" %>/how_to_search">Help</a></li>
-            <li class="footer-link-home"><%= link_to "Home", { :publication => "#{@publication['slug']}", :controller => "catalog", :action => "home" } %></li>
+        <ul class="nav">
+            <a class="nav-link footer-link-help" href="/<%= "#{@publication['slug']}" %>/how_to_search">Help</a>
+            <%= link_to "Home", { :publication => "#{@publication['slug']}", :controller => "catalog", :action => "home" }, class: 'nav-link' %>
         </ul>
     </div>
 </footer>

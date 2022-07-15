@@ -9,11 +9,13 @@
 
     # add ( or page.inside_window? ) to class condition to avoid hiding the 
 -%>
-<li class="<%= 'active' if page.current? %> <%= 'hidden-xs ' unless ( page.current? ) %><%= 'hidden-sm' unless page.inside_window? or page.current? %>">
+<% page_display = number_with_delimiter(page.to_s) %>
+
+<li class="page-item <%= 'active' if page.current? %>">
   <% if page.current? %>
-    <span><%= number_with_delimiter(page.to_s) %></span>
+    <span class="page-link" aria-label="<%= t('views.pagination.aria.current_page', page: page_display) %>" aria-current="true"><%= page_display %></span>
   <% else %>
-    <%= link_to number_with_delimiter(page.to_s), url, opts = {:remote => remote, :rel => page.next? ? 'next' : page.prev? ? 'prev' : nil} %>
+    <%= link_to page_display, url, :remote => remote, :rel => page.next? ? 'next' : page.prev? ? 'prev' : nil, class: 'page-link', aria: { label: t('views.pagination.aria.go_to_page', page: page_display) } %>
   <% end %>
 </li>
 

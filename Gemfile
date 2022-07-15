@@ -78,8 +78,9 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 5.1', '>= 5.1.1'
-  # gem 'rubocop', '~> 0.49.0', require: false
-  # gem 'rubocop-rspec', require: false
+
+  gem 'rubocop', '~> 1.30', '>= 1.30.1', require: false
+  gem 'rubocop-rspec', '~> 2.11', '>= 2.11.1', require: false
 end
 
 # eventually these should be just in development/testing
@@ -119,7 +120,8 @@ gem 'devise', '~> 4.8', '>= 4.8.1'
 gem 'devise-guests', '~> 0.8.1'
 
 group :development, :test do
-  gem 'solr_wrapper', '>= 0.15'
+  # gem 'solr_wrapper', '>= 0.15'
+  gem 'solr_wrapper', '~> 4.0', '>= 4.0.2'
 end
 
 group :development, :test do

@@ -6,7 +6,7 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<li>
+<li class="page-item">
 <%=
     link_opts = { class: 'btn btn-page-navigation' }
     link_to_unless current_page.last?, raw(t('views.pagination.next')) + " " + use_icon('next'), url, link_opts do

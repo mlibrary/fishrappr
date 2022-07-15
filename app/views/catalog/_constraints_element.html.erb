@@ -11,17 +11,22 @@
 %>
 
 <span class="btn-group appliedFilter constraint <%= options[:classes].join(" ") if options[:classes] %>">
-  <span class="constraint-value btn btn-sm btn-default btn-disabled">
+  <span class="constraint-value btn btn-sm btn-secondary btn-disabled">
     <% unless label.blank? %>
       <span class="filterName"><%= label %></span>
     <% end %>
     <% unless value.blank? %>
+      <% unless label.blank? %>
+        <span class="icon_keyboard_arrow_right" aria-hidden="true"></span>
+      <% end %>
       <% if options[:classes] and options[:classes].index('filter-issue_identifier') %>
-        <% if value.index('-') %>
-          <%= tmp = value.split('-')[1..3]; "#{tmp[1]}/#{tmp[2]}/#{tmp[0]}" %>
-        <% else %>
-          <%= tmp = value.split('.')[1..3]; "#{tmp[1]}/#{tmp[2]}/#{tmp[0]}" %>
-        <% end %>
+        <span class="filterValue">
+          <% if value.index('-') %>
+            <%= tmp = value.split('-')[1..3]; "#{tmp[1]}/#{tmp[2]}/#{tmp[0]}" %>
+          <% else %>
+            <%= tmp = value.split('.')[1..3]; "#{tmp[1]}/#{tmp[2]}/#{tmp[0]}" %>
+          <% end %>
+        </span>
       <% else %>
         <%= content_tag :span, value, class: 'filterValue', title: value %>
       <% end %>
@@ -39,7 +44,7 @@
 
     <%= link_to(content_tag(:span, '', class: use_icon_class('close')) + accessible_remove_label,
       options[:remove],
-      class: 'btn btn-default btn-sm remove dropdown-toggle'
+      class: 'btn btn-secondary btn-sm remove'
     ) %>
   <%- end -%>
 </span>

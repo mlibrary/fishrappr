@@ -69,10 +69,10 @@ module Fishrappr::Catalog
       # still fighting with blacklight to build the right kind of query
       # for when the search_field does not apply to this page
       if @document.nil?
-        @response, @document = fetch document_id
+        @response, @document = search_service.fetch document_id
       end
     elsif document_id
-      @response, @document = fetch document_id
+      @response, @document = search_service.fetch document_id
     end
 
     respond_to do |format|
@@ -90,20 +90,20 @@ module Fishrappr::Catalog
   end
 
   def download_text(document=nil)      
-    @response, @document = fetch id(params)
+    @response, @document = search_service.fetch id(params)
     document = @document unless document
     ocr = document.fetch('page_text')
     send_data ocr, filename: @publication.slug + "_" + document.id + '.txt'
   end
 
    def download_issue_text(document=nil)      
-    @response, @document = fetch id(params)
+    @response, @document = search_service.fetch id(params)
     data = get_issue_data(['page_text'])
     build_issue_zip(data)   
   end
 
   def issue_data
-    @response, @document = fetch id(params)
+    @response, @document = search_service.fetch id(params)
     data = get_issue_data
 
     render json: data
@@ -298,11 +298,11 @@ module Fishrappr::Catalog
   def setup_next_and_previous_issue_pages
     @previous_page = @next_page = nil
     begin
-      response, @previous_page = fetch @document.fetch('prev_page_link')
+      response, @previous_page = search_service.fetch @document.fetch('prev_page_link')
     rescue Exception => e
     end
     begin
-      response, @next_page = fetch @document.fetch('next_page_link')
+      response, @next_page = search_service.fetch @document.fetch('next_page_link')
     rescue Exception => e
     end
   rescue Blacklight::Exceptions::InvalidRequest => e

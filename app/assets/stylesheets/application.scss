@@ -10,11 +10,20 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require 'blacklight_advanced_search'
+ * require 'blacklight_advanced_search'
 */
 
-@import 'blacklight';
-@import 'fishrappr';
-// @import "font-awesome-sprockets";
-// @import 'font-awesome';
-@import '_fishrappr-icons.scss';
+// @import 'blacklight';
+// @import 'fishrappr';
+// @import '_fishrappr-icons.scss';
+
+@import "bootstrap";
+@import "blacklight/blacklight";
+@import "blacklight-overrides";
+@import "fishrappr";
+@import "fishrappr-icons";
+// @import "blacklight/facets";
+
+.hidden {
+  display: none;
+}

@@ -13,7 +13,7 @@
     height: 44px;
     line-height: 2.1;
     padding: 0px 12px;
-    padding-top: 8px;
+    // padding-top: 8px;
     width: auto;
     margin-bottom: 10px;
 
@@ -33,7 +33,7 @@
 
   div.page_links {
     // border: 1px solid red;
-    display: inline-block;
+    display: flex;
     float: none;
     margin-right: 20px;
     // margin-right: auto;
@@ -165,11 +165,13 @@
 
 body.blacklight-catalog-index #search-navbar , body.blacklight-catalog-home {
 
+  padding: 0;
+
   .site-search {
     background: rgb(230,230,230);
     padding: 20px;
-    padding-left: 10%;
-    padding-right: 10%;
+    // padding-left: 10%;
+    // padding-right: 10%;
     color: black;
     font-size: 16px !important;
     // margin-top: -20px; // why?
@@ -181,7 +183,7 @@ body.blacklight-catalog-index #search-navbar , body.blacklight-catalog-home {
       border-radius: 3px;    
         
       &:hover {    
-      background: black;   
+        background: black;   
       }    
     }
 
@@ -225,6 +227,15 @@ body.blacklight-catalog-index #search-navbar , body.blacklight-catalog-home {
       display: none;
     }
 
+    .row {
+      margin: auto;
+      width: 90%;
+      justify-content: flex-start;
+    }
+
+    label {
+      font-weight: bold;
+    }
 
     @media (min-width: 768px) {
       .date-input-control {
@@ -262,12 +273,16 @@ body.blacklight-catalog-home {
     background-color: $home-site-search-bgcolor;
     border-radius: 3px;
     color: #ffffff;
-    margin-left: 5%;
-    margin-right: 5%;
-    padding-left: 5%;
-    padding-right: 5%;
-    margin-top: 0;
-    text-align: left;
+
+    width: 90%;
+    margin: 0 auto;
+
+    // margin-left: 5%;
+    // margin-right: 5%;
+    // padding-left: 5%;
+    // padding-right: 5%;
+    // margin-top: 0;
+    // text-align: left;
 
     .search-title {
       margin-top: 0;
@@ -277,6 +292,11 @@ body.blacklight-catalog-home {
     .filter-title {
       font-size: 16px;
       margin-top: -5px;
+    }
+
+    .row {
+      justify-content: center;
+      margin: 0;
     }
   }
 }
@@ -350,12 +370,17 @@ body.blacklight-catalog-index {
         }
       }
 
-      a.dropdown-toggle {
+      a.remove {
         background-color: rgba(26,165,90, .36);
         font-family: $sys-font-family;
         font-size: 16px;
         padding: 6px 10px; // --- disable for MD
         padding-bottom: 5px; // --- for icomoon font
+        color: black;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
       a.catalog_startOverLink, a.FrontPageOnly {
@@ -602,6 +627,9 @@ body.blacklight-catalog-index {
     padding-left: 0;
     margin-bottom: 0;
     padding-bottom: 0;
+
+    display: flex;
+    justify-content: space-between;
   }
 
 }
@@ -779,6 +807,12 @@ body.blacklight-catalog-browse {
   div.pagination {
     display: block;
     margin: 0;
+    text-align: center;
+  }
+
+  section.pagination {
+    justify-content: center;
+    margin-bottom: 1rem;
   }
 
   ul.pagination {
@@ -797,6 +831,20 @@ body.blacklight-catalog-browse {
   h3.group-key {
     padding-bottom: 8px;
   }
+
+  .results-box {
+    border-left: 1px solid rgb(242, 242, 242);
+    padding-left: 1rem;
+    color: #333333;
+    display: inline-block;
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    line-height: 2.1;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    margin-left: 8px;
+    font-weight: bold;
+  }
 }
 
 
@@ -813,15 +861,9 @@ body.blacklight-catalog-home {
   footer {
     padding-right: 30px;
     padding-left: 30px;
-  }
 
-  .container-fluid {
-
-    &.site-search {
-      padding: 0;
-      padding: 20px;
-      padding-left: 10%;
-      padding-right: 10%;    
+    &.navbar-inverse {
+      background-color: $navbar-inverse-bgcolor;
     }
   }
 
@@ -955,6 +997,8 @@ body.blacklight-catalog-home {
 
 .home { 
   .head {
+
+    padding-top: 1.25rem;
 
     h1 {
       font-size: 60px;
@@ -1367,12 +1411,30 @@ footer {
   border-radius: 0 !important;
   padding: 10px;
 
+  &.navbar-inverse {
+    background-color: $navbar-inverse-bgcolor;
+  }
+
   &.bg-dark {
     background-color: $footer-bgcolor;
   }
 
   font-family: $base-fonts;
   font-size: 14px;
+
+  a {
+    font-size: 1rem;
+    color: white;
+
+    &:hover {
+      color: white;
+      text-decoration: underline !important;
+    }
+
+    &.footer-link-help {
+      border: 1px solid white;
+    }
+  }
 
   .footer-link-help a {
     border: 1px solid white;
@@ -1692,4 +1754,84 @@ body.blacklight-contacts-create {
       padding-right: 10px;
     }
   }
+}
+
+.nav-link.text-white {
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spinWebkit .7s infinite linear;
+    -moz-animation: spinMoz .7s infinite linear
+}
+
+.hidden {
+  display: none;
+}
+
+@-webkit-keyframes spinWebkit {
+  from {
+    -webkit-transform: rotate(0deg)
+  }
+
+  to {
+    -webkit-transform: rotate(360deg)
+  }
+}
+
+@keyframes spinMoz {
+  from {
+    transform: scale(1) rotate(0deg)
+  }
+
+  to {
+    transform: scale(1) rotate(360deg)
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: scale(1) rotate(0deg)
+  }
+
+  to {
+    transform: scale(1) rotate(360deg)
+  }
+}
+
+.panel {
+  background-color: #fff;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px RGB(0 0 0 / 5%);
+
+  .panel-heading {
+      padding: 10px 15px;
+      padding-top: 0;
+      padding-bottom: 8px;
+      border-bottom: 1px solid transparent;
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+    }
+  
+    .panel-body {
+      padding: 15px;
+      padding-top: 8px;
+    }
+}
+
+.hidden-md {
+  @extend .d-md-none;
+}
+
+.navbar-default {
+  background-color: #f8f8f8;
+  border-color: #e7e7e7;
+}
+
+.form-group {
+  gap: 0.5rem;
 }
