@@ -26,7 +26,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "loofah", ">= 2.3.1"
 gem "rack", ">= 2.2.3"
 
-gem "nokogiri", ">= 1.11.4"
+gem "nokogiri", ">= 1.13.9"
 
 gem 'nestive-rails'   # was gem 'nestive', '~> 0.6'
 
@@ -80,6 +80,8 @@ gem 'sitemap_generator', '~> 6.0.1'
 
 # security update to sprockets
 gem 'sprockets', '~> 3.7.2'
+
+gem 'new_google_recaptcha'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
