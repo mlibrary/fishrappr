@@ -18,7 +18,7 @@ class ContactsController < ApplicationController
     # if @contact.request["contact"]["type"] == "Permissions request or question"
 
     # not spam and a valid form
-    if @contact.respond_to?(:deliver_now) ? @contact.deliver_now : @contact.deliver
+    if is_human?(params[:new_google_recaptcha_token]) and ( @contact.respond_to?(:deliver_now) ? @contact.deliver_now : @contact.deliver )
       # flash.now[:notice] = 'Thank you for your message!'
       after_deliver
       render :success
@@ -51,5 +51,14 @@ class ContactsController < ApplicationController
     if @publication
       prepend_view_path "app/views/publications/#{@publication.slug}/views/"
     end
+  end
+
+  def is_human?(token)
+    return NewGoogleRecaptcha.human?(
+      token,
+      "contacts",
+      NewGoogleRecaptcha.minimum_score,
+      @contact
+    )
   end
 end

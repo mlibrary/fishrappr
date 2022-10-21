@@ -2,6 +2,11 @@ default_publication: "midaily"
 contact_address: "bhl-digital-support@umich.edu"
 permissions_address: "bhl-student-pub-contact@umich.edu"
 
+new_google_recaptcha:
+  secret_key: secret_key.invalid
+  site_key: site_key.invalid
+  minimum_score: 0.5  
+
 DLXS_COLLECTION: "bhl_midaily"
 DLXS_SERVICE_URL: "https://path/to/service/host"
 
