@@ -6,10 +6,9 @@
     <li><%= link_to "Search", { :publication => "midaily", :controller => "catalog", :action => "index" } %></li>
 
     <li><%= link_to "Browse", { :publication => "midaily", :controller => "catalog", :action => "browse" } %></li>
-   <li><a href="/<%= "#{@publication['slug']}" %>/donors">About</a></li>
+    <li><a href="/<%= "#{@publication['slug']}" %>/donors">About</a></li>
     <li><a href="/<%= "#{@publication['slug']}" %>/how_to_search">Help</a></li>
-    <li><%= link_to "Contact Us", { :controller => "contacts", :action => "new" } %></li>
-  
+    <li><a href="<%= contact_link %>" referrerpolicy="unsafe-url">Contact Us</a></li>
 
     <% if has_user_authentication_provider? %>
       <% if current_user %>

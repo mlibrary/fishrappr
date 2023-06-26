@@ -81,8 +81,6 @@ gem 'sitemap_generator', '~> 6.0.1'
 # security update to sprockets
 gem 'sprockets', '~> 3.7.2'
 
-gem 'new_google_recaptcha'
-
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   # gem 'xray-rails'
