@@ -1,12 +1,6 @@
 <% @page_title = t('views.contacts.title') %>
 
 <% replace :head do -%>
-<%= include_recaptcha_js badge: "bottomleft" %>
-<style>
-  .grecaptcha-badge {
-    bottom: 11rem !important;
-  }
-</style>
 <% end %>
 
 <div class="container-fluid">
@@ -59,7 +53,6 @@
               </div>
             </div>
 
-            <%= recaptcha_action('contacts') %>
           <% end %>
         </div>
       </div> 

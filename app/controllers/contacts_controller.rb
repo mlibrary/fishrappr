@@ -55,11 +55,6 @@ class ContactsController < ApplicationController
   end
 
   def is_human?(token)
-    return NewGoogleRecaptcha.human?(
-      token,
-      "contacts",
-      NewGoogleRecaptcha.minimum_score,
-      @contact
-    )
+    false
   end
 end
