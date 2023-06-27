@@ -6,7 +6,7 @@
     <li><a href="/<%= "#{@publication['slug']}" %>/browse">Browse</a></li>
     <li><a href="/<%= "#{@publication['slug']}" %>/donors">About</a></li>
     <li><a href="/<%= "#{@publication['slug']}" %>/how_to_search">Help</a></li>
-    <li><%= link_to "Contact Us", { :controller => "contacts", :action => "new" } %></li>
+    <li><a href="<%= contact_link %>" referrerpolicy="unsafe-url">Contact Us</a></li>
     <!-- NO login/logout/registration links for Detroit Jewish News -->
   </ul>
 </div>

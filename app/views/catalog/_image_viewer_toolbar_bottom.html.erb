@@ -16,7 +16,7 @@
         <% if highlights_available? %>
           <label class="label-toggle-highlight" tabindex="-1"><input type="checkbox" class="action-toggle-highlight" <%= highlights_visible? ? 'checked="checked"' : '' %> /><div class="control__indicator"></div> <span><%= raw t('views.issue.search_highlights') %></span></label>
         <% end %>
-        <a href="<%= contacts_path type: 'image' %>" class="btn btn-action action-report-problem" style="color: #fff"><%= use_icon('alert') %> Report Problem</a>
+        <a href="<%= contact_link %>&type=5" class="btn btn-action action-report-problem" style="color: #fff" referrerpolicy="unsafe-url"><%= use_icon('alert') %> Report problem</a>
       </div>
 
     </div>
