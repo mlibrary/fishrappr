@@ -1,4 +1,5 @@
 <% @page_title = t('views.midaily-static.about-archives.title') %>
+<% pages_count = Page.find_by_sql(['SELECT COUNT(pages.id) AS id FROM pages INNER JOIN issues ON pages.issue_id = issues.id AND issues.publication_id = ?', @publication.id]).pluck(:id).first %>
 
 <div class="container-fluid">
 
@@ -16,7 +17,11 @@
 
     <div class="<%= main_content_classes %> help-middle-col">
           
-      <p>Welcome to The Michigan Daily Digital Archives! The archives provides searchable access to over 200,000 digitized student newspaper pages from 1891 through 2014. New volumes of the newspaper will be added in the future as they are available. The Michigan Daily Digital Archives project has been generously funded by The Kemp Family Foundation.</p>
+      <p>Welcome to The Michigan Daily Digital Archives! 
+        The archives provides searchable access to over <%= number_with_delimiter(pages_count) %> 
+        digitized student newspaper pages from 1890 through <%= @publication.last_print_year %>. 
+        New volumes of the newspaper will be added in the future as they are available. 
+        The Michigan Daily Digital Archives project has been generously funded by The Kemp Family Foundation.</p>
 
       <h2 class="subtitle">Project Team</h2>
 
