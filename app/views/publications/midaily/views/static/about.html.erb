@@ -28,7 +28,7 @@
           of 20th-century America.  
           The archive contains every extant issue of The Daily, 
           from its founding to <%= @publication.last_print_year %> — 
-          more than <%= number_with_delimiter(Issue.where(publication_id: @publication.id).count()) %> volumes 
+          more than <%= number_with_delimiter(Issue.where(publication_id: @publication.id).count()) %> issues 
           and almost <%= number_with_delimiter(pages_count) %> pages in print. It will be updated annually.</p>
         </div> 
     </div>
