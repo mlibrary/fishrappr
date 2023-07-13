@@ -71,9 +71,9 @@ namespace :fishrappr do
   desc "Update publication range"
   task :update_publication_range, [ :publication_slug ] => :environment do |t, args|
     publication = Publication.find_by_slug(args[:publication_slug])
-    issue = Issue.where(publication_id: publication.id).order(publication_year: :desc).take(1).first
+    issue = Issue.where('publication_id = ? AND publication_year > 0', publication.id).order(publication_year: :desc).take(1).first
     publication.last_print_year = issue.date_issued.split('-')[0].to_i
-    issue = Issue.where(publication_id: publication.id).order(publication_year: :asc).take(1).first
+    issue = Issue.where('publication_id = ? AND publication_year > 0', publication.id).order(publication_year: :asc).take(1).first
     publication.first_print_year = issue.date_issued.split('-')[0].to_i
     publication.save
   end
