@@ -38,11 +38,23 @@ class IssueIndexer
   def index(commit=false)
     Rails.configuration.batch_commit = true
 
+    # remove the issue pages because some may have been removed
+    unindex_issue
+
     solr_doc = generate_solr_doc
     @issue.pages.each_with_index do |page, i|
       PageIndexer.new(page).index(solr_doc)
     end
     Blacklight.default_index.connection.commit if commit
+  end
+
+  def unindex_issue
+    conn = Blacklight.default_index.connection
+    results = conn.get 'select', params: { fq: "issue_identifier:#{@issue.issue_identifier}", fl: 'id,volume_identifier', rows: 10000 }
+    results['response']['docs'].each do |page_doc|
+      conn.delete_by_id page_doc["id"]
+      STDERR.puts "-- DELETED #{page_doc['id']}"
+    end
   end
 
   def generate_solr_doc
