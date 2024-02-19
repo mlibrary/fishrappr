@@ -24,7 +24,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "loofah", ">= 2.3.1"
-gem "rack", ">= 2.2.3"
+gem "rack", ">= 2.2.6.2"
 
 gem "nokogiri", ">= 1.13.9"
 
