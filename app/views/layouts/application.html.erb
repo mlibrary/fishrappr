@@ -41,6 +41,7 @@
   </head>
   <body class="<%= render_body_class %>" <%= area :data %>>
 
+    <%= render partial: '/service_warning' %>
     <%= area :header do %>
         <%= render :partial => 'shared/header_navbar' %>
     <% end %>
