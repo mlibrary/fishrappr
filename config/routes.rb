@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   concern :searchable, Blacklight::Routes::Searchable.new
 
   root to: redirect("/#{Settings.default_publication}")

@@ -95,7 +95,7 @@
 //     }
 // }
 
-@media (max-width: $screen-xs-max) {
+@media (max-width: map-get($grid-breakpoints, 'xs')) {
     .btn-page-navigation {
         min-width: 0;
     }

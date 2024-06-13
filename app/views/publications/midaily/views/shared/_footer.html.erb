@@ -1,13 +1,13 @@
-<footer class="navbar navbar-inverse">
+<footer class="navbar ">
     <div class="container-fluid">
-        <ul class="nav navbar-nav">
-            <li class="footer-link-help"><a href="/<%= "#{@publication['slug']}" %>/how_to_search">Help</a></li>
-            <li class="footer-link-home"><%= link_to "Home", { :publication => "#{@publication['slug']}", :controller => "catalog", :action => "home" } %></li>
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="/<%= "#{@publication['slug']}" %>/how_to_search">Help</a></li>
+            <li class="nav-item"><%= link_to "Home", { :publication => "#{@publication['slug']}", :controller => "catalog", :action => "home" }, class: 'nav-link' %></li>
         </ul>
     </div>
 </footer>
 <div class="container-fluid">
-    <div class="col-md-12">
+    <div class="col-md-12 py-1">
         <p>
             <span>&copy; <%= Date.today.year %> <a href="http://www.regents.umich.edu">Regents of the University of Michigan</a></span>
         </p>

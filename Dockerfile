@@ -1,4 +1,4 @@
-FROM ruby:2.7
+FROM ruby:3.3
 
 ARG UNAME=app
 ARG UID=1000
@@ -13,7 +13,7 @@ RUN curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 RUN apt-get update -yqq && \
-  apt-get install -yqq --no-install-recommends vim nodejs
+  apt-get install -yqq --no-install-recommends vim nodejs yarn
 
 # RUN wget -q https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.bullseye_${ARCH}.deb
 # RUN apt-get install -yqq --no-install-recommends ./wkhtmltox_0.12.6.1-2.bullseye_${ARCH}.deb

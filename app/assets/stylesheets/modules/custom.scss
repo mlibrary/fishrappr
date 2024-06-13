@@ -2,20 +2,26 @@
   background-color: transparent; // #f5f5f5;
   border-radius: 4px;
   border: none; // 1px solid #e3e3e3;
-  padding-left: 20px;
-  padding-top: 10px;
+  margin: 1rem 0;
+  // padding-left: 20px;
+  // padding-top: 10px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1rem;
 
   div.search-widgets {
-    display: inline-block;
-    float: right;
-    font-family: $sys-font-family;
-    font-size: 16px;
+    // display: inline-block;
+    // float: right;
+    // font-family: $sys-font-family;
+    // font-size: 16px;
     height: 44px;
     line-height: 2.1;
-    padding: 0px 12px;
-    padding-top: 8px;
+    // padding: 0px 12px;
+    // padding-top: 8px;
     width: auto;
-    margin-bottom: 10px;
+    // margin-bottom: 10px;
 
     #sort-dropdown {
       margin-right: 0;
@@ -33,9 +39,9 @@
 
   div.page_links {
     // border: 1px solid red;
-    display: inline-block;
-    float: none;
-    margin-right: 20px;
+    // display: inline-block;
+    // float: none;
+    // margin-right: 20px;
     // margin-right: auto;
     width: auto;
 
@@ -115,7 +121,7 @@
   }
 }
 
-.hidden { display: none; }
+.hidden { display: none !important; }
 
 .link_underline {
   text-decoration: underline;
@@ -171,7 +177,8 @@ body.blacklight-catalog-index #search-navbar , body.blacklight-catalog-home {
     padding-left: 10%;
     padding-right: 10%;
     color: black;
-    font-size: 16px !important;
+    font-size: 1rem !important;
+
     // margin-top: -20px; // why?
 
     .btn-action {
@@ -451,8 +458,13 @@ body.blacklight-catalog-index {
 
   li > a, li.active > span {
 
+    // MINIMAL FROM page-link class
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
     color: $link-color;
     border-radius: 3px;
+
     // background-color: rgb(242,242,242);
     // border: solid 2px #0c5292;
     border: solid 2px $link-color;
@@ -553,7 +565,7 @@ div.top-panel-heading {
   display:none;
   border: 3px solid #337ab7;
   z-index: 100;
-  color: $gray-lighter;
+  color: $gray-100;
 }
 
 .back-to-top-text {
@@ -599,9 +611,9 @@ body.blacklight-catalog-index {
 
   div#sortAndPerPage {
     @include pagination-toolbar;
-    padding-left: 0;
-    margin-bottom: 0;
-    padding-bottom: 0;
+    // padding-left: 0;
+    // margin-bottom: 0;
+    // padding-bottom: 0;
   }
 
 }
@@ -815,13 +827,15 @@ body.blacklight-catalog-home {
     padding-left: 30px;
   }
 
-  .container-fluid {
+  .container-home {
 
     &.site-search {
-      padding: 0;
-      padding: 20px;
+      // padding: 0;
+      // padding: 20px;
       padding-left: 10%;
-      padding-right: 10%;    
+      padding-right: 10%;
+      width: 90%;
+      margin: auto;
     }
   }
 
@@ -1366,16 +1380,22 @@ footer {
 
   border-radius: 0 !important;
   padding: 10px;
+  background-color: $footer-bgcolor;
 
-  &.navbar-inverse {
-    background-color: $footer-bgcolor;
-  }
+  // &. {
+  //   background-color: $footer-bgcolor;
+  // }
 
   font-family: $base-fonts;
   font-size: 14px;
 
   .footer-link-help a {
     border: 1px solid white;
+  }
+
+  .navbar-nav {
+    flex-direction: row;
+    gap: 1rem;
   }
 }  
 
@@ -1386,7 +1406,7 @@ footer {
   margin-bottom: 0;
 }
 
-.navbar-inverse .navbar-nav > li > a {
+.navbar .navbar-nav > li > a {
   color: white;
   font-size: 16px;
   font-weight: normal;
@@ -1634,7 +1654,7 @@ body.blacklight-contacts-create {
     to { transform: scale(1) rotate(360deg);}
 }
 
-@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+@include media-breakpoint-only('sm', $grid-breakpoints) {
 
   body.blacklight-catalog-index {
 
@@ -1664,7 +1684,7 @@ body.blacklight-contacts-create {
   }
 }
 
-@media (max-width: $screen-xs-max) {
+@include media-breakpoint-up('xs', $grid-breakpoints) {
   .page_links {
     white-space: nowrap;
   }

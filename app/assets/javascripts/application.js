@@ -17,7 +17,6 @@
 //= require jquery_ujs
 //= require activestorage
 // Required by Blacklight
-//= require blacklight/blacklight
 //= require bootstrap/button
 //= require bootstrap/tab
 //= require bootbox
