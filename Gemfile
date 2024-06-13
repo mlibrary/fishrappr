@@ -47,8 +47,6 @@ gem "json", ">= 2.3.0"
 
 gem 'blacklight', '~> 6.24'
 gem 'blacklight_advanced_search', '~> 6.4', '>= 6.4.1'
-gem 'mail_form', '~> 1.7.1'
-gem 'simple_form', '~> 5.0', '>= 5.0.3'
 
 gem "blacklight_range_limit", '~> 6.2.1'
 
@@ -60,8 +58,6 @@ gem 'config', '~> 2.2', '>= 2.2.3'
 # gem 'osullivan', '~> XX'
 
 gem 'turnout', '~> 2.4.0'
-
-gem 'google-analytics-rails', '1.1.0'
 
 gem 'rubyzip', '~> 2.3', '>= 2.3.2'
 gem 'ffi', '~> 1.15', '>= 1.15.5'
@@ -129,7 +125,6 @@ group :production do
 end
 
 gem 'rsolr', '~> 2.2.1' # was '~> 4.3.0'
-gem 'blacklight-marc', '~> 6.2.0'
 
 gem 'devise', '~> 4.7.1' # was '~> 4.4.3'
 gem 'devise-guests', '~> 0.6.0'
