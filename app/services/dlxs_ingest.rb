@@ -208,7 +208,9 @@ class DlxsIngest
 
 
     # image_link = File.basename(canvas.images.first.resource['@id'])
-    image_link = File.basename(canvas.images.first['resource']['@id'])
+    # image_link = File.basename(canvas.images.first['resource']['@id'])
+    image_link = File.basename(canvas.images.first['resource']['service']['@id'])
+    STDERR.puts image_link
     page = Page.create \
       issue: issue,
       height: canvas.height,

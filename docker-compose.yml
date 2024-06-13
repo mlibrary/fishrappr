@@ -1,0 +1,55 @@
+---
+services:
+  app:
+    depends_on:
+      - db
+      - solr
+    image: fishrappr
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - "3000:3000" # Rails
+      - "1234:1234" # RubyMine
+      - "26162:26162" # RubyMine
+    environment:
+      - REDIS_URL=redis://redis:6379
+    volumes:
+      - .:/opt/app
+      - data:/var/opt/app/data
+      - gems:/var/opt/app/gems
+  db:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=fishrappr
+      - MYSQL_DATABASE=fishrappr
+      - MYSQL_USER=fishrappr
+      - MYSQL_PASSWORD=password
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+      - "3306:3006"
+  solr:
+    image: solr:8-slim
+    ports:
+      - "8983:8983"
+    environment:
+      - SOLR_JAVA_MEM=-Xms1024m -Xmx1024m
+      - SOLR_HEAP=1024m
+    volumes:
+      - solr-conf:/opt/solr/server/solr/configsets/fishrappr
+      - solr-data:/var/solr
+volumes:
+  data:
+    driver_opts:
+      type: none
+      device: ${PWD}/data
+      o: bind
+  gems:
+  db-data:
+  solr-conf:
+    driver_opts:
+      type: none
+      device: ${PWD}/solr/fishrappr
+      o: bind
+  solr-data:
