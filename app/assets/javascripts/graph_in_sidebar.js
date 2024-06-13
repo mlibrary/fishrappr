@@ -16,11 +16,11 @@ $( document ).ready(function() {
     // alert("facet_key =" + facet_key);       
 
     var col_values = new Array();
-    col_values = $("#graph_data").data("col-values").split(",");
+    col_values = String($("#graph_data").data("col-values")).split(",");
     var col_names = new Array();
-    col_names = $("#graph_data").data("col-names").split(",");
+    col_names = String($("#graph_data").data("col-names")).split(",");
     var col_links = new Array();
-    col_links = $("#graph_data").data("col-links").split(",");
+    col_links = String($("#graph_data").data("col-links")).split(",");
 
     // alert("col values are =" + col_values);       
     // alert("col names are =" + col_names);       

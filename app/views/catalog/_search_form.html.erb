@@ -1,6 +1,6 @@
 <% month_options = get_month_options; month_options.unshift(['Any Month', '-']) %>
 <% date_options = get_date_options; date_options.unshift(['Any Day', '-']) %>
-<% container_class = 'container-fluid' if true || local_assigns[:container_class].nil? %>
+<% container_class = 'container-fluid' if local_assigns[:container_class].nil? %>
 
 <div class="<%= container_class %> site-search" aria-live="polite">
   <div class="row">

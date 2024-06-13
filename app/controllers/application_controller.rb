@@ -5,8 +5,10 @@ class ApplicationController < ActionController::Base
   include Fishrappr::Context
   # Behavior for devise.  Use remote user field in http header for auth.
   include Devise::Behaviors::HttpHeaderAuthenticatableBehavior
+  # include NestiveRails::LayoutHelper
   
-  layout 'blacklight'
+  # layout 'blacklight'
+  layout :determine_layout if respond_to? :layout
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.

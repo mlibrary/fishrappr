@@ -74,3 +74,9 @@ config/settings/*.local.yml
 config/environments/*.local.yml
 
 public/sitemaps
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

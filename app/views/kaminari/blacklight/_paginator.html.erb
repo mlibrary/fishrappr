@@ -9,7 +9,7 @@
    Paginator now using the Bootstrap paginator class
 -%>
 <%= paginator.render do -%>
-  <ul class="pagination">
+  <ul class="pagination justify-content-end">
     <%= prev_page_tag %>
     <% each_relevant_page do |page| -%>
       <% if page.left_outer? || page.right_outer? || page.inside_window? -%>
