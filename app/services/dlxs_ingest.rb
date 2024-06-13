@@ -208,7 +208,13 @@ class DlxsIngest
 
 
     # image_link = File.basename(canvas.images.first.resource['@id'])
+<<<<<<< HEAD
     image_link = File.basename(canvas.images.first['resource']['service']['@id'])
+=======
+    # image_link = File.basename(canvas.images.first['resource']['@id'])
+    image_link = File.basename(canvas.images.first['resource']['service']['@id'])
+    STDERR.puts image_link
+>>>>>>> 8646ad7 (step 1: docker)
     page = Page.create \
       issue: issue,
       height: canvas.height,

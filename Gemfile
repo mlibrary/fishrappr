@@ -135,8 +135,4 @@ gem 'devise', '~> 4.7.1' # was '~> 4.4.3'
 gem 'devise-guests', '~> 0.6.0'
 
 group :development, :test do
-  gem 'solr_wrapper', '>= 0.15'
-end
-
-group :development, :test do
 end
