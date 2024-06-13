@@ -68,9 +68,6 @@ Rails.application.routes.draw do
     end
   end
 
-  match '/contacts', to: 'contacts#new', via: 'get'
-  resources "contacts", only: [:new, :create]
-
   # redirect old static links for daily to new daily locations
   get '/static/donors', to: redirect('/midaily/donors')
   get '/static/about_project', to: redirect('/midaily/project')
