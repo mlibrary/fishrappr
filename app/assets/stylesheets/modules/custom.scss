@@ -458,13 +458,6 @@ body.blacklight-catalog-index {
 
   li > a, li.active > span {
 
-    // MINIMAL FROM page-link class
-    position: relative;
-    display: block;
-    padding: 0.5rem 0.75rem;
-    color: $link-color;
-    border-radius: 3px;
-
     // background-color: rgb(242,242,242);
     // border: solid 2px #0c5292;
     border: solid 2px $link-color;
@@ -786,6 +779,9 @@ body.blacklight-catalog-browse {
 
   div.pagination {
     @include pagination-toolbar;
+    section.pagination {
+      justify-content: center;
+    }
   }
 
   div.pagination {
@@ -808,6 +804,7 @@ body.blacklight-catalog-browse {
 
   h3.group-key {
     padding-bottom: 8px;
+    border-bottom: 1px solid #444;
   }
 }
 
