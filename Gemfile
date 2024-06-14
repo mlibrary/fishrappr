@@ -9,10 +9,6 @@ gem 'webpacker'
 gem 'sass-rails', '~> 6.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '~> 4.2'
-# Use CoffeeScript for .coffee assets and views
-### gem 'coffee-rails', '~> 4.2'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'mini_racer', "~> 0.5", platforms: :ruby
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'rack', '~> 2.0', '>= 2.0.9.4'
