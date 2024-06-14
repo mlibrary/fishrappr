@@ -17,11 +17,11 @@ $grid-gap: 25px;
     }
 
     @include media-breakpoint-only('sm') {
-      width: $viewer-width;
+      width: 100%; // $viewer-width;
       height: 75vh;
     }
     @include media-breakpoint-only('md') {
-      width: $viewer-width;
+      width: 100%; // $viewer-width;
       height: 75vh;
     }
     @include media-breakpoint-only('lg') {
@@ -802,7 +802,7 @@ h1.page {
     "sidebar"
     "plaintext";
 
-@include media-breakpoint-up('sm', $grid-breakpoints) {
+@include media-breakpoint-up('lg', $grid-breakpoints) {
     grid-template-columns: $viewer-width 1fr;
     -ms-grid-columns: $viewer-width $grid-gap 1fr;
     grid-gap: $grid-gap;
@@ -820,6 +820,7 @@ h1.page {
   grid-area: sidebar;
 
   margin-top: 40px;
+  min-width: 16rem;
 
   .page-options {
 

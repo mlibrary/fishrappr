@@ -1,20 +1,22 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem 'rails', '~> 6.0', '>= 6.0.6.1'
+gem 'rails', '~> 7.1', '>= 7.1.3.4'
+gem 'sprockets-rails', '~> 3.5', '>= 3.5.1'
 gem 'webpacker'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 6.0'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '~> 4.2'
 # Use CoffeeScript for .coffee assets and views
 ### gem 'coffee-rails', '~> 4.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', "~> 0.5", platforms: :ruby
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem "rack", ">= 2.2.6.2"
+gem 'rack', '~> 2.0', '>= 2.0.9.4'
+## gem 'rack', '~> 3.1', '>= 3.1.3'
 
 gem 'rails-html-sanitizer', '~> 1.6'
 gem "loofah", "~> 2.21"
@@ -43,7 +45,7 @@ gem 'config', '~> 5.5', '>= 5.5.1'
 
 # gem 'osullivan', '~> XX'
 
-gem 'turnout', '~> 2.5'
+## gem 'turnout', '~> 2.5'
 
 gem 'rubyzip', '~> 2.3', '>= 2.3.2'
 gem 'ffi', '~> 1.17'
@@ -77,12 +79,12 @@ end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'web-console', '~> 4.2', '>= 4.2.1'
+  gem 'listen', '~> 3.9'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring', '~> 4.2', '>= 4.2.1'
+  gem 'spring-watcher-listen', '~> 2.1'
 end
 
 group :test do
