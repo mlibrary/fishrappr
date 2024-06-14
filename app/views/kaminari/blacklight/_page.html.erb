@@ -9,11 +9,11 @@
 
     # add ( or page.inside_window? ) to class condition to avoid hiding the 
 -%>
-<li class="<%= 'active' if page.current? %> <%= 'hidden-xs ' unless ( page.current? ) %><%= 'hidden-sm' unless page.inside_window? or page.current? %>">
+<li class="page-item <%= 'active' if page.current? %> <%= 'hidden-xs ' unless ( page.current? ) %><%= 'hidden-sm' unless page.inside_window? or page.current? %>">
   <% if page.current? %>
-    <span><%= number_with_delimiter(page.to_s) %></span>
+    <span class="page-link"><%= number_with_delimiter(page.to_s) %></span>
   <% else %>
-    <%= link_to number_with_delimiter(page.to_s), url, opts = {:remote => remote, :rel => page.next? ? 'next' : page.prev? ? 'prev' : nil} %>
+    <%= link_to number_with_delimiter(page.to_s), url, opts = {:remote => remote, :rel => page.next? ? 'next' : page.prev? ? 'prev' : nil, class: 'page-link'} %>
   <% end %>
 </li>
 
