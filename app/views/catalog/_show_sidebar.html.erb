@@ -2,10 +2,10 @@
       <h2 class="sr-only">Page Options</h2>
 
       <% if true or @option == 'tabbish' %>
-      <ul class="nav nav-pills hidden-lg hidden-md hidden-sm" role="tablist" style="margin-bottom: 20px">
-        <li role="presentation"><a href="#page-image" aria-controls="page-image" role="tab"><%= use_icon('file_image') %> Image</a></li>
-        <li role="presentation"><a href="#page-text" aria-controls="page-text" role="tab"><%= use_icon('file_text') %> Text</a></li>
-        <li role="presentation" class="active"><a href="#page-options" aria-controls="page-options" role="tab"><i class="glyphicon glyphicon-cog"></i> Page Options</a></li>
+      <ul class="nav nav-pills d-lg-none d-md-none d-sm-none" role="tablist" style="margin-bottom: 20px">
+        <li role="presentation" class="nav-item"><a class="nav-link" href="#page-image" aria-controls="page-image" role="tab"><%= use_icon('file_image') %> Image</a></li>
+        <li role="presentation" class="nav-item"><a class="nav-link" href="#page-text" aria-controls="page-text" role="tab"><%= use_icon('file_text') %> Text</a></li>
+        <li role="presentation" class="nav-item d-lg-none d-md-none d-sm-none"><a class="active nav-link" href="#page-options" aria-controls="page-options" role="tab"><i class="glyphicon glyphicon-cog"></i> Page Options</a></li>
       </ul>
       <% end %>
 
