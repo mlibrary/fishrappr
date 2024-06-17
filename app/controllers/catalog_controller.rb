@@ -116,9 +116,10 @@ class CatalogController < ApplicationController
      q: '{!term f=id v=$id}'
     }
 
-    config.document_index_view_types = ["default", "gallery", "list", "frequency", "covers"]
-    config.view.grid.partials = [:index]
-    config.view.grid.icon_class = "glyphicon-th-large"
+    ### DO WE NEED THESE
+    # config.document_index_view_types = ["default", "gallery", "list", "frequency", "covers"]
+    # config.view.grid.partials = [:index]
+    # config.view.grid.icon_class = "glyphicon-th-large"
 
     # solr field configuration for search results/index views
      config.index.title_field = 'date_issued_display'
@@ -172,15 +173,6 @@ class CatalogController < ApplicationController
     config.add_facet_field 'date_issued_dd_ti', label: 'Day', sort: 'index', limit: 20
     config.add_facet_field 'date_issued_yyyymmdd_ti', label: 'Date', show: false
     config.add_facet_field 'issue_identifier', label: 'Issue', show: false
-
-    #config.add_facet_field 'example_pivot_field', label: 'Pivot Field', :pivot => ['format', 'language_facet']
-
-    #config.add_facet_field 'example_query_facet_field', label: 'Date', :query => {
-    #   :years_5 => { label: 'within 5 Years', fq: "pub_date:[#{Time.zone.now.year - 5 } TO *]" },
-    #   :years_10 => { label: 'within 10 Years', fq: "pub_date:[#{Time.zone.now.year - 10 } TO *]" },
-    #   :years_25 => { label: 'within 25 Years', fq: "pub_date:[#{Time.zone.now.year - 25 } TO *]" }
-    #}
-
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -238,12 +230,6 @@ class CatalogController < ApplicationController
       field.solr_parameters = { :qf => "page_text" } 
     end
 
-    # config.add_search_field 'ht_barcode' do |field|
-    #   field.include_in_simple_select = false
-    #   field.solr_parameters = { :qf => "ht_barcode" } 
-    # end
-
-
     #config.add_search_field 'OCR Text' do |field|
      #field.solr_parameters = { qf: 'page_text' , hl: true}
      #advanced_parse = true
@@ -286,6 +272,8 @@ class CatalogController < ApplicationController
     config.autocomplete_path = 'suggest'
 
     config.show.route = { controller: 'catalog', action: 'show' }
+
+    config.filter_search_state_fields = false
     # binding.pry
   end
 end

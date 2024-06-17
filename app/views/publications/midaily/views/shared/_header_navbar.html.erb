@@ -24,8 +24,6 @@
   <%= yield(:search_navbar) %>
 <% else %>
   <div id="search-navbar" class="navbar navbar-default p-0" role="navigation">
-    <!-- <div class="container-fluid"> -->
-        <%= render_search_bar  %>
-    <!-- </div> -->
+    <%= render partial: '/catalog/search_form' %>
   </div>
 <% end %>

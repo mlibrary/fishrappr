@@ -1631,19 +1631,7 @@ body.blacklight-contacts-create {
 
 // searching icon animation
 .glyphicon-refresh-animate {
-    -animation: spin .7s infinite linear;
-    -webkit-animation: spinWebkit .7s infinite linear;
-    -moz-animation: spinMoz .7s infinite linear;
-}
-
-@-webkit-keyframes spinWebkit {
-    from { -webkit-transform: rotate(0deg);}
-    to { -webkit-transform: rotate(360deg);}
-}
-
-@keyframes spinMoz {
-    from { transform: scale(1) rotate(0deg);}
-    to { transform: scale(1) rotate(360deg);}
+    animation: .7s infinite spin linear;
 }
 
 @keyframes spin {
@@ -1706,4 +1694,9 @@ body.blacklight-contacts-create {
       padding-right: 10px;
     }
   }
+}
+
+.constraints-container {
+  line-height: 2.5;
+  padding: 1rem 1.125rem;
 }

@@ -35,7 +35,7 @@
       <p class="description"><%= @featured_list.first["date_issued_display"].first.split(",").first if @featured_list.first %></p>
       <div id="documents" class="row grid">
         <% @featured_list.each do |document| %>
-          <a href="<%= url_for url_for_document(document) %>" style="display: block;">
+          <a href="<%= url_for search_state.url_for_document(document) %>" style="display: block;">
               <figure data-identifier="<%= document.id %>">
                   <div class="thumbnail" style=" <%= document_thumbnail_style(document, size: '256,') %>">
                     <%= document_thumbnail(document, size: '256,') %>
