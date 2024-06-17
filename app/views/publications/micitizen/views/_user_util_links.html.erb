@@ -1,12 +1,9 @@
-<div class="navbar-right">
-  <ul class="nav navbar-nav">
-    <!-- <li><%#= link_to "Search", { :controller => "catalog", :action => "index" } %></li> -->
-    <!-- <li><%#= link_to "Browse", { :controller => "catalog", :action => "browse" } %></li> -->
-    <li><a href="/<%= "#{@publication['slug']}" %>/search">Search</a></li>
-    <li><a href="/<%= "#{@publication['slug']}" %>/browse">Browse</a></li>
-    <li><a href="/<%= "#{@publication['slug']}" %>/about">About</a></li>
-    <li><a href="/<%= "#{@publication['slug']}" %>/how_to_search">Help</a></li>
-    <li><a href="<%= contact_link %>" referrerpolicy="unsafe-url">Contact Us</a></li>
-    <!-- NO login/logout/registration links for Detroit Jewish News -->
-  </ul>
-</div>
+<ul class="navbar-nav flex-direction-row justify-content-end">
+  <li class="nav-item"><%= link_to "Search", { :publication => "micitizen", :controller => "catalog", :action => "index" }, class: 'nav-link' %></li>
+
+  <li class="nav-item"><%= link_to "Browse", { :publication => "micitizen", :controller => "catalog", :action => "browse" }, class: 'nav-link' %></li>
+  <li class="nav-item"><a class="nav-link" href="/<%= "#{@publication['slug']}" %>/donors">About</a></li>
+  <li class="nav-item"><a class="nav-link" href="/<%= "#{@publication['slug']}" %>/how_to_search">Help</a></li>
+  <li class="nav-item"><a class="nav-link" href="<%= contact_link %>" referrerpolicy="unsafe-url">Contact Us</a></li>
+  <!-- NO login/logout/registration links for Detroit Jewish News -->
+</ul>
