@@ -3,7 +3,8 @@ require 'fishrappr/search_state'
 module Fishrappr::Catalog
   extend ActiveSupport::Concern
 
-  include Blacklight::Base
+  include Blacklight::Configurable
+  include Blacklight::SearchContext
 
   included do
     helper_method :process_highlighted_words
@@ -30,6 +31,8 @@ module Fishrappr::Catalog
 
   # get search results from the solr index
   def index
+    Rails.logger.debug "[INDEX] params: #{params.permitted?}"
+
 
     issue_identifier = params[:issue_identifier]
     unless issue_identifier.nil?
@@ -514,5 +517,10 @@ module Fishrappr::Catalog
         params['date_issued_yyyy10_ti'] = 'Any Decade'
       end
     end
+
+    def permit_fields
+      params.permit(:search_field, :q, :publication, :date_filter, :date_issued_begin_mm, :date_issued_begin_dd, :date_issued_begin_yyyy, :date_issued_end_mm, :date_issued_end_dd, :date_issued_end_yyyy, :issue_identifier)
+    end
+
        
 end

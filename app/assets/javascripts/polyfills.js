@@ -63,3 +63,6 @@ if (!String.prototype.includes) {
     }
   };
 }
+
+// document.documentElement.classList.remove('no-js');
+// document.documentElement.classList.add('js');

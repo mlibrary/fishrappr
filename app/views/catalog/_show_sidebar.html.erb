@@ -46,7 +46,7 @@
           <form>
             <div class="form-group">
               <label for="permalink">Permalink for this page</label>
-              <input type="text" class="form-control" id="permalink" value="<%= url_for url_for_document(@document).merge(only_path: false) %>" readonly="readonly" onclick="this.select()" />
+              <input type="text" class="form-control" id="permalink" value="<%= url_for search_state.url_for_document(@document).merge(only_path: false) %>" readonly="readonly" onclick="this.select()" />
             </div>
             <button class="btn btn-action action-copy-permalink">Copy Link</button>
           </form>

@@ -39,14 +39,14 @@ module ApplicationHelper
   end
 
   def _build_document_url(document, options)
-    url_for url_for_document(@document, options)
+    url_for search_state.url_for_document(@document, options)
   end
 
   ##
   # Link to the previous document in the current search context
   def link_to_previous_issue_page(previous_document)
     link_opts = { class: 'btn btn-page-navigation' }
-    link_to_unless previous_document.nil?, use_icon('previous') + " " + raw(t('views.issue.previous')), url_for_document(previous_document), link_opts do
+    link_to_unless previous_document.nil?, use_icon('previous') + " " + raw(t('views.issue.previous')), search_state.url_for_document(previous_document), link_opts do
       content_tag :span, use_icon('previous') + " " + raw(t('views.issue.previous')), :class => 'btn btn-page-navigation endpoint'
     end
   end
@@ -55,7 +55,7 @@ module ApplicationHelper
   # Link to the next document in the current search context
   def link_to_next_issue_page(next_document)
     link_opts = { class: 'btn btn-page-navigation' }
-    link_to_unless next_document.nil?, raw(t('views.issue.next')) + " " + use_icon('next'), url_for_document(next_document), link_opts do
+    link_to_unless next_document.nil?, raw(t('views.issue.next')) + " " + use_icon('next'), search_state.url_for_document(next_document), link_opts do
       content_tag :span, raw(t('views.issue.next')) + " " + use_icon('next'), :class => 'btn btn-page-navigation endpoint'
     end
   end
