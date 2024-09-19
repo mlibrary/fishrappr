@@ -21,7 +21,7 @@ gem 'loofah', '~> 2.16'
 
 gem 'nokogiri', '~> 1.13', '>= 1.13.4'
 
-gem 'nestive-rails'   # was gem 'nestive', '~> 0.6'
+##  gem 'nestive-rails'   # was gem 'nestive', '~> 0.6'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '~> 4.4'
