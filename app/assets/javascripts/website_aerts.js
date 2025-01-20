@@ -1,6 +1,6 @@
-const DOMAIN = 'digital.bentley.umich.edu';
 
 $(document).ready(function() {
+  const DOMAIN = "digital.bentley.umich.edu";
   fetch(`https://staff.lib.umich.edu/api/alerts?now=${Date.now()}`)
     .then(response => response.json())
     .then((payload) => {
