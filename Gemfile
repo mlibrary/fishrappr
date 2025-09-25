@@ -12,7 +12,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem 'rails', '~> 5.2', '>= 5.2.7'
 gem 'rails-html-sanitizer', '~> 1.4'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 1.4', '>= 1.4.4'
+# gem 'sqlite3', '~> 1.4', '>= 1.4.4'
+gem 'sqlite3', '~> 1.6', '>= 1.6.4'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.5'
 # Use Uglifier as compressor for JavaScript assets
@@ -22,6 +23,8 @@ gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', "~> 0.5", platforms: :ruby
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem 'nio4r', '>= 2.5.9'
 
 gem "loofah", ">= 2.3.1"
 gem "rack", ">= 2.2.6.2"
@@ -122,7 +125,7 @@ end
 
 
 group :production do
-  gem 'mysql2', '~> 0.4.4'
+  gem 'mysql2', '~> 0.5.6'
 end
 
 gem 'rsolr', '~> 2.2.1' # was '~> 4.3.0'
