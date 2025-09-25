@@ -5,7 +5,8 @@
 # and maximum; this matches the default thread size of Active Record.
 #
 threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
-threads threads_count, threads_count
+### threads threads_count, threads_count
+threads 1, 8 # per skorner's recommendation
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
 #
