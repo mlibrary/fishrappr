@@ -1,13 +1,13 @@
 
 $(document).ready(function() {
-  const DOMAIN = "digital.bentley.umich.edu";
+  var DOMAIN = "digital.bentley.umich.edu";
   fetch(`https://staff.lib.umich.edu/api/alerts?now=${Date.now()}`)
     .then(response => response.json())
     .then((payload) => {
       for(let i = 0; i < payload.length; i++) {
-        const message = payload[i];
+        var message = payload[i];
         if ( message.domains ==  DOMAIN ) {
-          const $alert = `<section class="banner--warning" role="status" style="color: #212B36; padding: 0.5rem 0; background-color: #FF8A58; font-size: 16px;">
+          var $alert = `<section class="banner--warning" role="status" style="color: #212B36; padding: 0.5rem 0; background-color: #FF8A58; font-size: 16px;">
         <div class="website-alert" style="width: auto; padding: 0 1rem;">
           <style>
             .website-alert p { margin: 0; }
