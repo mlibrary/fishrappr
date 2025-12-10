@@ -9,7 +9,6 @@
       <%= hidden_field_tag :search_field, search_fields.first.last %>
       <div class="form-group">
         <div class="col-xs-12">
-          <label for="date_filter" class="control-label search-label date_filter"><%= t('blacklight.search.form.search.label') %></label>
           <% # if there are active date facets suppress date in catalog search box %>
           <% # assumes that the search partial is only show on the home and catalog pages %>
           <% #if (! has_search_parameters? || ! active_date_facets?(params) ) # on home page || no facets %>
