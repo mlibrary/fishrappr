@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'rails', '~> 7.1', '>= 7.1.3.4'
 gem 'sprockets-rails', '~> 3.5', '>= 3.5.1'
-gem 'webpacker'
+## gem 'webpacker'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 6.0'
