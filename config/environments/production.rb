@@ -91,4 +91,7 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+  config.hosts << "127.0.0.1"
+  config.hosts << /.*\.lib\.umich\.edu/
+  ## NEED TO ADD THE APP SERVER??
 end
