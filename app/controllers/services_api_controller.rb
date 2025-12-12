@@ -1,5 +1,5 @@
 class ServicesApiController < ApplicationController
-  include Blacklight::SearchHelper
+  include Blacklight::SearchContext
 
 
   def manifests
