@@ -63,6 +63,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 3.5'
+  gem 'sqlite3', '~> 1.4', '>= 1.4.4'
   # gem 'rubocop', '~> 0.49.0', require: false
   # gem 'rubocop-rspec', require: false
 end
