@@ -12,8 +12,13 @@ $grid-gap: 25px;
     background: $image-viewer-bgcolor;
     position: relative;
 
-    canvas:focus {
-        border: 2px solid blue;
+    canvas:focus, .openseadragon-canvas:focus {
+        // border: 2px solid blue;
+        outline: 0; 
+        box-shadow: 0 0 0 2px #FFCB05, 0 0 0 3px #212B36;
+        border-radius: 2px !important;
+        border-left: 4px solid #FFCB05 !important;
+        border-right: 4px solid #FFCB05 !important;
     }
 
     @include media-breakpoint-only('sm') {
@@ -73,7 +78,8 @@ $grid-gap: 25px;
     height: 100%;
 
     &:focus {
-        outline: auto 5px -webkit-focus-ring-color;
+        // outline: auto 5px -webkit-focus-ring-color;
+        outline: 0; box-shadow: 0 0 0 2px #FFCB05, 0 0 0 3px #212B36; border-radius: 2px !important;        
     }
 }
 
@@ -139,7 +145,8 @@ $grid-gap: 25px;
         }
 
         &:focus {
-            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.48), inset 0 -2px 0 0 rgba(0, 0, 0, 0.36);
+            // box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.48), inset 0 -2px 0 0 rgba(0, 0, 0, 0.36);
+            outline: 0; box-shadow: 0 0 0 2px #FFCB05, 0 0 0 3px #212B36; border-radius: 2px !important;            
         }
     }
 

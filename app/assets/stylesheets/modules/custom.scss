@@ -33,6 +33,10 @@
         font-family: $sys-font-family;
         font-size: 16px;
         color: #4e4e4e;
+
+        &:hover {
+          color: white;
+        }
      }
     }
   }
@@ -1712,4 +1716,13 @@ body.blacklight-contacts-create {
 
 .text-success, .facet-values li .selected {
   color: #008600 !important;
+}
+
+article.row.document:has(a:focus) {
+  outline: 0; box-shadow: 0 0 0 2px #FFCB05, 0 0 0 3px #212B36 !important; border-radius: 2px !important;
+
+  a:focus {
+    box-shadow: none;
+    border-radius: 0;
+  }
 }
