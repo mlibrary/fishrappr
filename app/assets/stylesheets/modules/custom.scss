@@ -372,12 +372,13 @@ body.blacklight-catalog-index {
         }
       }
 
-      a.dropdown-toggle {
+      a.dropdown-toggle, a.remove-param {
         background-color: rgba(26,165,90, .36);
         font-family: $sys-font-family;
         font-size: 16px;
         padding: 6px 10px; // --- disable for MD
         padding-bottom: 5px; // --- for icomoon font
+        flex-grow: 0;
       }
 
       a.catalog_startOverLink, a.FrontPageOnly {
