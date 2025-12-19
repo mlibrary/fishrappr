@@ -348,7 +348,7 @@ body.blacklight-catalog-index {
       }
 
       .constraint-value {
-        background-color: #05a657 !important;
+        background-color: #008600 !important;
         color: #ffffff;      
         font-family: $sys-font-family;
         font-size: 16px;
@@ -1708,4 +1708,8 @@ body.blacklight-contacts-create {
 
 *:focus-visible, *:focus, .btn-primary:focus, .form-control:focus {
   outline: 0; box-shadow: 0 0 0 2px #FFCB05, 0 0 0 3px #212B36; border-radius: 2px !important;
+}
+
+.text-success, .facet-values li .selected {
+  color: #008600 !important;
 }
