@@ -97,5 +97,7 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
   config.hosts << "127.0.0.1"
   config.hosts << /.*\.lib\.umich\.edu/
-  ## NEED TO ADD THE APP SERVER??
+  unless Settings.application_server.nil?
+    config.hosts << Settings.application_server
+  end
 end
