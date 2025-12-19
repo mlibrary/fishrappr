@@ -8,7 +8,8 @@ gem 'sprockets-rails', '~> 3.5', '>= 3.5.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 6.0'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '~> 4.2'
+####gem 'uglifier', '~> 4.2'
+gem 'terser', '~> 1.2', '>= 1.2.6'
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'rack', '~> 2.0', '>= 2.0.9.4'
