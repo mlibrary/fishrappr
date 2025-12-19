@@ -173,6 +173,13 @@
   }
 }
 
+body.blacklight-catalog-home {
+  main {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+}
+
 body.blacklight-catalog-index #search-navbar , body.blacklight-catalog-home {
 
   .site-search {
