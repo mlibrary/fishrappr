@@ -188,8 +188,12 @@ body.blacklight-catalog-index #search-navbar , body.blacklight-catalog-home {
       border-radius: 3px;    
         
       &:hover {    
-      background: black;   
-      }    
+        background: black;   
+      }
+
+      &:focus {
+        outline: 0; box-shadow: 0 0 0 2px #FFCB05, 0 0 0 3px #212B36; border-radius: 2px !important;
+      }
     }
 
     .form-control, .q-block {
@@ -475,11 +479,11 @@ body.blacklight-catalog-index {
       color: #fff;
     }
 
-    &:focus {
-      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.24);
-      background-color: $link-color;
-      color: #fff;
-    }
+    // &:focus {
+    //   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.24);
+    //   background-color: $link-color;
+    //   color: #fff;
+    // }
 
   }
 
@@ -1565,6 +1569,7 @@ body.blacklight-contacts-create {
     text-align: left;
     vertical-align: middle;
     width: inherit;
+    text-decoration: none;
   }
 
   a:hover, a:focus {
@@ -1699,4 +1704,8 @@ body.blacklight-contacts-create {
 .constraints-container {
   line-height: 2.5;
   padding: 1rem 1.125rem;
+}
+
+*:focus-visible, *:focus, .btn-primary:focus, .form-control:focus {
+  outline: 0; box-shadow: 0 0 0 2px #FFCB05, 0 0 0 3px #212B36; border-radius: 2px !important;
 }
