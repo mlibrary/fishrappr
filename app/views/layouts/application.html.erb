@@ -45,7 +45,9 @@
 
     <%= render partial: 'shared/modal' %>
 
+    <main class="py-3">
     <%= content_for?(:main) ? yield(:main) : '<p>Main content goes here</p>' %>
+    </main>
 
     <%= render :partial => 'shared/footer' %>
 

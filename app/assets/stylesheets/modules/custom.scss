@@ -827,10 +827,10 @@ body.blacklight-catalog-home {
   display: block;
   padding: 0;
 
-  footer {
-    padding-right: 30px;
-    padding-left: 30px;
-  }
+  // footer {
+  //   padding-right: 30px;
+  //   padding-left: 30px;
+  // }
 
   .container-home {
 
@@ -1384,7 +1384,7 @@ body {
 footer { 
 
   border-radius: 0 !important;
-  padding: 10px;
+  // padding: 10px;
   background-color: $footer-bgcolor;
 
   // &. {
@@ -1396,6 +1396,22 @@ footer {
 
   .footer-link-help a {
     border: 1px solid white;
+  }
+
+  .copyright {
+    background: $body-bg;
+    background: #001324;
+    color: white;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+
+    p {
+      margin-bottom: 0;
+    }
+
+    a {
+      color: white;
+    }
   }
 
   .navbar-nav {
