@@ -403,15 +403,20 @@ module Fishrappr::Catalog
     end
 
     def generate_zip_colophon(data)
-      buf = render_to_string(template: '/catalog/issue_download_readme.txt', layout: false, locals: { 
-        publication_label: @document.fetch(:publication_label),
-        date_issued_display: @document.fetch(:date_issued_display, []).first,
-        issue_vol_iss_display: @document.fetch(:issue_vol_iss_display).first,
-        publication_title: @publication.title,
-        publication_info_link: @publication.info_link,
-        rights_statement_key: "rights_statement.#{@publication.slug}",
-        data: data 
-      })
+      buf = render_to_string(
+        template: 'catalog/issue_download_readme', 
+        layout: false,
+        formats: [:text],
+        locals: { 
+          publication_label: @document.fetch(:publication_label),
+          date_issued_display: @document.fetch(:date_issued_display, []).first,
+          issue_vol_iss_display: @document.fetch(:issue_vol_iss_display).first,
+          publication_title: @publication.title,
+          publication_info_link: @publication.info_link,
+          rights_statement_key: "rights_statement.#{@publication.slug}",
+          data: data 
+        }
+      )
     end
 
     def get_issue_data(flds=[])
