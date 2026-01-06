@@ -86,7 +86,7 @@ $().ready(function() {
         // $modal.find("button[data-dismiss='modal']").attr('aria-label', 'Close dialog').attr('aria-hidden', null);
         $modal.find("button[data-dismiss='modal']").hide();
         $("body").find(">:not(.modal,.show,iframe)").attr('inert', true).attr('data-behind-modal', true);
-        $(".bootbox.modal").attr('aria-label', 'Download issue');
+        $(".bootbox.modal").attr('aria-label', 'Download PDF');
 
         if ( data.status.status == 'FIN' ) {
             $modal.find(".trigger-download").removeClass("hidden");
