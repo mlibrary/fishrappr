@@ -50,6 +50,7 @@ $().ready(function() {
                                 $modal = undefined;
                             }, 500);
                             $("iframe.downloader").attr("src", data.cancel_href);
+                            $("body").find("[data-behind-modal='true']").attr('inert', null).attr('data-behind-modal', false);
                         }
                     },
                     download: {
@@ -67,6 +68,7 @@ $().ready(function() {
                                     $modal = undefined;
                                 }, 500);
                                 is_cancelled = true;
+                                $("body").find("[data-behind-modal='true']").attr('inert', null).attr('data-behind-modal', false);
                             }, 100);
                         }
                     }
@@ -79,10 +81,18 @@ $().ready(function() {
             $modal.modal('show');
         }
         $modal.find(".text-center p").text(data.message);
+
+        // accessibility fixes and dreams for <dialog>
+        // $modal.find("button[data-dismiss='modal']").attr('aria-label', 'Close dialog').attr('aria-hidden', null);
+        $modal.find("button[data-dismiss='modal']").hide();
+        $("body").find(">:not(.modal,.show,iframe)").attr('inert', true).attr('data-behind-modal', true);
+        $(".bootbox.modal").attr('aria-label', 'Download PDF');
+
         if ( data.status.status == 'FIN' ) {
             $modal.find(".trigger-download").removeClass("hidden");
             $modal.data('download-href', data.next_href);
             $modal.find(".progress").hide();
+
         } else if ( data.status.index > 0 ) {
             var p = Math.ceil(data.status.index / data.status.num_pages * 100);
             $modal.find(".progress-bar").css({ width: p + '%'}).find(".sr-only").text(p + '% Complete');
@@ -96,7 +106,7 @@ $().ready(function() {
         e.preventDefault();
         pdf_download_href = $(this).attr("href");
         $("iframe.downloader").remove();
-        $("body").append('<iframe class="downloader" src="' + pdf_download_href + '"></iframe>');
+        $("body").append('<iframe aria-hidden="true" tabindex="-1" class="downloader" src="' + pdf_download_href + '"></iframe>');
 
         // setCookie('downloadStarted', 0, 100);
         // setTimeout(checkDownloadCookie, 1000);

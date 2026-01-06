@@ -21,6 +21,20 @@ class CatalogController < ApplicationController
     config.advanced_search[:query_parser] ||= 'edismax'
     config.advanced_search[:form_solr_parameters] ||= {}
 
+    # config.add_results_document_tool(:bookmark, partial: 'bookmark_control', if: :render_bookmarks_control?)
+
+    config.add_results_collection_tool(:sort_widget)
+    config.add_results_collection_tool(:per_page_widget)
+    config.add_results_collection_tool(:view_type_group)
+
+    # config.add_show_tools_partial(:bookmark, partial: 'bookmark_control', if: :render_bookmarks_control?)
+    # config.add_show_tools_partial(:email, callback: :email_action, validator: :validate_email_params)
+    # config.add_show_tools_partial(:sms, if: :render_sms_action?, callback: :sms_action, validator: :validate_sms_params)
+    # config.add_show_tools_partial(:citation)
+
+    config.add_nav_action(:bookmark, partial: 'blacklight/nav/bookmark', if: :render_bookmarks_control?)
+    config.add_nav_action(:search_history, partial: 'blacklight/nav/search_history')    
+
     ## Class for sending and receiving requests from a search index
     # config.repository_class = Blacklight::Solr::Repository
     #
@@ -38,7 +52,7 @@ class CatalogController < ApplicationController
     config.add_nav_action(:browse, partial: "shared/nav/browse")
     config.add_nav_action(:about, partial: "shared/nav/about")
     config.add_nav_action(:help, partial: "hared/nav/help")
-    config.add_nav_action(:contact, partial: "shared/nav/contact")
+    # config.add_nav_action(:contact, partial: "shared/nav/contact")
 
 
     config.index.collection_actions.delete(:view_type_group)
@@ -102,9 +116,10 @@ class CatalogController < ApplicationController
      q: '{!term f=id v=$id}'
     }
 
-    config.document_index_view_types = ["default", "gallery", "list", "frequency", "covers"]
-    config.view.grid.partials = [:index]
-    config.view.grid.icon_class = "glyphicon-th-large"
+    ### DO WE NEED THESE
+    # config.document_index_view_types = ["default", "gallery", "list", "frequency", "covers"]
+    # config.view.grid.partials = [:index]
+    # config.view.grid.icon_class = "glyphicon-th-large"
 
     # solr field configuration for search results/index views
      config.index.title_field = 'date_issued_display'
@@ -158,15 +173,6 @@ class CatalogController < ApplicationController
     config.add_facet_field 'date_issued_dd_ti', label: 'Day', sort: 'index', limit: 20
     config.add_facet_field 'date_issued_yyyymmdd_ti', label: 'Date', show: false
     config.add_facet_field 'issue_identifier', label: 'Issue', show: false
-
-    #config.add_facet_field 'example_pivot_field', label: 'Pivot Field', :pivot => ['format', 'language_facet']
-
-    #config.add_facet_field 'example_query_facet_field', label: 'Date', :query => {
-    #   :years_5 => { label: 'within 5 Years', fq: "pub_date:[#{Time.zone.now.year - 5 } TO *]" },
-    #   :years_10 => { label: 'within 10 Years', fq: "pub_date:[#{Time.zone.now.year - 10 } TO *]" },
-    #   :years_25 => { label: 'within 25 Years', fq: "pub_date:[#{Time.zone.now.year - 25 } TO *]" }
-    #}
-
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -224,12 +230,6 @@ class CatalogController < ApplicationController
       field.solr_parameters = { :qf => "page_text" } 
     end
 
-    # config.add_search_field 'ht_barcode' do |field|
-    #   field.include_in_simple_select = false
-    #   field.solr_parameters = { :qf => "ht_barcode" } 
-    # end
-
-
     #config.add_search_field 'OCR Text' do |field|
      #field.solr_parameters = { qf: 'page_text' , hl: true}
      #advanced_parse = true
@@ -272,6 +272,8 @@ class CatalogController < ApplicationController
     config.autocomplete_path = 'suggest'
 
     config.show.route = { controller: 'catalog', action: 'show' }
+
+    config.filter_search_state_fields = false
     # binding.pry
   end
 end

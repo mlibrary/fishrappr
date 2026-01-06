@@ -3,7 +3,6 @@
 // @import "bootstrap/mixins";
 
 @import 'bootstrap-variables';
-@import 'bootstrap-sprockets';
 @import 'bootstrap';
 
 $navbar-bgcolor: #F2F2F2;
@@ -11,8 +10,10 @@ $footer-bgcolor: #00274C;
 $header-bgcolor: #00274C;
 $body-bgcolor:   #F2F2F2;
 
+$link-decoration: underline;
+
 $image-viewer-bgcolor: #323333;
 
-$base-fonts: font-family: 'Open Sans', sans-serif;
+$base-fonts: 'Open Sans', sans-serif;
 
 $brand-primary: red;

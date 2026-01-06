@@ -1,5 +1,5 @@
-<a href="<%= url_for(url_for_document(document)) %>">
-    <h3>
+<a href="<%= url_for(search_state.url_for_document(document)) %>">
+    <h3 id="_<%= document.id %>">
         <%= document.fetch(:date_issued_display).first %>
         <span class="subtitle">
             <% if false %>

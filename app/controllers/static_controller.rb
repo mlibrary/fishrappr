@@ -1,5 +1,6 @@
 class StaticController < ApplicationController
   layout 'static'
+  helper_method :search_fields
 
   def page
 
@@ -32,5 +33,4 @@ class StaticController < ApplicationController
   def show
     render  "#{params['page']}"
   end
-
 end

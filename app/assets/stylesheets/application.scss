@@ -13,8 +13,12 @@
  *= require 'blacklight_advanced_search'
 */
 
-@import 'blacklight';
+@import 'bootstrap-variables';
+@import 'bootstrap';
+@import 'blacklight/blacklight';
+@import 'blacklight_custom';
 @import 'fishrappr';
 // @import "font-awesome-sprockets";
 // @import 'font-awesome';
+@import 'blacklight/header';
 @import '_fishrappr-icons.scss';

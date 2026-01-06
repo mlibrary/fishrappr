@@ -1,12 +1,16 @@
 class ApplicationController < ActionController::Base
+  before_action :permit_params
   add_flash_types :error, :success, :notice
   # Adds a few additional behaviors into the application controller
   include Blacklight::Controller
   include Fishrappr::Context
   # Behavior for devise.  Use remote user field in http header for auth.
   include Devise::Behaviors::HttpHeaderAuthenticatableBehavior
+  # include NestiveRails::LayoutHelper
+
   
-  layout 'blacklight'
+  # layout 'blacklight'
+  layout :determine_layout if respond_to? :layout
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -20,9 +24,10 @@ class ApplicationController < ActionController::Base
   # after signing in), which is what the :unless prevents
   before_action :store_current_location, :unless => :devise_controller? || :sessions_controller?
   
-
   before_action :setup_publication
   before_action :prepend_publication_path
+
+  helper_method :search_fields
 
   def prepend_publication_path
     if params[:publication]
@@ -81,9 +86,19 @@ class ApplicationController < ActionController::Base
   # 15June2017 GML The unless cause keeps fishrappr 
   # from getting lost in redirects
   def store_current_location
-    Rails.logger.debug "[AUTHN] CALLED store_current_location"
-    Rails.logger.debug "[AUTHN] REQUEST URL IS: #{request.url}"
+    # Rails.logger.debug "[AUTHN] CALLED store_current_location"
+    # Rails.logger.debug "[AUTHN] REQUEST URL IS: #{request.url}"
     store_location_for(:user, request.url) unless ( request.fullpath == "/login" || request.fullpath == "/login_info" || request.fullpath == "/go_back" || request.fullpath == '/logout' || request.fullpath.end_with?('/toggle_highlight') )
+  end
+
+  def permit_params
+    params.permit!
+  end
+
+  def search_fields
+    @search_fields ||= blacklight_config.search_fields.values
+                                        .select { |field_def| helpers.should_render_field?(field_def) }
+                                        .collect { |field_def| [helpers.label_for_search_field(field_def.key), field_def.key] }
   end
 
 end

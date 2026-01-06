@@ -89,7 +89,7 @@ body.blacklight-sessions-login_info .main {
   }
 }
 
-@media (max-width: $screen-sm-min) {
+@include media-breakpoint-up('sm', $grid-breakpoints) {
   body.blacklight-sessions-login_info .main {
 
     > div {

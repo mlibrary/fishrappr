@@ -5,7 +5,3 @@ require File.expand_path('../config/application', __FILE__)
 
 Rails.application.load_tasks
 
-
-unless Rails.env.production?
-  require 'solr_wrapper/rake_task'
-end

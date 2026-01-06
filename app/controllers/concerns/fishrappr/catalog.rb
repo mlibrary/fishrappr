@@ -3,7 +3,8 @@ require 'fishrappr/search_state'
 module Fishrappr::Catalog
   extend ActiveSupport::Concern
 
-  include Blacklight::Base
+  include Blacklight::Configurable
+  include Blacklight::SearchContext
 
   included do
     helper_method :process_highlighted_words
@@ -30,6 +31,8 @@ module Fishrappr::Catalog
 
   # get search results from the solr index
   def index
+    Rails.logger.debug "[INDEX] params: #{params.permitted?}"
+
 
     issue_identifier = params[:issue_identifier]
     unless issue_identifier.nil?
@@ -39,7 +42,7 @@ module Fishrappr::Catalog
       params[:sort] ='issue_sequence asc'
     end
 
-    (@response, @document_list) = search_results(params)
+    (@response, @document_list) = search_service.search_results() # params
     respond_to do |format|
       format.html { } # no longer store_preferred_view
       format.rss  { render :layout => false }
@@ -69,10 +72,10 @@ module Fishrappr::Catalog
       # still fighting with blacklight to build the right kind of query
       # for when the search_field does not apply to this page
       if @document.nil?
-        @response, @document = fetch document_id
+        @response, @document = search_service.fetch document_id
       end
     elsif document_id
-      @response, @document = fetch document_id
+      @response, @document = search_service.fetch document_id
     end
 
     respond_to do |format|
@@ -90,20 +93,20 @@ module Fishrappr::Catalog
   end
 
   def download_text(document=nil)      
-    @response, @document = fetch id(params)
+    @response, @document = search_service.fetch id(params)
     document = @document unless document
     ocr = document.fetch('page_text')
     send_data ocr, filename: @publication.slug + "_" + document.id + '.txt'
   end
 
    def download_issue_text(document=nil)      
-    @response, @document = fetch id(params)
+    @response, @document =  search_service.fetch id(params)
     data = get_issue_data(['page_text'])
     build_issue_zip(data)   
   end
 
   def issue_data
-    @response, @document = fetch id(params)
+    @response, @document = search_service.fetch id(params)
     data = get_issue_data
 
     render json: data
@@ -298,11 +301,11 @@ module Fishrappr::Catalog
   def setup_next_and_previous_issue_pages
     @previous_page = @next_page = nil
     begin
-      response, @previous_page = fetch @document.fetch('prev_page_link')
+      response, @previous_page = search_service.fetch @document.fetch('prev_page_link')
     rescue Exception => e
     end
     begin
-      response, @next_page = fetch @document.fetch('next_page_link')
+      response, @next_page = search_service.fetch @document.fetch('next_page_link')
     rescue Exception => e
     end
   rescue Blacklight::Exceptions::InvalidRequest => e
@@ -310,7 +313,7 @@ module Fishrappr::Catalog
   end
 
   def repository
-    @repository ||= repository_class.new(blacklight_config)
+    @repository ||= blacklight_config.repository_class.new(blacklight_config)
   end
 
   def search_state
@@ -400,15 +403,20 @@ module Fishrappr::Catalog
     end
 
     def generate_zip_colophon(data)
-      buf = render_to_string(template: '/catalog/issue_download_readme.txt', layout: false, locals: { 
-        publication_label: @document.fetch(:publication_label),
-        date_issued_display: @document.fetch(:date_issued_display, []).first,
-        issue_vol_iss_display: @document.fetch(:issue_vol_iss_display).first,
-        publication_title: @publication.title,
-        publication_info_link: @publication.info_link,
-        rights_statement_key: "rights_statement.#{@publication.slug}",
-        data: data 
-      })
+      buf = render_to_string(
+        template: 'catalog/issue_download_readme', 
+        layout: false,
+        formats: [:text],
+        locals: { 
+          publication_label: @document.fetch(:publication_label),
+          date_issued_display: @document.fetch(:date_issued_display, []).first,
+          issue_vol_iss_display: @document.fetch(:issue_vol_iss_display).first,
+          publication_title: @publication.title,
+          publication_info_link: @publication.info_link,
+          rights_statement_key: "rights_statement.#{@publication.slug}",
+          data: data 
+        }
+      )
     end
 
     def get_issue_data(flds=[])
@@ -514,5 +522,10 @@ module Fishrappr::Catalog
         params['date_issued_yyyy10_ti'] = 'Any Decade'
       end
     end
+
+    def permit_fields
+      params.permit(:search_field, :q, :publication, :date_filter, :date_issued_begin_mm, :date_issued_begin_dd, :date_issued_begin_yyyy, :date_issued_end_mm, :date_issued_end_dd, :date_issued_end_yyyy, :issue_identifier)
+    end
+
        
 end

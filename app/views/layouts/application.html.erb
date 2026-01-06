@@ -23,7 +23,7 @@
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= area :head %>
+    <%= content_for?(:head) ? yield(:head) : '' %>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -39,16 +39,15 @@
     })(window,document,'script','dataLayer','GTM-WBJ7G26');</script>
 
   </head>
-  <body class="<%= render_body_class %>" <%= area :data %>>
+  <body class="<%= render_body_class %>" <%= content_for?(:data) ? yield(:data) : '' %>>
 
-    <%= area :header do %>
-        <%= render :partial => 'shared/header_navbar' %>
-    <% end %>
+    <%= content_for?(:header) ? yield(:header) : (render partial: 'shared/header_navbar') %>
 
-    <%= render partial: 'shared/ajax_modal' %>
-    <%= area :main do %>
-      <p>Main content goes here.</p>
-    <% end %>
+    <%= render partial: 'shared/modal' %>
+
+    <main class="py-3">
+    <%= content_for?(:main) ? yield(:main) : '<p>Main content goes here</p>' %>
+    </main>
 
     <%= render :partial => 'shared/footer' %>
 

@@ -1,19 +1,19 @@
 <% @page_title = t('blacklight.show.page_title.title', date_issued: @document['date_issued_display'].first, issue_vol_iss: @document.fetch('issue_vol_iss_display', []).first, issue_sequence: @document['issue_sequence'], application_name: application_name) %>
 
-<%= replace :head do %>
+<%= content_for(:head) do %>
   <%= link_to_repository(@document) %>
   <%= link_to_manifest(@document) %>
   <%= render partial: 'document_share_metadata' %>
 <% end %>
 
-<%= replace :skiplinks do %>
+<%= content_for(:skiplinks) do %>
   <%= render 'show_skiplinks' %>
 <% end %>
 
-<%= replace :data do %>data-option="<%= @option %>"<% end %>
+<%= content_for(:data) do %>data-option="<%= @option %>"<% end %>
 
-<%= replace :search_navbar do %>
-  <div class="navigation-toolbar">
+<%= content_for(:search_navbar) do %>
+  <div class="navigation-toolbar" role="navigation">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">

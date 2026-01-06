@@ -1,6 +1,6 @@
 <div class="home container-fluid">
-   <div class="head head-midaily col-md-12">
-     <h1>
+   <div class="head head-midaily col-md-12 py-3">
+     <h1 class="mt-4">
       <%= image_tag("The-Michigan-Daily-Digital-Archive-Header.png", :width => 800, :alt => "", :class => 'masthead-midaily') %><span class="sr-only">The Michigan Daily </span>
       <span class="subtitle"><%= t('views.midaily-static.home.head.page_title') %></span>
      </h1>
@@ -9,7 +9,7 @@
      <p class="description2"><%= t('views.midaily-static.home.head.description2') %></p>
      <a href="/<%= "#{@publication['slug']}" %>/about"><%= t('views.midaily-static.home.head.link') %></a>
 
-     <% if true %><%= render partial: "search_form", locals: { container_class: 'container' } %><% end %>
+     <% if true %><%= render partial: "search_form", locals: { container_class: 'container-home' } %><% end %>
    </div>
 </div>
 <div class="home container-fluid">
@@ -34,9 +34,9 @@
    <div class="featured col-md-12">
      <h2 class="featured-title"><%= t('views.midaily-static.home.today.title') %></h2>
      <p class="description"><%= @featured_list.first["date_issued_display"].first.split(",").first if @featured_list.first %></p>
-     <div id="documents" class="row grid">
+     <div id="documents" class="grid">
        <% @featured_list.each do |document| %>
-         <a href="<%= url_for url_for_document(document) %>" style="display: block;">
+         <a href="<%= url_for search_state.url_for_document(document) %>" style="display: block;">
              <figure data-identifier="<%= document.id %>">
                  <div class="thumbnail" style=" <%= document_thumbnail_style(document, size: '256,') %>">
                    <%= document_thumbnail(document, size: '256,') %>

@@ -1,11 +1,11 @@
 <% month_options = get_month_options; month_options.unshift(['Any Month', '-']) %>
 <% date_options = get_date_options; date_options.unshift(['Any Day', '-']) %>
-<% container_class = 'container-fluid' if true || local_assigns[:container_class].nil? %>
+<% container_class = 'container-fluid' if local_assigns[:container_class].nil? %>
 
 <div class="<%= container_class %> site-search" aria-live="polite">
   <div class="row">
     <%= form_tag(search_action_url, role: 'search', method: :get, class: "form-horizontal site-search-form") do %>
-      <%= render_hash_as_hidden_fields(search_state.params_for_search.except(:q, :search_field, :qt, :page, :utf8, :date_filter, :date_issued_begin_mm, :date_issued_begin_dd, :date_issued_begin_yyyy, :date_issued_end_mm, :date_issued_end_dd, :date_issued_end_yyyy )) %>
+      <%= render Blacklight::HiddenSearchStateComponent.new(params: search_state.params_for_search.except(:q, :search_field, :qt, :page, :utf8, :date_filter, :date_issued_begin_mm, :date_issued_begin_dd, :date_issued_begin_yyyy, :date_issued_end_mm, :date_issued_end_dd, :date_issued_end_yyyy )) %>      
       <%= hidden_field_tag :search_field, search_fields.first.last %>
       <div class="form-group">
         <div class="col-xs-12">
