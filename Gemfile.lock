@@ -407,6 +407,7 @@ DEPENDENCIES
   loofah (~> 2.21)
   mysql2 (~> 0.5.6)
   nokogiri (~> 1.16, >= 1.16.6)
+  popper_js (>= 1.16.1, < 2)
   pry-byebug
   pry-rails
   puma (~> 6.4, >= 6.4.2)

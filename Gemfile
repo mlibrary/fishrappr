@@ -33,6 +33,7 @@ gem 'blacklight', '~> 7.37'
 gem 'blacklight_advanced_search', '~> 7.0'
 # gem 'bootstrap', '~> 4.0'
 gem 'bootstrap', '~> 4.6', '>= 4.6.2'
+gem 'popper_js', '>= 1.16.1', '< 2'
 ## gem 'blacklight_range_limit', '~> 8.5'
 
 gem 'bootbox-rails', '~> 0.5.0'

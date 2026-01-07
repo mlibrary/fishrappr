@@ -18,6 +18,7 @@
 //= require activestorage
 // Required by Blacklight
 //= require blacklight/blacklight
+//= require popper
 //= require bootstrap
 //= require bootbox
 
