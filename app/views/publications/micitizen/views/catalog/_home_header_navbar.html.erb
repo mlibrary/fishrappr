@@ -1,18 +1,12 @@
-<div id="header-navbar" class="navbar  navbar-static-top" role="navigation">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle btn collapsed" data-toggle="collapse" data-target="#user-util-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <%= link_to(image_tag("The-Michigan-Citizen-Archive-Header-Graphic.png",  :alt => "The Michigan Citizen Digital Archives", :height => 35, style: 'margin-top: -8px'), publication_root_url, :class => "navbar-brand") %>
-      <%#= link_to application_name, root_path, class: "navbar-brand" %>
-    </div>
-
-    <div class="collapse navbar-collapse" id="user-util-collapse">
+<nav class="navbar navbar-expand-xl navbar-dark align-items-center" id="header-navbar" style="gap: 1rem;">
+  <div class="d-flex flex-column flex-lg-row flex-grow-1" data-class="collapse navbar-collapse">
+    <%= link_to(image_tag("The-Michigan-Citizen-Archive-Header-Graphic.png",  :alt => "The Michigan Citizen Digital Archives", :height => 35, style: 'margin-top: -8px'), publication_root_url, :class => "navbar-brand") %>
+    
+    <div class="collapse navbar-collapse justify-content-end" id="user-util-collapse">
       <%= render :partial=>'/user_util_links' %>
     </div>
   </div>
-</div>
+  <button class="navbar-toggler align-self-start" type="button" data-toggle="collapse" data-target="#user-util-collapse" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+</nav>
