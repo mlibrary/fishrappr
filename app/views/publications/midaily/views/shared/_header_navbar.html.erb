@@ -1,7 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark align-items-center" id="header-navbar" style="gap: 1rem;">
   <div class="d-flex flex-column flex-lg-row flex-grow-1" data-class="collapse navbar-collapse">
     <%= link_to(image_tag("The-Michigan-Daily-Digital-Archive-Header-Graphic.png",  :alt => "The Michigan Daily Digital Archives", :height => 35, style: 'margin-top: -8px'), publication_root_url, :class => "navbar-brand") %>
-    
+    <%= content_for?(:skiplinks) ? yield(:skiplinks) : '' %>
+
     <div class="collapse navbar-collapse justify-content-end" id="user-util-collapse">
       <%= render :partial=>'/user_util_links' %>
     </div>
