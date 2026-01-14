@@ -49,8 +49,6 @@ module Fishrappr::Catalog
       format.atom { render :layout => false }
       format.json do
         @presenter = Blacklight::JsonPresenter.new(@response,
-                                                   @document_list,
-                                                   facets_from_request,
                                                    blacklight_config)
       end
 
