@@ -1,11 +1,12 @@
 // graph on catalog page
 // @import "globals";
 
-#searchGraph h3 {
-  font-size: 14px;
-  margin-top: 11px;
-  margin-bottom: 11px;
-  line-height: normal;
+#searchGraph h3, #appliedParams h3 {
+  // font-size: 14px;
+  // margin-top: 11px;
+  // margin-bottom: 11px;
+  // line-height: normal;
+  font-size: 1rem;
 }
 
 .day { 

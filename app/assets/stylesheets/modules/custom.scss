@@ -1732,6 +1732,7 @@ body.blacklight-contacts-create {
 .constraints-container {
   line-height: 2.5;
   padding: 1rem 1.125rem;
+  flex-direction: column;
 }
 
 *:focus-visible, *:focus, .btn-primary:focus, .form-control:focus {
@@ -1749,4 +1750,8 @@ article.row.document:has(a:focus) {
     box-shadow: none;
     border-radius: 0;
   }
+}
+
+.btn-group > a.btn.remove {
+  flex-grow: 0;
 }

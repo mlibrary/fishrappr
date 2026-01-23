@@ -40,7 +40,6 @@ module Fishrappr::Catalog
     params.permit(
       :search_field, 
       :q, 
-      :f,
       :fq,
       :publication, 
       :date_filter, 
@@ -54,7 +53,10 @@ module Fishrappr::Catalog
       date_filter_options: [
         begin: [ :fld, :value ],
         end: [ :fld, :value ]
-      ])
+      ],
+      f: {},
+    )
+    # params.permit(f: {})
     
     issue_identifier = params[:issue_identifier]
     unless issue_identifier.nil?
@@ -344,7 +346,6 @@ module Fishrappr::Catalog
     params.permit(
       :search_field, 
       :q, 
-      :f,
       :fq,
       :publication, 
       :date_filter, 
@@ -358,7 +359,10 @@ module Fishrappr::Catalog
       date_filter_options: [
         begin: [ :fld, :value ],
         end: [ :fld, :value ]
-      ])
+      ],
+      f: {}
+    )
+  
     @search_state ||= Fishrappr::SearchState.new(params, blacklight_config)
   end
 

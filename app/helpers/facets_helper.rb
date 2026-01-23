@@ -49,9 +49,20 @@ module FacetsHelper
   # @option options [String] :remove url to execute for a 'remove' action
   # @option options [Array<String>] :classes an array of classes to add to container span for constraint.
   # @return [String]
-  def render_constraint_element(label, value, options = {})
+  def render_constraint_element_date_filters(label, value, options = {})
     ### save this in case we need an abbreviated label
     # label = 'On' if label == 'On Page'
-    render(:partial => "catalog/constraints_element", :locals => {:label => label, :value => value, :options => options})
+    render(:partial => "catalog/constraints_element_date_filters", :locals => {:label => label, :value => value, :options => options})
   end
+
+  def render_facet_limit_list(paginator, facet_field, wrapping_element = :li)
+    facet_config ||= facet_configuration_for_field(facet_field)
+
+    collection = paginator.items.map do |item|
+      facet_item_presenter(facet_config, item, facet_field)
+    end
+
+    render(facet_item_component_class(facet_config).with_collection(collection, wrapping_element: wrapping_element))
+  end
+
 end

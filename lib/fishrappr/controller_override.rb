@@ -38,11 +38,15 @@ module Fishrappr
 
       unless my_params["date_filter_options"].blank?
         solr_field = my_params["date_filter_options"]['begin'][:fld]
-        content << render_constraint_element(
+        new_params = remove_date_filter_param(solr_field, my_params)
+        new_search_state = search_state.class.new(new_params, search_state.blacklight_config)
+        remove_href = search_action_path(new_search_state)
+        content << render_constraint_element_date_filters(
           action + " " + facet_field_label(solr_field),
           date_filter_display(solr_field, my_params["date_filter_options"]),
           escape_value: false,
-          remove: remove_date_filter_param(solr_field, my_params)
+          remove: remove_href,
+          # remove: remove_date_filter_param(solr_field, my_params)
         )
       end
       return content
@@ -63,7 +67,7 @@ module Fishrappr
 
     def remove_date_filter_param(solr_field, my_params = params)
       if ( my_params["date_filter_options"] )
-        my_params = my_params.dup
+        my_params = my_params.to_h
         my_params.keys.each do |key|
           if key.start_with?('date_filter') or key.start_with?('date_issued_')
             my_params.delete(key)

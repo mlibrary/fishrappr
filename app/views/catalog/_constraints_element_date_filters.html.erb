@@ -8,13 +8,15 @@
     if options[:remove].respond_to?(:permit!)
       options[:remove].permit!
     end
-    if options[:remove]
+    if options[:remove].respond_to?(:to_h)
       options[:remove_path] = remove_constraint_url(options[:remove])
+    else
+      options[:remove_path] = options[:remove]
     end
 %>
 
-<span class="btn-group appliedFilter constraint <%= options[:classes].join(" ") if options[:classes] %>">
-  <span class="constraint-value btn btn-sm btn-default btn-disabled">
+<span class="btn-group applied-filter constraint query <%= options[:classes].join(" ") if options[:classes] %>">
+  <span class="constraint-value btn btn-outline-secondary">
     <% unless label.blank? %>
       <span class="filterName"><%= label %></span>
     <% end %>
@@ -39,12 +41,9 @@
         end
       end
     %>
-
-    <% if true %>
-    <%= link_to(content_tag(:span, '', class: use_icon_class('close')) + accessible_remove_label,
+    <%= link_to(content_tag(:span, '✖', class: 'remove-icon', 'aria-hidden': 'true') + accessible_remove_label,
       options[:remove_path],
-      class: 'btn btn-default btn-sm remove remove-param'
+      class: 'btn btn-outline-secondary remove'
     ) %>
-    <% end %>
   <%- end -%>
 </span>
