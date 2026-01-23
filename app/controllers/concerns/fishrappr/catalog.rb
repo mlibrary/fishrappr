@@ -37,8 +37,24 @@ module Fishrappr::Catalog
 
   # get search results from the solr index
   def index
-    params.permit(:search_field, :q, :publication, :date_filter, :date_issued_begin_mm, :date_issued_begin_dd, :date_issued_begin_yyyy, :date_issued_end_mm, :date_issued_end_dd, :date_issued_end_yyyy, :issue_identifier, :date_filter_options)
-    params.permit(:date_filter_options, {})
+    params.permit(
+      :search_field, 
+      :q, 
+      :f,
+      :fq,
+      :publication, 
+      :date_filter, 
+      :date_issued_begin_mm, 
+      :date_issued_begin_dd, 
+      :date_issued_begin_yyyy, 
+      :date_issued_end_mm, 
+      :date_issued_end_dd, 
+      :date_issued_end_yyyy, 
+      :issue_identifier, 
+      date_filter_options: [
+        begin: [ :fld, :value ],
+        end: [ :fld, :value ]
+      ])
     
     issue_identifier = params[:issue_identifier]
     unless issue_identifier.nil?
@@ -325,6 +341,24 @@ module Fishrappr::Catalog
   end
 
   def search_state
+    params.permit(
+      :search_field, 
+      :q, 
+      :f,
+      :fq,
+      :publication, 
+      :date_filter, 
+      :date_issued_begin_mm, 
+      :date_issued_begin_dd, 
+      :date_issued_begin_yyyy, 
+      :date_issued_end_mm, 
+      :date_issued_end_dd, 
+      :date_issued_end_yyyy, 
+      :issue_identifier, 
+      date_filter_options: [
+        begin: [ :fld, :value ],
+        end: [ :fld, :value ]
+      ])
     @search_state ||= Fishrappr::SearchState.new(params, blacklight_config)
   end
 
@@ -474,7 +508,6 @@ module Fishrappr::Catalog
 
     def get_date_params(user_params)
       retval = {}
-      # STDERR.puts "get_date_params: #{user_params.inspect}"
       user_params.keys.each do |key|
         if key.start_with?('date_issued_')
           if user_params[key] == '-' or user_params[key].match(/^\d+/).nil?
@@ -523,6 +556,7 @@ module Fishrappr::Catalog
           retval[from_key][:value] = retval[from_key][:value][ 0 .. retval[to_key][:value].size - 1 ]
         end
       end
+      retval = ActionController::Parameters.new(retval).permit!
       retval
     end
     
