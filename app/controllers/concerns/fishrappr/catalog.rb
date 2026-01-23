@@ -29,11 +29,17 @@ module Fishrappr::Catalog
     super
   end
 
+  def check_date_filtering(user_params)
+    if user_params["date_filter"] and user_params["date_filter"] != 'any'
+      user_params["date_filter_options"] = get_date_params(user_params)
+    end
+  end
+
   # get search results from the solr index
   def index
-    Rails.logger.debug "[INDEX] params: #{params.permitted?}"
-
-
+    params.permit(:search_field, :q, :publication, :date_filter, :date_issued_begin_mm, :date_issued_begin_dd, :date_issued_begin_yyyy, :date_issued_end_mm, :date_issued_end_dd, :date_issued_end_yyyy, :issue_identifier, :date_filter_options)
+    params.permit(:date_filter_options, {})
+    
     issue_identifier = params[:issue_identifier]
     unless issue_identifier.nil?
       params[:f] = {
@@ -41,6 +47,10 @@ module Fishrappr::Catalog
       }
       params[:sort] ='issue_sequence asc'
     end
+
+    check_date_filtering(params)
+
+    # Rails.logger.debug "[INDEX] params: #{params.permitted?}"
 
     (@response, @document_list) = search_service.search_results() # params
     respond_to do |format|
@@ -464,6 +474,7 @@ module Fishrappr::Catalog
 
     def get_date_params(user_params)
       retval = {}
+      # STDERR.puts "get_date_params: #{user_params.inspect}"
       user_params.keys.each do |key|
         if key.start_with?('date_issued_')
           if user_params[key] == '-' or user_params[key].match(/^\d+/).nil?
@@ -522,7 +533,7 @@ module Fishrappr::Catalog
     end
 
     def permit_fields
-      params.permit(:search_field, :q, :publication, :date_filter, :date_issued_begin_mm, :date_issued_begin_dd, :date_issued_begin_yyyy, :date_issued_end_mm, :date_issued_end_dd, :date_issued_end_yyyy, :issue_identifier)
+      params.permit(:search_field, :q, :publication, :date_filter, :date_issued_begin_mm, :date_issued_begin_dd, :date_issued_begin_yyyy, :date_issued_end_mm, :date_issued_end_dd, :date_issued_end_yyyy, :issue_identifier, :date_filter_options)
     end
 
        

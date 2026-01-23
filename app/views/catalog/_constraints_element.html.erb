@@ -8,6 +8,9 @@
     if options[:remove].respond_to?(:permit!)
       options[:remove].permit!
     end
+    if options[:remove]
+      options[:remove_path] = remove_constraint_url(options[:remove])
+    end
 %>
 
 <span class="btn-group appliedFilter constraint <%= options[:classes].join(" ") if options[:classes] %>">
@@ -37,9 +40,11 @@
       end
     %>
 
+    <% if true %>
     <%= link_to(content_tag(:span, '', class: use_icon_class('close')) + accessible_remove_label,
-      options[:remove],
+      options[:remove_path],
       class: 'btn btn-default btn-sm remove remove-param'
     ) %>
+    <% end %>
   <%- end -%>
 </span>
