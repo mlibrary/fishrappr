@@ -20,17 +20,26 @@ json.data do
       json.title doc_presenter.heading unless doc_presenter.fields_to_render.any? { |field_name, _field, _field_presenter| field_name.to_s == 'title' }
 
       doc_presenter.fields_to_render.each do |field_name, field, field_presenter|
-        json.partial! 'field', field: field,
-                               field_name: field_name,
-                               document_url: document_url,
-                               doc_presenter: doc_presenter,
-                               field_presenter: field_presenter,
-                               view_type: 'index'
+        if field_name == 'image_link'
+        else
+          json.partial! 'field', field: field,
+                                field_name: field_name,
+                                document_url: document_url,
+                                doc_presenter: doc_presenter,
+                                field_presenter: field_presenter,
+                                view_type: 'index'
+        end
       end
     end
 
     json.links do
       json.self document_url
+      doc_presenter.fields_to_render.each do |field_name, field, field_presenter|
+        if field_name == 'image_link'
+          json.iiif_image_api "#{document_image_src(document)}/info.json"
+          json.thumbnail document_thumbnail_src(document)
+        end
+      end
     end
   end
 end

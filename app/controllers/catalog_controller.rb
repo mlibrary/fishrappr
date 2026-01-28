@@ -186,6 +186,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'issue_no_t', label: 'Issue'
     #config.add_index_field 'page_no_t', label: 'Page'
     config.add_index_field 'issue_sequence', label: 'Image Number'
+    config.add_index_field 'image_link', label: 'Image Link'
     config.add_index_field 'page_text', label: '' , highlight: true, separator_options: { words_connector: ' ... '}
 
     # solr fields to be displayed in the show (single result) view
