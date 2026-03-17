@@ -101,7 +101,7 @@ end
 
 gem 'rsolr', '~> 2.6.0' # was '~> 4.3.0'
 
-gem 'devise', '~> 4.9.4' # was '~> 4.4.3'
+gem 'devise', '~> 5.0.3' # was '~> 4.4.3'
 gem 'devise-guests', '~> 0.8.3'
 
 group :development, :test do
