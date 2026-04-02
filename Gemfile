@@ -12,7 +12,7 @@ gem 'sass-rails', '~> 6.0'
 gem 'terser', '~> 1.2', '>= 1.2.6'
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'rack', '~> 2.0', '>= 2.0.9.4'
+gem 'rack', '~> 2.2'
 ## gem 'rack', '~> 3.1', '>= 3.1.3'
 
 gem 'rails-html-sanitizer', '~> 1.6'
