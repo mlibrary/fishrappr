@@ -904,33 +904,34 @@ body.blacklight-catalog-home {
     background-image: image-url("micitizen_home_page_banner.png");
   }
 
-  @supports (background-image: filter(url('i.jpg'), blur(1px))) {
-    .head-midaily, .head-djnews, .head-micitizen {
-      transform: translateZ(0);
-    }
-    .head-midaily-enhanced, .head-djnews-enhanced {
-      animation: sharpen .5s both;
-    }
-    .head-micitizen-enhanced {
-      animation: sharpen-micitizen .5s both;
-    }
-    @keyframes sharpen {
-      from {
-        background-image: filter(image-url("daily_home_page_banner.png"), blur(20px));
-      }
-      to {
-        background-image: filter(image-url("daily_home_page_banner.png"), blur(0px));
-      }
-    }
-    @keyframes sharpen-micitizen {
-      from {
-        background-image: filter(image-url("micitzen_home_page_banner.png"), blur(20px));
-      }
-      to {
-        background-image: filter(image-url("micitzen_home_page_banner.png"), blur(0px));
-      }
-    }
-  }
+  // 2026-05-05 - disabling this effect; has issues with Safari 26
+  // @supports (background-image: filter(url('i.jpg'), blur(1px))) {
+  //   .head-midaily, .head-djnews, .head-micitizen {
+  //     transform: translateZ(0);
+  //   }
+  //   .head-midaily-enhanced, .head-djnews-enhanced {
+  //     animation: sharpen .5s both;
+  //   }
+  //   .head-micitizen-enhanced {
+  //     animation: sharpen-micitizen .5s both;
+  //   }
+  //   @keyframes sharpen {
+  //     from {
+  //       background-image: filter(image-url("daily_home_page_banner.png"), blur(20px));
+  //     }
+  //     to {
+  //       background-image: filter(image-url("daily_home_page_banner.png"), blur(0px));
+  //     }
+  //   }
+  //   @keyframes sharpen-micitizen {
+  //     from {
+  //       background-image: filter(image-url("micitzen_home_page_banner.png"), blur(20px));
+  //     }
+  //     to {
+  //       background-image: filter(image-url("micitzen_home_page_banner.png"), blur(0px));
+  //     }
+  //   }
+  // }
 
   .head-micitizen-enhanced {
     animation: sharpen-micitizen .5s both;
