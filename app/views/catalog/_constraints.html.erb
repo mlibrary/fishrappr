@@ -1,7 +1,7 @@
 <% if query_has_constraints? %>
   <div id="appliedParams" class="constraints-container">
     <% if false %><span class="constraints-label"><%= t('blacklight.search.filters.title') %></span><% end %>
-    <h3><%= t('blacklight.search.filters.title') %></h3>
+    <h2><%= t('blacklight.search.filters.title') %></h2>
 
     <%= render_constraints(params) %>
     <div>
