@@ -7,6 +7,8 @@ gem 'sprockets-rails', '~> 3.5', '>= 3.5.1'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 6.0'
+## gem 'sass-embedded', '~> 1.100'
+
 # Use Uglifier as compressor for JavaScript assets
 ####gem 'uglifier', '~> 4.2'
 gem 'terser', '~> 1.2', '>= 1.2.6'
@@ -94,7 +96,7 @@ group :test do
   # gem 'chromedriver-helper'
 end
 
-gem 'mini_racer', platforms: [:ruby]
+# gem 'mini_racer', platforms: [:ruby]
 
 group :production do
   gem 'mysql2', '~> 0.5.6'

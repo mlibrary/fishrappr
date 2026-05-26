@@ -28,7 +28,9 @@ Rails.application.configure do
   # config.assets.js_compressor = Uglifier.new(harmony: true)
   # config.assets.css_compressor = :sass
 
-  config.assets.js_compressor = :terser
+  # config.assets.js_compressor = :terser
+  config.assets.js_compressor = nil
+  config.assets.css_compressor = nil
 
 
   # Do not fall back to assets pipeline if a precompiled asset is missed.
