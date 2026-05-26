@@ -97,6 +97,7 @@ end
 
 group :production do
   gem 'mysql2', '~> 0.5.6'
+  gem 'mini_racer', platforms: [:ruby]
 end
 
 gem 'rsolr', '~> 2.6.0' # was '~> 4.3.0'
