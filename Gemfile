@@ -96,7 +96,7 @@ group :test do
   # gem 'chromedriver-helper'
 end
 
-# gem 'mini_racer', platforms: [:ruby]
+gem 'mini_racer', '~> 0.16.0'
 
 group :production do
   gem 'mysql2', '~> 0.5.6'
