@@ -2,6 +2,7 @@
 # require 'iiif/service'
 require 'pp'
 require 'net/http'
+require 'date'
 
 module IIIF
 
@@ -116,7 +117,7 @@ class DlxsIngest
     STDERR.puts "FAILED #{issue_url}"
     STDERR.puts e.class.name
     STDERR.puts e.message
-    STDERR.puts e.backgrace
+    STDERR.puts e.backtrace
     raise
   end
 
@@ -172,7 +173,7 @@ class DlxsIngest
       issue_number: metadata[:issue_number] || 1,
       edition: metadata[:issue_edition],
       date_issued: metadata[:date_issued],
-      publication_year: Time.new(metadata[:date_issued]).strftime("%Y"),
+      publication_year: Date.iso8601(metadata[:date_issued]).strftime("%Y"),
       variant_sequence: metadata[:variant_sequence].to_i,
       publication_title: metadata[:publication_title],
       publication: @publication

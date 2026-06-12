@@ -37,7 +37,7 @@ namespace :fishrappr do
   desc "Reindex issue"
   # task :reindex_issues, [:volume_identifier] => :environment do |t, args|
   task :reindex_issue => :environment do |t, args|
-    if File.exists?(args.extras.first)
+    if File.exist?(args.extras.first)
       # identifiers = File.readlines(args.extras.first).map{|line| line.chomp}
       identifiers = File.readlines(args.extras.first).each do |line|
         line.chomp!
@@ -98,7 +98,7 @@ namespace :fishrappr do
     ingest = DlxsIngest.new(args[:publication_slug], args[:collid])
     ingest.clobber = true
     STDERR.puts args.extras.first
-    if File.exists?(args.extras.first)
+    if File.exist?(args.extras.first)
       issue_identifiers = File.readlines(args.extras.first).map do |line|
         line.chomp!
         "#{Settings.DLXS_SERVICE_URL}/cgi/i/image/api/manifest/#{args[:collid]}:#{line}:1"
