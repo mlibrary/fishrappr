@@ -29,7 +29,7 @@ gem 'jquery-rails', '~> 4.6'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.12'
 
-gem 'json', '~> 2.7', '>= 2.7.2'
+gem 'json', '~> 2.19'
 
 gem 'blacklight', '~> 7.37'
 gem 'blacklight_advanced_search', '~> 7.0'
