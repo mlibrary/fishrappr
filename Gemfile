@@ -19,7 +19,7 @@ gem 'rack', '~> 2.2'
 
 gem 'rails-html-sanitizer', '~> 1.6'
 gem "loofah", "~> 2.21"
-gem 'nokogiri', '~> 1.16', '>= 1.16.6'
+gem 'nokogiri', '~> 1.19'
 
 ## gem 'nestive-rails'   # was gem 'nestive', '~> 0.6'
 
