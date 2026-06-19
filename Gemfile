@@ -50,7 +50,7 @@ gem 'config', '~> 5.5', '>= 5.5.1'
 gem 'rubyzip', '~> 2.4.0'
 gem 'ffi', '~> 1.17'
 
-gem 'puma', '~> 6.6.0'
+gem 'puma', '~> 7.2.1'
 
 gem 'sitemap_generator', '~> 6.3.0'
 
