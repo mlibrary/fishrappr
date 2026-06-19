@@ -357,6 +357,8 @@ module Fishrappr::Catalog
       :date_issued_end_dd, 
       :date_issued_end_yyyy, 
       :issue_identifier, 
+      :volume_identifier,
+      :volume_sequence,
       :format,
       date_filter_options: [
         begin: [ :fld, :value ],
