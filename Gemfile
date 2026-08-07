@@ -17,7 +17,7 @@ gem 'terser', '~> 1.2.0', '>= 1.2.6'
 gem 'rack', '~> 2.2'
 ## gem 'rack', '~> 3.1', '>= 3.1.3'
 
-gem 'rails-html-sanitizer', '~> 1.6'
+gem 'rails-html-sanitizer', '~> 1.7'
 gem "loofah", "~> 2.21"
 gem 'nokogiri', '~> 1.16', '>= 1.16.6'
 
